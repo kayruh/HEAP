@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const user = require("../model/user")
+const user = require("../controller/userController")
 
 router.get("/all", async (req, res) => {
 

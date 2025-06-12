@@ -17,7 +17,7 @@ app.get('/',(req,res) => {
     res.status(200).send("ok")
 })
 
-let apiRouter = require('./api/index');
+let apiRouter = require('./src/routes/index');
 app.use('/',apiRouter);
 
 
