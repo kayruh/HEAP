@@ -19,3 +19,10 @@ router.get("/all", async (req, res) => {
 router.post("/createAccount", userController.createAccount)
 
 module.exports = router;
+
+//endpoints i need to add
+//private get all users
+//create users
+//delete users
+//checkusers
+//edit information
