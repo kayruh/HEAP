@@ -9,14 +9,14 @@ export default function RootLayout() {
   return (
   <ClerkProvider tokenCache={tokenCache}>
 
-    <Slot />
+    
 
     <Stack>
-    <Stack.Screen 
-    name="(tabs)" 
-    options={{headerShown:false}}/>
-    
-  </Stack>
+      <Stack.Screen 
+      name="(tabs)" 
+      options={{headerShown:false}}/>
+      <Slot />
+    </Stack>
   </ClerkProvider>
 
     )
