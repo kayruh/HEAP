@@ -1,10 +1,14 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
+import { Stack } from 'expo-router/stack'
 
 const _layout = () => {
   return (
     <Tabs>
+    
+    <Stack />
+    
     <Tabs.Screen //most likely have to change this to an image.png instead of a text
     name='index' //name of the tab labelled in the file.tsx
     options={{title:'FYND', //relabelling on the shown screen
