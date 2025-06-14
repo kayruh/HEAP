@@ -1,13 +1,19 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { Tabs } from 'expo-router'
+import { Redirect, Tabs } from 'expo-router'
 import { Stack } from 'expo-router/stack'
+import { useUser } from '@clerk/clerk-expo'
 
 const _layout = () => {
+
+  const {isSignedIn} = useUser();
+
+  // if (!isSignedIn) return <Redirect href={"/sign-in"} />; //redirects to the sign in page if not authenticated
+
   return (
     <Tabs>
     
-    <Stack />
+    <Stack screenOptions={{headerShown: false}} />;
     
     <Tabs.Screen //most likely have to change this to an image.png instead of a text
     name='index' //name of the tab labelled in the file.tsx
