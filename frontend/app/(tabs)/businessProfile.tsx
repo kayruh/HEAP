@@ -10,3 +10,6 @@ const businessProfile = () => {
 }
 
 export default businessProfile
+
+
+//if not user then business profile might have to change this within _layout.tsx within (tabs) group
