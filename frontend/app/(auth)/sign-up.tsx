@@ -104,6 +104,12 @@ export default function SignUpScreen() {
             <Text>Sign in</Text>
           </Link>
         </View>
+        {/* <View style={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
+          <Text>Create a business account</Text>
+          <Link href="business-sign-up">
+            <Text>Business Sign up</Text>
+          </Link>
+        </View> */}
       </>
     </View>
   )
