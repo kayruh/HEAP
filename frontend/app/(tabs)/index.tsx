@@ -23,3 +23,7 @@ export default function index() {
     </View>
   )
 }
+
+//this needs to be done, need a google maps api
+//and need to find a way to build on top of the api
+//should have a search button on top

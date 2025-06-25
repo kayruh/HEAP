@@ -1,3 +1,6 @@
 need to change this layout into business and user sign ins and sign up 
 
-++change it such that it updates supabase and is able to differentiate between normal users and businesses
+++
+backend:
+change it such that it updates supabase and is able to differentiate between normal users and businesses
+
