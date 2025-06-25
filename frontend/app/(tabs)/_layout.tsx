@@ -6,7 +6,7 @@ import { useUser } from '@clerk/clerk-expo'
 
 const _layout = () => {
 
-  const {isSignedIn} = useUser();
+  // const {isSignedIn} = useUser(); DO NOT DELETE
 
   // if (!isSignedIn) return <Redirect href={"/sign-in"} />; //redirects to the sign in page if not authenticated
 

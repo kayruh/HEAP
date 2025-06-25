@@ -7,7 +7,7 @@ import { Slot } from 'expo-router';
 
 export default function RootLayout() {
   return (
-  <ClerkProvider tokenCache={tokenCache}>
+  // <ClerkProvider tokenCache={tokenCache}> DO NOT DELETE
 
     
 
@@ -17,7 +17,7 @@ export default function RootLayout() {
       options={{headerShown:false}}/>
       <Slot />
     </Stack>
-  </ClerkProvider>
+  // </ClerkProvider>
 
     )
 }
