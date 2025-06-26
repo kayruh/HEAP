@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, Button, Alert } from 'react-native'
 import React from 'react'
 import { Dimensions } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
@@ -30,6 +30,11 @@ const browse = () => {
 
       <Text className='text-sm pl-3'>Description of this tab</Text>
 
+      <Text className='text-lg font-bold pl-3'>
+        {'\n'}
+        What's Hot
+      </Text>
+
       <View style={{ flex: 1 }}>
         <Carousel
           ref={ref}
@@ -58,6 +63,16 @@ const browse = () => {
           onPress={onPressPagination}
         />
       </View>
+
+      <View className='text-sm'>
+        <Text>
+        </Text>
+        <Button
+          title="Discover more"
+          onPress={() => Alert.alert('Simple Button pressed')}
+        />
+      </View>
+
     </SafeAreaView>
   );
 }
