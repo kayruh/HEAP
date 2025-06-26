@@ -22,3 +22,7 @@ export default function TopBanner() {
     </View>
   );
 }
+
+// sidebar
+// search button -> search page 
+// profile from DB

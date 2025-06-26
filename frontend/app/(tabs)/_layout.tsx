@@ -3,7 +3,6 @@ import React from 'react'
 import { Redirect, Tabs } from 'expo-router'
 import { Stack } from 'expo-router/stack'
 import { useUser } from '@clerk/clerk-expo'
-import TopBanner from '@/components/topBanner'
 
 const _layout = () => {
 
