@@ -26,6 +26,7 @@ const browse = () => {
   };
   return (
     <SafeAreaView>
+      <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
       <Text className='text-2xl font-bold pl-3'>What's Happening</Text>
 
       <Text className='text-sm pl-3'>Description of this tab</Text>
@@ -35,7 +36,7 @@ const browse = () => {
         What's Hot
       </Text>
 
-      <View style={{ flex: 1 }}>
+      <View className='mt-3'>
         <Carousel
           ref={ref}
           width={width}
@@ -43,12 +44,7 @@ const browse = () => {
           data={data}
           onProgressChange={progress}
           renderItem={({ index }) => (
-            <View
-              style={{
-                flex: 1,
-                borderWidth: 1,
-                justifyContent: "center",
-              }}
+            <View className="flex-1 border justify-center"
             >
               <Text style={{ textAlign: "center", fontSize: 30 }}>{index}</Text>
             </View>
@@ -58,13 +54,17 @@ const browse = () => {
         <Pagination.Basic
           progress={progress}
           data={data}
-          dotStyle={{ backgroundColor: "rgba(0,0,0,0.2)", borderRadius: 50 }}
+          dotStyle={{ 
+            width:5 ,
+            height:5,
+            backgroundColor: "rgba(0,0,0,0.2)", 
+            borderRadius: 3 }}
           containerStyle={{ gap: 5, marginTop: 10 }}
           onPress={onPressPagination}
         />
       </View>
 
-      <View className='text-sm'>
+      <View className="mt-6 px-3">
         <Text>
         </Text>
         <Button
@@ -73,6 +73,9 @@ const browse = () => {
         />
       </View>
 
+        <Text>Insert event cards here</Text>
+
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -80,5 +83,6 @@ const browse = () => {
 export default browse
 
 // to do, add a horizontal carousel that fits maybe 1/3 the screen to show whats popular
-//below that add a vertical scrollable to show all events that are happening
+//below that add a vertical scrollable to show all events that are happening. 
+// ^ create event card component to render how each event card will look like (take from DB)
 //add a filter button
