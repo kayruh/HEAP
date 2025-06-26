@@ -6,6 +6,7 @@ import Carousel, {
   ICarouselInstance,
   Pagination,
 } from "react-native-reanimated-carousel";
+import TopBanner from '@/components/topBanner';
 
 const data = [...new Array(6).keys()];
 const width = Dimensions.get("window").width;
@@ -26,8 +27,12 @@ const browse = () => {
   };
   return (
     <SafeAreaView>
+      
+      <TopBanner/>
+
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-      <Text className='text-2xl font-bold pl-3'>What's Happening</Text>
+
+      <Text className='text-2xl font-bold pl-3 pt-3'>What's Happening</Text>
 
       <Text className='text-sm pl-3'>Description of this tab</Text>
 
@@ -64,7 +69,7 @@ const browse = () => {
         />
       </View>
 
-      <View className="mt-6 px-3">
+      <View className="mt-2">
         <Text>
         </Text>
         <Button
@@ -73,7 +78,7 @@ const browse = () => {
         />
       </View>
 
-        <Text>Insert event cards here</Text>
+        <Text className='pl-3'>Insert event cards here</Text>
 
       </ScrollView>
     </SafeAreaView>
