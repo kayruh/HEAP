@@ -1,11 +1,15 @@
-import { View, Text } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
 
 const browse = () => {
   return (
-    <View>
-      <Text>browse</Text>
-    </View>
+    <SafeAreaView>
+      <Text className='text-2xl font-bold pl-3'>What's Happening</Text>
+
+      <Text className='text-sm pl-3'>Description of this tab</Text>
+
+
+    </SafeAreaView>
   )
 }
 
