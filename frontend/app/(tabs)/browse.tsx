@@ -12,6 +12,7 @@ const CARD_WIDTH = width - 40;
 const CAROUSEL_ITEM_WIDTH = width * 0.85;
 
 // replace following data with database data (events)
+// dynamically code events
 // WHATS HOT events:
 const featuredDeals = [
   {

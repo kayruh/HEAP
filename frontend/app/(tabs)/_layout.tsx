@@ -52,7 +52,8 @@ const _layout = () => {
     <Tabs.Screen 
     name='favourites'
     options={{title:'Favourites',
-        headerShown:false
+        headerShown:false,
+        tabBarIcon: ({ color }) => <IconSymbol size={28} name="heart.circle.fill" color={color} />
     }}
     />
     <Tabs.Screen 
@@ -64,7 +65,9 @@ const _layout = () => {
     <Tabs.Screen 
     name='userProfile'
     options={{title:'Profile_U',
-        headerShown:false
+        headerShown:false,
+        tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />
+
     }}
     />
 
