@@ -81,7 +81,6 @@ export default function index() {
             {/* Main Content */}
             <View style={styles.body} />
         </View>
-
     </SafeAreaView>
   );
 }

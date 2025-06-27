@@ -1,17 +1,37 @@
-import { View, Text } from 'react-native'
+import { View, Text, useColorScheme } from 'react-native'
 import React from 'react'
 import { Redirect, Tabs } from 'expo-router'
 import { Stack } from 'expo-router/stack'
 import { useUser } from '@clerk/clerk-expo'
+import { Platform } from 'react-native'
+import { Colors } from 'react-native/Libraries/NewAppScreen'
+
+import { HapticTab } from '@/components/hapticTab';
+import { IconSymbol } from '@/components/ui/iconSymbol';
+import TabBarBackground from '@/components/ui/tabBarBackground';
 
 const _layout = () => {
 
   const {isSignedIn} = useUser();
+  const colorScheme = useColorScheme();
 
   // if (!isSignedIn) return <Redirect href={"/sign-in"} />; //redirects to the sign in page if not authenticated
 
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        headerShown: false,
+        tabBarButton: HapticTab,
+        tabBarBackground: TabBarBackground,
+        tabBarStyle: Platform.select({
+          ios: {
+            // Use a transparent background on iOS to show the blur effect
+            position: 'absolute',
+          },
+          default: {},
+        }),
+      }}>
     
     <Stack screenOptions={{headerShown: false}} />;
     
