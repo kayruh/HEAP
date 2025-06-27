@@ -50,6 +50,12 @@ const _layout = () => {
     }}
     />
     <Tabs.Screen 
+    name='favourites'
+    options={{title:'Favourites',
+        headerShown:false
+    }}
+    />
+    <Tabs.Screen 
     name='businessProfile'
     options={{title:'Profile_B',
         headerShown:false

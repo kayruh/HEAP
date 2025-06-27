@@ -6,6 +6,9 @@ const businessProfile = () => {
   return (
     <SafeAreaView>
       <Text>businessProfile</Text>
+      <Text>wna delete this, have only one profile tab. {'\n'} 
+        have business profile as a profile feature (must meet our criteria to be a biz user)
+      </Text>
     </SafeAreaView>
   )
 }
