@@ -7,9 +7,74 @@ import Carousel, {
   Pagination,
 } from "react-native-reanimated-carousel";
 import TopBanner from '@/components/topBanner';
+import CarouselCard from '@/components/carouselCard';
 
 const data = [...new Array(6).keys()];
 const width = Dimensions.get("window").width;
+
+// const featuredDeals = [
+//   {
+//     id: 1,
+//     title: 'Summer Collection',
+//     subtitle: 'Up to 50% OFF',
+//     image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400',
+//     color: '#FF6B6B',
+//   },
+//   {
+//     id: 2,
+//     title: 'New Arrivals',
+//     subtitle: 'Fresh Styles',
+//     image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400',
+//     color: '#4ECDC4',
+//   },
+//   {
+//     id: 3,
+//     title: 'Weekend Special',
+//     subtitle: 'Limited Time',
+//     image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400',
+//     color: '#45B7D1',
+//   },
+// ];
+
+// const products = [
+//   {
+//     id: 1,
+//     name: 'Wireless Headphones',
+//     price: 99.99,
+//     originalPrice: 149.99,
+//     rating: 4.5,
+//     image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300',
+//     isNew: true,
+//   },
+//   {
+//     id: 2,
+//     name: 'Smart Watch',
+//     price: 299.99,
+//     originalPrice: 399.99,
+//     rating: 4.8,
+//     image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300',
+//     isNew: false,
+//   },
+//   {
+//     id: 3,
+//     name: 'Phone Case',
+//     price: 29.99,
+//     originalPrice: 39.99,
+//     rating: 4.2,
+//     image: 'https://images.unsplash.com/photo-1601593346740-925612772716?w=300',
+//     isNew: true,
+//   },
+//   {
+//     id: 4,
+//     name: 'Laptop Stand',
+//     price: 49.99,
+//     originalPrice: 69.99,
+//     rating: 4.6,
+//     image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300',
+//     isNew: false,
+//   },
+// ];
+
 
 const browse = () => {
   const ref = React.useRef<ICarouselInstance>(null);
