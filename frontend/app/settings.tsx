@@ -8,11 +8,10 @@ import {
     Pressable,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import { SignOutButton } from '@/components/SignOutButton'; 
 import { useNavigation } from '@react-navigation/native';
-
 
 // when click 3 bar menu 
 
@@ -23,6 +22,7 @@ export default function SettingsScreen() {
 
     return (
         <View style={styles.container}>
+
             {/* Close icon */}
             <Pressable style={styles.closeIcon} onPress={() => navigation.goBack()}>
                 <Ionicons name="close" size={20} color="black" />
@@ -30,7 +30,7 @@ export default function SettingsScreen() {
 
             <ScrollView contentContainerStyle={styles.contentContainer}>
                 {/* Greeting */}
-                <Text style={styles.greeting}>HELLO, WELCOME TO FYND.</Text>
+                <Text style={styles.greeting}>WELCOME TO FYND!</Text>
 
                 {/* Diamond underline */}
                 <View style={styles.underlineWrapper}>
@@ -51,9 +51,15 @@ export default function SettingsScreen() {
                     </SignedIn>
                     <SignedOut>
                     <Link href="/(auth)/sign-in">
-                        <Text style={styles.menuText}>Sign in</Text>
+                    {/* <Stack.Screen 
+                        name="(auth)" 
+                        options={{headerShown:false}}/> */}
+                    <Text style={styles.menuText}>Sign in</Text>
                     </Link>
                     <Link href="/(auth)/sign-up">
+                    {/* <Stack.Screen 
+                        name="(auth)" 
+                        options={{headerShown:false}}/> */}
                         <Text style={styles.menuText}>Sign up</Text>
                     </Link>
                 </SignedOut>

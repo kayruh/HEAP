@@ -65,9 +65,16 @@ const _layout = () => {
     <Tabs.Screen 
       name="search"
       options={{
+        headerShown:false,
         href: null, // hides search from the tab bar
-      }}
-    />
+      }}/>
+
+    <Tabs.Screen 
+          name="settings"
+          options={{
+            headerShown:false,
+            href: null, // hides from the tab bar
+          }} />
     </Tabs>
   )
 }

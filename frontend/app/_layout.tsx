@@ -4,7 +4,7 @@ import { ClerkProvider } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
 import { Slot } from 'expo-router';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
+// import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
@@ -21,13 +21,18 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
     <Stack>
       <Stack.Screen 
-      name="(tabs)" 
-      options={{headerShown:false}}/>
+        name="(tabs)" 
+        options={{headerShown:false}}/>
+      <Stack.Screen 
+        name="settings" 
+        options={{headerShown:false}}/>
+        {/* <Stack.Screen 
+        name="(auth)" 
+        options={{headerShown:false}}/> */}
       <Slot />
     </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
-
   </ClerkProvider>
 
     )
