@@ -6,7 +6,7 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width - 40;
 const CAROUSEL_ITEM_WIDTH = width * 0.85;
 
-// Carousel Card Component
+// Carousel Card Component (for WHATS HOT caorousel)
 const CarouselCard = ({ item }: { item: any }) => {
   return(
   <Card containerStyle={[styles.carouselCard, { backgroundColor: item.color }]}>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },
-  
+
 carouselContainer: {
   paddingLeft: 20,
 },
@@ -89,4 +89,3 @@ carouselImage: {
 });
 
 export default CarouselCard
-

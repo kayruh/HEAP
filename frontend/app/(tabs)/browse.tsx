@@ -1,13 +1,11 @@
-import { View, Text, SafeAreaView, ScrollView, Button, Alert, StyleSheet } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, Alert, StyleSheet } from 'react-native'
 import React from 'react'
 import { Dimensions } from "react-native";
-import { useSharedValue } from "react-native-reanimated";
-import Carousel, { ICarouselInstance, Pagination,} from "react-native-reanimated-carousel";
 import TopBanner from '@/components/topBanner';
 import EventCarousel from '@/components/eventCarousel';
-import { SearchBar } from 'react-native-screens';
 import EventCard from '@/components/eventCard';
 import { StatusBar } from 'react-native';
+import { Button } from 'react-native-elements';
 
 // const data = [...new Array(6).keys()];
 // const width = Dimensions.get("window").width;
@@ -108,21 +106,24 @@ const browse = () => {
           </View>
 
           {/* All events */}
-          <View className="mt-2">
-            <Text> </Text>
-            <Button
-              title="Discover more"
-              onPress={() => Alert.alert('Simple Button pressed')}/>
-        </View>
+          <View className='w-1/2 pt-2 pl-3 text-sm'>
+            <Button 
+                  title="Discover more"
+                  type="solid"
+                  onPress={() => console.log('Discover more pressed')}
+                />
+          </View>
 
+          <Text>{'\n'}</Text>
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
-              <Text className='text-lg font-bold pl-3'>All events</Text>
+              <Text className='text-lg font-bold pl-3'>
+                All events</Text>
               <Button
-                title="View All"
+                title="Filter"
                 type="clear"
                 titleStyle={styles.viewAllText}
-                onPress={() => console.log('View all pressed')}
+                onPress={() => console.log('Filter pressed')}
               />
             </View>
             

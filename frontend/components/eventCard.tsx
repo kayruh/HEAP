@@ -7,6 +7,7 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width - 40;
 const CAROUSEL_ITEM_WIDTH = width * 0.85;
 
+// for all events section
 const EventCard = ({ item }: { item: any }) => {
   return (
     <Card containerStyle={styles.productCard}>
