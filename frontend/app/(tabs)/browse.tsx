@@ -7,9 +7,6 @@ import EventCard from '@/components/eventCard';
 import { StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
 
-// const data = [...new Array(6).keys()];
-// const width = Dimensions.get("window").width;
-
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width - 40;
 const CAROUSEL_ITEM_WIDTH = width * 0.85;
