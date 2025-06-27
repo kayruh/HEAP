@@ -31,6 +31,14 @@ const CarouselCard = ({ item }: { item: any }) => {
 
 // Carousel Styles
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  
 carouselContainer: {
   paddingLeft: 20,
 },
