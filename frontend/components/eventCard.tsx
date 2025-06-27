@@ -64,7 +64,8 @@ const EventCard = ({ item }: { item: any }) => {
   );
 }
 
-// change product -> event
+// change product -> event 
+// in styling: PRODUCT is all referring to the event card
 const styles = StyleSheet.create({
     container: {
         flex: 1,
