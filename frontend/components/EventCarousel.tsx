@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, Dimensions, StyleSheet } from 'react-native'
 import React from 'react'
-import CarouselCard from 'components/CarouselCard';
+import CarouselCard from '@/components/eventCard';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width - 40;
