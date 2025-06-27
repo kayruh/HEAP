@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         textDecorationLine: 'line-through',
     },
     addToCartButton: {
-        backgroundColor: '#007AFF',
+        backgroundColor: '#000000',
         borderRadius: 8,
         paddingVertical: 8,
     },

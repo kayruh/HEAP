@@ -106,10 +106,12 @@ const browse = () => {
           </View>
 
           {/* All events */}
-          <View className='w-1/2 pt-2 pl-3 text-sm'>
+          <View className='w-1/3 pt-2 pl-3 text-sm'>
             <Button 
                   title="Discover more"
                   type="solid"
+                  buttonStyle={styles.discoverMoreButton}
+                titleStyle={styles.discoverMoreText}
                   onPress={() => console.log('Discover more pressed')}
                 />
           </View>
@@ -149,22 +151,6 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },
-  
-  // Search Styles
-  searchContainer: {
-    backgroundColor: 'transparent',
-    borderTopWidth: 0,
-    borderBottomWidth: 0,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-  },
-  searchInputContainer: {
-    backgroundColor: 'white',
-    borderRadius: 25,
-  },
-  searchInput: {
-    fontSize: 16,
-  },
 
   // Section Styles
   section: {
@@ -190,55 +176,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 
-  // Carousel Styles
-  carouselContainer: {
-    paddingLeft: 20,
-  },
-  carouselItemWrapper: {
-    marginRight: 20,
-  },
-  carouselCard: {
-    width: CAROUSEL_ITEM_WIDTH,
-    height: 180,
-    borderRadius: 16,
-    margin: 0,
-    padding: 0,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  carouselContent: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-  },
-  carouselTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 8,
-  },
-  carouselSubtitle: {
-    fontSize: 16,
-    color: 'white',
-    opacity: 0.9,
-    marginBottom: 20,
-  },
-  carouselButton: {
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 20,
-    paddingHorizontal: 20,
-  },
-  carouselButtonText: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: 14,
-  },
-  carouselImage: {
-    width: 100,
-    height: '100%',
-    opacity: 0.3,
-  },
-
   // Product Card Styles
   productsGrid: {
     flexDirection: 'row',
@@ -246,112 +183,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'space-between',
   },
-  productCard: {
-    width: (width - 60) / 2,
-    borderRadius: 12,
-    margin: 10,
-    padding: 0,
-    overflow: 'hidden',
-  },
-  productImageContainer: {
-    position: 'relative',
-    height: 120,
-  },
-  productImage: {
-    width: '100%',
-    height: '100%',
-  },
-  badgeContainer: {
-    position: 'absolute',
-    top: 8,
-    left: 8,
-  },
-  badgeText: {
-    fontSize: 10,
-  },
-  favoriteIcon: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    borderRadius: 12,
-    padding: 4,
-  },
-  productInfo: {
-    padding: 15,
-  },
-  productName: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
-    minHeight: 35,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  rating: {
-    alignSelf: 'flex-start',
-  },
-  ratingText: {
-    marginLeft: 5,
-    fontSize: 12,
-    color: '#666',
-  },
-  priceContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  price: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#007AFF',
-    marginRight: 8,
-  },
-  originalPrice: {
-    fontSize: 14,
-    color: '#999',
-    textDecorationLine: 'line-through',
-  },
-  addToCartButton: {
-    backgroundColor: '#007AFF',
-    borderRadius: 8,
-    paddingVertical: 8,
-  },
-  addToCartText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-
+  
   // Info Card Styles
-  infoCard: {
-    margin: 20,
-    borderRadius: 12,
-    padding: 20,
-  },
-  infoHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  infoTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginLeft: 10,
-  },
-  infoText: {
-    fontSize: 14,
-    color: '#666',
-    lineHeight: 20,
-    marginBottom: 15,
-  },
-  featureList: {
-    marginBottom: 20,
-  },
   featureItem: {
     fontSize: 14,
     color: '#555',
@@ -361,6 +194,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#007AFF',
     borderRadius: 8,
   },
+
+  // Discover more button styling
+  discoverMoreButton: {
+    backgroundColor: '#000000',
+    borderRadius: 6,
+    paddingVertical: 6,
+},
+  discoverMoreText: {
+    fontSize: 12,
+    fontWeight: '600',
+},
 });
 
 export default browse
