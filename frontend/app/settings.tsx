@@ -8,11 +8,17 @@ import {
     Pressable,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from 'expo-router';
+import { Link } from 'expo-router';
+import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
+import { SignOutButton } from '@/components/SignOutButton'; 
+import { useNavigation } from '@react-navigation/native';
+
 
 // when click 3 bar menu 
 
 export default function SettingsScreen() {
+    const { user } = useUser()
+
     const navigation = useNavigation();
 
     return (
@@ -24,7 +30,7 @@ export default function SettingsScreen() {
 
             <ScrollView contentContainerStyle={styles.contentContainer}>
                 {/* Greeting */}
-                <Text style={styles.greeting}>HELLO, JOHN DOE.</Text>
+                <Text style={styles.greeting}>HELLO, WELCOME TO FYND.</Text>
 
                 {/* Diamond underline */}
                 <View style={styles.underlineWrapper}>
@@ -33,9 +39,24 @@ export default function SettingsScreen() {
                 </View>
 
                 {/* Menu Items */}
+                {/* click profile -> show sign up & sign in */}
+
                 <TouchableOpacity style={styles.menuItem}>
                     <Text style={styles.menuText}>Profile</Text>
                 </TouchableOpacity>
+
+                <SignedIn>
+                    <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
+                    <SignOutButton/>
+                    </SignedIn>
+                    <SignedOut>
+                    <Link href="/(auth)/sign-in">
+                        <Text style={styles.menuText}>Sign in</Text>
+                    </Link>
+                    <Link href="/(auth)/sign-up">
+                        <Text style={styles.menuText}>Sign up</Text>
+                    </Link>
+                </SignedOut>
 
                 <TouchableOpacity style={styles.menuItem}>
                     <Text style={styles.menuText}>FYND Places</Text>

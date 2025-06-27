@@ -38,13 +38,15 @@ const _layout = () => {
     <Tabs.Screen //most likely have to change this to an image.png instead of a text
     name='index' //name of the tab labelled in the file.tsx
     options={{title:'FYND', //relabelling on the shown screen
-        headerShown:false //turn off the headers
+        headerShown:false, //turn off the headers
+        tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
     }}
     />
     <Tabs.Screen 
     name='browse'
     options={{title:"Browse",
-        headerShown:false
+        headerShown:false,
+        tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />
     }}
     />
     <Tabs.Screen 
@@ -58,6 +60,13 @@ const _layout = () => {
     options={{title:'Profile_U',
         headerShown:false
     }}
+    />
+
+    <Tabs.Screen 
+      name="search"
+      options={{
+        href: null, // hides search from the tab bar
+      }}
     />
     </Tabs>
   )
