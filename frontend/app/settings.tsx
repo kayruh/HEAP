@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable,} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Link, Stack, useRouter } from 'expo-router';
+import { Link, Stack, usePathname, useRouter } from 'expo-router';
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import { SignOutButton } from '@/components/SignOutButton'; 
 import { useNavigation } from '@react-navigation/native';
@@ -13,13 +13,15 @@ export default function SettingsScreen() {
 
     // const navigation = useNavigation();
     const router = useRouter();
+    const pathname = usePathname();
+    console.log('Current path:', pathname);
 
     return (
         <View style={styles.container}>
 
             {/* Close icon */}
-            <TouchableOpacity style={styles.closeIcon} onPress={() => router.push('/(tabs)')}>
-                <Ionicons name="close" size={20} color="black"/>
+            <TouchableOpacity style={styles.closeIcon} onPress={() => router.back()}> 
+                <Ionicons name="close" size={24} color="black"/>
             </TouchableOpacity>
 
             <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -36,7 +38,7 @@ export default function SettingsScreen() {
                 {/* click profile -> show sign up & sign in */}
 
                 <TouchableOpacity style={styles.menuItem}
-                    onPress={() => router.push('/(tabs)/userProfile')}>
+                    onPress={() => router.replace('/(tabs)/userProfile')}>
                     <Text style={styles.menuText}>Profile</Text>
                 </TouchableOpacity>
 
@@ -60,12 +62,12 @@ export default function SettingsScreen() {
                 </SignedOut>
 
                 <TouchableOpacity style={styles.menuItem}
-                    onPress={() => router.push('/(tabs)/browse')}>
+                    onPress={() => router.replace('/(tabs)/browse')}>
                     <Text style={styles.menuText}>FYND Places</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.menuItem} 
-                    onPress={() => router.push('/(tabs)/favourites')}>
+                    onPress={() => router.replace('/(tabs)/favourites')}>
                     <Text style={styles.menuText}>Favourites</Text>
                 </TouchableOpacity>
             </ScrollView>
@@ -79,7 +81,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f7eac0', // Light tan/yellowish
+        backgroundColor: '#F4DFB2', // beige (following figma)
         paddingTop: 40,
         paddingHorizontal: 20,
         position: 'relative',
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
         top: 40,
         left: 20,
         zIndex: 10,
+        padding:4, // increases tappable area
     },
     contentContainer: {
         paddingTop: 40,

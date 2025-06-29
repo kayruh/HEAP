@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontWeight: 'bold',
         letterSpacing: 2,
+        paddingTop: 2,
     },
     browse_header: { // if want browse header to be diff colour (take out styling in this file)
         // style in individual page itself, put style sheet in

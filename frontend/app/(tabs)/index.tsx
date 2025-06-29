@@ -4,8 +4,6 @@ import { useNavigation } from '@react-navigation/native'
 import { useEffect, useRef } from 'react'
 import { Dimensions } from 'react-native'
 import { StatusBar } from 'react-native'
-import { TouchableOpacity } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
 import FyndBanner from '@/components/fyndBanner'
 
 const SLOGAN = '   GET LOST FYND MORE   '.repeat(20) // Repeat to make it long enough !!!! IT DISAPPEARS
