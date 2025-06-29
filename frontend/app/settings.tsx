@@ -44,6 +44,7 @@ export default function SettingsScreen() {
                     <Text style={styles.menuText}>Profile</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity style={styles.menuItem}>
                 <SignedIn>
                     <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
                     <SignOutButton/>
@@ -53,15 +54,16 @@ export default function SettingsScreen() {
                     {/* <Stack.Screen 
                         name="(auth)" 
                         options={{headerShown:false}}/> */}
-                    <Text style={styles.menuText}>Sign in</Text>
+                    <Text style={styles.menuText}>Sign In {'\n'}</Text>
                     </Link>
                     <Link href="/(auth)/sign-up">
                     {/* <Stack.Screen 
                         name="(auth)" 
                         options={{headerShown:false}}/> */}
-                        <Text style={styles.menuText}>Sign up</Text>
+                        <Text style={styles.menuText}>Sign Up</Text>
                     </Link>
                 </SignedOut>
+                </TouchableOpacity>
 
                 <TouchableOpacity style={styles.menuItem}
                     onPress={() => router.replace('/(tabs)/browse')}>
@@ -71,6 +73,11 @@ export default function SettingsScreen() {
                 <TouchableOpacity style={styles.menuItem} 
                     onPress={() => router.replace('/(tabs)/favourites')}>
                     <Text style={styles.menuText}>Favourites</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.menuItem} 
+                    onPress={() => router.replace('/(tabs)')}>
+                    <Text style={styles.menuText}>Our Story</Text>
                 </TouchableOpacity>
             </ScrollView>
 

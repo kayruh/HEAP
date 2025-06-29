@@ -88,7 +88,7 @@ const browse = () => {
   return (
     <View>
       <StatusBar barStyle="dark-content" backgroundColor="#ffff" />
-        <FyndBanner/>
+      <FyndBanner />
     
         <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 

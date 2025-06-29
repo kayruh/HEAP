@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
 // search page 
+// ????? when pressing close button, go back leads to home page, instead of prev page
 export default function SearchScreen() {
     const router = useRouter();
 

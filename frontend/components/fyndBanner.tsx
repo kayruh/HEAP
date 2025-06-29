@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffff',
     },
     header: {
-        backgroundColor: '#6E1725',
+        backgroundColor:'#6E1725',
         paddingTop: Platform.OS === 'ios' ? 50 : StatusBar.currentHeight || 30,
         paddingBottom: 10,
         paddingHorizontal: 16,
@@ -45,20 +45,16 @@ const styles = StyleSheet.create({
         letterSpacing: 2,
         paddingTop: 2,
     },
-    browse_header: { // if want browse header to be diff colour (take out styling in this file)
-        // style in individual page itself, put style sheet in
-        backgroundColor: '#AFAB23',
-        paddingTop: Platform.OS === 'ios' ? 50 : StatusBar.currentHeight || 30,
-        paddingBottom: 10,
-        paddingHorizontal: 16,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+    homeColour:{
+        backgroundColor:'#6E1725',
     },
-    browse_headerTitle: {
-        color: '#2B2B23',
-        fontSize: 28,
-        fontWeight: 'bold',
-        letterSpacing: 2,
+    homeText:{
+        color: '#a84c3a',
     },
+    browseColour: {
+        backgroundColor:'#AFAB23',
+    },
+    browseText: {
+        color:'#2B2B23',
+    } // diff colour for diff pages????
 })
