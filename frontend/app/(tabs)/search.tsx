@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    StyleSheet,
-    TouchableOpacity,
-    FlatList,
-    Pressable,
-} from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, FlatList, Pressable,} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from 'expo-router';
+import { useRouter } from 'expo-router';
 
 // search page 
 export default function SearchScreen() {
-    const navigation = useNavigation();
+    const router = useRouter();
+
     const [searchQuery, setSearchQuery] = useState('');
     const [recentSearches, setRecentSearches] = useState(['Dress', 'Collection', 'Nike']);
     const popularTerms = ['Trend', 'Dress', 'Bag', 'Tshirt', 'Beauty', 'Accessories'];
@@ -27,9 +20,10 @@ export default function SearchScreen() {
     return (
         <View style={styles.container}>
             {/* Close Button */}
-            <Pressable style={styles.closeIcon} onPress={() => navigation.goBack()}>
+            <TouchableOpacity style={styles.closeIcon} 
+            onPress={() => router.back()}> 
                 <Ionicons name="close" size={20} color="black" />
-            </Pressable>
+            </TouchableOpacity>
 
             {/* Search Bar */}
             <View style={styles.searchBar}>
@@ -86,6 +80,7 @@ const styles = StyleSheet.create({
         top: 40,
         left: 20,
         zIndex: 10,
+        padding: 5, // increases tappable area
     },
     searchBar: {
         flexDirection: 'row',

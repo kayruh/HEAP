@@ -2,21 +2,21 @@ import { View, Text,StyleSheet, Platform, StatusBar } from 'react-native'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { useNavigation } from 'expo-router'
+import { useNavigation, useRouter } from 'expo-router'
 
 export default function FyndBanner() {
-    const navigation = useNavigation();
+    const router = useRouter();
 
   return (
     <View style={styles.container}>
         <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('settings')}>
+                <TouchableOpacity onPress={() => router.push('settings')}>
                     <Ionicons name="menu" size={28} color="#a84c3a" />
                 </TouchableOpacity>
 
                 <Text style={styles.headerTitle}>FYND</Text>
 
-                <TouchableOpacity onPress={() => navigation.navigate('search')}>
+                <TouchableOpacity onPress={() => router.push('search')}>
                     <Ionicons name="search" size={24} color="#a84c3a" />
                 </TouchableOpacity>
             </View>

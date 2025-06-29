@@ -4,17 +4,19 @@ import { Ionicons } from '@expo/vector-icons';
 import { Link, Stack, usePathname, useRouter } from 'expo-router';
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import { SignOutButton } from '@/components/SignOutButton'; 
-import { useNavigation } from '@react-navigation/native';
 
-// when click 3 bar menu 
+// when clicking hamburger menu 
 
 export default function SettingsScreen() {
     const { user } = useUser()
 
-    // const navigation = useNavigation();
     const router = useRouter();
-    const pathname = usePathname();
-    console.log('Current path:', pathname);
+    // router PUSH -> allows user to go back to prev page (keeps track of)
+    // router REPLACE -> navitage to that page and removes navigation history 
+
+    // to see path
+    // const pathname = usePathname();
+    // console.log('Current path:', pathname);
 
     return (
         <View style={styles.container}>
