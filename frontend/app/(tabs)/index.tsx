@@ -1,6 +1,5 @@
 // import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo'
 import { Animated, Platform, Text, View, StyleSheet} from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import { useEffect, useRef } from 'react'
 import { Dimensions } from 'react-native'
 import { StatusBar } from 'react-native'
@@ -11,7 +10,6 @@ const SLOGAN = '   GET LOST FYND MORE   '.repeat(20) // Repeat to make it long e
 export default function index() {
     // const { user } = useUser()
 
-  const navigation = useNavigation();
   const scrollX = useRef(new Animated.Value(0)).current;
   const screenWidth = Dimensions.get('window').width;
 
