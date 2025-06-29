@@ -6,6 +6,7 @@ import { Dimensions } from 'react-native'
 import { StatusBar } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
+import FyndBanner from '@/components/fyndBanner'
 
 const SLOGAN = '   GET LOST FYND MORE   '.repeat(20) // Repeat to make it long enough !!!! IT DISAPPEARS
 
@@ -37,41 +38,24 @@ export default function index() {
   return (
       <View style={styles.container}>
           {/* Top Header Bar */}
-          <View style={styles.header}>
-              <TouchableOpacity onPress={() => navigation.navigate('settings')}>
-                  <Ionicons name="menu" size={28} color="#a84c3a" />
-              </TouchableOpacity>
-
-              <Text style={styles.headerTitle}>FYND</Text>
-
-              <TouchableOpacity onPress={() => navigation.navigate('search')}>
-                  <Ionicons name="search" size={24} color="#a84c3a" />
-              </TouchableOpacity>
-          </View>
+           <FyndBanner/>
 
           {/* Conveyor Belt Slogan */}
           <View style={styles.sloganBar}>
-              {/* <Animated.Text
-                  style={[
-                      styles.sloganText,
-                      { transform: [{ translateX }] },
-                  ]}
-              >
-                  {SLOGAN}
-              </Animated.Text> */}
               <Animated.View
                   style={[
                     styles.sloganContent,
                     { transform: [{ translateX }] },
-                  ]}
-                >
+                  ]} >
                   <Text style={styles.sloganText}>{SLOGAN}</Text>
                   <Text style={styles.sloganText}>{SLOGAN}</Text>
                 </Animated.View>
           </View>
 
           {/* Main Content */}
-          <View style={styles.body} />
+          <View style={styles.body}>
+            <Text className='text-center pt-3'>Google maps here</Text>
+          </View>
       </View>
   );
 }
@@ -79,7 +63,7 @@ export default function index() {
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#ffff',
   },
   header: {
       backgroundColor: '#6E1725',

@@ -6,6 +6,10 @@ import EventCarousel from '@/components/eventCarousel';
 import EventCard from '@/components/eventCard';
 import { StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import FyndBanner from '@/components/fyndBanner'
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width - 40;
@@ -80,19 +84,20 @@ const products = [
 
 const browse = () => {
 
-  const [search, setSearch] = React.useState('');
+  // const [search, setSearch] = React.useState('');
   return (
+    <View>
+      <StatusBar barStyle="dark-content" backgroundColor="#ffff" />
+        <FyndBanner/>
     
-    <SafeAreaView>
-      <TopBanner/>
-      <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 
-      <Text className='text-2xl font-bold pl-3 pt-3'>What's Happening</Text>
-      <Text className='text-sm pl-3'>Description of this tab</Text>
+        <Text className='text-2xl font-bold pl-3 pt-3'>What's Happening</Text>
+        <Text className='text-sm pl-3'>Description of this tab</Text>
 
 
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+        <StatusBar barStyle="dark-content" backgroundColor="#ffff" />
 
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       
@@ -137,7 +142,7 @@ const browse = () => {
     </SafeAreaView>
 
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
