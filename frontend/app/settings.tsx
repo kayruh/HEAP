@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable,} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Link, Stack } from 'expo-router';
+import { Link, Stack, useRouter } from 'expo-router';
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import { SignOutButton } from '@/components/SignOutButton'; 
 import { useNavigation } from '@react-navigation/native';
@@ -11,15 +11,16 @@ import { useNavigation } from '@react-navigation/native';
 export default function SettingsScreen() {
     const { user } = useUser()
 
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
+    const router = useRouter();
 
     return (
         <View style={styles.container}>
 
             {/* Close icon */}
-            <Pressable style={styles.closeIcon} onPress={() => navigation.goBack()}>
-                <Ionicons name="close" size={20} color="black" />
-            </Pressable>
+            <TouchableOpacity style={styles.closeIcon} onPress={() => router.push('/(tabs)')}>
+                <Ionicons name="close" size={20} color="black"/>
+            </TouchableOpacity>
 
             <ScrollView contentContainerStyle={styles.contentContainer}>
                 {/* Greeting */}
@@ -34,7 +35,8 @@ export default function SettingsScreen() {
                 {/* Menu Items */}
                 {/* click profile -> show sign up & sign in */}
 
-                <TouchableOpacity style={styles.menuItem}>
+                <TouchableOpacity style={styles.menuItem}
+                    onPress={() => router.push('/(tabs)/userProfile')}>
                     <Text style={styles.menuText}>Profile</Text>
                 </TouchableOpacity>
 
@@ -57,11 +59,13 @@ export default function SettingsScreen() {
                     </Link>
                 </SignedOut>
 
-                <TouchableOpacity style={styles.menuItem}>
+                <TouchableOpacity style={styles.menuItem}
+                    onPress={() => router.push('/(tabs)/browse')}>
                     <Text style={styles.menuText}>FYND Places</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.menuItem}>
+                <TouchableOpacity style={styles.menuItem} 
+                    onPress={() => router.push('/(tabs)/favourites')}>
                     <Text style={styles.menuText}>Favourites</Text>
                 </TouchableOpacity>
             </ScrollView>
