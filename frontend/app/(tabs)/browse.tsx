@@ -92,9 +92,8 @@ const browse = () => {
     
         <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 
-        <Text className='text-2xl font-bold pl-3 pt-3'>What's Happening</Text>
-        <Text className='text-sm pl-3'>Description of this tab</Text>
-
+        <Text style={styles.sectionTitle}>What's Happening</Text>
+        <Text style={styles.sectionDescription}>Description of this tab?</Text>
 
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="#ffff" />
@@ -103,13 +102,12 @@ const browse = () => {
       
           {/* Featured Deals Section */}
           <View>
-            <Text className='text-lg font-bold pl-3'> {'\n'}
+            <Text style={styles.sectionTitle}> {'\n'}
               What's Hot </Text>
             <EventCarousel data={featuredDeals} />
           </View>
 
-          {/* All events */}
-          <View className='w-1/3 pt-2 pl-3 text-sm'>
+          <View style={{paddingLeft:3}}>
             <Button 
                   title="Discover more"
                   type="solid"
@@ -119,10 +117,11 @@ const browse = () => {
                 />
           </View>
 
+          {/* All events */}
           <Text>{'\n'}</Text>
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
-              <Text className='text-lg font-bold pl-3'>
+              <Text style={styles.sectionTitle}>
                 All events</Text>
               <Button
                 title="Filter"
@@ -161,17 +160,25 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: 'bold',
     color: '#333',
-    marginBottom: 15,
+    marginBottom: 10,
     paddingHorizontal: 20,
+    paddingLeft: 3,
+    paddingTop: 4,
   },
   sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    marginBottom: 15,
+    marginBottom: 10,
+    paddingLeft: 3,
+  },
+  sectionDescription: {
+    fontSize: 14,
+    paddingLeft: 3,
+    color: 'black',
   },
   viewAllText: {
     color: '#007AFF',
@@ -201,8 +208,11 @@ const styles = StyleSheet.create({
   // Discover more button styling
   discoverMoreButton: {
     backgroundColor: '#000000',
-    borderRadius: 6,
+    borderRadius: 5,
     paddingVertical: 6,
+    width: '33%',
+    paddingTop: 8,
+    paddingLeft: 12,
 },
   discoverMoreText: {
     fontSize: 12,

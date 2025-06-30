@@ -11,7 +11,7 @@ import TabBarBackground from '@/components/ui/tabBarBackground';
 
 const _layout = () => {
 
-  const {isSignedIn} = useUser();
+  // const {isSignedIn} = useUser();
   const colorScheme = useColorScheme();
 
   // if (!isSignedIn) return <Redirect href={"/sign-in"} />; //redirects to the sign in page if not authenticated
@@ -78,12 +78,12 @@ const _layout = () => {
         href: null, // hides search from the tab bar
       }}/>
 
-    <Tabs.Screen 
+    {/* <Tabs.Screen 
           name="settings"
           options={{
             headerShown:false,
             href: null, // hides from the tab bar
-          }} />
+          }} /> */}
     </Tabs>
   )
 }

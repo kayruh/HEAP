@@ -5,7 +5,7 @@ import { Dimensions } from 'react-native'
 import { StatusBar } from 'react-native'
 import FyndBanner from '@/components/fyndBanner'
 
-const SLOGAN = '   GET LOST FYND MORE   '.repeat(20) // Repeat to make it long enough !!!! IT DISAPPEARS
+const SLOGAN = '   GET LOST FYND MORE   '.repeat(20) 
 
 export default function index() {
     // const { user } = useUser()
@@ -94,8 +94,15 @@ const styles = StyleSheet.create({
     width: '200%', // two slogans side by side
   },
   body: {
-      flex: 1,
-      backgroundColor: '#fff',
+    flex: 1,
+    backgroundColor: '#ffff',
+    justifyContent: 'center', // vertical centering
+    alignItems: 'center',     // horizontal centering
+  },
+  centerText: {
+    fontSize: 16,
+    paddingTop: 12,
+    textAlign: 'center',
   },
 });
 

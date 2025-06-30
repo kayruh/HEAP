@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     },
     // Carousel Styles
     carouselContainer: {
-        paddingLeft: 20,
+        paddingLeft: 3,
+        paddingBottom: 7,
     },
     carouselItemWrapper: {
         marginRight: 20,
