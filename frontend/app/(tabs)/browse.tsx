@@ -1,14 +1,10 @@
-import { View, Text, SafeAreaView, ScrollView, Alert, StyleSheet } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, StyleSheet } from 'react-native'
 import React from 'react'
 import { Dimensions } from "react-native";
-import TopBanner from '@/components/topBanner';
 import EventCarousel from '@/components/eventCarousel';
 import EventCard from '@/components/eventCard';
 import { StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import FyndBanner from '@/components/fyndBanner'
 
 const { width } = Dimensions.get('window');

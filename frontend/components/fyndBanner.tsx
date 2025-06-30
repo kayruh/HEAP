@@ -2,7 +2,7 @@ import { View, Text,StyleSheet, Platform, StatusBar } from 'react-native'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { useNavigation, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 
 export default function FyndBanner() {
     const router = useRouter();
