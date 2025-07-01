@@ -1,5 +1,9 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { Text, SafeAreaView } from 'react-native'
 import React from 'react'
+
+// users need to login to see their lists
+// if not log in -> prompt to log in
+// else show fav lists
 
 const favourites = () => {
   return (

@@ -76,9 +76,15 @@ export default function SettingsScreen() {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.menuItem} 
-                    onPress={() => router.replace('/(tabs)')}>
+                    onPress={() => router.replace('/(tabs)/ourStory')}>
                     <Text style={styles.menuText}>Our Story</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity style={styles.menuItem} 
+                    onPress={() => router.replace('/(tabs)/contactUs')}>
+                    <Text style={styles.menuText}>Contact Us</Text>
+                </TouchableOpacity>
+
             </ScrollView>
 
             {/* Footer Slogan */}
