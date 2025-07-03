@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const screenWidth = Dimensions.get('window').width;
 const CARD_WIDTH = (screenWidth - 48) / 2; // 2 cards + 24px total padding
 
+// fetched from user's db
+// update image urls
 const data = [
   {
     id: '1',
