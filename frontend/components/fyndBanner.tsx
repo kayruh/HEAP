@@ -4,6 +4,8 @@ import { TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 
+// diff colours for each page?? how?
+
 export default function FyndBanner() {
     const router = useRouter();
 
