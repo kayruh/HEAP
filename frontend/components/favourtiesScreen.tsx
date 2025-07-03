@@ -10,7 +10,7 @@ const data = [
     id: '1',
     title: 'All Saved',
     description: 'Description of list',
-    image: 'fynd/frontend/assets/images/FYND.png',
+    image: 'frontend/assets/FYND.png',
   },
   {
     id: '2',
@@ -47,7 +47,7 @@ const data = [
 export default function FavouritesScreen() {
   return (
     <SafeAreaView className="flex-1 bg-white px-4 pt-4">
-      <Text className="text-2xl font-bold mb-4">Favourites ★</Text>
+      <Text className="text-2xl font-extrabold mb-4">Favourites ★</Text>
 
       <FlatList
         data={data}
