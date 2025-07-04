@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, ScrollView, StyleSheet } from 'react-native'
 import React from 'react'
 import { Dimensions } from "react-native";
-import EventCarousel from '@/components/eventCarousel';
+import EventCarousel from '@/components/EventCarousel';
 import EventCard from '@/components/eventCard';
 import { StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
