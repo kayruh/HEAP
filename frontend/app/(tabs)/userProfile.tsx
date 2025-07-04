@@ -48,7 +48,13 @@ import { useRouter } from 'expo-router';
       };
 
 const styles = StyleSheet.create({
- 
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  scrollView: {
+    flex: 1,
+  },
   backButton: {
     position: 'absolute',
     top: 40,

@@ -1,12 +1,18 @@
-import { View, Text, SafeAreaView } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { SafeAreaView, View, Text } from 'react-native';
+import FyndBanner from '@/components/fyndBanner';
 
-const contactUs = () => {
+const ContactUs = () => {
   return (
-    <SafeAreaView>
-      <Text>contactUs</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <FyndBanner />
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4DFB2' }}>
+        <Text style={{ fontSize: 18, color: '#333' }}>
+          Contact Us
+        </Text>
+      </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default contactUs
+export default ContactUs;
