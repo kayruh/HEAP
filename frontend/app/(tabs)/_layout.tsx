@@ -4,7 +4,6 @@ import { Redirect, Tabs } from 'expo-router'
 import { Stack } from 'expo-router/stack'
 import { useUser } from '@clerk/clerk-expo'
 import { Platform } from 'react-native'
-// import { Colors } from 'react-native/Libraries/NewAppScreen' // WRONG COLOUR IMPORT
 import { HapticTab } from '@/components/hapticTab';
 import { IconSymbol } from '@/components/ui/iconSymbol';
 import TabBarBackground from '@/components/ui/tabBarBackground';
