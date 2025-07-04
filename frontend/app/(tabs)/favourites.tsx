@@ -12,9 +12,6 @@ const favourites = () => {
   return (
     <View>
         <FyndBanner/>
-      <Text className='pl-3 pt-5'>favourites list tab</Text>
-      <Text className='pl-3'>display user's favs list (need log in)</Text>
-
       <FavouritesScreen/>
 
     </View>

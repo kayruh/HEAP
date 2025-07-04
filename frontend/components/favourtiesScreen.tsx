@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, FlatList, Dimensions } from 'react-native';
+import { View, Text, Image, FlatList, Dimensions,StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const screenWidth = Dimensions.get('window').width;
@@ -48,22 +48,22 @@ const data = [
 
 export default function FavouritesScreen() {
   return (
-    <SafeAreaView className="flex-1 bg-white px-4 pt-4">
-      <Text className="text-2xl font-extrabold mb-4">Favourites ★</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>Favourites ★</Text>
 
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
         numColumns={2}
-        columnWrapperStyle={{ justifyContent: 'space-between', marginBottom: 16 }}
+        columnWrapperStyle={styles.columnWrapper}
         renderItem={({ item }) => (
-          <View style={{ width: CARD_WIDTH }}>
+          <View style={[styles.card, { width: CARD_WIDTH }]}>
             <Image
               source={{ uri: item.image }}
-              style={{ width: '100%', height: 120, borderRadius: 8 }}
+              style={styles.image}
             />
-            <Text className="mt-2 text-sm font-semibold">{item.title}</Text>
-            <Text className="text-xs text-gray-500">{item.description}</Text>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.description}>{item.description}</Text>
           </View>
         )}
         showsVerticalScrollIndicator={false}
@@ -71,3 +71,37 @@ export default function FavouritesScreen() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    paddingHorizontal: 16, // px-4
+    paddingTop: 16,        // pt-4
+  },
+  header: {
+    fontSize: 24,          // text-2xl
+    fontWeight: 'bold',    // font-bold
+    marginBottom: 16,      // mb-4
+  },
+  columnWrapper: {
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  card: {
+    // width: CARD_WIDTH will be injected inline
+  },
+  image: {
+    width: '100%',
+    height: 120,
+    borderRadius: 8,
+  },
+  title: {
+    marginTop: 8,          // mt-2
+    fontSize: 14,          // text-sm
+    fontWeight: '600',     // font-semibold
+  },
+  description: {
+    fontSize: 12,          // text-xs
+    color: '#6b7280',      // Tailwind's gray-500
+  },
+});
