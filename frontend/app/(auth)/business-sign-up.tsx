@@ -8,7 +8,14 @@ export default function SignUpScreen() {
   const router = useRouter()
 
   const [emailAddress, setEmailAddress] = React.useState('')
+  const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
+  const [GoogleMapsLink, setLink] = React.useState('')
+  const [StreetName, setStreetName] = React.useState('')
+  const [StreetNo, setStreetNo] = React.useState('')
+  const [UnitNo, setUnitNo] = React.useState('')
+  const [Postal, setPostal] = React.useState('')
+  const [BizType, setBizType] = React.useState('')
   const [pendingVerification, setPendingVerification] = React.useState(false)
   const [code, setCode] = React.useState('')
 
@@ -21,6 +28,15 @@ export default function SignUpScreen() {
       await signUp.create({
         emailAddress,
         password,
+        username,
+        unsafeMetadata: { 
+          accountType: 'business',
+          GoogleMapsLink,
+          StreetName,
+          StreetNo,
+          UnitNo,
+          Postal // need to add business type later to help with filtering business types
+         }
       })
 
       // Send user an email with verification code
@@ -80,7 +96,7 @@ export default function SignUpScreen() {
   }
 
   return (
-    <View>
+    <View className='bg-white'>
       <>
         <Text>Sign up</Text>
         <TextInput
@@ -90,11 +106,51 @@ export default function SignUpScreen() {
           onChangeText={(email) => setEmailAddress(email)}
         />
         <TextInput
+          autoCapitalize="none"
+          value={username}
+          placeholder="Enter username"
+          onChangeText={(username) => setUsername(username)}
+        />
+        <TextInput
           value={password}
           placeholder="Enter password"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />
+         <TextInput
+          value={GoogleMapsLink}
+          placeholder="Enter Google Maps Link"
+          onChangeText={(GoogleMapsLink) => setLink(GoogleMapsLink)}
+        />
+        {/* StreetName,
+          StreetNo,
+          UnitNo,
+          Postal */}
+         <TextInput
+          value={StreetName}
+          placeholder="Enter Street Name"
+          onChangeText={() => setStreetName(StreetName)}
+        />
+        <TextInput
+          value={StreetNo}
+          placeholder="Enter Street No"
+          onChangeText={() => setStreetNo(StreetNo)}
+        />
+        <TextInput
+          value={UnitNo}
+          placeholder="Enter Unit No"
+          onChangeText={() => setUnitNo(UnitNo)}
+        />
+        <TextInput
+          value={Postal}
+          placeholder="Enter Postal"
+          onChangeText={() => setPostal(Postal)}
+        />
+
+
+        {/* add business type button drop down here */}
+
+        
         <TouchableOpacity onPress={onSignUpPress}>
           <Text>Continue</Text>
         </TouchableOpacity>
@@ -104,7 +160,7 @@ export default function SignUpScreen() {
             <Text>Sign in</Text>
           </Link>
         </View>
-        </>
-            </View>
-          )
-        }
+      </>
+    </View>
+  )
+}
