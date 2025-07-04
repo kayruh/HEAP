@@ -8,6 +8,7 @@ export default function Page() {
   const router = useRouter()
 
   const [emailAddress, setEmailAddress] = React.useState('')
+  const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
 
   // Handle the submission of the sign-in form
@@ -16,8 +17,11 @@ export default function Page() {
 
     // Start the sign-in process using the email and password provided
     try {
+      // const signInAttempt = await signIn.create({
+      //   identifier: emailAddress,
+      //   password,
       const signInAttempt = await signIn.create({
-        identifier: emailAddress,
+        identifier: username,
         password,
       })
 
@@ -41,11 +45,17 @@ export default function Page() {
   return (
     <View>
       <Text>Sign in</Text>
-      <TextInput
+      {/* <TextInput
         autoCapitalize="none"
         value={emailAddress}
         placeholder="Enter email"
         onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+      /> */}
+      <TextInput
+        autoCapitalize="none"
+        value={username}
+        placeholder="Enter username"
+        onChangeText={(username) => setUsername(username)}
       />
       <TextInput
         value={password}

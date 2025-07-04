@@ -46,7 +46,7 @@ export default function SettingsScreen() {
 
                 <TouchableOpacity style={styles.menuItem}>
                 <SignedIn>
-                    <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
+                    <Text>Hello @{user?.username}</Text>
                     <SignOutButton/>
                     </SignedIn>
                     <SignedOut>
