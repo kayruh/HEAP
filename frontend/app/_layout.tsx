@@ -13,7 +13,8 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   return (
   <ClerkProvider tokenCache={tokenCache}>
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
+    
     <Stack>
       <Stack.Screen 
         name="(tabs)" 
@@ -27,7 +28,7 @@ export default function RootLayout() {
       <Slot />
     </Stack>
       <StatusBar style="auto" />
-    </ThemeProvider>
+    {/* </ThemeProvider> */}
   </ClerkProvider>
 
     )

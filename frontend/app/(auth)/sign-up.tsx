@@ -8,6 +8,7 @@ export default function SignUpScreen() {
   const router = useRouter()
 
   const [emailAddress, setEmailAddress] = React.useState('')
+  const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [pendingVerification, setPendingVerification] = React.useState(false)
   const [code, setCode] = React.useState('')
@@ -21,6 +22,7 @@ export default function SignUpScreen() {
       await signUp.create({
         emailAddress,
         password,
+        username
       })
 
       // Send user an email with verification code
@@ -80,7 +82,7 @@ export default function SignUpScreen() {
   }
 
   return (
-    <View>
+    <View className='bg-white'>
       <>
         <Text>Sign up</Text>
         <TextInput
@@ -88,6 +90,12 @@ export default function SignUpScreen() {
           value={emailAddress}
           placeholder="Enter email"
           onChangeText={(email) => setEmailAddress(email)}
+        />
+        <TextInput
+          autoCapitalize="none"
+          value={username}
+          placeholder="Enter username"
+          onChangeText={(username) => setUsername(username)}
         />
         <TextInput
           value={password}
