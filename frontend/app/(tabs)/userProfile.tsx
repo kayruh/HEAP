@@ -17,7 +17,8 @@ import { useUser } from '@clerk/clerk-expo';
         {/* Profile Picture */}
         <View style={styles.profileImageWrapper}>
           <Image
-          source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Jennie_Kim_in_November_2023_%28Unedited%29_%28cropped%29.jpg' }}
+          source={{ 
+            uri: user?.imageUrl }}
           style={styles.profileImage}
           />    
         </View>
