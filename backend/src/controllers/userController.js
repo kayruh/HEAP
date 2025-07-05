@@ -3,13 +3,27 @@ const userServices = require('../services/userServices');
 
 module.exports = {
 
-    async createAccount(req, res) {
+    async getAll(req, res) {
         try {
-            const {name} = req.body //body vs params : params reveals ur key value through the link
-            const userAccountCreated = await userServices.createUserAccount(name);
-
+            const getAllUsers = await userServices.getAllUsers();
+            console.log(getAllUsers); // should print all users
             res.status(200).json({
-                message: "it works"
+                message: "returned all users"
+            })
+
+
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
+
+    async updateUser(req, res) {
+        try {
+            const {first_name,last_name,DOB} = req.body //body vs params : params reveals ur key value through the link
+            const userUpdated = await userServices.updateUser(first_name,last_name,DOB);
+
+            res.status(201).json({
+                message: "Updated User"
             })
 
         } catch (error) {

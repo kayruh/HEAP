@@ -2,23 +2,14 @@ const express = require('express');
 const router = express.Router();
 const userController = require("../controllers/userController")
 
-router.get("/all", async (req, res) => {
+router.get("/all", userController.getAll)
 
-    try {
-        console.log("works");
-        res.status(200).json({
-            message: "it works"
-        })
-
-
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-})
-
-router.post("/createAccount", userController.createAccount)
+router.post("/updateUser", userController.updateUser)
 
 module.exports = router;
+
+
+// for frontend to call backend go to localhost:3000/user/updateUser and provide the raw json information
 
 //endpoints i need to add
 //private get all users

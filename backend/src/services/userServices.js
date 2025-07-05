@@ -7,12 +7,11 @@ const userTable = "user";
 
 module.exports = {
 
-    async createUserAccount(name) {
-        
-        const {data,error} = await supabase //this is the sql statement in code!
-            .from("user")
-            .insert([{name}])
+    async getAllUsers() { //for admin use
 
+        const {data,error} = await supabase.from("USER")
+            .select("*")
+            
         if (error) {
             throw new Error(error.message);
         }
@@ -20,18 +19,20 @@ module.exports = {
         return data;
     },
 
-    async getAllUsers() {
+    async updateUser(first_name,last_name,DOB) {
+        
+        const {data,error} = await supabase.from("USER")
+            .upsert({
+                first_name,
+                last_name,
+                DOB
+            })
 
-        const {data,error} = await supabase
-            .select("*")
-            .from("user")
         if (error) {
             throw new Error(error.message);
         }
 
         return data;
-        
-
-    }
+    },
 
 }
