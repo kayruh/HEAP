@@ -15,7 +15,6 @@ export default function SignUpScreen() {
   const [StreetNo, setStreetNo] = React.useState('')
   const [UnitNo, setUnitNo] = React.useState('')
   const [Postal, setPostal] = React.useState('')
-  // const [BizType, setBizType] = React.useState('')
   const [pendingVerification, setPendingVerification] = React.useState(false)
   const [code, setCode] = React.useState('')
 
@@ -36,6 +35,7 @@ export default function SignUpScreen() {
           StreetNo,
           UnitNo,// might have to change this to server side code
           Postal // need to add business type later to help with filtering business types
+          // need to add Tags as an array for filtering purposes
          }
       })
 
