@@ -1,15 +1,15 @@
 // where the logic happens
 //usertable is just a test
 const { supabase } = require("../db/supabase");
-const userTable = "USER";
+const accountTable = "ACCOUNT";
 
 // console.log(supabase)
 
 module.exports = {
 
-    async getAllUsers() { //for admin use cant be used due to enabled rls 
+    async getAllAccounts() { //for admin use cant be used due to enabled rls 
 
-        const {data,error} = await supabase.from(userTable)
+        const {data,error} = await supabase.from(accountTable)
             .select("*")
 
         // console.log('Supabase → data:', data);
@@ -22,13 +22,12 @@ module.exports = {
         return data;
     },
 
-    async updateUser(first_name,last_name,DOB) {
+    async updateAccount(email,username) {
         
-        const {data,error} = await supabase.from(userTable)
+        const {data,error} = await supabase.from(accountTable)
             .upsert({
-                first_name,
-                last_name,
-                DOB
+                email,
+                username
             })
 
         if (error) {

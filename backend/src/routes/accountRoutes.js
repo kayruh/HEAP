@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const accountController = require("../controllers/accountController")
 
-// router.get("/all", userController.getAll)
+router.get("/getAll", accountController.getAll)
 
-// router.post("/updateUser", userController.updateUser)
+router.post("/updateAccount", accountController.updateAccount)
 
 module.exports = router;
