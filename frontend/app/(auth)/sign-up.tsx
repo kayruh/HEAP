@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 
@@ -83,7 +83,7 @@ export default function SignUpScreen() {
   }
 
   return (
-    <View className='bg-white'>
+    <SafeAreaView className='bg-white'>
       <>
         <Text>Sign up</Text>
         <TextInput
@@ -120,6 +120,6 @@ export default function SignUpScreen() {
           </Link>
         </View>
       </>
-    </View>
+    </SafeAreaView>
   )
 }

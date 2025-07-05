@@ -1,6 +1,6 @@
 import { useSignIn } from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Link, Stack, useRouter } from 'expo-router'
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
 export default function Page() {
@@ -43,7 +43,8 @@ export default function Page() {
   }
 
   return (
-    <View>
+    <SafeAreaView>
+      
       <Text>Sign in</Text>
       {/* <TextInput
         autoCapitalize="none"
@@ -71,6 +72,6 @@ export default function Page() {
           <Text>Sign up</Text>
         </Link>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
