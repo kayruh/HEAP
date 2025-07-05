@@ -18,6 +18,20 @@ module.exports = {
         }
 
         return data;
+    },
+
+    async getAllUsers() {
+
+        const {data,error} = await supabase
+            .select("*")
+            .from("user")
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return data;
+        
+
     }
 
 }
