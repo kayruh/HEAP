@@ -3,14 +3,15 @@ import React from 'react'
 import FyndBanner from '@/components/fyndBanner'
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useUser } from '@clerk/clerk-expo';
 
   const UserProfile = () => {
   const router = useRouter();
+  const { user } = useUser()
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View>
       <FyndBanner />
-
         <ScrollView contentContainerStyle={styles.contentContainer}>
 
         {/* Profile Picture */}
@@ -22,8 +23,9 @@ import { useRouter } from 'expo-router';
         </View>
 
         {/* User Name */}
-        <Text style={styles.userName}>John Doe</Text>
-        <Text style={styles.userHandle}>@JohnnyDoughy</Text>
+        <Text style={styles.userName}>@{user?.username}</Text>
+        {/* <Text style={styles.userHandle}>@{user?.username}</Text> */} 
+        {/* ^^ we dont have user's name (only email & username??) */}
 
         {/* User Info Rows */}
         <View style={styles.infoRow}>
@@ -43,7 +45,7 @@ import { useRouter } from 'expo-router';
         <Text style={styles.privacyLink}>PRIVACY & SECURITY</Text>
       </ScrollView>
 
-            </SafeAreaView>
+          </View>
         );
       };
 
@@ -185,6 +187,7 @@ const styles = StyleSheet.create({
   },
 
 });
+
 export default UserProfile;
 
 //more backend side but when user logs it should ensure that businessprofile.tsx should not 
