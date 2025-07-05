@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 
@@ -10,6 +10,11 @@ export default function SignUpScreen() {
   const [emailAddress, setEmailAddress] = React.useState('')
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
+  const [GoogleMapsLink, setLink] = React.useState('')
+  const [StreetName, setStreetName] = React.useState('')
+  const [StreetNo, setStreetNo] = React.useState('')
+  const [UnitNo, setUnitNo] = React.useState('')
+  const [Postal, setPostal] = React.useState('')
   const [pendingVerification, setPendingVerification] = React.useState(false)
   const [code, setCode] = React.useState('')
 
@@ -23,7 +28,15 @@ export default function SignUpScreen() {
         emailAddress,
         password,
         username,
-        unsafeMetadata: { accountType: 'user' }
+        unsafeMetadata: { 
+          accountType: 'business',
+          GoogleMapsLink,
+          StreetName,
+          StreetNo,
+          UnitNo,// might have to change this to server side code
+          Postal // need to add business type later to help with filtering business types
+          // need to add Tags as an array for filtering purposes
+         }
       })
 
       // Send user an email with verification code
@@ -83,7 +96,7 @@ export default function SignUpScreen() {
   }
 
   return (
-    <SafeAreaView className='bg-white'>
+    <View className='bg-white'>
       <>
         <Text>Sign up</Text>
         <TextInput
@@ -104,6 +117,36 @@ export default function SignUpScreen() {
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />
+         <TextInput
+          value={GoogleMapsLink}
+          placeholder="Enter Google Maps Link"
+          onChangeText={(GoogleMapsLink) => setLink(GoogleMapsLink)}
+        />
+         <TextInput
+          value={StreetName}
+          placeholder="Enter Street Name"
+          onChangeText={() => setStreetName(StreetName)}
+        />
+        <TextInput
+          value={StreetNo}
+          placeholder="Enter Street No"
+          onChangeText={() => setStreetNo(StreetNo)}
+        />
+        <TextInput
+          value={UnitNo}
+          placeholder="Enter Unit No"
+          onChangeText={() => setUnitNo(UnitNo)}
+        />
+        <TextInput
+          value={Postal}
+          placeholder="Enter Postal"
+          onChangeText={() => setPostal(Postal)}
+        />
+
+
+        {/* add business type button drop down here */}
+
+        
         <TouchableOpacity onPress={onSignUpPress}>
           <Text>Continue</Text>
         </TouchableOpacity>
@@ -113,13 +156,7 @@ export default function SignUpScreen() {
             <Text>Sign in</Text>
           </Link>
         </View>
-        <View style={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
-          <Text>Create a business account</Text>
-          <Link href="/business-sign-up">
-            <Text>Business Sign up</Text>
-          </Link>
-        </View>
       </>
-    </SafeAreaView>
+    </View>
   )
 }
