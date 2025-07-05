@@ -63,7 +63,7 @@ export default function Page() {
             placeholder="Enter email"
             onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
           /> */}
-          <Ionicons name="at-outline" size={20} color="#a84c3a" style={styles.icon} />
+          <Ionicons name="at-outline" size={20} style={styles.icon}/>
           <TextInput
             autoCapitalize="none"
             value={username}
@@ -74,7 +74,7 @@ export default function Page() {
         </View>
 
         <View style={styles.inputWrapper}>
-          <Ionicons name="key-outline" size={20} color="#a84c3a" style={styles.icon} />
+          <Ionicons name="key-outline" size={20} style={styles.icon} />
           <TextInput
             value={password}
             placeholder="Enter password"
@@ -89,8 +89,9 @@ export default function Page() {
             </TouchableOpacity>
 
             <View style={styles.signUpContainer}>
-              <Text style={styles.signUpText}>Don't have a FYND account? {' '}</Text>
+              <Text style={styles.signUpText}>Don't have a FYND account?{' '}
               <Text style={styles.signUpLink} onPress={() => router.push('/sign-up')}>Sign up </Text>
+              </Text>
             </View>
 
         </View>
@@ -172,6 +173,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 8,
+    color:'#a84c3a',
   },
   inputField: {
     flex: 1,
