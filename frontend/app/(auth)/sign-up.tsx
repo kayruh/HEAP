@@ -3,6 +3,7 @@ import { SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet } fro
 import { useSignUp } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
+import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -67,19 +68,67 @@ export default function SignUpScreen() {
     }
   }
 
+  // verification page codes
+  const CELL_COUNT = 6;
+
+
   if (pendingVerification) {
+    // verification 6 box constants:
+    // const [value, setValue] = React.useState('');
+    // const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+    // const [props, getCellOnLayoutHandler] = useClearByFocusCell({ value, setValue });
+
     return (
-      <>
-        <Text>Verify your email</Text>
-        <TextInput
-          value={code}
-          placeholder="Enter your verification code"
-          onChangeText={(code) => setCode(code)}
-        />
-        <TouchableOpacity onPress={onVerifyPress}>
-          <Text>Verify</Text>
+      <SafeAreaView style={styles.safeArea}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/sign-up')}>
+          <Ionicons name="arrow-back" size={20} color="#fff" />
         </TouchableOpacity>
-      </>
+
+        <>
+        <View style={styles.container}>
+          {/* style this (verify email text) !! */}
+          <Text style={{textAlign:'center', fontWeight:'bold', 
+                          fontSize:15, marginBottom: 15}}>Verify your email</Text> 
+
+          {/* same as sign in/up pages input style */}
+          <View style={styles.inputWrapper}> 
+            <TextInput
+              value={code}
+              placeholder="Enter your verification code"
+              onChangeText={(code) => setCode(code)}
+              style={styles.inputField}
+            />
+          </View>
+
+          {/* <CodeField
+            ref={ref}
+            {...props}
+            value={value}
+            onChangeText={setValue}
+            cellCount={CELL_COUNT}
+            rootStyle={styles.codeFieldRoot}
+            keyboardType="number-pad"
+            textContentType="oneTimeCode"
+            renderCell={({ index, symbol, isFocused }) => (
+              <View
+                key={index}
+                style={[styles.vcell, isFocused && styles.vfocusCell]}
+                onLayout={getCellOnLayoutHandler(index)}
+              >
+                <Text style={styles.vcellText}>
+                  {symbol || (isFocused ? <Cursor /> : null)}
+                </Text>
+                </View>
+            )}
+          /> */}
+
+          <TouchableOpacity style={styles.signUpButton} onPress={onVerifyPress}>
+            <Text style={styles.signUpButtonText}>Verify</Text>
+          </TouchableOpacity>
+
+        </View>
+        </>
+      </SafeAreaView>
     )
   }
 
@@ -126,7 +175,7 @@ export default function SignUpScreen() {
             />
           </View>
 
-          <TouchableOpacity style={styles.signUpButton}onPress={onSignUpPress}>
+          <TouchableOpacity style={styles.signUpButton} onPress={onSignUpPress}>
             <Text style={styles.signUpButtonText}>Sign up</Text>
           </TouchableOpacity>
 
@@ -162,7 +211,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: '#F4DFB2', // beige background
+    backgroundColor: '#F4DFB2', // background colour
     paddingTop: 40,
     paddingHorizontal: 20,
     position: 'relative',
@@ -240,7 +289,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     marginTop: 5,
-    marginBottom: 20,
+    marginBottom: 15,
     alignItems: 'center',
   },
   signUpButtonText: {
@@ -271,5 +320,49 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 14,
     color: '#000', // black
+  },
+
+  // verification
+  vContainer: {
+    padding: 20,
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#F4F5FB',
+  },
+  vtitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  vsubtitle: {
+    textAlign: 'center',
+    color: '#666',
+    marginBottom: 20,
+  },
+  codeFieldRoot: {
+    marginTop: 20,
+    justifyContent: 'center',
+  },
+  vcell: {
+    width: 48,
+    height: 60,
+    lineHeight: 60,
+    fontSize: 24,
+    borderWidth: 2,
+    borderColor: '#3F51B5',
+    textAlign: 'center',
+    borderRadius: 8,
+    marginHorizontal: 5,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  vcellText: {
+    fontSize: 24,
+    color: '#000',
+  },
+  vfocusCell: {
+    borderColor: '#007AFF',
   },
 })

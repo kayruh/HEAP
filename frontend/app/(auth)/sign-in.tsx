@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: '#F4DFB2', // beige background
+    backgroundColor: '#F4DFB2', // background colour
     paddingTop: 40,
     paddingHorizontal: 20,
     position: 'relative',
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     marginTop: 5,
-    marginBottom: 20,
+    marginBottom: 15,
     alignItems: 'center',
   },
   signInButtonText: {
