@@ -115,7 +115,8 @@ const editProfile = () => {
                     setShowDatePicker(false);
                     if (selectedDate) setBirthday(selectedDate);
                     }}
-                    style={{ width: screenWidth * 0.5}} // Slight margin
+                    textColor='black'
+                    style={{ width: screenWidth * 0.5,}} // Slight margin
               />
                 )}
             </View>    
