@@ -5,49 +5,51 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useUser } from '@clerk/clerk-expo';
 
+// if not logged in, what will this page show?
+
   const UserProfile = () => {
-  const router = useRouter();
-  const { user } = useUser()
+    const router = useRouter();
+    const { user } = useUser()
 
-  return (
-    <View>
-      <FyndBanner />
-        <ScrollView contentContainerStyle={styles.contentContainer}>
+    return (
+      <View>
+        <FyndBanner />
+          <ScrollView contentContainerStyle={styles.contentContainer}>
 
-        {/* Profile Picture */}
-        <View style={styles.profileImageWrapper}>
-          <Image
-          source={{ 
-            uri: user?.imageUrl }}
-          style={styles.profileImage}
-          />    
-        </View>
-
-        {/* User Name */}
-        <Text style={styles.userName}>@{user?.username}</Text>
-        {/* <Text style={styles.userHandle}>@{user?.username}</Text> */} 
-        {/* ^^ we dont have user's name (only email & username??) */}
-
-        {/* User Info Rows */}
-        <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>NAME</Text>
-          <Text style={styles.infoValue}>:</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>BIRTHDAY</Text>
-          <Text style={styles.infoValue}>:</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>GENDER</Text>
-          <Text style={styles.infoValue}>:</Text>
-        </View>
-
-        {/* Privacy & Security Link */}
-        <Text style={styles.privacyLink}>PRIVACY & SECURITY</Text>
-      </ScrollView>
-
+          {/* Profile Picture */}
+          <View style={styles.profileImageWrapper}>
+            <Image
+            source={{ 
+              uri: user?.imageUrl }}
+            style={styles.profileImage}
+            />    
           </View>
-        );
+
+          {/* User Name */}
+          <Text style={styles.userName}>@{user?.username}</Text>
+          {/* <Text style={styles.userHandle}>@{user?.username}</Text> */} 
+          {/* ^^ we dont have user's name (only email & username??) */}
+
+          {/* User Info Rows */}
+          <View style={styles.infoRow}>
+            <Text style={styles.infoLabel}>NAME</Text>
+            <Text style={styles.infoValue}>:</Text>
+          </View>
+          <View style={styles.infoRow}>
+            <Text style={styles.infoLabel}>BIRTHDAY</Text>
+            <Text style={styles.infoValue}>:</Text>
+          </View>
+          <View style={styles.infoRow}>
+            <Text style={styles.infoLabel}>GENDER</Text>
+            <Text style={styles.infoValue}>:</Text>
+          </View>
+
+          {/* Privacy & Security Link */}
+          <Text style={styles.privacyLink}>PRIVACY & SECURITY</Text>
+        </ScrollView>
+
+            </View>
+          );
       };
 
 const styles = StyleSheet.create({
