@@ -44,7 +44,7 @@ import { useUser } from '@clerk/clerk-expo';
             <Text style={styles.infoValue}>:</Text>
           </View>
 
-          <Text style={{marginTop:20}} onPress={() => router.push('/editProfile')}>Edit profile </Text>
+          <Text style={{marginTop:20}} onPress={() => router.push('/editProfile')}>Edit profile</Text>
 
           {/* Privacy & Security Link */}
           <Text style={styles.privacyLink}>PRIVACY & SECURITY</Text>

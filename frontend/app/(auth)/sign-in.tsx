@@ -80,6 +80,7 @@ export default function Page() {
               autoCapitalize="none"
               value={username}
               placeholder="Enter username"
+              placeholderTextColor={'grey'} // so dark/light mode can see
               onChangeText={(username) => setUsername(username)}
               style={styles.inputField}
             />
@@ -90,6 +91,7 @@ export default function Page() {
             <TextInput
               value={password}
               placeholder="Enter password"
+              placeholderTextColor={'grey'} // so dark/light mode can see
               secureTextEntry={true}
               onChangeText={(password) => setPassword(password)}
               style={styles.inputField}
