@@ -1,19 +1,17 @@
 // where the logic happens
 //usertable is just a test
+const { updateBusinessDetails, updateBusinessDisplay } = require("../controllers/businessController");
 const { supabase } = require("../db/supabase");
-const userTable = "USER";
+const businessTable = "BUSINESS";
 
 // console.log(supabase)
 
 module.exports = {
 
-    async getAllUsers() { //for admin use cant be used due to enabled rls 
+    async getAllBusiness() { //for admin use cant be used due to enabled rls 
 
-        const {data,error} = await supabase.from(userTable)
+        const {data,error} = await supabase.from(businessTable)
             .select("*")
-
-        // console.log('Supabase → data:', data);
-        // console.log('Supabase → error:', error);
 
         if (error) {
             throw new Error(error.message);
@@ -22,13 +20,31 @@ module.exports = {
         return data;
     },
 
-    async updateUser(first_name,last_name,DOB) {
+    async updateBusinessDetails(google, streetName, streetNo, unitNo, postal, tags, description) {
         
-        const {data,error} = await supabase.from(userTable)
-            .upsert({
-                first_name,
-                last_name,
-                DOB
+        const {data,error} = await supabase.from(businessTable)
+            .update({
+                google, 
+                streetName, 
+                streetNo, 
+                unitNo, 
+                postal, 
+                tags, 
+                description
+            })
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return data;
+    },
+
+    async updateBusinessDisplay(mainDisplay, pictureArray, displayId) {
+        
+        const {data,error} = await supabase.from(businessTable)
+            .update({
+                mainDisplay, pictureArray, displayId
             })
 
         if (error) {

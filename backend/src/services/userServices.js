@@ -25,7 +25,7 @@ module.exports = {
     async updateUser(first_name,last_name,DOB) {
         
         const {data,error} = await supabase.from(userTable)
-            .upsert({
+            .update({
                 first_name,
                 last_name,
                 DOB

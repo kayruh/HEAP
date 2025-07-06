@@ -1,9 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const userController = require("../controllers/userController")
+const businessController = require("../controllers/businessController")
 
-router.get("/getAll", userController.getAll)
+//get all business information
+router.get("/getAll", businessController.getAll)
 
-router.post("/updateUser", userController.updateUser)
+//update business details name, location description
+router.post("/updateBusinessDetails", businessController.updateBusinessDetails)
+
+//post/update/delete new picture
+router.post("/updateBusinessDisplay", businessController.updateBusinessDisplay)
+
+
 
 module.exports = router;

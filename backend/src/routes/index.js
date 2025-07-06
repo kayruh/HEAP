@@ -2,7 +2,7 @@ const express = require('express');
 
 const user = require('./userRoutes');
 const business = require('./businessRoutes')
-const userbusiness = require('./UserBusinessRoutes')
+const interaction = require('./interactionRoutes')
 const account = require('./accountRoutes')
 
 const router = express.Router();
@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.use('/user', user)
 router.use('/business', business)
-router.use('/userbusiness',userbusiness)
+router.use('/interaction', interaction)
 router.use('/account',account)
 
 module.exports = router;

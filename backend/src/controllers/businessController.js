@@ -1,13 +1,13 @@
-const userServices = require('../services/userServices');
+const businessServices = require('../services/businessServices');
 
 
 module.exports = {
 
     async getAll(req, res) {
         try {
-            const getAllUsers = await userServices.getAllUsers();
+            const getAllBusiness = await businessServices.getAllBusiness();
             res.status(200).json({
-                message: "returned all users"
+                message: "returned all businesses"
             })
 
 
@@ -16,13 +16,27 @@ module.exports = {
         }
     },
 
-    async updateUser(req, res) {
+    async updateBusinessDetails(req, res) {
         try {
-            const {first_name,last_name,DOB} = req.body //body vs params : params reveals ur key value through the link
-            const userUpdated = await userServices.updateUser(first_name,last_name,DOB);
+            const {google, streetName, streetNo, unitNo, postal, tags, description} = req.body //body vs params : params reveals ur key value through the link
+            const businessDetailsUpdated = await businessServices.updateBusinessDetails(google, streetName, streetNo, unitNo, postal, tags, description);
 
             res.status(201).json({
-                message: "Updated User"
+                message: "Update Business Details"
+            })
+
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
+
+    async updateBusinessDisplay(req, res) {
+        try {
+            const {mainDisplay, pictureArray, displayId} = req.body //might need to change this inidividual picturearray function due to database limitations
+            const businessDetailsUpdate = await businessServices.updateBusinessDisplay(mainDisplay, pictureArray, displayId);
+
+            res.status(201).json({
+                message: "Updated Business Display"
             })
 
         } catch (error) {

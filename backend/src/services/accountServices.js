@@ -25,7 +25,7 @@ module.exports = {
     async updateAccount(email,username) {
         
         const {data,error} = await supabase.from(accountTable)
-            .upsert({
+            .update({
                 email,
                 username
             })
