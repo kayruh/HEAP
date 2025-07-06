@@ -88,13 +88,13 @@ const browse = () => {
     
         <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 
-        <Text style={styles.sectionTitle}>What's Happening</Text>
-        <Text style={styles.sectionDescription}>Description of this tab?</Text>
-
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="#ffff" />
 
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+
+        <Text style={styles.sectionTitle}>What's Happening</Text>
+        <Text style={styles.sectionDescription}>Description of this tab?</Text>
       
           {/* Featured Deals Section */}
           <View>

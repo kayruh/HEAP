@@ -1,10 +1,20 @@
 import { View, Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { Linking } from 'react-native';
 
 const OurStory = () => {
   const router = useRouter();
+
+  // contact us elements
+  const handleInstagramPress = () => {
+    Linking.openURL('https://www.instagram.com/yourusername'); // add our IG username
+  };
+
+  const handleEmailPress = () => {
+    Linking.openURL('mailto:your@email.com'); // add our email address
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -30,16 +40,34 @@ const OurStory = () => {
 
         {/* Story Text */}
         <Text style={styles.paragraph}>
-          Fynd started with a simple vision: to create spaces where exploration, connection, and creativity meet. We’re built on shared stories, local gems, and meaningful moments.
+          Fynd started with a simple vision: 
+          to create spaces where exploration, connection, and creativity meet. 
+          We’re built on shared stories, local gems, and meaningful moments.
         </Text>
 
         <Text style={styles.paragraph}>
-          From humble beginnings to a thriving community, our journey is shaped by passion and people. With every step, we aim to leave footprints of impact, inclusion, and joy.
+          From humble beginnings to a thriving community, 
+          our journey is shaped by passion and people. 
+          With every step, we aim to leave footprints of impact, inclusion, and joy.
         </Text>
 
         <Text style={styles.paragraph}>
-          Thanks for walking this path with us. The story continues—with you.
+          Thanks for walking this path with us. The story continues with you.
         </Text>
+
+        <Text style={{fontWeight:'bold', fontSize:12, marginTop:20}}>Contact Us</Text>
+        <View style={styles.iconRow}>
+            <TouchableOpacity onPress={handleInstagramPress} style={styles.icon}>
+            <FontAwesome name="instagram" size={25} color="#C13584" />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={handleEmailPress} style={styles.icon}>
+              <FontAwesome name="envelope" size={25} color="#333" />
+            </TouchableOpacity>
+          </View> 
+
+        <Text style={styles.footerText}>Get lost, FYND more.</Text>
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -126,6 +154,24 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center',
     paddingHorizontal: 10,
+  },
+  footerText: {
+    position: 'absolute',
+    bottom: 16,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 10,
+  },
+  icon: {
+    padding: 10,
+    color:'#a84c3a',
+    fontWeight: 'bold',
+  },
+  iconRow: {
+    flexDirection: 'row',   // put items side by side
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 0.71, // if using React Native 0.71+, or replace with margin
   },
 });
 
