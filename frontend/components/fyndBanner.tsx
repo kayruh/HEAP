@@ -12,13 +12,13 @@ export default function FyndBanner() {
   return (
     <View style={styles.container}>
         <View style={styles.header}>
-                <TouchableOpacity onPress={() => router.push('settings')}>
+                <TouchableOpacity onPress={() => router.push('/settings')}>
                     <Ionicons name="menu" size={28} color="#a84c3a" />
                 </TouchableOpacity>
 
                 <Text style={styles.headerTitle}>FYND</Text>
 
-                <TouchableOpacity onPress={() => router.push('search')}>
+                <TouchableOpacity onPress={() => router.push('/(tabs)/search')}>
                     <Ionicons name="search" size={24} color="#a84c3a" />
                 </TouchableOpacity>
             </View>

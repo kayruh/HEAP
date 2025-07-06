@@ -1,4 +1,4 @@
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native'
+import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native'
 import React from 'react'
 import { useUser } from '@clerk/clerk-expo'
 import * as ImagePicker from 'expo-image-picker'
@@ -6,11 +6,15 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import { TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native'
 import { Platform } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router'
 
 const maxWidth = 300;
+const screenWidth = Dimensions.get('window').width;
 
 const editProfile = () => {
     const { user } = useUser();
+    const router = useRouter()
 
     // user info
     const [name, setName] = React.useState('');
@@ -40,7 +44,7 @@ const editProfile = () => {
         console.log({
           name,
           username,
-          pronouns,
+          gender,
           birthday,
           avatar,
         })
@@ -49,6 +53,9 @@ const editProfile = () => {
     
       return (
         <SafeAreaView style={{ flex: 1 }}>
+            <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/userProfile')}>
+                <Ionicons name="arrow-back" size={20} color="#fff" />
+            </TouchableOpacity>
           <ScrollView contentContainerStyle={styles.contentContainer}>
     
             {/* Avatar */}
@@ -92,25 +99,31 @@ const editProfile = () => {
             <View style={styles.infoRow}>
                 <Text style={styles.infoLabel}>Birthday</Text>
                 <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.inputField}>
-                <Text>{birthday ? birthday.toDateString() : 'Select Birthday'}</Text>
+                <Text>{birthday ? birthday.toLocaleDateString('en-GB', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                        weekday: undefined, // exclude weekday
+                    }): 'Select Birthday'}</Text>
                 </TouchableOpacity>
                 {showDatePicker && (
                 <DateTimePicker
-                    value={birthday}
+                    value={birthday || new Date()} // fallback to today if null
                     mode="date"
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     onChange={(event, selectedDate) => {
-                    setShowDatePicker(false)
-                    if (selectedDate) setBirthday(selectedDate)
+                    setShowDatePicker(false);
+                    if (selectedDate) setBirthday(selectedDate);
                     }}
-                />
+                    style={{ width: screenWidth * 0.5}} // Slight margin
+              />
                 )}
             </View>    
 
     
             {/* Save changes button */}
             <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
-              <Text style={styles.saveButtonText}>Save Changes</Text>
+              <Text style={styles.saveButtonText}>Save</Text>
             </TouchableOpacity>
           </ScrollView>
         </SafeAreaView>
@@ -146,6 +159,7 @@ const editProfile = () => {
         fontSize: 16,
         color: '#000',
         paddingVertical: 4,
+        maxWidth: maxWidth,
       },
       inputWrapper: {
         flexDirection: 'row',
@@ -156,14 +170,16 @@ const editProfile = () => {
         width: '90%',
         alignSelf: 'center',
         marginBottom: 18,
+        maxWidth: maxWidth,
       },
       saveButton: {
         backgroundColor: '#6E1725',
         paddingVertical: 14,
         borderRadius: 8,
-        width: '100%',
+        width: '80%',
         alignItems: 'center',
-        marginTop: 10,
+        marginTop: 20,
+        maxWidth: maxWidth,
       },
       saveButtonText: {
         color: '#fff',
@@ -179,6 +195,7 @@ const editProfile = () => {
         borderBottomWidth: 1,
         borderBottomColor: '#aaa',
         paddingBottom: 8,
+        maxWidth: maxWidth,
       },
       infoLabel: {
         width: 90, // Fixed width ensures input always starts at same position -> web how??
@@ -189,6 +206,20 @@ const editProfile = () => {
       infoValue: {
         fontSize: 14,
         color: '#333',
+      },
+      backButton: {
+        position: 'absolute',
+        top: 55,
+        left: 18,
+        backgroundColor: '#852333', // same color as FYND text in banner. or #6E1725 for bg banner color
+        borderRadius: 20,
+        padding: 8,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        zIndex: 10,
       },
     })
 
