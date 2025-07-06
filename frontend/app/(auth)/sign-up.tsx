@@ -1,9 +1,11 @@
 import * as React from 'react'
-import { SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native'
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet, ScrollView } from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
+import { KeyboardAvoidingView } from 'react-native'
+import { Platform } from 'react-native'
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -85,48 +87,59 @@ export default function SignUpScreen() {
         </TouchableOpacity>
 
         <>
-        <View style={styles.container}>
-          {/* style this (verify email text) !! */}
-          <Text style={{textAlign:'center', fontWeight:'bold', 
-                          fontSize:15, marginBottom: 15}}>Verify your email</Text> 
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
-          {/* same as sign in/up pages input style */}
-          <View style={styles.inputWrapper}> 
-            <TextInput
-              value={code}
-              placeholder="Enter your verification code"
-              onChangeText={(code) => setCode(code)}
-              style={styles.inputField}
-            />
+        <ScrollView
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="handled"
+        >
+
+          <View style={styles.container}>
+            {/* style this (verify email text) !! */}
+            <Text style={{textAlign:'center', fontWeight:'bold', 
+                            fontSize:15, marginBottom: 15}}>Verify your email</Text> 
+
+            {/* same as sign in/up pages input style */}
+            <View style={styles.inputWrapper}> 
+              <TextInput
+                value={code}
+                placeholder="Enter your verification code"
+                onChangeText={(code) => setCode(code)}
+                style={styles.inputField}
+              />
+            </View>
+
+            {/* <CodeField
+              ref={ref}
+              {...props}
+              value={value}
+              onChangeText={setValue}
+              cellCount={CELL_COUNT}
+              rootStyle={styles.codeFieldRoot}
+              keyboardType="number-pad"
+              textContentType="oneTimeCode"
+              renderCell={({ index, symbol, isFocused }) => (
+                <View
+                  key={index}
+                  style={[styles.vcell, isFocused && styles.vfocusCell]}
+                  onLayout={getCellOnLayoutHandler(index)}
+                >
+                  <Text style={styles.vcellText}>
+                    {symbol || (isFocused ? <Cursor /> : null)}
+                  </Text>
+                  </View>
+              )}
+            /> */}
+
+            <TouchableOpacity style={styles.signUpButton} onPress={onVerifyPress}>
+              <Text style={styles.signUpButtonText}>Verify</Text>
+            </TouchableOpacity>
+
           </View>
-
-          {/* <CodeField
-            ref={ref}
-            {...props}
-            value={value}
-            onChangeText={setValue}
-            cellCount={CELL_COUNT}
-            rootStyle={styles.codeFieldRoot}
-            keyboardType="number-pad"
-            textContentType="oneTimeCode"
-            renderCell={({ index, symbol, isFocused }) => (
-              <View
-                key={index}
-                style={[styles.vcell, isFocused && styles.vfocusCell]}
-                onLayout={getCellOnLayoutHandler(index)}
-              >
-                <Text style={styles.vcellText}>
-                  {symbol || (isFocused ? <Cursor /> : null)}
-                </Text>
-                </View>
-            )}
-          /> */}
-
-          <TouchableOpacity style={styles.signUpButton} onPress={onVerifyPress}>
-            <Text style={styles.signUpButtonText}>Verify</Text>
-          </TouchableOpacity>
-
-        </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
         </>
       </SafeAreaView>
     )
@@ -138,6 +151,15 @@ export default function SignUpScreen() {
           <Ionicons name="arrow-back" size={20} color="#fff" />
         </TouchableOpacity>
       <>
+
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+
+        <ScrollView
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="handled"
+        >
 
         <View style={styles.container}>
         <Text style={styles.header}>Welcome to FYND!</Text>
@@ -198,6 +220,8 @@ export default function SignUpScreen() {
       </View>
 
       <Text style={styles.footerText}>Get lost, FYND more.</Text>
+        </ScrollView>
+      </KeyboardAvoidingView>
       </>
     </SafeAreaView>
   )
@@ -206,14 +230,15 @@ export default function SignUpScreen() {
 const styles = StyleSheet.create({
   // for all elements on page
   container: {
-    marginTop: '50%', // start halfway down the screen
-    paddingLeft: 5,
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 5,
   },
   safeArea: {
     flex: 1,
     backgroundColor: '#F4DFB2', // background colour
     paddingTop: 40,
-    paddingHorizontal: 20,
+    paddingHorizontal: '5%',
     position: 'relative',
   },
   // buttons
@@ -250,6 +275,7 @@ const styles = StyleSheet.create({
   // input elements
   input: {
     width: "95%",
+    // maxWidth: 400,
     alignSelf: "center",
     borderWidth: 1,
     borderColor: '#6E1725', // example: deep red like your FYND button
@@ -284,6 +310,7 @@ const styles = StyleSheet.create({
   // sign up elements
   signUpButton: {
     width: "95%",
+    // maxWidth: 400, // means button wont span whole screen
     alignSelf: "center",
     backgroundColor: '#6E1725', // same as your border color for consistency
     paddingVertical: 12,
