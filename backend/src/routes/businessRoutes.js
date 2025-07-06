@@ -11,6 +11,8 @@ router.post("/updateBusinessDetails", businessController.updateBusinessDetails)
 //post/update/delete new picture
 router.post("/updateBusinessDisplay", businessController.updateBusinessDisplay)
 
+router.get("/getBusinessInfo", businessController.getBusinessController)
+
 
 
 module.exports = router;

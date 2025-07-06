@@ -6,6 +6,8 @@ router.get("/getAll", userController.getAll)
 
 router.post("/updateUser", userController.updateUser)
 
+router.get("/getUserInfo", userController.getUserInfo)
+
 module.exports = router;
 
 
