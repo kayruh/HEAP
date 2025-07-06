@@ -86,11 +86,18 @@ const _layout = () => {
         }}/>
 
     <Tabs.Screen 
-          name="contactUs"
-          options={{
-            headerShown:false,
-            href: null, // hides contactUs from the tab bar
-          }}/>
+        name="contactUs"
+        options={{
+          headerShown:false,
+          href: null, // hides contactUs from the tab bar
+        }}/>
+
+    <Tabs.Screen 
+        name="editProfile"
+        options={{
+          headerShown:false,
+          href: null, // hides editProfile from the tab bar
+        }}/>
 
     </Tabs>
   )

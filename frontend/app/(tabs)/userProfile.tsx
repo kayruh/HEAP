@@ -9,7 +9,7 @@ import { useUser } from '@clerk/clerk-expo';
 
   const UserProfile = () => {
     const router = useRouter();
-    const { user } = useUser()
+    const { user } = useUser();
 
     return (
       <View>
@@ -21,7 +21,7 @@ import { useUser } from '@clerk/clerk-expo';
             <Image
             source={{ 
               uri: user?.imageUrl }}
-            style={styles.profileImage}
+              style={styles.profileImage}
             />    
           </View>
 
@@ -43,6 +43,8 @@ import { useUser } from '@clerk/clerk-expo';
             <Text style={styles.infoLabel}>GENDER</Text>
             <Text style={styles.infoValue}>:</Text>
           </View>
+
+          <Text style={{marginTop:20}} onPress={() => router.push('/editProfile')}>Edit profile </Text>
 
           {/* Privacy & Security Link */}
           <Text style={styles.privacyLink}>PRIVACY & SECURITY</Text>
