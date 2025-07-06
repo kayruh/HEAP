@@ -58,11 +58,11 @@ const OurStory = () => {
         <Text style={{fontWeight:'bold', fontSize:12, marginTop:20}}>Contact Us</Text>
         <View style={styles.iconRow}>
             <TouchableOpacity onPress={handleInstagramPress} style={styles.icon}>
-            <FontAwesome name="instagram" size={25} color="#C13584" />
+            <FontAwesome name="instagram" size={25} color="#852333" />
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleEmailPress} style={styles.icon}>
-              <FontAwesome name="envelope" size={25} color="#333" />
+              <FontAwesome name="envelope" size={25} color="#852333" />
             </TouchableOpacity>
           </View> 
 
@@ -72,6 +72,8 @@ const OurStory = () => {
     </SafeAreaView>
   );
 };
+
+// #C13584 ig logo colour (rainbow)
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -83,9 +85,9 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 40,
-    left: 20,
-    backgroundColor: '#000',
+    top: 55,
+    left: 18,
+    backgroundColor: '#852333', // same color as FYND text in banner. or #6E1725 for bg banner color
     borderRadius: 20,
     padding: 8,
     elevation: 3,
