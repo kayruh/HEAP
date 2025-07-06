@@ -7,6 +7,8 @@ import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-
 import { KeyboardAvoidingView } from 'react-native'
 import { Platform } from 'react-native'
 
+const maxWidth= 300; // for styling
+
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
   const router = useRouter()
@@ -275,7 +277,7 @@ const styles = StyleSheet.create({
   // input elements
   input: {
     width: "95%",
-    // maxWidth: 400,
+    maxWidth: maxWidth,
     alignSelf: "center",
     borderWidth: 1,
     borderColor: '#6E1725', // example: deep red like your FYND button
@@ -296,6 +298,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     width: '95%',
     alignSelf: 'center',
+    maxWidth: maxWidth,
   },
   icon: {
     marginRight: 8,
@@ -305,12 +308,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     color: '#000',
+    maxWidth: maxWidth,
   },
 
   // sign up elements
   signUpButton: {
     width: "95%",
-    // maxWidth: 400, // means button wont span whole screen
+    maxWidth: maxWidth, // means button wont span whole screen
     alignSelf: "center",
     backgroundColor: '#6E1725', // same as your border color for consistency
     paddingVertical: 12,

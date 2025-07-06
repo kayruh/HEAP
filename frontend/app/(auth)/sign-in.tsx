@@ -5,6 +5,8 @@ import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { KeyboardAvoidingView } from 'react-native'
 
+const maxWidth= 300; // for styling
+
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn()
   const router = useRouter()
@@ -169,6 +171,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     backgroundColor: '#ECD3A3', // make it slightly lighter/darker than bg
     color: '#000', // ensure text is visible
+    maxWidth: maxWidth,
   },
   inputWrapper: {
     flexDirection: 'row',
@@ -181,6 +184,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     width: '95%',
     alignSelf: 'center',
+    maxWidth: maxWidth,
   },
   icon: {
     marginRight: 8,
@@ -190,6 +194,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     color: '#000',
+    maxWidth: maxWidth,
   },
 
   // sign in elements
@@ -202,6 +207,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 15,
     alignItems: 'center',
+    maxWidth: maxWidth,
   },
   signInButtonText: {
     color: '#F4DFB2',
