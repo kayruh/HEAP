@@ -23,6 +23,9 @@ export default function RootLayout() {
         name="settings" 
         options={{headerShown:false}}/>
         <Stack.Screen 
+        name="chooseAuth" 
+        options={{headerShown:false}}/>
+        <Stack.Screen 
         name="(auth)" 
         options={{headerShown:false}}/>
       <Slot />

@@ -2,13 +2,15 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable,} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, Stack, usePathname, useRouter } from 'expo-router';
-import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
+import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo';
 import { SignOutButton } from '@/components/SignOutButton'; 
 
 // when clicking hamburger menu 
 
 export default function SettingsScreen() {
-    const { user } = useUser()
+    const { user } = useUser();
+
+    const { isSignedIn } = useAuth(); // check if user is signed in
 
     const router = useRouter();
     // router PUSH -> allows user to go back to prev page (keeps track of)
@@ -39,30 +41,25 @@ export default function SettingsScreen() {
                 {/* Menu Items */}
                 {/* click profile -> show sign up & sign in */}
 
-                <TouchableOpacity style={styles.menuItem}
-                    onPress={() => router.replace('/(tabs)/userProfile')}>
-                    <Text style={styles.menuText}>Profile</Text>
+                <TouchableOpacity>
+                    <SignedIn>
+                        <Text style={styles.menuText}>Hello @{user?.username}</Text>
+                        <SignOutButton/>
+                        </SignedIn>
+                        <SignedOut>
+                    </SignedOut>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.menuItem}>
-                <SignedIn>
-                    <Text>Hello @{user?.username}</Text>
-                    <SignOutButton/>
-                    </SignedIn>
-                    <SignedOut>
-                    <Link href="/(auth)/sign-in">
-                    {/* <Stack.Screen 
-                        name="(auth)" 
-                        options={{headerShown:false}}/> */}
-                    <Text style={styles.menuText}>Sign In {'\n'}</Text>
-                    </Link>
-                    <Link href="/(auth)/sign-up">
-                    {/* <Stack.Screen 
-                        name="(auth)" 
-                        options={{headerShown:false}}/> */}
-                        <Text style={styles.menuText}>Sign Up</Text>
-                    </Link>
-                </SignedOut>
+                <TouchableOpacity
+                    style={styles.menuItem}
+                    onPress={() => {
+                        if (isSignedIn) {
+                        router.push('/(tabs)/userProfile');
+                        } else {
+                        router.push('/chooseAuth');
+                        }
+                    }}>
+                    <Text style={styles.menuText}>Profile</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.menuItem}
