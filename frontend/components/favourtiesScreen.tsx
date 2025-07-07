@@ -61,6 +61,7 @@ export default function FavouritesScreen() {
             <Image
               source={{ uri: item.image }}
               style={styles.image}
+              resizeMode="cover"
             />
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
@@ -84,12 +85,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',    // font-bold
     marginBottom: 16,      // mb-4
   },
+  card: {
+    flex: 1,
+    margin: 8, // small gap between cards
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    overflow: 'hidden',
+    minWidth: '48%', // ensures 2 columns fit
+    maxWidth: '48%',
+  },
   columnWrapper: {
     justifyContent: 'space-between',
-    marginBottom: 16,
-  },
-  card: {
-    // width: CARD_WIDTH will be injected inline
   },
   image: {
     width: '100%',
