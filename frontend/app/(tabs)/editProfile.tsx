@@ -19,7 +19,7 @@ const editProfile = () => {
     // user info
     const [name, setName] = React.useState('');
     const [username, setUsername] = React.useState('');
-    const [birthday, setBirthday] = React.useState('');
+    const [birthday, setBirthday] = React.useState<Date | null>(null);
     const [gender, setGender] = React.useState('');
     const [showDatePicker, setShowDatePicker] = React.useState(false)
     const [avatar, setAvatar] = React.useState(user?.imageUrl)
@@ -37,19 +37,19 @@ const editProfile = () => {
         if (!result.canceled) {
           setAvatar(result.assets[0].uri)
         }
-      }
+    };
     
-      const handleSaveChanges = () => {
-        // Call API or update local state ?????
-        console.log({
-          name,
-          username,
-          gender,
-          birthday,
-          avatar,
-        })
+    const handleSaveChanges = () => {
+    // Call API or update local state ?????
+    console.log({
+        name,
+        username,
+        gender,
+        birthday,
+        avatar,
+    })
         alert('Changes saved!')
-      }
+    };
     
       return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -99,28 +99,43 @@ const editProfile = () => {
             <View style={styles.infoRow}>
                 <Text style={styles.infoLabel}>Birthday</Text>
                 <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.inputField}>
-                <Text>{birthday ? birthday.toLocaleDateString('en-GB', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                        weekday: undefined, // exclude weekday
-                    }): 'Select Birthday'}</Text>
+                    <Text>
+                    {birthday
+                        ? birthday.toLocaleDateString('en-GB', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                            weekday: undefined, // exclude weekday
+                        })
+                        : 'Select Birthday'}
+                    </Text>
                 </TouchableOpacity>
-                {showDatePicker && (
+                </View>
+
+                {showDatePicker && Platform.OS === 'ios' && (
                 <DateTimePicker
-                    value={birthday || new Date()} // fallback to today if null
+                    value={birthday || new Date()}
                     mode="date"
-                    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                    display='spinner' 
                     onChange={(event, selectedDate) => {
-                    setShowDatePicker(false);
+                        setShowDatePicker(false); // close after picking
+                        if (selectedDate) setBirthday(selectedDate);
+                    }}                   
+                    style={{ width: '100%', alignSelf: 'center' }} // full width inline
+                />
+                )}
+
+                {showDatePicker && Platform.OS === 'android' && (
+                <DateTimePicker
+                    value={birthday || new Date()}
+                    mode="date"
+                    display="default"
+                    onChange={(event, selectedDate) => {
+                    setShowDatePicker(false); // close after picking
                     if (selectedDate) setBirthday(selectedDate);
                     }}
-                    textColor='black'
-                    style={{ width: screenWidth * 0.5,}} // Slight margin
-              />
+                />
                 )}
-            </View>    
-
     
             {/* Save changes button */}
             <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
