@@ -44,7 +44,7 @@ import { useUser } from '@clerk/clerk-expo';
             <Text style={styles.infoValue}>:</Text>
           </View>
 
-          <Text style={{marginTop:20}} onPress={() => router.push('/editProfile')}>Edit profile</Text>
+          <Text style={styles.editProfileButton} onPress={() => router.push('/editProfile')}>Edit profile</Text>
 
           {/* Privacy & Security Link */}
           <Text style={styles.privacyLink}>PRIVACY & SECURITY</Text>
@@ -189,6 +189,15 @@ const styles = StyleSheet.create({
     color: '#000',
     textAlign: 'left',
     width: '80%',
+  },
+  editProfileButton: {
+    color: '#6E1725',
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginTop: 20,
+    // borderRadius:22,
+    // backgroundColor: 'red', 
+    // padding:10, // to make it look like button
   },
 
 });
