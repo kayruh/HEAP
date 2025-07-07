@@ -41,26 +41,28 @@ export default function SettingsScreen() {
                 {/* Menu Items */}
                 {/* click profile -> show sign up & sign in */}
 
-                <TouchableOpacity>
+                <TouchableOpacity style={styles.menuItem}>
                     <SignedIn>
-                        <Text style={styles.menuText}>Hello @{user?.username}</Text>
+                        <Text>Hello @{user?.username}</Text>
                         <SignOutButton/>
-                        </SignedIn>
-                        <SignedOut>
+                    </SignedIn>
+                    <SignedOut>
+                        <Link href="/(auth)/sign-in">
+                            <Text style={styles.menuText}>Sign In {'\n'}</Text>
+                        </Link>
+                        <Link href="/(auth)/sign-up">
+                            <Text style={styles.menuText}>Sign Up</Text>
+                        </Link>
                     </SignedOut>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={styles.menuItem}
-                    onPress={() => {
-                        if (isSignedIn) {
-                        router.push('/(tabs)/userProfile');
-                        } else {
-                        router.push('/chooseAuth');
-                        }
-                    }}>
-                    <Text style={styles.menuText}>Profile</Text>
-                </TouchableOpacity>
+                <SignedIn>
+                    <TouchableOpacity
+                        style={styles.menuItem}
+                        onPress={() => { router.push('/(tabs)/userProfile') }}>
+                        <Text style={styles.menuText}>Profile</Text>
+                    </TouchableOpacity>
+                </SignedIn>
 
                 <TouchableOpacity style={styles.menuItem}
                     onPress={() => router.replace('/(tabs)/browse')}>
