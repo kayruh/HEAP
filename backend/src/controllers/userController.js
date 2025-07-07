@@ -18,8 +18,8 @@ module.exports = {
 
     async updateUser(req, res) {
         try {
-            const {first_name,last_name,DOB} = req.body //body vs params : params reveals ur key value through the link
-            const userUpdated = await userServices.updateUser(first_name,last_name,DOB);
+            const {clerk_id,first_name,last_name,DOB} = req.body //body vs params : params reveals ur key value through the link
+            const userUpdated = await userServices.updateUser(clerk_id,first_name,last_name,DOB);
 
             res.status(201).json({
                 message: "Updated User"
