@@ -64,7 +64,7 @@ const _layout = () => {
     />
     <Tabs.Screen 
     name='userProfile'
-    options={{title:'Profile_U',
+    options={{title:'Profile',
         headerShown:false,
         tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />
 
