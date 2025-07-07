@@ -1,7 +1,6 @@
-import { Router } from 'express';
-import * as interactionController from '../controllers/interactionController';
-
-const router = Router();
+const express = require('express');
+const router = express.Router();
+const interactionController = require("../controllers/interactionController");
 
 /* ---------- Likes ---------- */
 router.put   ('/upsertLike',        interactionController.upsertLike);
@@ -26,4 +25,4 @@ router.delete('/deleteReviews/:uuid',interactionController.deleteReviews);
 router.get   ('/getAccountReviews/:clerk_id', interactionController.getAccountReviews);
 router.get   ('/getBusinessReviews/:business_clerk_id', interactionController.getBusinessReviews);
 
-export default router;
+module.exports = router;

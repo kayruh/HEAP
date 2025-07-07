@@ -1,6 +1,5 @@
 // where the logic happens
 //usertable is just a test
-const { updateBusinessDetails, updateBusinessDisplay } = require("../controllers/businessController");
 const { supabase } = require("../db/supabase");
 const businessTable = "BUSINESS";
 

@@ -1,6 +1,5 @@
 // where the logic happens
 //usertable is just a test
-const { getUserInfo } = require("../controllers/userController");
 const { supabase } = require("../db/supabase");
 const userTable = "USER";
 
