@@ -146,97 +146,97 @@ const editProfile = () => {
       )
     }
     
-    const styles = StyleSheet.create({
-      contentContainer: {
-        paddingTop: 80,
-        paddingBottom: 60,
-        alignItems: 'center',
-        paddingHorizontal: 20,
-      },
-      profileImageWrapper: {
-        alignItems: 'center',
-        marginBottom: 20,
-      },
-      profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        backgroundColor: '#fff',
-        borderWidth: 2,
-        borderColor: '#6E1725',
-      },
-      editPic: {
-        color: '#007BFF',
-        fontWeight: 'bold',
-        marginTop: 12,
-      },
-      inputField: {
-        flex: 1,
-        fontSize: 16,
-        color: '#000',
-        paddingVertical: 4,
-        maxWidth: maxWidth,
-      },
-      inputWrapper: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderColor: '#555', // or any muted grey you want
-        paddingVertical: 10,
-        width: '90%',
-        alignSelf: 'center',
-        marginBottom: 18,
-        maxWidth: maxWidth,
-      },
-      saveButton: {
-        backgroundColor: '#6E1725',
-        paddingVertical: 14,
-        borderRadius: 8,
-        width: '80%',
-        alignItems: 'center',
-        marginTop: 20,
-        maxWidth: maxWidth,
-      },
-      saveButtonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 16,
-      },
+const styles = StyleSheet.create({
+    contentContainer: {
+    paddingTop: 80,
+    paddingBottom: 60,
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    },
+    profileImageWrapper: {
+    alignItems: 'center',
+    marginBottom: 20,
+    },
+    profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: '#6E1725',
+    },
+    editPic: {
+    color: '#007BFF',
+    fontWeight: 'bold',
+    marginTop: 12,
+    },
+    inputField: {
+    flex: 1,
+    fontSize: 16,
+    color: '#000',
+    paddingVertical: 4,
+    maxWidth: maxWidth,
+    },
+    inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: '#555', // or any muted grey you want
+    paddingVertical: 10,
+    width: '90%',
+    alignSelf: 'center',
+    marginBottom: 18,
+    maxWidth: maxWidth,
+    },
+    saveButton: {
+    backgroundColor: '#6E1725',
+    paddingVertical: 14,
+    borderRadius: 8,
+    width: '80%',
+    alignItems: 'center',
+    marginTop: 20,
+    maxWidth: maxWidth,
+    },
+    saveButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+    },
 
-      infoRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '90%',
-        marginTop: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: '#aaa',
-        paddingBottom: 8,
-        maxWidth: maxWidth,
-      },
-      infoLabel: {
-        width: 90, // Fixed width ensures input always starts at same position -> web how??
-        fontSize: 14,
-        fontWeight: '600',
-        color: '#333',
-      },
-      infoValue: {
-        fontSize: 14,
-        color: '#333',
-      },
-      backButton: {
-        position: 'absolute',
-        top: 55,
-        left: 18,
-        backgroundColor: '#852333', // same color as FYND text in banner. or #6E1725 for bg banner color
-        borderRadius: 20,
-        padding: 8,
-        elevation: 3,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
-        zIndex: 10,
-      },
-    })
+    infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '90%',
+    marginTop: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#aaa',
+    paddingBottom: 8,
+    maxWidth: maxWidth,
+    },
+    infoLabel: {
+    width: 90, // Fixed width ensures input always starts at same position -> web how??
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333',
+    },
+    infoValue: {
+    fontSize: 14,
+    color: '#333',
+    },
+    backButton: {
+    position: 'absolute',
+    top: 55,
+    left: 18,
+    backgroundColor: '#852333', // same color as FYND text in banner. or #6E1725 for bg banner color
+    borderRadius: 20,
+    padding: 8,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    zIndex: 10,
+    },
+});
 
 export default editProfile
