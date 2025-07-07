@@ -16,7 +16,9 @@ module.exports = {
         }
     },
 
-    async updateAccount(req, res) {
+    async updateAccount(req, res) { 
+        // might need to remove this as all account getter and update functions and directly go through clerk
+    
             try {
                 const {email, username} = req.body //body vs params : params reveals ur key value through the link
                 const accountUpdated = await accountServices.updateAccount(email, username);

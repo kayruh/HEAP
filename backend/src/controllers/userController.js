@@ -28,6 +28,16 @@ module.exports = {
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
+    },
+
+    async getUserInfo(req, res) {
+        try {
+            //req or variable = get clerk_id from sessions
+
+        }
+        catch {
+
+        }
     }
 
 }
