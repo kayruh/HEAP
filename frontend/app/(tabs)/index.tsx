@@ -51,6 +51,7 @@ export default function index() {
           {/* Main Content */}
           <View style={styles.body}>
             <Text className='text-center pt-3'>Google maps here</Text>
+            
           </View>
       </View>
   );

@@ -1,5 +1,6 @@
 // where the logic happens
 //usertable is just a test
+const { getUserInfo } = require("../controllers/userController");
 const { supabase } = require("../db/supabase");
 const userTable = "USER";
 
@@ -34,10 +35,22 @@ module.exports = {
 
         if (error) {
             throw new Error(error.message);
-        }
-
+        };
         console.log(data)
         return data;
     },
+
+    async getUserInfo(clerk_id) {
+        const { data, error } = await supabase
+            .from(userTable)
+            .select('*')
+            .eq('clerk_id', clerk_id)
+            .maybeSingle();     // returns one object or null
+
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data;          //   ↪︎ bubbles back to controller
+    }
 
 }

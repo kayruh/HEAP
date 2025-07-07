@@ -18,10 +18,13 @@ module.exports = {
 
     async updateUser(req, res) {
         try {
-            const {clerk_id,first_name,last_name,DOB} = req.body //body vs params : params reveals ur key value through the link
+            const {clerk_id} = req.params;
+            const {first_name,last_name,DOB} = req.body //body vs params : params reveals ur key value through the link
             const userUpdated = await userServices.updateUser(clerk_id,first_name,last_name,DOB);
 
-            res.status(201).json({
+            if (!clerk_id) return res.status(404).json({ error: 'clerk_id required' });
+
+            res.status(200).json({
                 message: "Updated User"
             })
 
@@ -32,11 +35,14 @@ module.exports = {
 
     async getUserInfo(req, res) {
         try {
-            //req or variable = get clerk_id from sessions
+            const {clerk_id} = req.params;
+            const userInfo = await userServices.getUserInfo(clerk_id);
+            if (!clerk_id) return res.status(404).json({ error: 'clerk_id required' });
 
+            res.status(200).json(userInfo)
         }
         catch {
-
+            res.status(500).json({ error: error.message });
         }
     }
 

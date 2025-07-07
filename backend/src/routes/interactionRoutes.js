@@ -1,32 +1,29 @@
-const express = require('express');
-const router = express.Router();
-// const userController = require("../controllers/userController") 
-const interactionController = require("../controllers/interactionController")
+import { Router } from 'express';
+import * as interactionController from '../controllers/interactionController';
 
-// router.post("/createAccount", userController.createAccount)
+const router = Router();
 
-//user can like business (interaction 1) user,business, like
-router.post("/upsertLike", interactionController.upsertLike)
-router.post("/deleteLike", interactionController.deleteLike)
-router.get("/getAccountLikes", interactionController.getAccountLikes)
-router.get("/getBusinessLikes", interactionController.getBusinessLikes)
-// user can create folder and save businesses (interaction 2)user, folder, array(businesses)
-router.post("/upsertFolder", interactionController.upsertFolder)
-router.post("/deleteFolder", interactionController.deleteFolder)
-router.get("/getAccountFolders", interactionController.getAccountFolders)
-// business photos posted (business, posted by, photo)
-router.post("/upsertPhotos", interactionController.upsertPhotos)
-router.post("/deletePhotos", interactionController.deletePhotos)
-router.get("/getAccountPhotos", interactionController.getAccountPhotos)
-router.get("/getBusinessPhotos", interactionController.getBusinessPhotos)
-// business review (business, user, review)
-router.post("/upsertReviews", interactionController.upsertReviews)
-router.post("/deleteReviews", interactionController.deleteReviews)
-router.get("/getAccountReviews", interactionController.getAccountReviews)
-router.get("/getBusinessReviews", interactionController.getBusinessReviews)
+/* ---------- Likes ---------- */
+router.put   ('/upsertLike',        interactionController.upsertLike);
+router.delete('/deleteLike',        interactionController.deleteLike);
+router.get   ('/getAccountLikes/:clerk_id',   interactionController.getAccountLikes);
+router.get   ('/getBusinessLikes/:business_clerk_id', interactionController.getBusinessLikes);
 
-// router.get("/getAll", interactionController.getAll)
+/* ---------- Folders ---------- */
+router.put   ('/upsertFolder',      interactionController.upsertFolder);
+router.delete('/deleteFolder',      interactionController.deleteFolder);
+router.get   ('/getAccountFolders/:clerk_id', interactionController.getAccountFolders);
 
+/* ---------- Photos ---------- */
+router.put   ('/upsertPhotos',      interactionController.upsertPhotos);
+router.delete('/deletePhotos/:uuid',interactionController.deletePhotos);
+router.get   ('/getAccountPhotos/:clerk_id',  interactionController.getAccountPhotos);
+router.get   ('/getBusinessPhotos/:business_clerk_id', interactionController.getBusinessPhotos);
 
+/* ---------- Reviews ---------- */
+router.put   ('/upsertReviews',     interactionController.upsertReviews);
+router.delete('/deleteReviews/:uuid',interactionController.deleteReviews);
+router.get   ('/getAccountReviews/:clerk_id', interactionController.getAccountReviews);
+router.get   ('/getBusinessReviews/:business_clerk_id', interactionController.getBusinessReviews);
 
-module.exports = router;
+export default router;
