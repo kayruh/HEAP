@@ -43,7 +43,7 @@ export default function SettingsScreen() {
 
                 <TouchableOpacity style={styles.menuItem}>
                     <SignedIn>
-                        <Text>Hello @{user?.username}</Text>
+                        <Text style={styles.userGreeting}>Hello @{user?.username}</Text>
                         <SignOutButton/>
                     </SignedIn>
                     <SignedOut>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     },
     greeting: {
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: 16,
         letterSpacing: 1.5,
         marginBottom: 8,
         textTransform: 'uppercase',
@@ -152,5 +152,10 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontWeight: 'bold',
         fontSize: 10,
+    },
+    userGreeting:{
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginBottom: 8,
     },
 });
