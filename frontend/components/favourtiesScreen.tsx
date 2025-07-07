@@ -48,7 +48,7 @@ const data = [
 
 export default function FavouritesScreen() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Favourites ★</Text>
 
       <FlatList
@@ -69,7 +69,7 @@ export default function FavouritesScreen() {
         )}
         showsVerticalScrollIndicator={false}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     paddingHorizontal: 16, // px-4
-    paddingTop: 10,        // pt-4
     paddingLeft: 7,
   },
   header: {
