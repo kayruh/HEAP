@@ -27,8 +27,8 @@ const Favourites = () => {
 
   return (
     <View>
-      <FyndBanner />
-      <FavouritesScreen />
+      <FyndBanner/>
+      <FavouritesScreen/>
 
       {/* Add Button */}
       <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>

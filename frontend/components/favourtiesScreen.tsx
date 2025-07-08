@@ -48,7 +48,7 @@ const data = [
 
 export default function FavouritesScreen() {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.header}>Favourites ★</Text>
 
       <FlatList
@@ -69,7 +69,7 @@ export default function FavouritesScreen() {
         )}
         showsVerticalScrollIndicator={false}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 24,          // text-2xl
     fontWeight: 'bold',    // font-bold
     marginBottom: 16,      // mb-4
+    marginTop: 20,
   },
   card: {
     flex: 1,
