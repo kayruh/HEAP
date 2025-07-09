@@ -151,15 +151,16 @@ const styles = StyleSheet.create({
     },
     menuText: {
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 20,
         color: Yellow,
     },
+    // footer
     footerText: {
         position: 'absolute',
-        bottom: 16,
-        alignSelf: 'center',
         fontWeight: 'bold',
-        fontSize: 10,
+        bottom: 30,
+        alignSelf: 'center',
+        fontSize: 14,
         color: Yellow,
     },
     userGreeting:{

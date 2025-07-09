@@ -7,6 +7,11 @@ import { KeyboardAvoidingView } from 'react-native'
 
 const maxWidth= 300; // for styling
 
+const Green = '#556B2F'; // colors
+const Yellow = '#F0E68C';
+const Purple = '#8B4789';
+const Grey = '#708090';
+
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn()
   const router = useRouter()
@@ -128,7 +133,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: '#F4DFB2', // background colour
+    backgroundColor: Yellow,
     paddingHorizontal: 20,
   },
   // buttons
