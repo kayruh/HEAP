@@ -100,7 +100,8 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#A05C9E',
+        backgroundColor: Green,
+        // lighter purple for bg: '#A05C9E'
         paddingTop: 40,
         paddingHorizontal: 20,
         position: 'relative',
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
         letterSpacing: 1.5,
         marginBottom: 8,
         textTransform: 'uppercase',
+        color: Yellow,
     },
     underlineWrapper: {
         alignItems: 'flex-start',
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
     menuText: {
         fontWeight: 'bold',
         fontSize: 16,
-        color: 'black',
+        color: Yellow,
     },
     footerText: {
         position: 'absolute',
@@ -158,10 +160,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontWeight: 'bold',
         fontSize: 10,
+        color: Yellow,
     },
     userGreeting:{
         fontWeight: 'bold',
         fontSize: 16,
         marginBottom: 8,
+        color: Yellow,
     },
 });
