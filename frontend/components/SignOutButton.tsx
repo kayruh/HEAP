@@ -2,6 +2,11 @@ import { useClerk } from '@clerk/clerk-expo'
 import * as Linking from 'expo-linking'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 
+const Green = '#556B2F';
+const Yellow = '#F0E68C';
+const Purple = '#8B4789';
+const Grey = '#708090';
+
 export const SignOutButton = () => {
   // Use `useClerk()` to access the `signOut()` function
   const { signOut } = useClerk()
@@ -25,7 +30,7 @@ export const SignOutButton = () => {
 
 const styles = StyleSheet.create({
   format: {
-    color: '#6E1725',
+    color: '#6E172',
     fontWeight: 'bold',
     fontSize: 14,
   },

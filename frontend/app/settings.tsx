@@ -100,7 +100,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Yellow,
+        backgroundColor: '#A05C9E',
         paddingTop: 40,
         paddingHorizontal: 20,
         position: 'relative',
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
     menuText: {
         fontWeight: 'bold',
         fontSize: 16,
+        color: 'black',
     },
     footerText: {
         position: 'absolute',
