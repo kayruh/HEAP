@@ -14,5 +14,20 @@ module.exports = {
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
-    }
+    },
+
+    async getFilterEvent(req, res) {
+        try {
+            const {tags} = req.body
+            const getFilterEvent = await appServices.filter(tags);
+            res.status(200).json({
+                message: "returned Filter"
+            })
+
+
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
+
 }
