@@ -4,9 +4,9 @@ const userController = require("../controllers/userController")
 
 router.get("/getAll", userController.getAll)
 
-router.patch("/updateUser/:clerk_id", userController.updateUser)
+router.patch("/updateUser/:username", userController.updateUser)
 
-router.get("/getUserInfo/:clerk_id", userController.getUserInfo)
+router.get("/getUserInfo/:username", userController.getUserInfo)
 
 module.exports = router;
 

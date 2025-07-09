@@ -6,12 +6,14 @@ const businessController = require("../controllers/businessController")
 router.get("/getAll", businessController.getAll)
 
 //update business details name, location description
-router.patch("/updateBusinessDetails/:clerk_id", businessController.updateBusinessDetails)
+router.patch("/updateBusinessDetails/:username", businessController.updateBusinessDetails)
 
 //post/update/delete new picture
-router.patch("/updateBusinessDisplay/:clerk_id", businessController.updateBusinessDisplay)
+router.patch("/updateBusinessDisplay/:username", businessController.updateBusinessDisplay)
 
-router.get("/getBusinessInfo/:clerk_id", businessController.getBusinessInfo)
+router.put("/upsertEvent/:username")
+
+router.get("/getBusinessInfo/:username", businessController.getBusinessInfo)
 
 
 

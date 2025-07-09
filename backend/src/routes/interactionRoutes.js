@@ -5,24 +5,18 @@ const interactionController = require("../controllers/interactionController");
 /* ---------- Likes ---------- */
 router.put   ('/upsertLike',        interactionController.upsertLike);
 router.delete('/deleteLike',        interactionController.deleteLike);
-router.get   ('/getAccountLikes/:clerk_id',   interactionController.getAccountLikes);
-router.get   ('/getBusinessLikes/:business_clerk_id', interactionController.getBusinessLikes);
+router.get   ('/getAccountLikes/:username',   interactionController.getAccountLikes);
+router.get   ('/getBusinessLikes/:business_username', interactionController.getBusinessLikes);
 
 /* ---------- Folders ---------- */
 router.put   ('/upsertFolder',      interactionController.upsertFolder);
 router.delete('/deleteFolder',      interactionController.deleteFolder);
-router.get   ('/getAccountFolders/:clerk_id', interactionController.getAccountFolders);
-
-/* ---------- Photos ---------- */
-router.put   ('/upsertPhotos',      interactionController.upsertPhotos);
-router.delete('/deletePhotos/:uuid',interactionController.deletePhotos);
-router.get   ('/getAccountPhotos/:clerk_id',  interactionController.getAccountPhotos);
-router.get   ('/getBusinessPhotos/:business_clerk_id', interactionController.getBusinessPhotos);
+router.get   ('/getAccountFolders/:username', interactionController.getAccountFolders);
 
 /* ---------- Reviews ---------- */
-router.put   ('/upsertReviews',     interactionController.upsertReviews);
-router.delete('/deleteReviews/:uuid',interactionController.deleteReviews);
-router.get   ('/getAccountReviews/:clerk_id', interactionController.getAccountReviews);
-router.get   ('/getBusinessReviews/:business_clerk_id', interactionController.getBusinessReviews);
+router.put   ('/upsertReviews',     interactionController.upsertReview); //remove this
+router.delete('/deleteReviews/:uuid',interactionController.deleteReview);
+router.get   ('/getAccountReviews/:username', interactionController.getAccountReviews);
+router.get   ('/getBusinessReviews/:business_username', interactionController.getBusinessReviews);
 
 module.exports = router;

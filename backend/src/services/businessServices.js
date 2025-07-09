@@ -19,7 +19,7 @@ module.exports = {
         return data;
     },
 
-    async updateBusinessDetails(clerk_id, google, streetName, streetNo, unitNo, postal, tags, description) {
+    async updateBusinessDetails(username, google, streetName, streetNo, unitNo, postal, tags, description) {
         
         const {data,error} = await supabase.from(businessTable)
             .update({
@@ -31,7 +31,7 @@ module.exports = {
                 tags, 
                 description
             })
-            .eq("clerk_id", clerk_id)
+            .eq("username", username)
 
         if (error) {
             throw new Error(error.message);
@@ -40,13 +40,13 @@ module.exports = {
         return data;
     },
 
-    async updateBusinessDisplay(mainDisplay, pictureArray, displayId) {
+    async updateBusinessDisplay(username, mainDisplay, pictureArray, displayId) {
         
         const {data,error} = await supabase.from(businessTable)
             .update({
                 mainDisplay, pictureArray, displayId
             })
-            .eq("clerk_id", clerk_id)
+            .eq("username", username)
 
 
         if (error) {
@@ -56,11 +56,11 @@ module.exports = {
         return data;
     },
 
-    async getBusinessInfo(clerk_id) {
+    async getBusinessInfo(username) {
             const { data, error } = await supabase
                 .from(businessTable)
                 .select('*')
-                .eq('clerk_id', clerk_id)
+                .eq('username', username)
                 .maybeSingle();     // returns one object or null
     
             if (error) {

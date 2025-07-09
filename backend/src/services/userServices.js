@@ -22,7 +22,7 @@ module.exports = {
         return data;
     },
 
-    async updateUser(clerk_id,first_name,last_name,DOB) {
+    async updateUser(username,first_name,last_name,DOB) {
         
         const {data,error} = await supabase.from(userTable)
             .update({
@@ -30,7 +30,7 @@ module.exports = {
                 last_name,
                 DOB
             })
-            .eq("clerk_id", clerk_id )
+            .eq("username", username )
 
         if (error) {
             throw new Error(error.message);
@@ -39,11 +39,11 @@ module.exports = {
         return data;
     },
 
-    async getUserInfo(clerk_id) {
+    async getUserInfo(username) {
         const { data, error } = await supabase
             .from(userTable)
             .select('*')
-            .eq('clerk_id', clerk_id)
+            .eq('username', username)
             .maybeSingle();     // returns one object or null
 
         if (error) {
