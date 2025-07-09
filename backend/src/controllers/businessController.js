@@ -50,6 +50,23 @@ module.exports = {
         }
     },
 
+    async upsertEvent(req, res) {
+         try {
+            const {username} = req.params;
+            const {uuid, title, description, start, end, event_photos} = req.body //might need to change this inidividual picturearray function due to database limitations
+            const upsertEvent = await businessServices.upsertEvent(uuid, username, title, description, start, end, event_photos);
+            
+            if (!username) return res.status(404).json({ error: 'username required' });
+
+            res.status(200).json({
+                message: "Upserted Event"
+            })
+
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
+
     async getBusinessInfo(req, res) {
         try {
             const {username} = req.params;

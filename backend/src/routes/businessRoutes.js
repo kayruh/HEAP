@@ -11,7 +11,7 @@ router.patch("/updateBusinessDetails/:username", businessController.updateBusine
 //post/update/delete new picture
 router.patch("/updateBusinessDisplay/:username", businessController.updateBusinessDisplay)
 
-router.put("/upsertEvent/:username")
+router.put("/upsertEvent/:username", businessController.upsertEvent)
 
 router.get("/getBusinessInfo/:username", businessController.getBusinessInfo)
 

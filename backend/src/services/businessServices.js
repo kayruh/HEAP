@@ -56,6 +56,18 @@ module.exports = {
         return data;
     },
 
+    async upsertEvent(uuid, username, title, description, start, end, event_photos) {
+        const {data, error} = await supabase.from(EVENT)
+            .upsert({
+                uuid, username, title, description, start, end, event_photos
+            },{onConflict:"uuid"}
+        )
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data;
+    },
+
     async getBusinessInfo(username) {
             const { data, error } = await supabase
                 .from(businessTable)

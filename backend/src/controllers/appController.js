@@ -18,16 +18,25 @@ module.exports = {
 
     async getFilterEvent(req, res) {
         try {
-            const {tags} = req.body
-            const getFilterEvent = await appServices.filter(tags);
-            res.status(200).json({
-                message: "returned Filter"
-            })
+            const tagsParam = (req.query.tags || '').trim();
+            const tags =
+            tagsParam ? tagsParam.split(',').map((t) => t.trim()) : null;
+
+            const matchAll = String(req.query.matchAll || '').toLowerCase() === 'true';
 
 
-        } catch (error) {
-            res.status(500).json({ error: error.message });
+            const rows = await appServices.filterByTags(tags, matchAll);
+
+            const payload = rows.map((r) => ({
+            type: 'start' in r ? 'event' : 'business',
+            ...r
+            }));
+
+            res.status(200).json(payload);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: err.message});
         }
-    },
+    }
 
 }
