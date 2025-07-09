@@ -7,6 +7,11 @@ import { SignOutButton } from '@/components/SignOutButton';
 
 // when clicking hamburger menu 
 
+const Green = '#556B2F';
+const Yellow = '#F0E68C';
+const Purple = '#8B4789';
+const Grey = '#708090';
+
 export default function SettingsScreen() {
     const { user } = useUser();
 
@@ -95,7 +100,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F4DFB2', // beige (following figma)
+        backgroundColor: Yellow,
         paddingTop: 40,
         paddingHorizontal: 20,
         position: 'relative',

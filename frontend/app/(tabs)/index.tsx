@@ -78,17 +78,17 @@ const styles = StyleSheet.create({
       letterSpacing: 2,
   },
   sloganBar: {
-      backgroundColor: '#a84c3a',
+      backgroundColor: '#8B4789',
       height: 20,
       overflow: 'hidden',
   },
   sloganText: {
-      color: '#f7eac0',
+      color: '#F0E68C',
       fontWeight: 'bold',
       fontSize: 11,
       letterSpacing: 1,
       lineHeight: 20,
-      whiteSpace: 'nowrap',
+      // whiteSpace: 'nowrap',
   },
   sloganContent: {
     flexDirection: 'row',

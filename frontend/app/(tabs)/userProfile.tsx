@@ -7,7 +7,12 @@ import { useUser } from '@clerk/clerk-expo';
 
 // if not logged in, what will this page show?
 
-  const UserProfile = () => {
+const Green = '#556B2F';
+const Yellow = '#F0E68C';
+const Purple = '#8B4789';
+const Grey = '#708090';
+
+const UserProfile = () => {
     const router = useRouter();
     const { user } = useUser();
 
@@ -146,7 +151,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: '#fff',
     borderWidth: 2,
-    borderColor: '#6E1725',
+    borderColor: Purple,
   },
   userName: {
     fontSize: 18,
@@ -191,7 +196,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   editProfileButton: {
-    color: '#6E1725',
+    color: Green,
     fontWeight: 'bold',
     fontSize: 14,
     marginTop: 20,

@@ -12,6 +12,11 @@ import { useRouter } from 'expo-router'
 const maxWidth = 300;
 const screenWidth = Dimensions.get('window').width;
 
+const Green = '#556B2F';
+const Yellow = '#F0E68C';
+const Purple = '#8B4789';
+const Grey = '#708090';
+
 const editProfile = () => {
     const { user } = useUser();
     const router = useRouter()
@@ -163,7 +168,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: '#fff',
     borderWidth: 2,
-    borderColor: '#6E1725',
+    borderColor: Purple,
     },
     editPic: {
     color: '#007BFF',
@@ -189,7 +194,7 @@ const styles = StyleSheet.create({
     maxWidth: maxWidth,
     },
     saveButton: {
-    backgroundColor: '#6E1725',
+    backgroundColor: Purple,
     paddingVertical: 14,
     borderRadius: 8,
     width: '80%',
@@ -227,7 +232,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 55,
     left: 18,
-    backgroundColor: '#852333', // same color as FYND text in banner. or #6E1725 for bg banner color
+    backgroundColor: Green, // or same as save button?????
     borderRadius: 20,
     padding: 8,
     elevation: 3,
