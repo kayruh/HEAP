@@ -1,8 +1,17 @@
 import * as React from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView, StyleSheet, Platform } from 'react-native';
 import { useSignUp } from '@clerk/clerk-expo';
 import { useRouter } from 'expo-router';
 import { Check } from 'lucide-react-native';   // expo install lucide-react-native
+import { Ionicons } from '@expo/vector-icons';
+import { KeyboardAvoidingView } from 'react-native';
+
+const maxWidth= 300; // for styling
+
+const Green = '#556B2F'; // colors
+const Yellow = '#F0E68C';
+const Purple = '#8B4789';
+const Grey = '#708090';
 
 // ----------  PRE-SET TAGS ----------
 const PRESET_TAGS = [
@@ -40,7 +49,7 @@ const TagChip: React.FC<TagChipProps> = ({ tag, selected, onPress }) => (
     {selected && (
       <Check size={14} color="white" strokeWidth={3} style={{ marginRight: 4 }} />
     )}
-    <Text className={selected ? 'text-white font-medium' : 'text-black'}>
+    <Text className={selected ? 'text-white font-medium' : Yellow}>
       {tag}
     </Text>
   </TouchableOpacity>
@@ -130,22 +139,39 @@ export default function BusinessSignUp() {
 
   /* =======================  RENDER  ======================= */
   return (
-    <View className="flex-1 bg-white p-4">
-      <Text className="text-center mb-4 font-semibold">Step {step}/4</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <Ionicons name="arrow-back" size={20} color="#000"/>
+      </TouchableOpacity>
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}>
+
+      <ScrollView
+            contentContainerStyle={styles.container}
+            keyboardShouldPersistTaps="handled"
+          >
+
+    <View>
+    <Text style={styles.header}>Welcome to FYND Business!</Text>
+      <Text style={styles.stepText}>Step {step}/4</Text>
 
       {/* ---------- STEP 1 ---------- */}
       {step === 1 && (
         <>
-          <Text className="text-xl font-bold mb-3">Business details</Text>
+          <Text style={styles.descText}>Business details</Text>
 
+          <View style={styles.inputWrapper}>
           <TextInput
             placeholder="Business name"
             value={businessName}
             onChangeText={setBusinessName}
-            className="border rounded-xl p-3 mb-4"
+            style={styles.inputField}
           />
+          </View>
 
-          <Text className="mb-2 font-medium">Choose tags</Text>
+          <Text style={styles.descText}>Choose tags</Text>
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap' }}
@@ -169,8 +195,11 @@ export default function BusinessSignUp() {
                 : 'bg-zinc-400'
             }`}
           >
-            <Text className="text-white text-center">Next</Text>
+            <View style={styles.nextContainer}>
+            <Text style={styles.nextLink}>Next</Text>
+            </View>
           </TouchableOpacity>
+          
         </>
       )}
 
@@ -307,6 +336,140 @@ export default function BusinessSignUp() {
           </View>
         </>
       )}
-    </View>
+      </View>
+    </ScrollView>
+    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
+
+
+const styles = StyleSheet.create({
+  // for all elements on page
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 5,
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: Purple,
+    paddingHorizontal: 20,
+  },
+  // buttons
+  backButton: {
+    position: 'absolute',
+    top: 55,
+    left: 18,
+    backgroundColor: Yellow,
+    borderRadius: 20,
+    padding: 8,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    zIndex: 10,
+  },
+  // texts:
+  header:{
+      color: 'white',
+      textAlign:'center',
+      fontWeight: 'bold',
+      fontSize: 24,
+      marginBottom: 15,
+  },
+  descText:{
+      color:'white',
+      textAlign:'center',
+      fontWeight: 'bold',
+      fontSize: 15,
+      marginBottom: 10,
+  },
+  stepText:{
+    color:Yellow,
+    textAlign:'center',
+    fontWeight: 'bold',
+    fontSize: 15,
+    marginBottom: 5,
+},
+
+  // input elements
+  input: {
+    width: "95%",
+    alignSelf: "center",
+    borderWidth: 1,
+    borderColor: Yellow,
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 12,
+    backgroundColor: '#95518F', // lighter purple, slightly lighter than bg
+    color: '#000', // ensure text is visible
+    maxWidth: maxWidth,
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Yellow,
+    borderRadius: 8,
+    backgroundColor: '#95518F', // slightly lighter than bg
+    marginBottom: 12,
+    paddingHorizontal: 10,
+    width: '95%',
+    alignSelf: 'center',
+    maxWidth: maxWidth,
+  },
+  icon: {
+    marginRight: 8,
+    color: Yellow,
+  },
+  inputField: {
+    flex: 1,
+    paddingVertical: 12,
+    color: '#fff',
+    maxWidth: maxWidth,
+  },
+
+  // sign in elements
+  signInButton: {
+    width: "95%",
+    alignSelf: "center",
+    backgroundColor: Yellow,
+    paddingVertical: 12,
+    borderRadius: 8,
+    marginTop: 5,
+    marginBottom: 15,
+    alignItems: 'center',
+    maxWidth: maxWidth,
+  },
+  signInButtonText: {
+    color: '#000',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
+  // sign up 
+  nextContainer: {
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  nextText: {
+    color: 'white',
+    fontSize: 14,
+  },
+  nextLink: {
+    color: Yellow,
+    fontWeight: 'bold',
+  },
+
+  // footer
+  footerText: {
+    position: 'absolute',
+    fontWeight: 'bold',
+    bottom: 30,
+    alignSelf: 'center',
+    fontSize: 14,
+    color: 'white', 
+  },
+})
