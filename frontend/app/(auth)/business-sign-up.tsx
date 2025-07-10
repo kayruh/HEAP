@@ -16,15 +16,13 @@ const Grey = '#708090';
 const LIGHT_PURPLE_BORDER = 'rgba(208, 155, 206, 0.4)' // for tags
 
 // ----------  PRE-SET TAGS ----------
-const PRESET_TAGS = [
+const PRESET_TAGS = [ // keep in multiples of 3
   'Cafe',
   'Bakery',
   'Art',
   'Performance',
-  'Singing',
   'Clothing',
   'Nails',
-  'Cosmetic',
   'Food truck',
   'Handmade',
   'Home-based',
@@ -44,16 +42,18 @@ const TagChip: React.FC<TagChipProps> = ({ tag, selected, onPress }) => (
   <TouchableOpacity
     onPress={onPress}
     activeOpacity={0.8}
-    style={{paddingHorizontal: 16,
-      paddingVertical: 8,
-      borderRadius: 9999, // fully rounded
+    style={{
+      flexBasis: '30%', // ⬅️ ensures 3 per row (adjust to 48% for 2 per row)
+      paddingHorizontal: 12,
+      paddingVertical: 10,
+      borderRadius: 9999,
       flexDirection: 'row',
       alignItems: 'center',
-      marginRight: 8,
-      marginBottom: 8,
+      justifyContent: 'center',
+      marginBottom: 10,
       borderWidth: selected ? 0 : 1,
       borderColor: selected ? 'transparent' : LIGHT_PURPLE_BORDER,
-      backgroundColor: selected ? Yellow : 'transparent'}}   // keeps wrap-gap consistent
+      backgroundColor: selected ? Yellow : 'transparent'}}
   >
     {selected && (
       <Check size={14} color='#8B4789' strokeWidth={3} style={{ marginRight: 4 }} />
@@ -206,17 +206,17 @@ export default function BusinessSignUp() {
           <TouchableOpacity
             disabled={!businessName || selectedTags.length === 0}
             onPress={() => setStep(2)}
-            className={`py-3 rounded-xl mt-auto ${
-              businessName && selectedTags.length
-                ? 'bg-black'
-                : 'bg-zinc-400'
-            }`}
+            style={[
+              styles.nextButton,
+              {backgroundColor:
+                  businessName && selectedTags.length > 0 ? Yellow : 'rgba(161, 161, 170, 0.5)', // translucent grey
+              },
+            ]}
           >
             <View style={styles.nextContainer}>
-            <Text style={styles.nextLink}>Next</Text>
+              <Text style={styles.nextLink}>Next</Text>
             </View>
           </TouchableOpacity>
-          
         </>
       )}
 
@@ -394,7 +394,7 @@ const styles = StyleSheet.create({
       textAlign:'center',
       fontWeight: 'bold',
       fontSize: 24,
-      marginBottom: 15,
+      marginBottom: 10,
   },
   descText:{
       color:'white',
@@ -407,8 +407,8 @@ const styles = StyleSheet.create({
     color:Yellow,
     textAlign:'center',
     fontWeight: 'bold',
-    fontSize: 15,
-    marginBottom: 5,
+    fontSize: 17,
+    marginBottom: 10,
 },
 
   // input elements
@@ -447,39 +447,26 @@ const styles = StyleSheet.create({
     color: '#fff',
     maxWidth: maxWidth,
   },
-
-  // sign in elements
-  signInButton: {
+ 
+  nextButton: {
+    paddingVertical: 12,
+    borderRadius: 16,
+    marginTop: 20,
     width: "95%",
     alignSelf: "center",
     backgroundColor: Yellow,
-    paddingVertical: 12,
-    borderRadius: 8,
-    marginTop: 5,
     marginBottom: 15,
     alignItems: 'center',
     maxWidth: maxWidth,
   },
-  signInButtonText: {
+  nextContainer: {
+    alignItems: 'center',
+  },
+  nextLink: {
     color: '#000',
     fontWeight: 'bold',
     fontSize: 16,
   },
-
-  // sign up 
-  nextContainer: {
-    alignItems: 'center',
-    marginTop: 16,
-  },
-  nextText: {
-    color: 'white',
-    fontSize: 14,
-  },
-  nextLink: {
-    color: Yellow,
-    fontWeight: 'bold',
-  },
-
   // footer
   footerText: {
     position: 'absolute',
