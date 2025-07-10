@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     },
     userGreeting:{
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 20,
         marginBottom: 8,
         color: Yellow,
     },
