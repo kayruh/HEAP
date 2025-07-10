@@ -49,18 +49,47 @@ const editProfile = () => {
         }
     };
     
-    const handleSaveChanges = () => {
-    // Call API or update local state ?????
-    console.log({
-        name,
-        username,
-        gender,
-        birthday,
-        avatar,
-    })
-    
-        alert('Changes saved!')
-    };
+
+  const handleSaveChanges = async () => {
+    console.log(user?.unsafeMetadata)
+    try {
+      // 1️⃣ Update first name
+      if (name && name !== user?.firstName) {
+        await user?.update({ firstName: name })
+      }
+
+      if (gender) {
+        await user?.update({
+          unsafeMetadata: {
+            ...user.unsafeMetadata,
+            gender: gender
+          }
+        })
+      }
+      // 2️⃣ Update DOB in unsafeMetadata (merging existing fields)
+      if (birthday) {
+        await user?.update({
+          unsafeMetadata: {
+            ...user.unsafeMetadata,
+            DOB: birthday.toISOString(),
+          }
+        })
+      }
+
+      // 3️⃣ Upload new avatar if it’s changed
+      if (avatar && avatar !== user?.imageUrl) {
+        // fetch the URI and convert to Blob
+        const response = await fetch(avatar)
+        const blob = await response.blob()
+        await user?.setProfileImage({ file: blob })
+      }
+
+      alert('Profile updated successfully!')
+    } catch (err) {
+      console.error('Error updating profile:', err)
+      alert('Failed to update profile.')
+    }
+  }
     
       return (
         <SafeAreaView style={{ flex: 1 }}>
