@@ -57,7 +57,11 @@ export default function SettingsScreen() {
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => router.push('/(auth)/sign-up')}>
-                            <Text style={styles.menuText}>Sign Up</Text>
+                            <Text style={styles.menuText}>Sign Up {'\n'}</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => router.push('/(auth)/business-sign-up')}>
+                            <Text style={styles.menuText}>Business Sign Up</Text>
                         </TouchableOpacity>
                     </SignedOut>
                 </TouchableOpacity>
