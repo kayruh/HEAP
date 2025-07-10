@@ -13,18 +13,21 @@ const Yellow = '#F0E68C';
 const Purple = '#8B4789';
 const Grey = '#708090';
 
+const LIGHT_PURPLE_BORDER = 'rgba(208, 155, 206, 0.4)' // for tags
+
 // ----------  PRE-SET TAGS ----------
 const PRESET_TAGS = [
-  'cafe',
-  'bakery',
-  'art',
-  'performance',
-  'singing',
-  'clothing',
-  'nails',
-  'food truck',
-  'handmade',
-  'home-based',
+  'Cafe',
+  'Bakery',
+  'Art',
+  'Performance',
+  'Singing',
+  'Clothing',
+  'Nails',
+  'Cosmetic',
+  'Food truck',
+  'Handmade',
+  'Home-based',
 ];
 
 /* ------------------------------------------------------------------ */
@@ -41,15 +44,24 @@ const TagChip: React.FC<TagChipProps> = ({ tag, selected, onPress }) => (
   <TouchableOpacity
     onPress={onPress}
     activeOpacity={0.8}
-    className={`px-4 py-2 rounded-full flex-row items-center
-      ${selected ? 'bg-indigo-600' : 'border border-zinc-400'}
-    `}
-    style={{ marginRight: 8, marginBottom: 8 }}   // keeps wrap-gap consistent
+    style={{paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: 9999, // fully rounded
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginRight: 8,
+      marginBottom: 8,
+      borderWidth: selected ? 0 : 1,
+      borderColor: selected ? 'transparent' : LIGHT_PURPLE_BORDER,
+      backgroundColor: selected ? Yellow : 'transparent'}}   // keeps wrap-gap consistent
   >
     {selected && (
-      <Check size={14} color="white" strokeWidth={3} style={{ marginRight: 4 }} />
+      <Check size={14} color='#8B4789' strokeWidth={3} style={{ marginRight: 4 }} />
     )}
-    <Text className={selected ? 'text-white font-medium' : Yellow}>
+    <Text style={{ 
+      color: selected ? '#8B4789' : '#F0E68C', 
+      fontWeight: selected ? '700' : '500' 
+    }}>
       {tag}
     </Text>
   </TouchableOpacity>
@@ -165,6 +177,7 @@ export default function BusinessSignUp() {
           <View style={styles.inputWrapper}>
           <TextInput
             placeholder="Business name"
+            placeholderTextColor={'white'}
             value={businessName}
             onChangeText={setBusinessName}
             style={styles.inputField}
@@ -174,7 +187,11 @@ export default function BusinessSignUp() {
           <Text style={styles.descText}>Choose tags</Text>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap' }}
+            contentContainerStyle={{ flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between', // ⬅️ space out tags evenly across the row
+              paddingHorizontal: 8, 
+              paddingTop: 5 }}
           >
             {PRESET_TAGS.map((tag) => (
               <TagChip
@@ -414,7 +431,7 @@ const styles = StyleSheet.create({
     borderColor: Yellow,
     borderRadius: 8,
     backgroundColor: '#95518F', // slightly lighter than bg
-    marginBottom: 12,
+    marginBottom: 20,
     paddingHorizontal: 10,
     width: '95%',
     alignSelf: 'center',
