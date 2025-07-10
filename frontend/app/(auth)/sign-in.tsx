@@ -54,7 +54,7 @@ export default function Page() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-        <Ionicons name="arrow-back" size={20} color="#fff"/>
+        <Ionicons name="arrow-back" size={20} color="#000"/>
       </TouchableOpacity>
 
       <KeyboardAvoidingView
@@ -85,7 +85,7 @@ export default function Page() {
               autoCapitalize="none"
               value={username}
               placeholder="Enter username"
-              placeholderTextColor={'grey'} // so dark/light mode can see
+              placeholderTextColor={'white'} // so dark/light mode can see
               onChangeText={(username) => setUsername(username)}
               style={styles.inputField}
             />
@@ -96,7 +96,7 @@ export default function Page() {
             <TextInput
               value={password}
               placeholder="Enter password"
-              placeholderTextColor={'grey'} // so dark/light mode can see
+              placeholderTextColor={'white'} // so dark/light mode can see
               secureTextEntry={true}
               onChangeText={(password) => setPassword(password)}
               style={styles.inputField}
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: Yellow,
+    backgroundColor: Purple,
     paddingHorizontal: 20,
   },
   // buttons
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 55,
     left: 18,
-    backgroundColor: '#852333', // same color as FYND text in banner. or #6E1725 for bg banner color
+    backgroundColor: Yellow,
     borderRadius: 20,
     padding: 8,
     elevation: 3,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   },
   // texts:
   header:{
-      color:'#000',
+      color: 'white',
       textAlign:'center',
       fontWeight: 'bold',
       fontSize: 24,
@@ -176,11 +176,11 @@ const styles = StyleSheet.create({
     width: "95%",
     alignSelf: "center",
     borderWidth: 1,
-    borderColor: '#6E1725', // example: deep red like your FYND button
+    borderColor: Yellow,
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,
-    backgroundColor: '#ECD3A3', // make it slightly lighter/darker than bg
+    backgroundColor: '#95518F', // lighter purple, slightly lighter than bg
     color: '#000', // ensure text is visible
     maxWidth: maxWidth,
   },
@@ -188,9 +188,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#6E1725',
+    borderColor: Yellow,
     borderRadius: 8,
-    backgroundColor: '#ECD3A3',
+    backgroundColor: '#95518F', // slightly lighter than bg
     marginBottom: 12,
     paddingHorizontal: 10,
     width: '95%',
@@ -199,12 +199,12 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 8,
-    color:'#a84c3a',
+    color: Yellow,
   },
   inputField: {
     flex: 1,
     paddingVertical: 12,
-    color: '#000',
+    color: '#fff',
     maxWidth: maxWidth,
   },
 
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   signInButton: {
     width: "95%",
     alignSelf: "center",
-    backgroundColor: '#6E1725', // same as your border color for consistency
+    backgroundColor: Yellow,
     paddingVertical: 12,
     borderRadius: 8,
     marginTop: 5,
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     maxWidth: maxWidth,
   },
   signInButtonText: {
-    color: '#F4DFB2',
+    color: '#000',
     fontWeight: 'bold',
     fontSize: 16,
   },
@@ -232,11 +232,11 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   signUpText: {
-    color: '#000',
+    color: 'white',
     fontSize: 14,
   },
   signUpLink: {
-    color: '#852333',
+    color: Yellow,
     fontWeight: 'bold',
   },
 
@@ -247,6 +247,6 @@ const styles = StyleSheet.create({
     bottom: 30,
     alignSelf: 'center',
     fontSize: 14,
-    color: '#000', // black
+    color: 'white', 
   },
 })
