@@ -53,8 +53,8 @@ export default function Page() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/settings')}>
-        <Ionicons name="arrow-back" size={20} color="#fff" />
+      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <Ionicons name="arrow-back" size={20} color="#fff"/>
       </TouchableOpacity>
 
       <KeyboardAvoidingView
@@ -123,6 +123,10 @@ export default function Page() {
     </SafeAreaView>
   )
 }
+
+export const screenOptions = {
+  animation: 'slide_from_left',
+};
 
 const styles = StyleSheet.create({
   // for all elements on page

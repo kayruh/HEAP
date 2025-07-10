@@ -52,12 +52,13 @@ export default function SettingsScreen() {
                         <SignOutButton/>
                     </SignedIn>
                     <SignedOut>
-                        <Link href="/(auth)/sign-in">
+                        <TouchableOpacity onPress={() => router.push('/(auth)/sign-in')}>
                             <Text style={styles.menuText}>Sign In {'\n'}</Text>
-                        </Link>
-                        <Link href="/(auth)/sign-up">
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => router.push('/(auth)/sign-up')}>
                             <Text style={styles.menuText}>Sign Up</Text>
-                        </Link>
+                        </TouchableOpacity>
                     </SignedOut>
                 </TouchableOpacity>
 

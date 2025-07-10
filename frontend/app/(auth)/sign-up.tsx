@@ -149,7 +149,7 @@ export default function SignUpScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/settings')}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={20} color="#fff" />
         </TouchableOpacity>
       <>
