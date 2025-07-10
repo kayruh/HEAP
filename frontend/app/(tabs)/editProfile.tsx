@@ -24,7 +24,12 @@ const editProfile = () => {
     // user info
     const [name, setName] = React.useState('');
     const [username, setUsername] = React.useState('');
-    const [birthday, setBirthday] = React.useState<Date | null>(null);
+    
+    const [birthday, setBirthday] = React.useState<Date | null>(
+      user?.unsafeMetadata?.DOB
+    ? new Date(user.unsafeMetadata.DOB as string)
+    : null
+    );
     const [gender, setGender] = React.useState('');
     const [showDatePicker, setShowDatePicker] = React.useState(false)
     const [avatar, setAvatar] = React.useState(user?.imageUrl)
@@ -53,6 +58,7 @@ const editProfile = () => {
         birthday,
         avatar,
     })
+    
         alert('Changes saved!')
     };
     
