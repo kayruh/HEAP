@@ -24,7 +24,12 @@ const editProfile = () => {
     // user info
     const [name, setName] = React.useState('');
     const [username, setUsername] = React.useState('');
-    const [birthday, setBirthday] = React.useState<Date | null>(null);
+    
+    const [birthday, setBirthday] = React.useState<Date | null>(
+      user?.unsafeMetadata?.DOB
+    ? new Date(user.unsafeMetadata.DOB as string)
+    : null
+    );
     const [gender, setGender] = React.useState('');
     const [showDatePicker, setShowDatePicker] = React.useState(false)
     const [avatar, setAvatar] = React.useState(user?.imageUrl)
@@ -44,17 +49,47 @@ const editProfile = () => {
         }
     };
     
-    const handleSaveChanges = () => {
-    // Call API or update local state ?????
-    console.log({
-        name,
-        username,
-        gender,
-        birthday,
-        avatar,
-    })
-        alert('Changes saved!')
-    };
+
+  const handleSaveChanges = async () => {
+    console.log(user?.unsafeMetadata)
+    try {
+      // 1️⃣ Update first name
+      if (name && name !== user?.firstName) {
+        await user?.update({ firstName: name })
+      }
+
+      if (gender) {
+        await user?.update({
+          unsafeMetadata: {
+            ...user.unsafeMetadata,
+            gender: gender
+          }
+        })
+      }
+      // 2️⃣ Update DOB in unsafeMetadata (merging existing fields)
+      if (birthday) {
+        await user?.update({
+          unsafeMetadata: {
+            ...user.unsafeMetadata,
+            DOB: birthday.toISOString(),
+          }
+        })
+      }
+
+      // 3️⃣ Upload new avatar if it’s changed
+      if (avatar && avatar !== user?.imageUrl) {
+        // fetch the URI and convert to Blob
+        const response = await fetch(avatar)
+        const blob = await response.blob()
+        await user?.setProfileImage({ file: blob })
+      }
+
+      alert('Profile updated successfully!')
+    } catch (err) {
+      console.error('Error updating profile:', err)
+      alert('Failed to update profile.')
+    }
+  }
     
       return (
         <SafeAreaView style={{ flex: 1 }}>

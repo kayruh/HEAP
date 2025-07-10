@@ -38,15 +38,25 @@ const UserProfile = () => {
           {/* User Info Rows */}
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>NAME</Text>
-            <Text style={styles.infoValue}>:</Text>
+            <Text style={styles.infoValue}>{user?.firstName}</Text>
           </View>
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>BIRTHDAY</Text>
-            <Text style={styles.infoValue}>:</Text>
+            <Text style={styles.infoValue}>{user?.unsafeMetadata?.DOB
+              ? new Date(String(user.unsafeMetadata.DOB))
+                  .toLocaleDateString('en-GB', {
+                    day:   'numeric',
+                    month: 'long',
+                    year:  'numeric',
+                  })
+              : 'Not set'
+            }</Text>
           </View>
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>GENDER</Text>
-            <Text style={styles.infoValue}>:</Text>
+            <Text style={styles.infoValue}>{user?.unsafeMetadata?.gender 
+     ? String(user.unsafeMetadata.gender) 
+     : 'Not set'}</Text>
           </View>
 
           <Text style={styles.editProfileButton} onPress={() => router.push('/editProfile')}>Edit profile</Text>
