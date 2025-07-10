@@ -9,6 +9,11 @@ import { Platform } from 'react-native'
 
 const maxWidth= 300; // for styling
 
+const Green = '#556B2F'; // colors
+const Yellow = '#F0E68C';
+const Purple = '#8B4789';
+const Grey = '#708090';
+
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
   const router = useRouter()
@@ -84,8 +89,8 @@ export default function SignUpScreen() {
 
     return (
       <SafeAreaView style={styles.safeArea}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/sign-up')}>
-          <Ionicons name="arrow-back" size={20} color="#fff" />
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={20} color="#000" />
         </TouchableOpacity>
 
         <>
@@ -101,7 +106,7 @@ export default function SignUpScreen() {
           <View style={styles.container}>
             {/* style this (verify email text) !! */}
             <Text style={{textAlign:'center', fontWeight:'bold', 
-                            fontSize:15, marginBottom: 15}}>Verify your email</Text> 
+                            fontSize:15, marginBottom: 15, color:'#fff'}}>Verify your email</Text> 
 
             {/* same as sign in/up pages input style */}
             <View style={styles.inputWrapper}> 
@@ -150,7 +155,7 @@ export default function SignUpScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={20} color="#fff" />
+          <Ionicons name="arrow-back" size={20} color="#000" />
         </TouchableOpacity>
       <>
 
@@ -172,7 +177,7 @@ export default function SignUpScreen() {
               autoCapitalize="none"
               value={emailAddress}
               placeholder="Enter email"
-              placeholderTextColor={'grey'} // so dark/light mode can see
+              placeholderTextColor={'white'} // so dark/light mode can see
               onChangeText={(email) => setEmailAddress(email)}
               style={styles.inputField}
             />
@@ -184,7 +189,7 @@ export default function SignUpScreen() {
               autoCapitalize="none"
               value={username}
               placeholder="Enter username"
-              placeholderTextColor={'grey'} // so dark/light mode can see
+              placeholderTextColor={'white'} // so dark/light mode can see
               onChangeText={(username) => setUsername(username)}
               style={styles.inputField}
             />
@@ -195,7 +200,7 @@ export default function SignUpScreen() {
             <TextInput
               value={password}
               placeholder="Enter password"
-              placeholderTextColor={'grey'} // so dark/light mode can see
+              placeholderTextColor={'white'} // so dark/light mode can see
               secureTextEntry={true}
               onChangeText={(password) => setPassword(password)}
               style={styles.inputField}
@@ -241,7 +246,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: '#F4DFB2', // background colour
+    backgroundColor: Purple, // background colour
     paddingTop: 40,
     paddingHorizontal: '5%',
     position: 'relative',
@@ -251,7 +256,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 55,
     left: 18,
-    backgroundColor: '#852333', // same color as FYND text in banner. or #6E1725 for bg banner color
+    backgroundColor: Yellow,
     borderRadius: 20,
     padding: 8,
     elevation: 3,
@@ -263,14 +268,14 @@ const styles = StyleSheet.create({
   },
   // texts:
   header:{
-      color:'#000',
+      color:'#fff', //white
       textAlign:'center',
       fontWeight: 'bold',
       fontSize: 24,
       marginBottom: 20,
   },
   descText:{
-      color:'#000',
+      color:'#fff',
       textAlign:'center',
       fontWeight: 'bold',
       fontSize: 15,
@@ -283,20 +288,20 @@ const styles = StyleSheet.create({
     maxWidth: maxWidth,
     alignSelf: "center",
     borderWidth: 1,
-    borderColor: '#6E1725', // example: deep red like your FYND button
+    borderColor: Yellow, // example: deep red like your FYND button
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,
-    backgroundColor: '#ECD3A3', // make it slightly lighter/darker than bg
+    backgroundColor: '#95518F', // make it slightly lighter/darker than bg
     color: '#000', // ensure text is visible
   },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#6E1725',
+    borderColor: Yellow,
     borderRadius: 8,
-    backgroundColor: '#ECD3A3',
+    backgroundColor: '#95518F',
     marginBottom: 12,
     paddingHorizontal: 10,
     width: '95%',
@@ -305,12 +310,12 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 8,
-    color:'#a84c3a',
+    color:Yellow,
   },
   inputField: {
     flex: 1,
     paddingVertical: 12,
-    color: '#000',
+    color: '#fff',
     maxWidth: maxWidth,
   },
 
@@ -319,7 +324,7 @@ const styles = StyleSheet.create({
     width: "95%",
     maxWidth: maxWidth, // means button wont span whole screen
     alignSelf: "center",
-    backgroundColor: '#6E1725', // same as your border color for consistency
+    backgroundColor: Yellow,
     paddingVertical: 12,
     borderRadius: 8,
     marginTop: 5,
@@ -327,7 +332,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signUpButtonText: {
-    color: '#F4DFB2',
+    color: '#000',
     fontWeight: 'bold',
     fontSize: 16,
   },
@@ -338,11 +343,11 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   othersText: {
-    color: '#000',
+    color: '#fff',
     fontSize: 14,
   },
   otherLink: {
-    color: '#852333',
+    color: Yellow,
     fontWeight: 'bold',
   },
 
@@ -353,7 +358,7 @@ const styles = StyleSheet.create({
     bottom: 30,
     alignSelf: 'center',
     fontSize: 14,
-    color: '#000', // black
+    color: '#fff', // white
   },
 
   // verification
@@ -361,7 +366,7 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#F4F5FB',
+    backgroundColor: Purple,
   },
   vtitle: {
     fontSize: 22,
@@ -384,7 +389,7 @@ const styles = StyleSheet.create({
     lineHeight: 60,
     fontSize: 24,
     borderWidth: 2,
-    borderColor: '#3F51B5',
+    borderColor: Yellow,
     textAlign: 'center',
     borderRadius: 8,
     marginHorizontal: 5,
@@ -394,7 +399,7 @@ const styles = StyleSheet.create({
   },
   vcellText: {
     fontSize: 24,
-    color: '#000',
+    color: '#fff',
   },
   vfocusCell: {
     borderColor: '#007AFF',
