@@ -152,6 +152,7 @@ export default function BusinessSignUp() {
   /* =======================  RENDER  ======================= */
   return (
     <SafeAreaView style={styles.safeArea}>
+      {/* this back arrow stays in all pages, ??? decide what to do */}
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <Ionicons name="arrow-back" size={20} color="#000"/>
       </TouchableOpacity>
@@ -191,7 +192,8 @@ export default function BusinessSignUp() {
               flexWrap: 'wrap',
               justifyContent: 'space-between', // ⬅️ space out tags evenly across the row
               paddingHorizontal: 8, 
-              paddingTop: 5 }}
+              paddingTop: 5,
+              paddingBottom: 10, }}
           >
             {PRESET_TAGS.map((tag) => (
               <TagChip
@@ -209,7 +211,7 @@ export default function BusinessSignUp() {
             style={[
               styles.nextButton,
               {backgroundColor:
-                  businessName && selectedTags.length > 0 ? Yellow : 'rgba(161, 161, 170, 0.5)', // translucent grey
+                  businessName && selectedTags.length > 0 ? Yellow : 'rgba(161, 161, 170, 0.3)', // translucent grey
               },
             ]}
           >
@@ -223,52 +225,72 @@ export default function BusinessSignUp() {
       {/* ---------- STEP 2 ---------- */}
       {step === 2 && (
         <>
-          <Text className="text-xl font-bold mb-2">Location</Text>
+          <Text style={styles.descText}>Location</Text>
 
+          <View style={styles.inputWrapper}>
           <TextInput
             placeholder="Google Maps link"
+            placeholderTextColor={'white'}
             value={googleMapsLink}
             onChangeText={setGoogleMapsLink}
-            className="border rounded-xl p-3 mb-3"
+            style={styles.inputField}
           />
+          </View>
+
+          <View style={styles.inputWrapper}>
           <TextInput
             placeholder="Street name"
+            placeholderTextColor={'white'}
             value={streetName}
             onChangeText={setStreetName}
-            className="border rounded-xl p-3 mb-3"
+            style={styles.inputField}
           />
+          </View>
+
+          <View style={styles.inputWrapper}>
           <TextInput
             placeholder="Street No"
+            placeholderTextColor={'white'}
             value={streetNo}
             onChangeText={setStreetNo}
-            className="border rounded-xl p-3 mb-3"
+            style={styles.inputField}
           />
+          </View>
+
+          <View style={styles.inputWrapper}>
           <TextInput
             placeholder="Unit No"
+            placeholderTextColor={'white'}
             value={unitNo}
             onChangeText={setUnitNo}
-            className="border rounded-xl p-3 mb-3"
+            style={styles.inputField}
           />
+          </View>
+
+          <View style={styles.inputWrapper}>
           <TextInput
-            placeholder="Postal"
+            placeholder="Postal code"
+            placeholderTextColor={'white'}
             value={postal}
             onChangeText={setPostal}
-            className="border rounded-xl p-3 mb-6"
-          />
+            style={styles.inputField}
+          />          
+          </View>
 
-          <View className="flex-row justify-between">
+
+          <View>
             <TouchableOpacity
-              className="py-3 px-6 rounded-xl border"
+              style={styles.nextButton}
               onPress={() => setStep(1)}
             >
-              <Text>Back</Text>
+              <Text style={styles.nextLink}>Back</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              className="bg-black py-3 px-6 rounded-xl"
+              style={styles.nextButton}
               onPress={() => setStep(3)}
             >
-              <Text className="text-white">Next</Text>
+              <Text style={styles.nextLink}>Next</Text>
             </TouchableOpacity>
           </View>
         </>
@@ -277,43 +299,58 @@ export default function BusinessSignUp() {
       {/* ---------- STEP 3 ---------- */}
       {step === 3 && (
         <>
-          <Text className="text-xl font-bold mb-2">Account credentials</Text>
+          <Text style={styles.descText}>Account credentials</Text>
 
+          <View style={styles.inputWrapper}>
+          <Ionicons name="mail-outline" size={20} style={styles.icon}/>
           <TextInput
             placeholder="Email"
+            placeholderTextColor={'white'}
             value={email}
             autoCapitalize="none"
             onChangeText={setEmail}
-            className="border rounded-xl p-3 mb-3"
+            style={styles.inputField}
           />
+          </View>
+
+          <View style={styles.inputWrapper}>
+          <Ionicons name="at-outline" size={20} style={styles.icon}/>
           <TextInput
             placeholder="Username"
+            placeholderTextColor={'white'}
             value={username}
             autoCapitalize="none"
             onChangeText={setUsername}
-            className="border rounded-xl p-3 mb-3"
+            style={styles.inputField}
           />
+          </View>
+
+          <View style={styles.inputWrapper}>
+          <Ionicons name="key-outline" size={20} style={styles.icon} />
           <TextInput
             placeholder="Password"
+            placeholderTextColor={'white'}
             value={password}
             secureTextEntry
             onChangeText={setPassword}
-            className="border rounded-xl p-3 mb-6"
+            style={styles.inputField}
           />
+          </View>
 
-          <View className="flex-row justify-between">
+
+          <View>
             <TouchableOpacity
-              className="py-3 px-6 rounded-xl border"
+              style={styles.nextButton}
               onPress={() => setStep(2)}
             >
-              <Text>Back</Text>
+              <Text style={styles.nextLink}>Back</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              className="bg-black py-3 px-6 rounded-xl"
+              style={styles.nextButton}
               onPress={handleCredentialsSubmit}
             >
-              <Text className="text-white">
+              <Text style={styles.nextLink}>
                 {loading ? '...' : 'Send code'}
               </Text>
             </TouchableOpacity>
@@ -324,29 +361,32 @@ export default function BusinessSignUp() {
       {/* ---------- STEP 4 ---------- */}
       {step === 4 && (
         <>
-          <Text className="text-xl font-bold mb-2">Verify your email</Text>
+          <Text style={styles.descText}>Verify your email</Text>
 
+          <View style={styles.inputWrapper}>
           <TextInput
             placeholder="6-digit code"
+            placeholderTextColor={'white'}
             value={code}
             keyboardType="numeric"
             onChangeText={setCode}
-            className="border rounded-xl p-3 mb-6 tracking-widest"
+            style={styles.inputField}
           />
+          </View>
 
-          <View className="flex-row justify-between">
+          <View>
             <TouchableOpacity
-              className="py-3 px-6 rounded-xl border"
+              style={styles.nextButton}
               onPress={() => setStep(3)}
             >
-              <Text>Back</Text>
+              <Text style={styles.nextLink}>Back</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              className="bg-black py-3 px-6 rounded-xl"
+              style={styles.nextButton}
               onPress={handleVerify}
             >
-              <Text className="text-white">
+              <Text style={styles.nextLink}>
                 {loading ? 'Verifying…' : 'Verify & finish'}
               </Text>
             </TouchableOpacity>
@@ -450,9 +490,9 @@ const styles = StyleSheet.create({
  
   nextButton: {
     paddingVertical: 12,
-    borderRadius: 16,
-    marginTop: 20,
-    width: "95%",
+    borderRadius: 20,
+    marginTop: 5,
+    width: "30%",
     alignSelf: "center",
     backgroundColor: Yellow,
     marginBottom: 15,
