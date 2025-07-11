@@ -59,7 +59,7 @@ const _layout = () => {
     name='businessProfile' // hiding biz profile frm navigation tab
     options={{title:'Profile_B',
         headerShown:false,
-        href: null,
+        tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />
     }}
     />
     <Tabs.Screen 
