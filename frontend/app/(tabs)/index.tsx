@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import { Dimensions } from 'react-native'
 import { StatusBar } from 'react-native'
 import FyndBanner from '@/components/fyndBanner'
+import MapView from 'react-native-maps';
 
 const SLOGAN = '   GET LOST FYND MORE   '.repeat(20) 
 
@@ -49,9 +50,20 @@ export default function index() {
           </View>
 
           {/* Main Content */}
-          <View style={styles.body}>
+          {/* <View style={styles.body}>
             <Text className='text-center pt-3'>Google maps here</Text>
-            
+          </View> */}
+
+          <View style={styles.mapbody}>
+            <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: 1.3521,    // Singapore coordinates
+              longitude: 103.8198,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+            />
           </View>
       </View>
   );
@@ -104,6 +116,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingTop: 12,
     textAlign: 'center',
+  },
+  map: {
+    width: '100%',
+    height: '100%',
+  },
+  mapbody: {
+    flex: 1,
+    backgroundColor: '#ffff',
   },
 });
 
