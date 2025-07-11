@@ -11,20 +11,32 @@ const Yellow = '#F0E68C';
 const Purple = '#8B4789';
 const Grey = '#708090';
 
-export default function FyndBanner() {
+interface FyndBannerProps {
+    backgroundColor?: string;
+    textColor?: string;
+    iconColor?: string;
+  }
+
+export default function FyndBanner({
+    backgroundColor = Green, // default colours
+    textColor = Yellow,       
+    iconColor = Yellow        
+    }: FyndBannerProps) {
+
     const router = useRouter();
+
 
   return (
     <View style={styles.container}>
-        <View style={styles.header}>
+        <View style={[styles.header,{backgroundColor}]}>
                 <TouchableOpacity onPress={() => router.push('/settings')}>
-                    <Ionicons name="menu" size={28} color="#F0E68C"/>
+                    <Ionicons name="menu" size={28} color={iconColor}/>
                 </TouchableOpacity>
 
-                <Text style={styles.headerTitle}>FYND</Text>
+                <Text style={[styles.headerTitle,{color:textColor}]}>FYND</Text>
 
                 <TouchableOpacity onPress={() => router.push('/(tabs)/search')}>
-                    <Ionicons name="search" size={24} color="#F0E68C"/>
+                    <Ionicons name="search" size={24} color={iconColor}/>
                 </TouchableOpacity>
             </View>
     </View>
@@ -37,7 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffff',
     },
     header: {
-        backgroundColor: Green,
+        // backgroundColor: ,
         paddingTop: Platform.OS === 'ios' ? 50 : StatusBar.currentHeight || 30,
         paddingBottom: 10,
         paddingHorizontal: 16,
@@ -46,7 +58,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     headerTitle: {
-        color: Yellow,
+        // color: Yellow,
         fontSize: 28,
         fontWeight: 'bold',
         letterSpacing: 2,

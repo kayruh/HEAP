@@ -3,7 +3,9 @@ import React from 'react'
 import FyndBanner from '@/components/fyndBanner'
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { useUser } from '@clerk/clerk-expo';
+import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
+import ChooseAuth from '@/components/chooseAuth';
+import { SignOutButton } from '@/components/SignOutButton';
 
 // if not logged in, what will this page show?
 
@@ -20,7 +22,7 @@ const UserProfile = () => {
       <View>
         <FyndBanner />
           <ScrollView contentContainerStyle={styles.contentContainer}>
-
+          <SignedIn>
           {/* Profile Picture */}
           <View style={styles.profileImageWrapper}>
             <Image
@@ -32,8 +34,6 @@ const UserProfile = () => {
 
           {/* User Name */}
           <Text style={styles.userName}>@{user?.username}</Text>
-          {/* <Text style={styles.userHandle}>@{user?.username}</Text> */} 
-          {/* ^^ we dont have user's name (only email & username??) */}
 
           {/* User Info Rows */}
           <View style={styles.infoRow}>
@@ -55,15 +55,28 @@ const UserProfile = () => {
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>GENDER</Text>
             <Text style={styles.infoValue}>{user?.unsafeMetadata?.gender 
-     ? String(user.unsafeMetadata.gender) 
-     : 'Not set'}</Text>
+              ? String(user.unsafeMetadata.gender) 
+              : 'Not set'}</Text>
           </View>
 
           <Text style={styles.editProfileButton} onPress={() => router.push('/editProfile')}>Edit profile</Text>
+          
+          <SignOutButton/>
 
           {/* Privacy & Security Link */}
           <Text style={styles.privacyLink}>PRIVACY & SECURITY</Text>
+
+          </SignedIn>
+
+          <SignedOut>
+            {/* sign in & sign out buttons component */}
+            <View>
+            <ChooseAuth/>
+            </View>
+          </SignedOut>
+
         </ScrollView>
+
 
             </View>
           );
@@ -204,17 +217,24 @@ const styles = StyleSheet.create({
     color: '#000',
     textAlign: 'left',
     width: '80%',
+    marginBottom: 20,
   },
   editProfileButton: {
     color: Green,
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 16,
     marginTop: 20,
     // borderRadius:22,
     // backgroundColor: 'red', 
     // padding:10, // to make it look like button
   },
-
+  centeredContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    // alignItems: 'center',
+    paddingHorizontal: 20,
+    // backgroundColor: '#fff', // optional, for full white background
+  },
 });
 
 export default UserProfile;

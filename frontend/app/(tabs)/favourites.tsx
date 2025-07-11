@@ -33,8 +33,11 @@ const Favourites = () => {
 
   return (
     <View>
-      <FyndBanner/>
-      <FavouritesScreen/>
+      <FyndBanner 
+        backgroundColor = {Yellow} 
+        textColor = {Green}      
+        iconColor = {Green}/>      
+        <FavouritesScreen/>
 
       {/* Add Button */}
       <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>

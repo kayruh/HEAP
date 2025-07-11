@@ -11,6 +11,11 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width - 40;
 const CAROUSEL_ITEM_WIDTH = width * 0.85;
 
+const Green = '#556B2F'; // colors
+const Yellow = '#F0E68C';
+const Purple = '#8B4789';
+const Grey = '#708090';
+
 // replace following data with database data (events)
 // dynamically code events
 // WHATS HOT events:
@@ -84,7 +89,10 @@ const browse = () => {
   return (
     <View>
       <StatusBar barStyle="dark-content" backgroundColor="#ffff" />
-      <FyndBanner />
+      <FyndBanner 
+        backgroundColor = {Purple} 
+        textColor = {Yellow}      
+        iconColor = {Yellow}/>
     
         <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 
