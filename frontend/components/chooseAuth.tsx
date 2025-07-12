@@ -7,11 +7,6 @@ import FyndColors from './fyndColours';
 
 const maxWidth= 300; // for styling
 
-const Green = '#556B2F'; // colors
-const Yellow = '#F0E68C';
-const Purple = '#8B4789';
-const Grey = '#708090';
-
 const ChooseAuth = () => {
   return (
     <View>
@@ -46,7 +41,7 @@ const styles = StyleSheet.create({
     signInButton: {
         width: "100%",
         alignSelf: "center",
-        backgroundColor: Yellow,
+        backgroundColor: FyndColors.Yellow,
         paddingVertical: 12,
         borderRadius: 8,
         marginTop: 5,

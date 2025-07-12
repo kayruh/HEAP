@@ -64,7 +64,11 @@ export default function SettingsScreen() {
                 </TouchableOpacity>
 
                 {/* click profile -> show sign up & sign in */}
-               <View style={styles.authSection}>
+               
+
+            </ScrollView>
+
+            <View style={styles.authSection}>
                 <SignedOut>
                     <TouchableOpacity onPress={() => router.push('/(auth)/sign-in')} style={styles.authItem}>
                         <Ionicons name="person-outline" size={20} color={FyndColors.Yellow} style={styles.authIcon} />
@@ -82,8 +86,6 @@ export default function SettingsScreen() {
                     </TouchableOpacity>
                 </SignedOut>
             </View>
-
-            </ScrollView>
 
             {/* Footer Slogan */}
             <Text style={styles.footerText}>Get lost, FYND more.</Text>
@@ -137,6 +139,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         borderTopWidth: 1,
         borderTopColor: 'rgba(240, 230, 140, 0.3)', // Semi-transparent yellow
+        marginBottom: 100, // push it above the footer
     },
     authItem: {
         flexDirection: 'row',
