@@ -30,42 +30,27 @@ export default function SettingsScreen() {
 
             {/* Close icon FIX THIS !!!!! cannot be js back */}
             <TouchableOpacity style={styles.closeIcon} onPress={() => router.back()}> 
-                <Ionicons name="close" size={24} color="black"/>
+                <Ionicons name="close" size={24} color='#F0E68C'/>
             </TouchableOpacity>
 
             <ScrollView contentContainerStyle={styles.contentContainer}>
                 {/* Greeting */}
-                <Text style={styles.greeting}>WELCOME TO FYND!</Text>
+                <Text style={styles.greeting}>FYND WHAT FYNDS YOU!</Text>
 
                 {/* Diamond underline */}
                 <View style={styles.underlineWrapper}>
                     <View style={styles.underlineLine} />
-                    <View style={styles.diamond} />
                 </View>
 
                 {/* Menu Items */}
-                {/* click profile -> show sign up & sign in */}
-
-                <TouchableOpacity style={styles.menuItem}>
-                    <SignedIn>
+                <SignedIn>
+                    <TouchableOpacity
+                        style={styles.menuItem}>
                         <Text style={styles.userGreeting}>Hello @{user?.username}</Text>
                         <SignOutButton/>
-                    </SignedIn>
-                    <SignedOut>
-                        <TouchableOpacity onPress={() => router.push('/(auth)/sign-in')}>
-                            <Text style={styles.menuText}>Sign In {'\n'}</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={() => router.push('/(auth)/sign-up')}>
-                            <Text style={styles.menuText}>Sign Up {'\n'}</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={() => router.push('/(auth)/business-sign-up')}>
-                            <Text style={styles.menuText}>Business Sign Up</Text>
-                        </TouchableOpacity>
-                    </SignedOut>
-                </TouchableOpacity>
-
+                    </TouchableOpacity>
+                </SignedIn>
+                
                 <SignedIn>
                     <TouchableOpacity
                         style={styles.menuItem}
@@ -86,13 +71,28 @@ export default function SettingsScreen() {
 
                 <TouchableOpacity style={styles.menuItem} 
                     onPress={() => router.replace('/(tabs)/ourStory')}>
-                    <Text style={styles.menuText}>Our Story</Text>
+                    <Text style={styles.menuText}>FYND Us</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.menuItem} 
-                    onPress={() => router.replace('/(tabs)/contactUs')}>
-                    <Text style={styles.menuText}>Contact Us</Text>
-                </TouchableOpacity>
+                {/* click profile -> show sign up & sign in */}
+               <View style={styles.authSection}>
+                <SignedOut>
+                    <TouchableOpacity onPress={() => router.push('/(auth)/sign-in')} style={styles.authItem}>
+                        <Ionicons name="person-outline" size={20} color={Yellow} style={styles.authIcon} />
+                        <Text style={styles.authText}>Sign In</Text>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity onPress={() => router.push('/(auth)/sign-up')} style={styles.authItem}>
+                        <Ionicons name="person-add-outline" size={20} color={Yellow} style={styles.authIcon} />
+                        <Text style={styles.authText}>Sign Up</Text>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity onPress={() => router.push('/(auth)/business-sign-up')} style={styles.authItem}>
+                        <Ionicons name="business-outline" size={20} color={Yellow} style={styles.authIcon} />
+                        <Text style={styles.authText}>Business Sign Up</Text>
+                    </TouchableOpacity>
+                </SignedOut>
+            </View>
 
             </ScrollView>
 
@@ -143,14 +143,27 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 5,
     },
-    diamond: {
-        width: 8,
-        height: 8,
-        backgroundColor: '#000',
-        transform: [{ rotate: '45deg' }],
-        marginLeft: 5,
-        zIndex: 1,
+    // auth 
+    authSection: {
+        marginTop: 32,
+        paddingTop: 20,
+        borderTopWidth: 1,
+        borderTopColor: 'rgba(240, 230, 140, 0.3)', // Semi-transparent yellow
     },
+    authItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 8,
+    },
+    authIcon: {
+        marginRight: 12,
+    },
+    authText: {
+        fontSize: 16,
+        color: Yellow,
+        fontWeight: '500',
+    },
+    // menu items
     menuItem: {
         marginBottom: 24,
     },
@@ -175,3 +188,5 @@ const styles = StyleSheet.create({
         color: Yellow,
     },
 });
+
+

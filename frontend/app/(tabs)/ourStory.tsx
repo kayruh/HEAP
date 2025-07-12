@@ -30,12 +30,11 @@ const OurStory = () => {
         </View>
 
         {/* Title */}
-        <Text style={styles.title}>OUR STORY</Text>
+        <Text style={styles.title}>FYNDing Our Path</Text>
 
         {/* Diamond underline */}
         <View style={styles.underlineWrapper}>
           <View style={styles.underlineLine} />
-          <View style={styles.diamond} />
         </View>
 
         {/* Story Text */}
