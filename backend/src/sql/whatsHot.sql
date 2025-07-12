@@ -9,7 +9,8 @@ RETURNS TABLE(
   start             timestamptz,
   "end"             timestamptz,
   like_count        bigint,
-  business_username text
+  business_username text,
+  pictures          text[]       -- ← event_photos goes here
 ) AS $$
 WITH event_likes AS (
   SELECT
@@ -18,14 +19,21 @@ WITH event_likes AS (
     e.description,
     e.start,
     e."end",
-    e.username            AS business_username,
-    COUNT(le.*)           AS like_count
+    e.username          AS business_username,
+    COUNT(le.*)         AS like_count,
+    COALESCE(e.event_photos, ARRAY[]::text[]) AS pictures
   FROM "EVENT" e
   LEFT JOIN "LIKE_EVENT" le
     ON le.event = e.uuid
    AND le.created_at > NOW() - (p_days || ' days')::interval
   GROUP BY
-    e.uuid, e.title, e.description, e.start, e."end", e.username
+    e.uuid,
+    e.title,
+    e.description,
+    e.start,
+    e."end",
+    e.username,
+    e.event_photos
 ),
 ranked AS (
   SELECT
@@ -43,7 +51,8 @@ SELECT
   start,
   "end",
   like_count,
-  business_username
+  business_username,
+  pictures
 FROM ranked
 WHERE rn = 1
 ORDER BY like_count DESC

@@ -3,7 +3,7 @@ import { useAuth }from "@clerk/clerk-expo";
 
 
 export const api = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:3000',
+  baseURL: 'http://172.20.10.2:3000',
   headers: { 'Content-Type': 'application/json' },
 });
 
