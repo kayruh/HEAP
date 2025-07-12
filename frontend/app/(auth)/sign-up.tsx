@@ -6,13 +6,9 @@ import { Ionicons } from '@expo/vector-icons'
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { KeyboardAvoidingView } from 'react-native'
 import { Platform } from 'react-native'
+import FyndColors from '@/components/fyndColours';
 
 const maxWidth= 300; // for styling
-
-const Green = '#556B2F'; // colors
-const Yellow = '#F0E68C';
-const Purple = '#8B4789';
-const Grey = '#708090';
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -246,7 +242,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: Purple, // background colour
+    backgroundColor: FyndColors.Purple, // background colour
     paddingTop: 40,
     paddingHorizontal: '5%',
     position: 'relative',
@@ -256,7 +252,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 55,
     left: 18,
-    backgroundColor: Yellow,
+    backgroundColor: FyndColors.Yellow,
     borderRadius: 20,
     padding: 8,
     elevation: 3,
@@ -288,7 +284,7 @@ const styles = StyleSheet.create({
     maxWidth: maxWidth,
     alignSelf: "center",
     borderWidth: 1,
-    borderColor: Yellow, // example: deep red like your FYND button
+    borderColor: FyndColors.Yellow,
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,
@@ -299,7 +295,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: Yellow,
+    borderColor: FyndColors.Yellow,
     borderRadius: 8,
     backgroundColor: '#95518F',
     marginBottom: 12,
@@ -310,7 +306,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 8,
-    color:Yellow,
+    color:FyndColors.Yellow,
   },
   inputField: {
     flex: 1,
@@ -324,7 +320,7 @@ const styles = StyleSheet.create({
     width: "95%",
     maxWidth: maxWidth, // means button wont span whole screen
     alignSelf: "center",
-    backgroundColor: Yellow,
+    backgroundColor: FyndColors.Yellow,
     paddingVertical: 12,
     borderRadius: 8,
     marginTop: 5,
@@ -347,7 +343,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   otherLink: {
-    color: Yellow,
+    color: FyndColors.Yellow,
     fontWeight: 'bold',
   },
 
@@ -366,7 +362,7 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: Purple,
+    backgroundColor: FyndColors.Purple,
   },
   vtitle: {
     fontSize: 22,
@@ -389,7 +385,7 @@ const styles = StyleSheet.create({
     lineHeight: 60,
     fontSize: 24,
     borderWidth: 2,
-    borderColor: Yellow,
+    borderColor: FyndColors.Yellow,
     textAlign: 'center',
     borderRadius: 8,
     marginHorizontal: 5,

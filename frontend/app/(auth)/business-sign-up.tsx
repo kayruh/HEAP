@@ -5,13 +5,9 @@ import { useRouter } from 'expo-router';
 import { Check } from 'lucide-react-native';   // expo install lucide-react-native
 import { Ionicons } from '@expo/vector-icons';
 import { KeyboardAvoidingView } from 'react-native';
+import FyndColors from '@/components/fyndColours';
 
 const maxWidth= 300; // for styling
-
-const Green = '#556B2F'; // colors
-const Yellow = '#F0E68C';
-const Purple = '#8B4789';
-const Grey = '#708090';
 
 const LIGHT_PURPLE_BORDER = 'rgba(208, 155, 206, 0.4)' // for tags
 
@@ -53,7 +49,7 @@ const TagChip: React.FC<TagChipProps> = ({ tag, selected, onPress }) => (
       marginBottom: 10,
       borderWidth: selected ? 0 : 1,
       borderColor: selected ? 'transparent' : LIGHT_PURPLE_BORDER,
-      backgroundColor: selected ? Yellow : 'transparent'}}
+      backgroundColor: selected ? FyndColors.Yellow : 'transparent'}}
   >
     {selected && (
       <Check size={14} color='#8B4789' strokeWidth={3} style={{ marginRight: 4 }} />
@@ -211,7 +207,7 @@ export default function BusinessSignUp() {
             style={[
               styles.nextButton,
               {backgroundColor:
-                  businessName && selectedTags.length > 0 ? Yellow : 'rgba(161, 161, 170, 0.3)', // translucent grey
+                  businessName && selectedTags.length > 0 ? FyndColors.Yellow : 'rgba(161, 161, 170, 0.3)', // translucent grey
               },
             ]}
           >
@@ -410,7 +406,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: Purple,
+    backgroundColor: FyndColors.Purple,
     paddingHorizontal: 20,
   },
   // buttons
@@ -418,7 +414,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 55,
     left: 18,
-    backgroundColor: Yellow,
+    backgroundColor: FyndColors.Yellow,
     borderRadius: 20,
     padding: 8,
     elevation: 3,
@@ -444,7 +440,7 @@ const styles = StyleSheet.create({
       marginBottom: 10,
   },
   stepText:{
-    color:Yellow,
+    color:FyndColors.Yellow,
     textAlign:'center',
     fontWeight: 'bold',
     fontSize: 17,
@@ -456,7 +452,7 @@ const styles = StyleSheet.create({
     width: "95%",
     alignSelf: "center",
     borderWidth: 1,
-    borderColor: Yellow,
+    borderColor: FyndColors.Yellow,
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,
@@ -468,7 +464,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: Yellow,
+    borderColor: FyndColors.Yellow,
     borderRadius: 8,
     backgroundColor: '#95518F', // slightly lighter than bg
     marginBottom: 20,
@@ -479,7 +475,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 8,
-    color: Yellow,
+    color: FyndColors.Yellow,
   },
   inputField: {
     flex: 1,
@@ -494,7 +490,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     width: "30%",
     alignSelf: "center",
-    backgroundColor: Yellow,
+    backgroundColor: FyndColors.Yellow,
     marginBottom: 15,
     alignItems: 'center',
     maxWidth: maxWidth,

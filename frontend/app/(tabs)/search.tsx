@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, FlatList, Pressable,} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import FyndColors from '@/components/fyndColours';
 
 // search page 
-// ????? when pressing close button, go back leads to home page, instead of prev page
 export default function SearchScreen() {
     const router = useRouter();
 

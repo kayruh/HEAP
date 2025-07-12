@@ -6,13 +6,9 @@ import { useRouter } from 'expo-router';
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import ChooseAuth from '@/components/chooseAuth';
 import { SignOutButton } from '@/components/SignOutButton';
+import FyndColors from '@/components/fyndColours';
 
 // if not logged in, what will this page show?
-
-const Green = '#556B2F';
-const Yellow = '#F0E68C';
-const Purple = '#8B4789';
-const Grey = '#708090';
 
 const UserProfile = () => {
     const router = useRouter();
@@ -174,7 +170,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: '#fff',
     borderWidth: 2,
-    borderColor: Purple,
+    borderColor: FyndColors.Purple,
   },
   userName: {
     fontSize: 18,
@@ -220,7 +216,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   editProfileButton: {
-    color: Green,
+    color: FyndColors.Green,
     fontWeight: 'bold',
     fontSize: 16,
     marginTop: 20,

@@ -4,13 +4,9 @@ import { SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet, Plat
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { KeyboardAvoidingView } from 'react-native'
+import FyndColors from '@/components/fyndColours';
 
 const maxWidth= 300; // for styling
-
-const Green = '#556B2F'; // colors
-const Yellow = '#F0E68C';
-const Purple = '#8B4789';
-const Grey = '#708090';
 
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn()
@@ -137,7 +133,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: Purple,
+    backgroundColor: FyndColors.Purple,
     paddingHorizontal: 20,
   },
   // buttons
@@ -145,7 +141,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 55,
     left: 18,
-    backgroundColor: Yellow,
+    backgroundColor: FyndColors.Yellow,
     borderRadius: 20,
     padding: 8,
     elevation: 3,
@@ -176,7 +172,7 @@ const styles = StyleSheet.create({
     width: "95%",
     alignSelf: "center",
     borderWidth: 1,
-    borderColor: Yellow,
+    borderColor: FyndColors.Yellow,
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,
@@ -188,7 +184,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: Yellow,
+    borderColor: FyndColors.Yellow,
     borderRadius: 8,
     backgroundColor: '#95518F', // slightly lighter than bg
     marginBottom: 12,
@@ -199,7 +195,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 8,
-    color: Yellow,
+    color: FyndColors.Yellow,
   },
   inputField: {
     flex: 1,
@@ -212,7 +208,7 @@ const styles = StyleSheet.create({
   signInButton: {
     width: "95%",
     alignSelf: "center",
-    backgroundColor: Yellow,
+    backgroundColor: FyndColors.Yellow,
     paddingVertical: 12,
     borderRadius: 8,
     marginTop: 5,
@@ -236,7 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   signUpLink: {
-    color: Yellow,
+    color: FyndColors.Yellow,
     fontWeight: 'bold',
   },
 
