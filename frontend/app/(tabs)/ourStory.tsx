@@ -3,6 +3,7 @@ import React from 'react';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Linking } from 'react-native';
+import fyndColours from '@/components/fyndColours'; 
 
 const OurStory = () => {
   const router = useRouter();
@@ -17,11 +18,13 @@ const OurStory = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      {/* Cute black back button */}
-      <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/settings')}>
-        <Ionicons name="arrow-back" size={20} color="#fff" />
-      </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+    <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/settings')}>
+          <Ionicons name="arrow-back" size={24} color="white" />
+        </TouchableOpacity>
+        <Text style={styles.header}>FYNDING OUR PATH</Text>
+      </View>
 
       <ScrollView contentContainerStyle={styles.contentContainer}>
         {/* Image Placeholder */}
@@ -41,60 +44,70 @@ const OurStory = () => {
         <Text style={styles.paragraph}>
           Fynd started with a simple vision: 
           to create spaces where exploration, connection, and creativity meet. 
-          We’re built on shared stories, local gems, and meaningful moments.
+          We’re built on shared stories, local gems, and meaningful moments. Thanks for walking this path with us. The story continues with you.
+
+        </Text>
+
+        {/* Title */}
+        <Text style={styles.title}>FYND your Journey with Us.</Text>
+        <Text style={styles.paragraph}>
+          Hit us up if you’re vibing with the community or have something in the works. We’re game.
         </Text>
 
         <Text style={styles.paragraph}>
-          From humble beginnings to a thriving community, 
-          our journey is shaped by passion and people. 
-          With every step, we aim to leave footprints of impact, inclusion, and joy.
-        </Text>
+        </Text>        
 
-        <Text style={styles.paragraph}>
-          Thanks for walking this path with us. The story continues with you.
-        </Text>
-
-        <Text style={{fontWeight:'bold', fontSize:12, marginTop:20}}>Contact Us</Text>
-        <View style={styles.iconRow}>
+        <View style={styles.SocialsBlock}>
+          <Text style={styles.SocialsTitle}>Stay Connected</Text>
+          <Text style={styles.SocialsText}>
+            Hit us up if you’re vibing with the community or have something in the works. We’re game.
+          </Text>
+          <View style={styles.contactRow}>
+            <Text style={styles.contactText}>FYNDing Us</Text>
+            <View style={styles.iconRow}>
             <TouchableOpacity onPress={handleInstagramPress} style={styles.icon}>
-            <FontAwesome name="instagram" size={25} color="#852333" />
+            <FontAwesome name="instagram" size={25} color="white" />
             </TouchableOpacity>
-
             <TouchableOpacity onPress={handleEmailPress} style={styles.icon}>
-              <FontAwesome name="envelope" size={25} color="#852333" />
+              <FontAwesome name="envelope" size={25} color="white" />
             </TouchableOpacity>
           </View> 
+          </View>
+        </View>
 
         <Text style={styles.footerText}>Get lost, FYND more.</Text>
+
 
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-// #C13584 ig logo colour (rainbow)
+// #3D6B3D  ig logo colour (rainbow)
 
 const styles = StyleSheet.create({
-  safeArea: {
+  container: {
     flex: 1,
-    backgroundColor: '#F4DFB2', // beige background
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
+    backgroundColor: '#4A7C4A',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    gap: 16,
+  },
+  backButton: {
+    padding: 8,
+    borderRadius: 6,
+  },
+   safeArea: {
+    flex: 1,
+    backgroundColor: 'white', 
     paddingTop: 40,
     paddingHorizontal: 20,
     position: 'relative',
-  },
-  backButton: {
-    position: 'absolute',
-    top: 55,
-    left: 18,
-    backgroundColor: '#852333', // same color as FYND text in banner. or #6E1725 for bg banner color
-    borderRadius: 20,
-    padding: 8,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    zIndex: 10,
   },
   contentContainer: {
     paddingTop: 80,
@@ -118,6 +131,35 @@ const styles = StyleSheet.create({
   imageText: {
     color: '#999',
     fontStyle: 'italic',
+  },
+  SocialsBlock: {
+  backgroundColor: '#3D6B3D',
+  padding: 30,
+  marginTop: 20,
+  width: '100%',
+  alignSelf: 'stretch',
+  },
+  SocialsTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 10,
+  },
+  SocialsText: {
+    fontSize: 14,
+    color: 'white',
+    marginBottom: 20,
+    lineHeight: 20,
+  },
+  contactRow: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  contactText: {
+    color: 'white',
+    fontSize: 14,
+    marginBottom: 10, 
   },
   title: {
     fontWeight: 'bold',
@@ -165,14 +207,14 @@ const styles = StyleSheet.create({
   },
   icon: {
     padding: 10,
-    color:'#a84c3a',
+    color:'#556B2F',
     fontWeight: 'bold',
   },
   iconRow: {
-    flexDirection: 'row',   // put items side by side
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 0.71, // if using React Native 0.71+, or replace with margin
+    gap: 0.71, 
   },
 });
 

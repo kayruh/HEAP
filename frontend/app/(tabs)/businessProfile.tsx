@@ -32,7 +32,7 @@ const businessProfile = () => {
             </View>
           </View>
 
-          {/* Stats */}
+          {/* Stats - do we want to include followers?*/}
           <View style={styles.statsContainer}>
             <View style={styles.statItem}>
               <Text style={styles.statNumber}>12.1K</Text>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     elevation: 4,
-    shadowColor: '#000',
+    shadowColor: '#000', 
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -291,4 +291,5 @@ const styles = StyleSheet.create({
 });
 
 export default businessProfile;
+
 //if not user then business profile might have to change this within _layout.tsx within (tabs) group
