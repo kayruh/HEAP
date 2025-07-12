@@ -5,16 +5,12 @@ import EventCarousel from '@/components/eventCarousel';
 import EventCard from '@/components/eventCard';
 import { StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
-import FyndBanner from '@/components/fyndBanner'
+import FyndBanner from '@/components/fyndBanner';
+import FyndColors from '@/components/fyndColours';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width - 40;
 const CAROUSEL_ITEM_WIDTH = width * 0.85;
-
-const Green = '#556B2F'; // colors
-const Yellow = '#F0E68C';
-const Purple = '#8B4789';
-const Grey = '#708090';
 
 // replace following data with database data (events)
 // dynamically code events
@@ -90,9 +86,9 @@ const browse = () => {
     <View>
       <StatusBar barStyle="dark-content" backgroundColor="#ffff" />
       <FyndBanner 
-        backgroundColor = {Purple} 
-        textColor = {Yellow}      
-        iconColor = {Yellow}/>
+        backgroundColor = {FyndColors.Purple} 
+        textColor = {FyndColors.Yellow}      
+        iconColor = {FyndColors.Yellow}/>
     
         <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 

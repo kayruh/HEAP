@@ -4,13 +4,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { Link, Stack, usePathname, useRouter } from 'expo-router';
 import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo';
 import { SignOutButton } from '@/components/SignOutButton'; 
+import FyndColors from '@/components/fyndColours';
 
 // when clicking hamburger menu 
-
-const Green = '#556B2F';
-const Yellow = '#F0E68C';
-const Purple = '#8B4789';
-const Grey = '#708090';
 
 export default function SettingsScreen() {
     const { user } = useUser();
@@ -18,19 +14,13 @@ export default function SettingsScreen() {
     const { isSignedIn } = useAuth(); // check if user is signed in
 
     const router = useRouter();
-    // router PUSH -> allows user to go back to prev page (keeps track of)
-    // router REPLACE -> navitage to that page and removes navigation history 
-
-    // to see path
-    // const pathname = usePathname();
-    // console.log('Current path:', pathname);
 
     return (
         <View style={styles.container}>
 
             {/* Close icon FIX THIS !!!!! cannot be js back */}
             <TouchableOpacity style={styles.closeIcon} onPress={() => router.back()}> 
-                <Ionicons name="close" size={24} color='#F0E68C'/>
+                <Ionicons name="close" size={24} color={FyndColors.Yellow}/>
             </TouchableOpacity>
 
             <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -78,17 +68,17 @@ export default function SettingsScreen() {
                <View style={styles.authSection}>
                 <SignedOut>
                     <TouchableOpacity onPress={() => router.push('/(auth)/sign-in')} style={styles.authItem}>
-                        <Ionicons name="person-outline" size={20} color={Yellow} style={styles.authIcon} />
+                        <Ionicons name="person-outline" size={20} color={FyndColors.Yellow} style={styles.authIcon} />
                         <Text style={styles.authText}>Sign In</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={() => router.push('/(auth)/sign-up')} style={styles.authItem}>
-                        <Ionicons name="person-add-outline" size={20} color={Yellow} style={styles.authIcon} />
+                        <Ionicons name="person-add-outline" size={20} color={FyndColors.Yellow} style={styles.authIcon} />
                         <Text style={styles.authText}>Sign Up</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={() => router.push('/(auth)/business-sign-up')} style={styles.authItem}>
-                        <Ionicons name="business-outline" size={20} color={Yellow} style={styles.authIcon} />
+                        <Ionicons name="business-outline" size={20} color={FyndColors.Yellow} style={styles.authIcon} />
                         <Text style={styles.authText}>Business Sign Up</Text>
                     </TouchableOpacity>
                 </SignedOut>
@@ -105,8 +95,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Green,
-        // lighter purple for bg: '#A05C9E'
+        backgroundColor: FyndColors.Green,
         paddingTop: 40,
         paddingHorizontal: 20,
         position: 'relative',
@@ -128,7 +117,7 @@ const styles = StyleSheet.create({
         letterSpacing: 1.5,
         marginBottom: 8,
         textTransform: 'uppercase',
-        color: Yellow,
+        color: FyndColors.Yellow,
     },
     underlineWrapper: {
         alignItems: 'flex-start',
@@ -160,7 +149,7 @@ const styles = StyleSheet.create({
     },
     authText: {
         fontSize: 16,
-        color: Yellow,
+        color: FyndColors.Yellow,
         fontWeight: '500',
     },
     // menu items
@@ -170,7 +159,7 @@ const styles = StyleSheet.create({
     menuText: {
         fontWeight: 'bold',
         fontSize: 20,
-        color: Yellow,
+        color: FyndColors.Yellow,
     },
     // footer
     footerText: {
@@ -179,13 +168,13 @@ const styles = StyleSheet.create({
         bottom: 30,
         alignSelf: 'center',
         fontSize: 14,
-        color: Yellow,
+        color: FyndColors.Yellow,
     },
     userGreeting:{
         fontWeight: 'bold',
         fontSize: 20,
         marginBottom: 8,
-        color: Yellow,
+        color: FyndColors.Yellow,
     },
 });
 

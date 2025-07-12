@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router'
 
 // diff colours for each page?? how?
 
-const Green = '#556B2F';
+const Green = '#3D6B3D';
 const Yellow = '#F0E68C';
 const Purple = '#8B4789';
 const Grey = '#708090';
