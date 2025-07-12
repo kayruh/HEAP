@@ -19,45 +19,24 @@ module.exports = {
         return data;
     },
 
-    async updateBusinessDetails(username, google, streetName, streetNo, unitNo, postal, tags, description) {
+    async updateBusinessDisplay(username, picture_array, display_id) {
         
-        const {data,error} = await supabase.from(businessTable)
+        const {data,error} = await supabase.from("HOMEPAGE")
             .update({
-                google, 
-                streetName, 
-                streetNo, 
-                unitNo, 
-                postal, 
-                tags, 
-                description
+                picture_array, display_id
             })
             .eq("username", username)
 
-        if (error) {
-            throw new Error(error.message);
-        }
-        console.log(data)
-        return data;
-    },
-
-    async updateBusinessDisplay(username, mainDisplay, pictureArray, displayId) {
         
-        const {data,error} = await supabase.from(businessTable)
-            .update({
-                mainDisplay, pictureArray, displayId
-            })
-            .eq("username", username)
-
-
         if (error) {
             throw new Error(error.message);
         }
-        console.log(data)
+        
         return data;
     },
 
     async upsertEvent(uuid, username, title, description, start, end, event_photos) {
-        const {data, error} = await supabase.from(EVENT)
+        const {data, error} = await supabase.from("EVENT")
             .upsert({
                 uuid, username, title, description, start, end, event_photos
             },{onConflict:"uuid"}
@@ -66,6 +45,28 @@ module.exports = {
             throw new Error(error.message);
         }
         return data;
+    },
+
+    async deleteEvent(uuid, username) {
+        const {data, error} = await supabase.from("EVENT")
+            .delete()
+            .eq("uuid",uuid)
+            .eq("username", username)
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data;
+    },
+
+    async getEvents(username) {
+        const {data, error} = await supabase.from("EVENT")
+            .select("*")
+            .eq("username",username)
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data;
+
     },
 
     async getBusinessInfo(username) {

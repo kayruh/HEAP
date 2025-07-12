@@ -1,49 +1,51 @@
--- 📄 db/migrations/20250710b_top_likes.sql
-create or replace function public.whatsHot(limit_i int default 6)
-returns table (
-    business_username text,        -- owner of the likeable item
-    target_type       text,        -- 'business' | 'event'
-    target_uuid       uuid,        -- NULL for pure-business likes
-    likes_count       bigint
-) language sql stable as
-$$
-/*  STEP 1 ─ collapse the last 30 days of likes
-    ------------------------------------------
-    - One row per (business, specific-event OR NULL) pair
-*/
-with recent_likes as (
-    select
-        l.business_username,
-        l.event,                             -- uuid of EVENT; null = business like
-        count(*)::bigint  as likes_count
-    from "LIKES" l
-    where l.created_at >= now() - interval '30 days'
-    group by l.business_username, l.event
-),
-
-
-best_per_business as (
-    select *
-    from (
-        select
-            rl.*,
-            row_number() over (
-                partition by rl.business_username
-                order by rl.likes_count desc
-            ) as rn
-        from recent_likes rl
-    ) ranked
-    where rn = 1
+CREATE OR REPLACE FUNCTION public.get_top_events(
+  p_limit integer DEFAULT 6,
+  p_days  integer DEFAULT 30
 )
-
-
-select
-    business_username,
-    case when event is null then 'business' else 'event' end as target_type,
-    event                   as target_uuid,
-    likes_count
-from best_per_business
-order by likes_count desc
-limit limit_i;
-$$;
-
+RETURNS TABLE(
+  uuid              uuid,
+  title             text,
+  description       text,
+  start             timestamptz,
+  "end"             timestamptz,
+  like_count        bigint,
+  business_username text
+) AS $$
+WITH event_likes AS (
+  SELECT
+    e.uuid,
+    e.title,
+    e.description,
+    e.start,
+    e."end",
+    e.username            AS business_username,
+    COUNT(le.*)           AS like_count
+  FROM "EVENT" e
+  LEFT JOIN "LIKE_EVENT" le
+    ON le.event = e.uuid
+   AND le.created_at > NOW() - (p_days || ' days')::interval
+  GROUP BY
+    e.uuid, e.title, e.description, e.start, e."end", e.username
+),
+ranked AS (
+  SELECT
+    *,
+    ROW_NUMBER() OVER (
+      PARTITION BY business_username
+      ORDER BY like_count DESC
+    ) AS rn
+  FROM event_likes
+)
+SELECT
+  uuid,
+  title,
+  description,
+  start,
+  "end",
+  like_count,
+  business_username
+FROM ranked
+WHERE rn = 1
+ORDER BY like_count DESC
+LIMIT p_limit;
+$$ LANGUAGE sql STABLE;
