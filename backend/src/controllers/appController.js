@@ -6,9 +6,7 @@ module.exports = {
     async getWhatsHot(req, res) {
         try {
             const getWhatsHot = await appServices.whatsHot();
-            res.status(200).json({
-                message: "returned What's Hot"
-            })
+            res.status(200).json(getWhatsHot)
 
 
         } catch (error) {
@@ -16,23 +14,13 @@ module.exports = {
         }
     },
 
-    async getFilterEvent(req, res) {
+    async getOngoingEventsAndBusinesses(req, res) {
         try {
-            const tagsParam = (req.query.tags || '').trim();
-            const tags =
-            tagsParam ? tagsParam.split(',').map((t) => t.trim()) : null;
+            const {tags} = req.body
 
-            const matchAll = String(req.query.matchAll || '').toLowerCase() === 'true';
+            const rows = await appServices.getOngoingEventsAndBusinesses(tags);
 
-
-            const rows = await appServices.filterByTags(tags, matchAll);
-
-            const payload = rows.map((r) => ({
-            type: 'start' in r ? 'event' : 'business',
-            ...r
-            }));
-
-            res.status(200).json(payload);
+            res.status(200).json(rows);
         } catch (err) {
             console.error(err);
             res.status(500).json({ error: err.message});

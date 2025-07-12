@@ -1,4 +1,5 @@
 const businessServices = require('../services/businessServices');
+const clerkexpress = require("@clerk/express")
 
 
 module.exports = {
@@ -16,28 +17,13 @@ module.exports = {
         }
     },
 
-    async updateBusinessDetails(req, res) {
-        try {
-            const {username} = req.params;
-            const {google, streetName, streetNo, unitNo, postal, tags, description} = req.body //body vs params : params reveals ur key value through the link
-            const businessDetailsUpdated = await businessServices.updateBusinessDetails(username, google, streetName, streetNo, unitNo, postal, tags, description);
-
-            if (!username) return res.status(404).json({ error: 'username required' });
-
-            res.status(200).json({
-                message: "Update Business Details"
-            })
-
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
-
     async updateBusinessDisplay(req, res) {
         try {
-            const {username} = req.params;
-            const {mainDisplay, pictureArray, displayId} = req.body //might need to change this inidividual picturearray function due to database limitations
-            const businessDetailsUpdate = await businessServices.updateBusinessDisplay(username,mainDisplay, pictureArray, displayId);
+            const { userId } =  clerkexpress.getAuth()//userid or username??
+            const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+
+            const { display_id, picture_array} = req.body //might need to change this inidividual picturearray function due to database limitations
+            const businessDetailsUpdate = await businessServices.updateBusinessDisplay(username, picture_array, display_id);
             
             if (!username) return res.status(404).json({ error: 'username required' });
 
@@ -52,7 +38,8 @@ module.exports = {
 
     async upsertEvent(req, res) {
          try {
-            const {username} = req.params;
+            const { userId } =  clerkexpress.getAuth()//userid or username??
+            const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
             const {uuid, title, description, start, end, event_photos} = req.body //might need to change this inidividual picturearray function due to database limitations
             const upsertEvent = await businessServices.upsertEvent(uuid, username, title, description, start, end, event_photos);
             
@@ -60,6 +47,36 @@ module.exports = {
 
             res.status(200).json({
                 message: "Upserted Event"
+            })
+
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
+
+    async deleteEvent(req, res) {
+        try {
+            const { userId } =  clerkexpress.getAuth()
+            const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+            const {uuid} = req.body
+            const deleteEvent = await businessServices.deleteEvent(uuid, username)
+
+            res.status(204).json({
+                message: "Deleted Event"
+            })
+
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
+    
+    async getEvents(req, res) {
+        try {
+            const {username} = req.params
+            const getEvents = await businessServices.getEvents(username)
+
+            res.status(200).json({
+                message: "Returned Events"
             })
 
         } catch (error) {
@@ -79,5 +96,7 @@ module.exports = {
             res.status(500).json({ error: error.message });
         }
     }
+
+
 
 }

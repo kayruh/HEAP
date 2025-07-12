@@ -4,7 +4,7 @@ const appController = require("../controllers/appController");
 
 router.get("/getWhatsHot",appController.getWhatsHot)
 
-router.get("/getFilterEvent",appController.getFilterEvent)
+router.get("/getFilterEvent",appController.getOngoingEventsAndBusinesses)
 
 
 
