@@ -7,16 +7,12 @@ import { TouchableOpacity } from 'react-native';
 import { Modal } from 'react-native';
 import { TextInput } from 'react-native';
 import { SignedIn } from '@clerk/clerk-expo';
+import FyndColors from '@/components/fyndColours';
 
 // users need to login to see their lists
 // if not log in -> prompt to log in
 // else show fav lists
 // how to do backend? send to specific user's account
-
-const Green = '#556B2F';
-const Yellow = '#F0E68C';
-const Purple = '#8B4789';
-const Grey = '#708090';
 
 const Favourites = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -34,9 +30,9 @@ const Favourites = () => {
   return (
     <View>
       <FyndBanner 
-        backgroundColor = {Yellow} 
-        textColor = {Green}      
-        iconColor = {Green}/>      
+        backgroundColor = {FyndColors.Yellow} 
+        textColor = {FyndColors.Green}      
+        iconColor = {FyndColors.Green}/>      
         <FavouritesScreen/>
 
       {/* Add Button */}
@@ -94,7 +90,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 30,
     right: 30,
-    backgroundColor: Purple,
+    backgroundColor: FyndColors.Purple,
     borderRadius: 28,
     padding: 12,
     zIndex: 10,
@@ -136,7 +132,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   createBtn: {
-    backgroundColor: Green,
+    backgroundColor: FyndColors.Green,
     padding: 10,
     borderRadius: 8,
     width: '48%',

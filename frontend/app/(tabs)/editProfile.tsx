@@ -8,15 +8,10 @@ import { TouchableOpacity } from 'react-native'
 import { Platform } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
+import FyndColors from '@/components/fyndColours'
 
 const maxWidth = 300;
 const screenWidth = Dimensions.get('window').width;
-
-const Green = '#556B2F';
-const Yellow = '#F0E68C';
-const Purple = '#8B4789';
-const Grey = '#708090';
-
 
 const editProfile = () => {
     const { user } = useUser();
@@ -95,7 +90,7 @@ const editProfile = () => {
       return (
         <SafeAreaView style={{ flex: 1 }}>
             <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/userProfile')}>
-                <Ionicons name="arrow-back" size={20} color="#fff" />
+                <Ionicons name="arrow-back" size={20} color={FyndColors.Yellow} />
             </TouchableOpacity>
           <ScrollView contentContainerStyle={styles.contentContainer}>
     
@@ -204,7 +199,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: '#fff',
     borderWidth: 2,
-    borderColor: Purple,
+    borderColor: FyndColors.Purple,
     },
     editPic: {
     color: '#007BFF',
@@ -230,7 +225,7 @@ const styles = StyleSheet.create({
     maxWidth: maxWidth,
     },
     saveButton: {
-    backgroundColor: Purple,
+    backgroundColor: FyndColors.Purple,
     paddingVertical: 14,
     borderRadius: 8,
     width: '80%',
@@ -268,7 +263,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 55,
     left: 18,
-    backgroundColor: Green, // or same as save button?????
+    backgroundColor: FyndColors.Green, // or same as save button?????
     borderRadius: 20,
     padding: 8,
     elevation: 3,

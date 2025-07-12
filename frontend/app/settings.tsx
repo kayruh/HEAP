@@ -18,7 +18,6 @@ export default function SettingsScreen() {
     return (
         <View style={styles.container}>
 
-            {/* Close icon FIX THIS !!!!! cannot be js back */}
             <TouchableOpacity style={styles.closeIcon} onPress={() => router.back()}> 
                 <Ionicons name="close" size={24} color={FyndColors.Yellow}/>
             </TouchableOpacity>
