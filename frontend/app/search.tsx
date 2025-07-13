@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     },
     tag: {
         flexDirection: 'row',
-        backgroundColor: FyndColors.Green,
+        backgroundColor: FyndColors.Purple,
         paddingVertical: 6,
         paddingHorizontal: 10,
         borderRadius: 20,
