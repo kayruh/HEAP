@@ -4,7 +4,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import FyndColors from '@/components/fyndColors';
 
-// search page 
 export default function SearchScreen() {
     const router = useRouter();
 
@@ -95,7 +94,8 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 8,
         fontSize: 16,
-        color: '#000',
+        color: FyndColors.Green,
+        fontWeight:'500',
     },
     icon: {
         marginRight: 4,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     popularItem: {
         fontSize: 16,
         paddingVertical: 6,
-        color: FyndColors.Purple,
+        color: FyndColors.Green,
         fontWeight:'600',
     },
 });

@@ -7,11 +7,14 @@ import { StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
 import FyndBanner from '@/components/fyndBanner';
 import FyndColors from '@/components/fyndColors'
-
 import { useAppApi } from '@/api/app';
 import { useEffect } from 'react';
+import { useState } from 'react';
+import EventCarousel2,{ HotEvent } from '@/components/eventCarousel2';
 
- function DebugWhatsHot() {
+// to do -- filter; according to tags, location, etc.
+
+function DebugWhatsHot() {
   const { getEventsBusiness } = useAppApi();
 
   useEffect(() => {
@@ -31,10 +34,6 @@ import { useEffect } from 'react';
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width - 40;
 const CAROUSEL_ITEM_WIDTH = width * 0.85;
-
-
-import { useState } from 'react';
-import EventCarousel2,{ HotEvent } from '@/components/eventCarousel2';
 
 export default function Browse() {
   const { getWhatsHot, getEventsBusiness } = useAppApi()
@@ -61,10 +60,10 @@ export default function Browse() {
     <View style={styles2.container}>
       <StatusBar barStyle="dark-content" />
       <FyndBanner
-        backgroundColor="#8B4789"
-        textColor="#F0E68C"
-        iconColor="#F0E68C"
-      />
+        backgroundColor = {FyndColors.Purple} 
+        textColor = {FyndColors.Yellow}      
+        iconColor = {FyndColors.Yellow}/>
+
       <Text style={styles2.sectionTitle}>What's Hot</Text>
       {hotEvents.length > 0 ? (
         <EventCarousel2 data={hotEvents} />
