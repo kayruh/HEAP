@@ -24,6 +24,14 @@ export interface GenericItem {
   // … add any other fields you need later
 }
 
+import { Dimensions } from "react-native";
+
+
+const { width } = Dimensions.get('window');
+const CARD_WIDTH = width - 40;
+const CAROUSEL_ITEM_WIDTH = width * 0.85;
+
+
 export default function Browse() {
   const { getWhatsHot, getEventsBusiness } = useAppApi()
 
@@ -115,6 +123,7 @@ export default function Browse() {
     <View style={styles.container}>
       {loadingAll ? (
         <Text style={styles.loadingText}>Loading list…</Text>
+
       ) : (
         <FlatList
           data={allItems}

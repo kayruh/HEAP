@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable,} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable, Linking,} from 'react-native';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { Link, Stack, usePathname, useRouter } from 'expo-router';
 import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo';
 import { SignOutButton } from '@/components/SignOutButton'; 
@@ -10,10 +10,16 @@ import FyndColors from '@/components/fyndColors';
 
 export default function SettingsScreen() {
     const { user } = useUser();
-
     const { isSignedIn } = useAuth(); // check if user is signed in
-
     const router = useRouter();
+
+    const handleInstagramPress = () => {
+        Linking.openURL('https://www.instagram.com/yourusername'); // add our IG username
+    };
+    
+    const handleEmailPress = () => {
+        Linking.openURL('mailto:your@email.com'); // add our email address
+    };
 
     return (
         <View style={styles.container}>
@@ -59,7 +65,7 @@ export default function SettingsScreen() {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.menuItem} 
-                    onPress={() => router.replace('/(tabs)/ourStory')}>
+                    onPress={() => router.replace('/ourStory')}>
                     <Text style={styles.menuText}>FYND Us</Text>
                 </TouchableOpacity>
 
@@ -85,6 +91,17 @@ export default function SettingsScreen() {
                         <Text style={styles.authText}>Business Sign Up</Text>
                     </TouchableOpacity>
                 </SignedOut>
+
+                {/* socials button */}
+                <View style={styles.iconRow}>
+                    <TouchableOpacity onPress={handleInstagramPress} style={styles.icon}>
+                        <FontAwesome name="instagram" size={25} color={FyndColors.Yellow}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handleEmailPress} style={styles.icon}>
+                        <FontAwesome name="envelope" size={25} color={FyndColors.Yellow}/>
+                    </TouchableOpacity>
+                </View> 
+
             </View>
 
             {/* Footer Slogan */}
@@ -139,7 +156,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         borderTopWidth: 1,
         borderTopColor: 'rgba(240, 230, 140, 0.3)', // Semi-transparent yellow
-        marginBottom: 100, // push it above the footer
+        marginBottom: 60, // push it above the footer
     },
     authItem: {
         flexDirection: 'row',
@@ -178,6 +195,15 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         color: FyndColors.Yellow,
     },
+    iconRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 20,
+        marginTop:10,
+      },
+      icon: {
+        padding: 10,
+      },
 });
 
 

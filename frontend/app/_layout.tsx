@@ -26,6 +26,9 @@ export default function RootLayout() {
         name="search" 
         options={{headerShown:false}}/>
         <Stack.Screen 
+        name="ourStory" 
+        options={{headerShown:false}}/>
+        <Stack.Screen 
         name="(auth)" 
         options={{headerShown:false}}/>
       <Slot />
