@@ -73,7 +73,7 @@ const OurStory = () => {
 
           </View>
             <Text style={styles.footerText}>Get lost, FYND more.</Text>
-        </View>
+          </View>
 
     </SafeAreaView>
   );
