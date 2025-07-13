@@ -1,81 +1,137 @@
-import { View, Text, SafeAreaView, ScrollView, StyleSheet } from 'react-native'
-import React from 'react'
-import { Dimensions } from "react-native";
-import EventCarousel from '@/components/eventCarousel';
-import EventCard from '@/components/eventCard';
-import { StatusBar } from 'react-native';
-import { Button } from 'react-native-elements';
-import FyndBanner from '@/components/fyndBanner';
-import FyndColors from '@/components/fyndColors'
+// Browse.tsx  ────────────────────────────────────────────────────────────────
+import React, { useEffect, useState, useMemo } from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  FlatList,
+  ListRenderItem,
+} from 'react-native'
+import { useAppApi } from '@/api/app'
+import EventCarousel2, { HotEvent } from '@/components/eventCarousel2'
+import EventCard from '@/components/eventCard2'
+import FyndBanner from '@/components/fyndBanner'
 
-import { useAppApi } from '@/api/app';
-import { useEffect } from 'react';
-
- function DebugWhatsHot() {
-  const { getEventsBusiness } = useAppApi();
-
-  useEffect(() => {
-    // we wrap our await call in an async function
-    async function fetchAndLog() {
-      try {
-        const data = await getEventsBusiness();
-        console.log(data);
-      } catch (err: any) {
-        console.error('Failed to fetch hot items:', err);
-      }
-    }
-    fetchAndLog();
-  }, [getEventsBusiness]);
+export interface GenericItem {
+  type: 'event' | 'business'
+  uuid?: string          // events
+  username?: string      // businesses & events
+  title?: string | null  // events
+  name?: string | null   // businesses
+  pictures?: string[]    // events (optional)
+  google_maps_location?: string | null // businesses
+  // … add any other fields you need later
 }
-
-const { width } = Dimensions.get('window');
-const CARD_WIDTH = width - 40;
-const CAROUSEL_ITEM_WIDTH = width * 0.85;
-
-
-import { useState } from 'react';
-import EventCarousel2,{ HotEvent } from '@/components/eventCarousel2';
 
 export default function Browse() {
   const { getWhatsHot, getEventsBusiness } = useAppApi()
-  const [hotEvents, setHotEvents] = useState<HotEvent[]>([])
 
+  /* -------------------- state -------------------- */
+  const [hotEvents, setHotEvents]       = useState<HotEvent[]>([])
+  const [allItems,  setAllItems]        = useState<GenericItem[]>([])
+  const [loadingAll, setLoadingAll]     = useState<boolean>(true)
+
+  /* -------------------- fetch “What’s Hot” -------------------- */
   useEffect(() => {
     ;(async () => {
       try {
         const data = await getWhatsHot()
         const mapped: HotEvent[] = data.map((e: any) => ({
-          id: e.uuid,
-          title: e.title,
-          business: e.business_username,
-          pictures: e.pictures ?? [],
+          id:        e.uuid,
+          title:     e.title,
+          business:  e.business_username,
+          pictures:  e.pictures ?? [],
         }))
         setHotEvents(mapped)
       } catch (err) {
-        console.error('Failed to load hot events', err)
+        console.error('Failed to load hot events:', err)
       }
     })()
   }, [])
 
+  /* -------------------- fetch full list -------------------- */
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const data = await getEventsBusiness()
+        setAllItems(data)            // already mixed events + businesses
+      } catch (err) {
+        console.error('Failed to load events / businesses:', err)
+      } finally {
+        setLoadingAll(false)
+      }
+    })()
+  }, [])
+
+  /* -------------------- mapping for EventCard -------------------- */
+  const renderItem: ListRenderItem<GenericItem> = ({ item }) => {
+    // transform the supabase object into the props EventCard expects
+    const cardProps = {
+      image:            // pick the first available image-ish URL
+        item.pictures?.[0] ??
+        item.google_maps_location ??                    // placeholder if you have one
+        'https://placehold.co/300x200?text=No+Image',
+      name:   item.type === 'event'
+              ? item.title  ?? '(untitled event)'
+              : item.name   ?? '(unnamed business)',
+      rating: 0,
+      price:  '',
+      originalPrice: '',
+      isNew:  item.type === 'event',   // flag events as “NEW”
+    }
+
+    return <EventCard item={cardProps} />
+  }
+
+  /* -------------------- key extractor -------------------- */
+  const keyExtractor = (item: GenericItem) =>
+    item.type === 'event' ? `ev-${item.uuid}` : `biz-${item.username}`
+
+  /* -------------------- memoised header (banner + carousel) -------------------- */
+  const listHeader = useMemo(
+    () => (
+      <>
+        <StatusBar barStyle="dark-content" />
+        <FyndBanner
+          backgroundColor="#8B4789"
+          textColor="#F0E68C"
+          iconColor="#F0E68C"
+        />
+        <Text style={styles.sectionTitle}>What's Hot</Text>
+        {hotEvents.length ? (
+          <EventCarousel2 data={hotEvents} />
+        ) : (
+          <Text style={styles.loadingText}>Loading hot items…</Text>
+        )}
+        <Text style={styles.sectionTitle}>All Places & Events</Text>
+      </>
+    ),
+    [hotEvents]
+  )
+
+  /* -------------------- render -------------------- */
   return (
-    <View style={styles2.container}>
-      <StatusBar barStyle="dark-content" />
-      <FyndBanner
-        backgroundColor="#8B4789"
-        textColor="#F0E68C"
-        iconColor="#F0E68C"
-      />
-      <Text style={styles2.sectionTitle}>What's Hot</Text>
-      {hotEvents.length > 0 ? (
-        <EventCarousel2 data={hotEvents} />
+    <View style={styles.container}>
+      {loadingAll ? (
+        <Text style={styles.loadingText}>Loading list…</Text>
       ) : (
-        <Text style={styles2.loadingText}>Loading...</Text>
+        <FlatList
+          data={allItems}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
+          numColumns={2}              // grid-style like your card layout
+          columnWrapperStyle={styles.rowWrap}
+          ListHeaderComponent={listHeader}
+          contentContainerStyle={{ paddingBottom: 40 }}
+        />
       )}
     </View>
   )
 }
 
-const styles2 = StyleSheet.create({
+/* -------------------- styles -------------------- */
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
@@ -90,5 +146,9 @@ const styles2 = StyleSheet.create({
     textAlign: 'center',
     marginVertical: 20,
     color: '#666',
+  },
+  rowWrap: {
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
   },
 })
