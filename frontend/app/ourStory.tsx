@@ -3,7 +3,7 @@ import React from 'react';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Linking } from 'react-native';
-import fyndColours from '@/components/fyndColors'; 
+import FyndColors from '@/components/fyndColors';
 
 const OurStory = () => {
   const router = useRouter();
@@ -19,28 +19,25 @@ const OurStory = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/settings')}>
-          <Ionicons name="arrow-back" size={24} color="white" />
+      {/* figure out this back button */}
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}> 
+          <Ionicons name="arrow-back" size={22} color="white" />
         </TouchableOpacity>
-        <Text style={styles.header}>FYNDING OUR PATH</Text>
+
+      <View style={styles.content}>
+        {/* Image Placeholder */}
+        <View style={styles.contentTop}>
+          <View style={styles.imagePlaceholder}>
+            <Text style={styles.imageText}>[ Image ]</Text>
+          </View>
       </View>
 
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        {/* Image Placeholder */}
-        <View style={styles.imagePlaceholder}>
-          <Text style={styles.imageText}>[ Image ]</Text>
-        </View>
-
-        {/* Title */}
         <Text style={styles.title}>FYNDing Our Path</Text>
 
-        {/* Diamond underline */}
         <View style={styles.underlineWrapper}>
           <View style={styles.underlineLine} />
         </View>
 
-        {/* Story Text */}
         <Text style={styles.paragraph}>
           Fynd started with a simple vision: 
           to create spaces where exploration, connection, and creativity meet. 
@@ -48,37 +45,36 @@ const OurStory = () => {
 
         </Text>
 
-        {/* Title */}
         <Text style={styles.title}>FYND your Journey with Us.</Text>
-        <Text style={styles.paragraph}>
-          Hit us up if you’re vibing with the community or have something in the works. We’re game.
-        </Text>
+          <Text style={styles.paragraph}>
+            Hit us up if you’re vibing with the community or have something in the works. We’re game.
+          </Text>
 
         <Text style={styles.paragraph}>
         </Text>        
+      </View>
 
-        <View style={styles.SocialsBlock}>
+      <View style={styles.SocialsBlock}>
           <Text style={styles.SocialsTitle}>Stay Connected</Text>
           <Text style={styles.SocialsText}>
             Hit us up if you’re vibing with the community or have something in the works. We’re game.
           </Text>
+
           <View style={styles.contactRow}>
             <Text style={styles.contactText}>FYNDing Us</Text>
             <View style={styles.iconRow}>
-            <TouchableOpacity onPress={handleInstagramPress} style={styles.icon}>
-            <FontAwesome name="instagram" size={25} color="white" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleEmailPress} style={styles.icon}>
-              <FontAwesome name="envelope" size={25} color="white" />
-            </TouchableOpacity>
-          </View> 
+              <TouchableOpacity onPress={handleInstagramPress} style={styles.icon}>
+              <FontAwesome name="instagram" size={25} color={FyndColors.Yellow}/>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleEmailPress} style={styles.icon}>
+                <FontAwesome name="envelope" size={25} color={FyndColors.Yellow}/>
+              </TouchableOpacity>
+            </View> 
+
           </View>
+            <Text style={styles.footerText}>Get lost, FYND more.</Text>
         </View>
 
-        <Text style={styles.footerText}>Get lost, FYND more.</Text>
-
-
-      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -88,30 +84,29 @@ const OurStory = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  header: {
-    backgroundColor: '#4A7C4A',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    gap: 16,
+    backgroundColor: FyndColors.Yellow,
   },
   backButton: {
+    position: 'absolute',
+    top: 55,
+    left: 18,
+    backgroundColor: FyndColors.Green,
+    borderRadius: 20,
     padding: 8,
-    borderRadius: 6,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    zIndex: 10,
   },
-   safeArea: {
+  content: {
     flex: 1,
-    backgroundColor: 'white', 
-    paddingTop: 40,
+    paddingTop: 50,
     paddingHorizontal: 20,
-    position: 'relative',
+    justifyContent: 'space-between',
   },
-  contentContainer: {
-    paddingTop: 80,
-    paddingBottom: 60,
+  contentTop: {
     alignItems: 'center',
   },
   imagePlaceholder: {
@@ -121,7 +116,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
@@ -132,47 +127,19 @@ const styles = StyleSheet.create({
     color: '#999',
     fontStyle: 'italic',
   },
-  SocialsBlock: {
-  backgroundColor: '#3D6B3D',
-  padding: 30,
-  marginTop: 20,
-  width: '100%',
-  alignSelf: 'stretch',
-  },
-  SocialsTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 10,
-  },
-  SocialsText: {
-    fontSize: 14,
-    color: 'white',
-    marginBottom: 20,
-    lineHeight: 20,
-  },
-  contactRow: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  contactText: {
-    color: 'white',
-    fontSize: 14,
-    marginBottom: 10, 
-  },
   title: {
-    fontWeight: 'bold',
+    fontWeight: 800,
     fontSize: 14,
     letterSpacing: 1.5,
     marginBottom: 8,
     textTransform: 'uppercase',
     textAlign: 'center',
+    color: FyndColors.Green,
   },
   underlineWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 24,
+    marginBottom: 16,
     position: 'relative',
     width: '100%',
   },
@@ -183,39 +150,58 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 5,
   },
-  diamond: {
-    width: 8,
-    height: 8,
-    backgroundColor: '#000',
-    transform: [{ rotate: '45deg' }],
-    zIndex: 1,
-  },
   paragraph: {
     fontSize: 16,
     color: '#3F3528',
     lineHeight: 24,
     marginBottom: 16,
     textAlign: 'center',
-    paddingHorizontal: 10,
   },
-  footerText: {
-    position: 'absolute',
-    bottom: 16,
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    fontSize: 10,
+  SocialsBlock: {
+    backgroundColor: FyndColors.Green,
+    padding: 20,
+    marginTop: 90,
   },
-  icon: {
-    padding: 10,
-    color:'#556B2F',
+  SocialsTitle: {
+    fontSize: 20,
     fontWeight: 'bold',
+    color: FyndColors.Yellow,
+    marginBottom: 10,
+    textAlign: 'left',
+  },
+  SocialsText: {
+    fontSize: 15,
+    color: FyndColors.Yellow,
+    marginBottom: 20,
+    lineHeight: 20,
+    textAlign: 'left',
+  },
+  contactRow: {
+    alignItems: 'center',
+  },
+  contactText: {
+    color: FyndColors.Yellow,
+    fontSize: 14,
+    marginBottom: 10,
+    fontWeight: '700',
   },
   iconRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    gap: 0.71, 
+    gap: 20,
+  },
+  icon: {
+    padding: 10,
+  },
+  footerText: {
+    textAlign: 'center',
+    color: FyndColors.Yellow,
+    fontWeight: 'bold',
+    fontSize: 12,
+    marginTop: 10,
+    marginBottom: 50,
   },
 });
+
 
 export default OurStory;

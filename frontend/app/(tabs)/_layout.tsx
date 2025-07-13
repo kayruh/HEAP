@@ -72,13 +72,6 @@ const _layout = () => {
     />
 
     <Tabs.Screen 
-        name="ourStory"
-        options={{
-          headerShown:false,
-          href: null, // hides ourStory from the tab bar
-        }}/>
-
-    <Tabs.Screen 
         name="editProfile"
         options={{
           headerShown:false,

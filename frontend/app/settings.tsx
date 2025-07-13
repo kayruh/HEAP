@@ -59,7 +59,7 @@ export default function SettingsScreen() {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.menuItem} 
-                    onPress={() => router.replace('/(tabs)/ourStory')}>
+                    onPress={() => router.replace('/ourStory')}>
                     <Text style={styles.menuText}>FYND Us</Text>
                 </TouchableOpacity>
 
