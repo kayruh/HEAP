@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, FlatList, Pressable,} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import FyndColors from '@/components/fyndColours';
+import FyndColors from '@/components/fyndColors';
 
 // search page 
 export default function SearchScreen() {

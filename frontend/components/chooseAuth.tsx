@@ -3,7 +3,7 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import FyndColors from './fyndColours';
+import FyndColors from './fyndColors';
 
 const maxWidth= 300; // for styling
 

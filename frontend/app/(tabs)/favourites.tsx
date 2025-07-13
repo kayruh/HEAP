@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native';
 import { Modal } from 'react-native';
 import { TextInput } from 'react-native';
 import { SignedIn } from '@clerk/clerk-expo';
-import FyndColors from '@/components/fyndColours';
+import FyndColors from '@/components/fyndColors';
 
 // users need to login to see their lists
 // if not log in -> prompt to log in

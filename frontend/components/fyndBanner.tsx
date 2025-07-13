@@ -3,7 +3,7 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import FyndColors from '@/components/fyndColours'
+import FyndColors from '@/components/fyndColors'
 
 
 interface FyndBannerProps {

@@ -4,7 +4,7 @@ import { SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet, Plat
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { KeyboardAvoidingView } from 'react-native'
-import FyndColors from '@/components/fyndColours';
+import FyndColors from '@/components/fyndColors';
 
 const maxWidth= 300; // for styling
 

@@ -6,9 +6,9 @@ import { useRouter } from 'expo-router';
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import ChooseAuth from '@/components/chooseAuth';
 import { SignOutButton } from '@/components/SignOutButton';
-import FyndColors from '@/components/fyndColours';
+import FyndColors from '@/components/fyndColors';
 
-// if not logged in, what will this page show?
+// shd we have FYND banner here?
 
 const UserProfile = () => {
     const router = useRouter();

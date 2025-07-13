@@ -8,7 +8,7 @@ import { TouchableOpacity } from 'react-native'
 import { Platform } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import FyndColors from '@/components/fyndColours'
+import FyndColors from '@/components/fyndColors'
 
 const maxWidth = 300;
 const screenWidth = Dimensions.get('window').width;

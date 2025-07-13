@@ -3,7 +3,7 @@ import React from 'react';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Linking } from 'react-native';
-import fyndColours from '@/components/fyndColours'; 
+import fyndColours from '@/components/fyndColors'; 
 
 const OurStory = () => {
   const router = useRouter();

@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import { Check } from 'lucide-react-native';   // expo install lucide-react-native
 import { Ionicons } from '@expo/vector-icons';
 import { KeyboardAvoidingView } from 'react-native';
-import FyndColors from '@/components/fyndColours';
+import FyndColors from '@/components/fyndColors';
 
 const maxWidth= 300; // for styling
 

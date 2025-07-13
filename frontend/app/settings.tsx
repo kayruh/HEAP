@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Link, Stack, usePathname, useRouter } from 'expo-router';
 import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo';
 import { SignOutButton } from '@/components/SignOutButton'; 
-import FyndColors from '@/components/fyndColours';
+import FyndColors from '@/components/fyndColors';
 
 // when clicking hamburger menu 
 

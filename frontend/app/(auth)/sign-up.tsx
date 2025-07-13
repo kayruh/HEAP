@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { KeyboardAvoidingView } from 'react-native'
 import { Platform } from 'react-native'
-import FyndColors from '@/components/fyndColours';
+import FyndColors from '@/components/fyndColors';
 
 const maxWidth= 300; // for styling
 

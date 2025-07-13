@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { Dimensions } from 'react-native'
 import { StatusBar } from 'react-native'
 import FyndBanner from '@/components/fyndBanner'
-import FyndColors from '@/components/fyndColours'
+import FyndColors from '@/components/fyndColors'
 
 const SLOGAN = '   GET LOST FYND MORE   '.repeat(20) 
 
