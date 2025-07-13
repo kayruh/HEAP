@@ -8,8 +8,6 @@ import { Button } from 'react-native-elements';
 import FyndBanner from '@/components/fyndBanner';
 import FyndColors from '@/components/fyndColours'
 
-
-
 import { useAppApi } from '@/api/app';
 import { useEffect } from 'react';
 
