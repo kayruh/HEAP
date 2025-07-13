@@ -18,66 +18,58 @@ const OurStory = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* figure out this back button */}
+      <View style={styles.container}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}> 
-          <Ionicons name="arrow-back" size={22} color="white" />
-        </TouchableOpacity>
+            <Ionicons name="arrow-back" size={22} color="white" />
+          </TouchableOpacity>
+        <ScrollView contentContainerStyle={styles.scrollContent}>
 
-      <View style={styles.content}>
-        {/* Image Placeholder */}
-        <View style={styles.contentTop}>
-          <View style={styles.imagePlaceholder}>
-            <Text style={styles.imageText}>[ Image ]</Text>
+          <View style={styles.content}>
+            {/* Image Placeholder */}
+            <View style={styles.contentTop}>
+              <View style={styles.imagePlaceholder}>
+                <Text style={styles.imageText}>[ Image ]</Text>
+              </View>
+            </View>
+    
+            <Text style={styles.title}>FYNDing Our Path</Text>
+    
+            <View style={styles.underlineWrapper}>
+              <View style={styles.underlineLine} />
+            </View>
+    
+            <Text style={styles.paragraph}>
+              Fynd started with a simple vision: 
+              to create spaces where exploration, connection, and creativity meet. 
+              We’re built on shared stories, local gems, and meaningful moments. 
+              Thanks for walking this path with us. The story continues with you.
+            </Text>
           </View>
-      </View>
-
-        <Text style={styles.title}>FYNDing Our Path</Text>
-
-        <View style={styles.underlineWrapper}>
-          <View style={styles.underlineLine} />
-        </View>
-
-        <Text style={styles.paragraph}>
-          Fynd started with a simple vision: 
-          to create spaces where exploration, connection, and creativity meet. 
-          We’re built on shared stories, local gems, and meaningful moments. Thanks for walking this path with us. The story continues with you.
-
-        </Text>
-
-        <Text style={styles.title}>FYND your Journey with Us.</Text>
-          <Text style={styles.paragraph}>
-            Hit us up if you’re vibing with the community or have something in the works. We’re game.
-          </Text>
-
-        <Text style={styles.paragraph}>
-        </Text>        
-      </View>
-
-      <View style={styles.SocialsBlock}>
-          <Text style={styles.SocialsTitle}>Stay Connected</Text>
-          <Text style={styles.SocialsText}>
-            Hit us up if you’re vibing with the community or have something in the works. We’re game.
-          </Text>
-
-          <View style={styles.contactRow}>
-            <Text style={styles.contactText}>FYNDing Us</Text>
-            <View style={styles.iconRow}>
-              <TouchableOpacity onPress={handleInstagramPress} style={styles.icon}>
-              <FontAwesome name="instagram" size={25} color={FyndColors.Yellow}/>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handleEmailPress} style={styles.icon}>
-                <FontAwesome name="envelope" size={25} color={FyndColors.Yellow}/>
-              </TouchableOpacity>
-            </View> 
-
-          </View>
+    
+          <View style={styles.SocialsBlock}>
+            <Text style={styles.SocialsTitle}>Stay Connected</Text>
+            <Text style={styles.SocialsText}>
+              Hit us up if you’re vibing with the community or have something in the works. We’re game.
+            </Text>
+    
+            <View style={styles.contactRow}>
+              <Text style={styles.contactText}>FYNDing Us</Text>
+              <View style={styles.iconRow}>
+                <TouchableOpacity onPress={handleInstagramPress} style={styles.icon}>
+                  <FontAwesome name="instagram" size={25} color={FyndColors.Yellow}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleEmailPress} style={styles.icon}>
+                  <FontAwesome name="envelope" size={25} color={FyndColors.Yellow}/>
+                </TouchableOpacity>
+              </View>
+            </View>
+    
             <Text style={styles.footerText}>Get lost, FYND more.</Text>
           </View>
-
-    </SafeAreaView>
-  );
-};
+        </ScrollView>
+      </View>
+    );
+}
 
 // #3D6B3D  ig logo colour (rainbow)
 
@@ -86,6 +78,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: FyndColors.Yellow,
   },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
+    paddingTop: 70,
+  },  
+  pageWrapper: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },  
   backButton: {
     position: 'absolute',
     top: 55,
@@ -102,9 +103,9 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingTop: 50,
+    paddingTop: 20, 
     paddingHorizontal: 20,
-    justifyContent: 'space-between',
+    marginTop: 20, 
   },
   contentTop: {
     alignItems: 'center',
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
@@ -131,10 +132,10 @@ const styles = StyleSheet.create({
     fontWeight: 800,
     fontSize: 14,
     letterSpacing: 1.5,
-    marginBottom: 8,
     textTransform: 'uppercase',
     textAlign: 'center',
     color: FyndColors.Green,
+    marginBottom: 6,
   },
   underlineWrapper: {
     alignItems: 'center',
@@ -160,7 +161,6 @@ const styles = StyleSheet.create({
   SocialsBlock: {
     backgroundColor: FyndColors.Green,
     padding: 20,
-    marginTop: 90,
   },
   SocialsTitle: {
     fontSize: 20,
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 12,
     marginTop: 10,
-    marginBottom: 50,
+    marginBottom: 20,
   },
 });
 
