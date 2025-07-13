@@ -92,7 +92,7 @@ const businessProfile = () => {
             <View>
               <Text>Home content here</Text>
 
-              {/* Feed */}
+              {/* Feed. how can biz users upload more photos??*/}
                 <View style={styles.feedSection}>
                 {/* Post 1 */}
                 <View style={styles.postContainer}>
@@ -139,11 +139,12 @@ const businessProfile = () => {
           )} */}
           {activeTab === 'reviews' && (
             <View><Text>Reviews here</Text></View>
+            // how are people gg to give reviews?
           )}
 
       </ScrollView>
 
-      {/* add button, for events tab (ONLY for biz users, to create event) */}
+      {/* add button, under events tab (ONLY for biz users, to create event) */}
       {activeTab === 'list' && (
         <TouchableOpacity
           style={styles.addButton}
