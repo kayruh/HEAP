@@ -85,6 +85,13 @@ const _layout = () => {
           href: null, // hides editProfile from the tab bar
         }}/>
 
+    <Tabs.Screen 
+        name="browseArchive"
+        options={{
+          headerShown:false,
+          href: null, // hides browseArchive from the tab bar
+      }}/>
+
     </Tabs>
   )
 }

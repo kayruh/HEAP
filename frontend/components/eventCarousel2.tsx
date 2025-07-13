@@ -1,5 +1,6 @@
 import React from 'react'
 import { ScrollView, Dimensions, StyleSheet, ImageBackground, View, Text } from 'react-native'
+import FyndColors from '@/components/fyndColors'
 
 const { width } = Dimensions.get('window')
 const CAROUSEL_ITEM_WIDTH = width * 0.85

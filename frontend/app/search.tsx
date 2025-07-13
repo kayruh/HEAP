@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     popularItem: {
         fontSize: 16,
         paddingVertical: 6,
-        color: FyndColors.Green,
+        color: FyndColors.Purple,
         fontWeight:'600',
     },
 });
