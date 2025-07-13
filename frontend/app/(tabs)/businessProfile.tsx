@@ -65,7 +65,7 @@ const businessProfile = () => {
             <TouchableOpacity
               onPress={() => setActiveTab('home')}
               style={[styles.tabButton, activeTab === 'home' && styles.activeTab]}>
-              <Ionicons name="home" size={20} color={activeTab === 'home' ? FyndColors.Yellow : FyndColors.Green} />
+              <Ionicons name="grid-outline" size={20} color={activeTab === 'home' ? FyndColors.Yellow : FyndColors.Green} />
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -81,9 +81,9 @@ const businessProfile = () => {
             </TouchableOpacity> */}
 
             <TouchableOpacity
-              onPress={() => setActiveTab('bookmark')}
-              style={[styles.tabButton, activeTab === 'bookmark' && styles.activeTab]}>
-              <Ionicons name="bookmark" size={20} color={activeTab === 'bookmark' ? FyndColors.Yellow : FyndColors.Green} />
+              onPress={() => setActiveTab('reviews')}
+              style={[styles.tabButton, activeTab === 'reviews' && styles.activeTab]}>
+              <Ionicons name="star" size={20} color={activeTab === 'reviews' ? FyndColors.Yellow : FyndColors.Green} />
             </TouchableOpacity>
           </View>
 
@@ -137,8 +137,8 @@ const businessProfile = () => {
           {/* {activeTab === 'add' && (
             <View><Text>Add something content here</Text></View>
           )} */}
-          {activeTab === 'bookmark' && (
-            <View><Text>Bookmarked content here</Text></View>
+          {activeTab === 'reviews' && (
+            <View><Text>Reviews here</Text></View>
           )}
 
       </ScrollView>
