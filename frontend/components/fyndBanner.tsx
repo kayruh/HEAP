@@ -35,7 +35,7 @@ export default function FyndBanner({
 
                 <Text style={[styles.headerTitle,{color:textColor}]}>FYND</Text>
 
-                <TouchableOpacity onPress={() => router.push('/(tabs)/search')}>
+                <TouchableOpacity onPress={() => router.push('/search')}>
                     <Ionicons name="search" size={24} color={iconColor}/>
                 </TouchableOpacity>
             </View>

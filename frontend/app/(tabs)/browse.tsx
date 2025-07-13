@@ -6,6 +6,8 @@ import EventCard from '@/components/eventCard';
 import { StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
 import FyndBanner from '@/components/fyndBanner';
+import FyndColors from '@/components/fyndColours'
+
 
 
 import { useAppApi } from '@/api/app';

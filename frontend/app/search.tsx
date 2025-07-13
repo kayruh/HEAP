@@ -23,12 +23,12 @@ export default function SearchScreen() {
             {/* Close Button */}
             <TouchableOpacity style={styles.closeIcon} 
             onPress={() => router.back()}> 
-                <Ionicons name="close" size={20} color="black" />
+                <Ionicons name="close" size={20} color={FyndColors.Green} />
             </TouchableOpacity>
 
             {/* Search Bar */}
             <View style={styles.searchBar}>
-                <Ionicons name="search-outline" size={20} color="#555" style={styles.icon} />
+                <Ionicons name="search-outline" size={20} color={FyndColors.Green} style={styles.icon} />
                 <TextInput
                     style={styles.input}
                     placeholder="Search items"
@@ -38,7 +38,7 @@ export default function SearchScreen() {
                 />
                 {searchQuery !== '' && (
                     <TouchableOpacity onPress={clearSearch}>
-                        <Ionicons name="close-outline" size={22} color="#555" />
+                        <Ionicons name="close-outline" size={22} color={FyndColors.Green}/>
                     </TouchableOpacity>
                 )}
             </View>
@@ -50,7 +50,7 @@ export default function SearchScreen() {
                     <View key={item} style={styles.tag}>
                         <Text style={styles.tagText}>{item}</Text>
                         <TouchableOpacity onPress={() => removeRecent(item)}>
-                            <Ionicons name="close" size={12} color="#555" />
+                            <Ionicons name="close" size={12} color="#fff"/>
                         </TouchableOpacity>
                     </View>
                 ))}
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 60,
         paddingHorizontal: 20,
-        backgroundColor: '#fff',
+        backgroundColor: FyndColors.Yellow,
         flex: 1,
     },
     closeIcon: {
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     sectionTitle: {
         marginTop: 24,
         marginBottom: 8,
-        color: '#999',
+        color: '#000',
         fontSize: 14,
     },
     tagContainer: {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     },
     tag: {
         flexDirection: 'row',
-        backgroundColor: '#f2f2f2',
+        backgroundColor: FyndColors.Green,
         paddingVertical: 6,
         paddingHorizontal: 10,
         borderRadius: 20,
@@ -123,12 +123,13 @@ const styles = StyleSheet.create({
     },
     tagText: {
         marginRight: 6,
-        color: '#555',
+        color: '#fff',
         fontSize: 14,
     },
     popularItem: {
         fontSize: 16,
         paddingVertical: 6,
-        color: '#111',
+        color: FyndColors.Green,
+        fontWeight:'600',
     },
 });
