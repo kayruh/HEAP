@@ -11,7 +11,7 @@ import FyndColors from '@/components/fyndColors'
 import { useAppApi } from '@/api/app';
 import { useEffect } from 'react';
 
-export default function DebugWhatsHot() {
+ function DebugWhatsHot() {
   const { getEventsBusiness } = useAppApi();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const CAROUSEL_ITEM_WIDTH = width * 0.85;
 import { useState } from 'react';
 import EventCarousel2,{ HotEvent } from '@/components/eventCarousel2';
 
-function Browse() {
+export default function Browse() {
   const { getWhatsHot, getEventsBusiness } = useAppApi()
   const [hotEvents, setHotEvents] = useState<HotEvent[]>([])
 
