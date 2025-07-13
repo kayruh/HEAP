@@ -5,13 +5,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useUser } from '@clerk/clerk-expo';
 import FyndColors from '@/components/fyndColors';
+import CreateNewEvent from '@/components/createNewEvent';
 
 const businessProfile = () => {
     const router = useRouter();
-    const { user } = useUser();
+    const { user } = useUser(); // how to check if it is biz acc???
 
     const [activeTab, setActiveTab] = useState('home'); //default selected tab
 
+    const [modalVisible, setModalVisible] = useState(false);
 
     return (
         <View style={styles.container}>
@@ -30,11 +32,14 @@ const businessProfile = () => {
               </View>
 
               <View style={styles.profileInfo}>
-                <Text style={styles.profileName}>WEARE.SG</Text>
+                {/* // NAME of biz */}
+                <Text style={styles.profileName}>WEARE.SG</Text> 
+
+                {/* biz username */}
                 <Text style={styles.profileHandle}>@weare.sg</Text>
-                <Text style={styles.profileDescription}>
-                  the COOLEST thrift store in Singapore.
-                </Text>
+
+                {/* biz description (they can write themselves) */}
+                <Text style={styles.profileDescription}> the COOLEST thrift store in Singapore. </Text>
               </View>
             </View>
           </View>
@@ -69,11 +74,11 @@ const businessProfile = () => {
               <Ionicons name="list" size={20} color={activeTab === 'list' ? FyndColors.Yellow : FyndColors.Green} />
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => setActiveTab('add')}
               style={[styles.tabButton, activeTab === 'add' && styles.activeTab]}>
               <Ionicons name="add" size={28} color={activeTab === 'add' ? FyndColors.Yellow : FyndColors.Green} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <TouchableOpacity
               onPress={() => setActiveTab('bookmark')}
@@ -125,16 +130,36 @@ const businessProfile = () => {
             </View>
           )}
           {activeTab === 'list' && (
-            <View><Text>Events list content here</Text></View>
+            <View>
+              <Text>Events list content here</Text>
+            </View>
           )}
-          {activeTab === 'add' && (
+          {/* {activeTab === 'add' && (
             <View><Text>Add something content here</Text></View>
-          )}
+          )} */}
           {activeTab === 'bookmark' && (
             <View><Text>Bookmarked content here</Text></View>
           )}
 
       </ScrollView>
+
+      {/* add button, for events tab (ONLY for biz users, to create event) */}
+      {activeTab === 'list' && (
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => setModalVisible(true)}>
+          <Ionicons name="add" size={28} color={FyndColors.Yellow} />
+        </TouchableOpacity>
+        )}
+
+        <CreateNewEvent
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          onSave={(event) => {
+            console.log('New event data:', event);
+            // TODO: Save to DB or state
+          }}/>
+
       </View>
   );
 };
@@ -142,42 +167,15 @@ const businessProfile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#fff', // change bg colour of WHOLE page
+    position: 'relative', 
   },
   contentContainer: {
     flexGrow: 1,
     paddingBottom: 100, // ✅ Add some space to scroll past bottom
   },
-  header: {
-    backgroundColor: '#8B2635',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    elevation: 4,
-    shadowColor: '#000', 
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-  headerTitle: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-    letterSpacing: 2,
-  },
-  headerRight: {
-    flexDirection: 'row',
-  },
-  headerIcon: {
-    marginLeft: 16,
-  },
-  content: {
-    flex: 1,
-  },
   profileSection: {
-    backgroundColor: '#F0E6E6',
+    // backgroundColor: '#fff',
     padding: 16,
   },
   profileCard: {
@@ -187,7 +185,7 @@ const styles = StyleSheet.create({
   },
   profileImageContainer: {
     borderWidth: 3,
-    borderColor: '#4A90E2',
+    borderColor: FyndColors.Purple,
     borderRadius: 50,
     padding: 3,
     marginRight: 16,
@@ -228,36 +226,13 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#8B2635',
+    color: FyndColors.Green,
     marginBottom: 4,
   },
   statLabel: {
     fontSize: 12,
     color: '#666',
     fontWeight: '500',
-  },
-  actionButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingHorizontal: 40,
-  },
-  actionButton: {
-    backgroundColor: '#8B2635',
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-  },
-  actionButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   feedSection: {
     padding: 16,
@@ -337,6 +312,15 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     backgroundColor: FyndColors.Green,
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 100, // more spacing from the bottom
+    right: 30,
+    backgroundColor: FyndColors.Purple,
+    borderRadius: 28,
+    padding: 12,
+    zIndex: 10,
   },
 });
 
