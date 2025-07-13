@@ -8,7 +8,17 @@ export function useAppApi() {
     const res = await api.get('/app/getWhatsHot');
     return res.data;
   }
+
+    async function getEventsBusiness(tags: string[] = []) {
+    const res = await api.post('/app/getFilterEvent', { tags });
+    return res.data;
+  }
+
+
+
+
   return {
-    getWhatsHot
+    getWhatsHot,
+    getEventsBusiness
   };
 }

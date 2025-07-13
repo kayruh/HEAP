@@ -22,7 +22,7 @@ async getOngoingEventsAndBusinesses(filterTags = []) {
   let bizMatch = null
   if (filterTags.length) {
     const { data: bizList, error: bizErr } = await supabase
-      .from('business')
+      .from('BUSINESS')
       .select('username')
       .overlaps('tags', filterTags)    // array‐overlap on tags
     if (bizErr) throw new Error(bizErr.message)
@@ -36,7 +36,7 @@ async getOngoingEventsAndBusinesses(filterTags = []) {
   // 2a) Pull events starting between now and one month from now,
   //    optionally restricted to bizMatch[]
   let evQ = supabase
-    .from('event')
+    .from('EVENT')
     .select('uuid, title, description, start, end, username')
     .gte('start', now)
     .lte('start', oneMonthISO)
@@ -53,7 +53,7 @@ async getOngoingEventsAndBusinesses(filterTags = []) {
   const usedBiz = new Set(events.map(e => e.username))
 
   let bizQ = supabase
-    .from('business')
+    .from('BUSINESS')
     .select(
       'username, name, google_maps_location, ' +
       'street_no, street_name, unit_no, postal, tags, description'
