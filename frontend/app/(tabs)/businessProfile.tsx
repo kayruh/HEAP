@@ -10,13 +10,13 @@ const businessProfile = () => {
     const router = useRouter();
     const { user } = useUser();
 
-    const [activeTab, setActiveTab] = useState('home');
+    const [activeTab, setActiveTab] = useState('home'); //default selected tab
 
 
     return (
-      <View style={styles.container}>
-        <FyndBanner />
-        <SafeAreaView>
+        <View style={styles.container}>
+          <FyndBanner />
+
         <ScrollView contentContainerStyle={styles.contentContainer}>
       
           {/* Profile Section */}
@@ -64,9 +64,9 @@ const businessProfile = () => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => setActiveTab('calendar')}
-              style={[styles.tabButton, activeTab === 'calendar' && styles.activeTab]}>
-              <Ionicons name="calendar" size={20} color={activeTab === 'calendar' ? FyndColors.Yellow : FyndColors.Green} />
+              onPress={() => setActiveTab('list')}
+              style={[styles.tabButton, activeTab === 'list' && styles.activeTab]}>
+              <Ionicons name="list" size={20} color={activeTab === 'list' ? FyndColors.Yellow : FyndColors.Green} />
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -112,10 +112,7 @@ const businessProfile = () => {
                     <View style={styles.eventDetails}>
                       <Text style={styles.eventTitle}>STREET WEARE HOUSE</Text>
                       <Text style={styles.eventDescription}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
-                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                        aliquip ex ea commodo consequat.
+                        event description, location, time etc.
                       </Text>
                       <View style={styles.eventDateContainer}>
                         <Text style={styles.eventDate}>7-12</Text>
@@ -127,8 +124,8 @@ const businessProfile = () => {
               </View>
             </View>
           )}
-          {activeTab === 'calendar' && (
-            <View><Text>Calendar content here</Text></View>
+          {activeTab === 'list' && (
+            <View><Text>Events list content here</Text></View>
           )}
           {activeTab === 'add' && (
             <View><Text>Add something content here</Text></View>
@@ -137,21 +134,19 @@ const businessProfile = () => {
             <View><Text>Bookmarked content here</Text></View>
           )}
 
-          
-
       </ScrollView>
-      </SafeAreaView>
-    </View>
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: '#F5F5F5',
   },
   contentContainer: {
     flexGrow: 1,
+    paddingBottom: 100, // ✅ Add some space to scroll past bottom
   },
   header: {
     backgroundColor: '#8B2635',
