@@ -26,17 +26,21 @@ const businessProfile = () => {
             <View style={styles.profileCard}>
               <View style={styles.profileImageContainer}>
                 <Image
-                  source={{ uri: 'https://via.placeholder.com/80x80/D4A574/FFFFFF?text=WE+ARE' }}
+                  source={{ uri: user?.imageUrl }}
                   style={styles.profileImage}
                 />
               </View>
 
               <View style={styles.profileInfo}>
                 {/* // NAME of biz */}
-                <Text style={styles.profileName}>WEARE.SG</Text> 
+                <Text style={styles.profileName}> 
+                  {user?.firstName ?? 'NAME'} 
+                </Text> 
 
                 {/* biz username */}
-                <Text style={styles.profileHandle}>@weare.sg</Text>
+                <Text style={styles.profileHandle}>                  
+                  @{user?.username}
+                </Text>
 
                 {/* biz description (they can write themselves) */}
                 <Text style={styles.profileDescription}> the COOLEST thrift store in Singapore. </Text>
@@ -187,14 +191,14 @@ const styles = StyleSheet.create({
   profileImageContainer: {
     borderWidth: 3,
     borderColor: FyndColors.Purple,
-    borderRadius: 50,
+    borderRadius: 60,
     padding: 3,
     marginRight: 16,
   },
   profileImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
   profileInfo: {
     flex: 1,
