@@ -6,11 +6,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import { Modal } from 'react-native';
 import { TextInput } from 'react-native';
-import { SignedIn } from '@clerk/clerk-expo';
+import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import FyndColors from '@/components/fyndColors';
 import { useInteractionApi } from '@/api/interaction';
+import ChooseAuth from '@/components/chooseAuth';
+import { User } from 'lucide-react-native';
 
 const Favourites = () => {
+  const { user } = useUser();
+
   const { upsertFolder } = useInteractionApi();
   const [refreshKey, setRefreshKey] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -43,61 +47,73 @@ const Favourites = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View style={{ backgroundColor: user ? 'white' : FyndColors.Purple, flex: 1 }}>
       <FyndBanner 
         backgroundColor = {FyndColors.Purple} 
         textColor = {FyndColors.Yellow}      
         iconColor = {FyndColors.Yellow}/> 
-      
-      <View style={{ flex: 1}}>
-       <FavouritesScreen key={refreshKey} />
-       
-      {/* Add Button */}
-      <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
-        <Ionicons name="add" size={24} color="#fff" />
-      </TouchableOpacity>
 
-      {/* Popup Modal */}
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Create New List</Text>
-
-            <TextInput
-              placeholder="List Name"
-              value={newListName}
-              onChangeText={setNewListName}
-              style={styles.input}
-            />
-
-            <TextInput
-              placeholder="Description"
-              value={newListDesc}
-              onChangeText={setNewListDesc}
-              style={[styles.input, { height: 60 }]}
-              multiline
-            />
-
-            <View style={styles.modalButtons}>
-              <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.cancelBtn}>
-                <Text style={{ color: '#fff' }}>Cancel</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={handleCreateList} style={styles.createBtn}>
-                <Text style={{ color: '#fff' }}>Create</Text>
-              </TouchableOpacity>
+          <SignedOut>
+            {/* sign in & sign out buttons component */}
+            {/* insert logo above buttons */}
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ChooseAuth
+            iconColor={FyndColors.Purple}
+            textColor={FyndColors.Purple}/>
             </View>
+          </SignedOut>
 
+      <SignedIn>
+        <View style={{ flex: 1}}>
+        <FavouritesScreen key={refreshKey} />
+        
+        {/* Add Button */}
+        <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+          <Ionicons name="add" size={24} color="#fff" />
+        </TouchableOpacity>
+
+        {/* Popup Modal */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Create New List</Text>
+
+              <TextInput
+                placeholder="List Name"
+                value={newListName}
+                onChangeText={setNewListName}
+                style={styles.input}
+              />
+
+              <TextInput
+                placeholder="Description"
+                value={newListDesc}
+                onChangeText={setNewListDesc}
+                style={[styles.input, { height: 60 }]}
+                multiline
+              />
+
+              <View style={styles.modalButtons}>
+                <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.cancelBtn}>
+                  <Text style={{ color: '#fff' }}>Cancel</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={handleCreateList} style={styles.createBtn}>
+                  <Text style={{ color: '#fff' }}>Create</Text>
+                </TouchableOpacity>
+              </View>
+
+            </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      </View>
+    </SignedIn>
 
-    </View>
     </View>
   );
 };
