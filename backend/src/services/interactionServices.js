@@ -105,7 +105,7 @@ module.exports = {
 
 
     /* ---------- Folders ---------- */
-    async upsertFolder(
+    async insertFolder(
     username,
     folder_name,
     saved, //saved must be an array
@@ -113,7 +113,30 @@ module.exports = {
     ) {
     const { error } = await supabase
         .from('FOLDERS')
-        .upsert({username, folder_name, saved, description}, { onConflict: 'username,folder_name' });
+        .insert({username, folder_name, saved, description});
+    // if (error) {console.log(error.code)}
+    if (error) {
+    // Postgres duplicate-key violation
+    if (error.code === '23505') {
+      const dupErr       = new Error('Folder name already exists.');
+      dupErr.httpStatus  = 409;          
+      throw dupErr;
+    }
+    throw error;                      
+  };
+    },
+
+    async updateFolder(
+    username,
+    folder_name,
+    saved, //saved must be an array
+    description
+    ) {
+    const { error } = await supabase
+        .from('FOLDERS')
+        .update({username, folder_name, saved, description})
+        .eq("username", username)
+        .eq("folder_name", folder_name);
     if (error) throw new Error(error.message);
     },
 
@@ -131,6 +154,16 @@ module.exports = {
         .from('FOLDERS')
         .select('*')
         .eq('username', username);
+    if (error) throw new Error(error.message);
+    return data;
+    },
+
+    async getFolderInfo(username, folder_name){
+    const { data, error } = await supabase
+        .from('FOLDERS')
+        .select('*')
+        .eq('username', username)
+        .eq('folder_name', folder_name);
     if (error) throw new Error(error.message);
     return data;
     },

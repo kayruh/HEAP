@@ -80,7 +80,7 @@ async getAccountLikes(req, res) {
 },
 
 /* ---------- Folders ---------- */
-async upsertFolder (req, res) {
+async insertFolder (req, res) {
   try {
     // console.log("hit")
     const { userId } = clerkexpress.getAuth(req);
@@ -90,8 +90,26 @@ async upsertFolder (req, res) {
     const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
     const {folder_name,saved,description} = req.body
     
-    await interactionServices.upsertFolder(username,folder_name,saved,description);
-    res.status(200).json({ message: 'Folder upserted' });
+    await interactionServices.insertFolder(username,folder_name,saved,description);
+    res.status(201).json({ message: 'Folder created' });
+  } catch (e) {
+    const status = e.httpStatus || 500;
+    // console.log(e.status)
+    return res.status(status).json({ message: e.message });
+  }
+},
+async updateFolder (req, res) {
+  try {
+    // console.log("hit")
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const {folder_name,saved,description} = req.body
+    
+    await interactionServices.updateFolder(username,folder_name,saved,description);
+    res.status(200).json({ message: 'Folder updated' });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -125,6 +143,22 @@ async getAccountFolders(req, res) {
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
+},
+
+async getFolderInfo(req, res) {
+  try {
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    const {folder_name} = req.body
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const folderInfo = interactionServices.getAccountFolders(username, folder_name);
+    res.status(200).json(folderInfo);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+
 },
 
 /* ---------- Reviews ---------- */

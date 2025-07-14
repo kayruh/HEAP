@@ -17,10 +17,11 @@ router.get   ('/getEventLikeCount/:event', interactionController.getEventLikeCou
 router.get   ('/getAccountLikes',   interactionController.getAccountLikes); //secure
 
 /* ---------- Folders ---------- */
-router.put   ('/upsertFolder', clerkexpress.requireAuth() ,interactionController.upsertFolder); //secure might have to chnage this to split insert and update
-// router.patch   ('/updateFolder', clerkexpress.requireAuth() ,interactionController.updateFolder);
+router.post   ('/insertFolder', clerkexpress.requireAuth() ,interactionController.insertFolder); //secure might have to chnage this to split insert and update
+router.patch   ('/updateFolder', clerkexpress.requireAuth() ,interactionController.updateFolder);
 router.delete('/deleteFolder', clerkexpress.requireAuth() ,interactionController.deleteFolder); //secure
 router.get   ('/getAccountFolders', clerkexpress.requireAuth() , interactionController.getAccountFolders); //secure
+router.get('/getFolderInfo', clerkexpress.requireAuth() , interactionController.getFolderInfo)
 
 /* ---------- Reviews ---------- */
 router.put   ('/upsertReview',     interactionController.upsertReview); //remove this

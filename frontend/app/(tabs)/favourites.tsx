@@ -15,11 +15,13 @@ import { User } from 'lucide-react-native';
 const Favourites = () => {
   const { user } = useUser();
 
-  const { upsertFolder } = useInteractionApi();
+  const { insertFolder } = useInteractionApi();
   const [refreshKey, setRefreshKey] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [newListName, setNewListName] = useState('');
   const [newListDesc, setNewListDesc] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+
   
 
   /** create button inside the modal */
@@ -31,7 +33,7 @@ const Favourites = () => {
 
     try {
       // 🚀 call the API
-      await upsertFolder(newListName.trim(), newListDesc.trim());
+      await insertFolder(newListName.trim(), newListDesc.trim());
 
       // (Optionally refresh local lists here)
 
@@ -41,9 +43,15 @@ const Favourites = () => {
       setNewListName('');
       setNewListDesc('');
     } catch (err: any) {
-      console.error(err);
-      Alert.alert('Error', err?.response?.data?.error ?? 'Unable to create list.');
-    }
+    const status  = err?.response?.status;
+    const message = err?.response?.data?.message;
+
+    if (status === 409) {
+      console.log(message);                       // 👉 “Folder name already exists.”
+      setErrorMsg(message);      
+    } else {
+      setErrorMsg('Something went wrong. Please try again.');
+    }}
   };
 
   return (
@@ -97,7 +105,9 @@ const Favourites = () => {
                 style={[styles.input, { height: 60 }]}
                 multiline
               />
-
+              {!!errorMsg && (
+  <Text style={styles.errorText}>{errorMsg}</Text>
+)}
               <View style={styles.modalButtons}>
                 <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.cancelBtn}>
                   <Text style={{ color: '#fff' }}>Cancel</Text>
@@ -174,4 +184,9 @@ const styles = StyleSheet.create({
     width: '48%',
     alignItems: 'center',
   },
+  errorText: {
+  color: 'red',
+  marginBottom: 8,
+  textAlign: 'center',
+},
 });
