@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, View, Dimensions, StyleSheet } from 'react-native'
+import { Text, SafeAreaView, View, Dimensions, StyleSheet, Alert } from 'react-native'
 import React, { useState } from 'react'
 import FyndBanner from '@/components/fyndBanner'
 import FavouritesScreen from '@/components/favouritesScreen2';
@@ -8,44 +8,38 @@ import { Modal } from 'react-native';
 import { TextInput } from 'react-native';
 import { SignedIn } from '@clerk/clerk-expo';
 import FyndColors from '@/components/fyndColors';
-
-// users need to login to see their lists
-// if not log in -> prompt to log in
-// else show fav lists
-// how to do backend? send to specific user's account
-
-// import { useInteractionApi } from '@/api/interaction';
-// import { useEffect } from 'react';
-
-//  function Debug() {
-//   const { getAccountFolders } = useInteractionApi();
-
-//   useEffect(() => {
-//     // we wrap our await call in an async function
-//     async function fetchAndLog() {
-//       try {
-//         // console.log("favourite.tsx")
-//         const data = await getAccountFolders("adrian");
-//         console.log(data);
-//       } catch (err: any) {
-//         console.error('Failed to fetch hot items:', err);
-//       }
-//     }
-//     fetchAndLog();
-//   }, [getAccountFolders]);
-// }
+import { useInteractionApi } from '@/api/interaction';
 
 const Favourites = () => {
+  const { upsertFolder } = useInteractionApi();
+  const [refreshKey, setRefreshKey] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [newListName, setNewListName] = useState('');
   const [newListDesc, setNewListDesc] = useState('');
+  
 
-  const handleCreateList = () => {
-    console.log('New List:', { newListName, newListDesc });
-    // Here you would send to backend or update your list state
-    setModalVisible(false);
-    setNewListName('');
-    setNewListDesc('');
+  /** create button inside the modal */
+  const handleCreateList = async () => {
+    if (!newListName.trim()) {
+      Alert.alert('Oops', 'A list needs a name.');
+      return;
+    }
+
+    try {
+      // 🚀 call the API
+      await upsertFolder(newListName.trim(), newListDesc.trim());
+
+      // (Optionally refresh local lists here)
+
+      // tidy-up UI
+      setRefreshKey(k => k + 1);
+      setModalVisible(false);
+      setNewListName('');
+      setNewListDesc('');
+    } catch (err: any) {
+      console.error(err);
+      Alert.alert('Error', err?.response?.data?.error ?? 'Unable to create list.');
+    }
   };
 
   return (
@@ -54,8 +48,8 @@ const Favourites = () => {
         backgroundColor = {FyndColors.Purple} 
         textColor = {FyndColors.Yellow}      
         iconColor = {FyndColors.Yellow}/>      
-        <FavouritesScreen/>
-
+       <FavouritesScreen key={refreshKey} />
+       
       {/* Add Button */}
       <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
         <Ionicons name="add" size={24} color="#fff" />
@@ -105,6 +99,8 @@ const Favourites = () => {
 };
 
 export default Favourites;
+
+
 
 const styles = StyleSheet.create({
   addButton: {

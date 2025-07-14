@@ -82,7 +82,13 @@ async getAccountLikes(req, res) {
 /* ---------- Folders ---------- */
 async upsertFolder (req, res) {
   try {
-    const {username,folder_name,saved,description} = req.body
+    // console.log("hit")
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const {folder_name,saved,description} = req.body
     
     await interactionServices.upsertFolder(username,folder_name,saved,description);
     res.status(200).json({ message: 'Folder upserted' });
@@ -93,7 +99,12 @@ async upsertFolder (req, res) {
 
 async deleteFolder(req, res) {
   try {
-    const { username, folder_name } = req.body;
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const {folder_name } = req.body;
     await interactionServices.deleteFolder(username, folder_name);
     res.status(204).send();
   } catch (e) {
@@ -103,14 +114,10 @@ async deleteFolder(req, res) {
 
 async getAccountFolders(req, res) {
   try {
-    
     const { userId } = clerkexpress.getAuth(req);
     if (!userId) {
       return res.status(401).json({ error: 'Not authenticated' });
     }
-
-    // then lookup the Clerk user to get their username
-
     const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
     // const { username } = req.params;
     const folders = await interactionServices.getAccountFolders(username);

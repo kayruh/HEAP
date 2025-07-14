@@ -19,9 +19,11 @@ module.exports = {
 
     async updateBusinessDisplay(req, res) {
         try {
-            const { userId } =  clerkexpress.getAuth()//userid or username??
+            const { userId } = clerkexpress.getAuth(req);
+                if (!userId) {
+                  return res.status(401).json({ error: 'Not authenticated' });
+                }
             const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
-
             const { display_id, picture_array} = req.body //might need to change this inidividual picturearray function due to database limitations
             const businessDetailsUpdate = await businessServices.updateBusinessDisplay(username, picture_array, display_id);
             
@@ -38,7 +40,10 @@ module.exports = {
 
     async upsertEvent(req, res) {
          try {
-            const { userId } =  clerkexpress.getAuth()//userid or username??
+            const { userId } = clerkexpress.getAuth(req);
+                if (!userId) {
+                  return res.status(401).json({ error: 'Not authenticated' });
+                }
             const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
             const {uuid, title, description, start, end, event_photos} = req.body //might need to change this inidividual picturearray function due to database limitations
             const upsertEvent = await businessServices.upsertEvent(uuid, username, title, description, start, end, event_photos);
@@ -56,7 +61,10 @@ module.exports = {
 
     async deleteEvent(req, res) {
         try {
-            const { userId } =  clerkexpress.getAuth()
+            const { userId } = clerkexpress.getAuth(req);
+                if (!userId) {
+                  return res.status(401).json({ error: 'Not authenticated' });
+                }
             const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
             const {uuid} = req.body
             const deleteEvent = await businessServices.deleteEvent(uuid, username)
