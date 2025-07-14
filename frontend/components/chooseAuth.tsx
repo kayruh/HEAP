@@ -7,33 +7,42 @@ import FyndColors from './fyndColors';
 
 const maxWidth= 300; // for styling
 
-const ChooseAuth = () => {
+interface ChooseAuthProps {
+  buttonColor?: string;
+  textColor?: string;
+  iconColor?: string;
+}
+
+const ChooseAuth: React.FC<ChooseAuthProps> = ({
+  buttonColor = FyndColors.Yellow,
+  textColor = FyndColors.Green,
+  iconColor = FyndColors.Green,
+}) => {
   return (
     <View>
-      <TouchableOpacity style={styles.signInButton} onPress={() => router.push('/(auth)/sign-in')}>
-          <View style={styles.inlineRow}>
-            <Ionicons name="person-outline" size={20} color={FyndColors.Green} style={styles.authIcon} />
-            <Text style={styles.signInButtonText}>Sign in</Text>
-          </View>
-        </TouchableOpacity>
+      <TouchableOpacity style={[styles.signInButton, {backgroundColor: buttonColor }]} onPress={() => router.push('/(auth)/sign-in')}>
+        <View style={styles.inlineRow}>
+          <Ionicons name="person-outline" size={20} color={iconColor} style={styles.authIcon} />
+          <Text style={[styles.signInButtonText, { color: textColor }]}>Sign in</Text>
+        </View>
+      </TouchableOpacity>
 
-        <TouchableOpacity style={styles.signInButton} onPress={() => router.push('/(auth)/sign-up')}>
-          <View style={styles.inlineRow}>
-          <Ionicons name="person-add-outline" size={20} color={FyndColors.Green} style={styles.authIcon} />
-            <Text style={styles.signInButtonText}>Sign up</Text>
-            </View>
-        </TouchableOpacity>
+      <TouchableOpacity style={[styles.signInButton, {backgroundColor: buttonColor }]} onPress={() => router.push('/(auth)/sign-up')}>
+        <View style={styles.inlineRow}>
+          <Ionicons name="person-add-outline" size={20} color={iconColor} style={styles.authIcon} />
+          <Text style={[styles.signInButtonText, { color: textColor }]}>Sign up</Text>
+        </View>
+      </TouchableOpacity>
 
-        <TouchableOpacity style={styles.signInButton} onPress={() => router.push('/(auth)/business-sign-up')}>
-          <View style={styles.inlineRow}>
-            <Ionicons name="business-outline" size={20} color={FyndColors.Green} style={styles.authIcon} />
-              <Text style={styles.signInButtonText}>Business Sign up</Text>
-          </View>        
-        </TouchableOpacity>
-
+      <TouchableOpacity style={[styles.signInButton, {backgroundColor: buttonColor }]} onPress={() => router.push('/(auth)/business-sign-up')}>
+        <View style={styles.inlineRow}>
+          <Ionicons name="business-outline" size={20} color={iconColor} style={styles.authIcon} />
+          <Text style={[styles.signInButtonText, { color: textColor }]}>Business Sign up</Text>
+        </View>
+      </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 export default ChooseAuth
 
@@ -41,7 +50,7 @@ const styles = StyleSheet.create({
     signInButton: {
         width: "100%",
         alignSelf: "center",
-        backgroundColor: FyndColors.Yellow,
+        // backgroundColor: FyndColors.Yellow,
         paddingVertical: 12,
         borderRadius: 8,
         marginTop: 5,

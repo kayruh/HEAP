@@ -10,7 +10,7 @@ interface FyndBannerProps {
     backgroundColor?: string;
     textColor?: string;
     iconColor?: string;
-  }
+}
 
 export default function FyndBanner({
     backgroundColor = FyndColors.Green, // default colours
