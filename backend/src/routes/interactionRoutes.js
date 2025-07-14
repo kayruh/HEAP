@@ -21,7 +21,7 @@ router.post   ('/insertFolder', clerkexpress.requireAuth() ,interactionControlle
 router.patch   ('/updateFolder', clerkexpress.requireAuth() ,interactionController.updateFolder);
 router.delete('/deleteFolder', clerkexpress.requireAuth() ,interactionController.deleteFolder); //secure
 router.get   ('/getAccountFolders', clerkexpress.requireAuth() , interactionController.getAccountFolders); //secure
-router.get('/getFolderInfo', clerkexpress.requireAuth() , interactionController.getFolderInfo)
+router.post('/getFolderInfo', interactionController.getFolderInfo)
 
 /* ---------- Reviews ---------- */
 router.put   ('/upsertReview',     interactionController.upsertReview); //remove this

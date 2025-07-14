@@ -20,6 +20,12 @@ export function useInteractionApi() {
     return res.data;
   }
 
+  async function getFolderInfo(username: string , folder_name:  string) {
+    const res = await api.post('/interaction/getFolderInfo', {username, folder_name}
+    );
+    return res.data;
+  }
+
   // idk how to implement this removeFromFolder for fav page
   // const removeFromFolder = async (folderName: string, itemId: string) => {
   //   const headers = await getHeaders();
@@ -33,6 +39,7 @@ export function useInteractionApi() {
   return {
     getAccountFolders,
     insertFolder,
+    getFolderInfo
     // removeFromFolder,
     // test
   };

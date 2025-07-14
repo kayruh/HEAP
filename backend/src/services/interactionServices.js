@@ -163,7 +163,8 @@ module.exports = {
         .from('FOLDERS')
         .select('*')
         .eq('username', username)
-        .eq('folder_name', folder_name);
+        .eq('folder_name', folder_name)
+        .single();
     if (error) throw new Error(error.message);
     return data;
     },

@@ -147,13 +147,8 @@ async getAccountFolders(req, res) {
 
 async getFolderInfo(req, res) {
   try {
-    const { userId } = clerkexpress.getAuth(req);
-    if (!userId) {
-      return res.status(401).json({ error: 'Not authenticated' });
-    }
-    const {folder_name} = req.body
-    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
-    const folderInfo = interactionServices.getAccountFolders(username, folder_name);
+    const {username, folder_name} = req.body
+    const folderInfo = interactionServices.getFolderInfo(username, folder_name);
     res.status(200).json(folderInfo);
   } catch (e) {
     res.status(500).json({ error: e.message });

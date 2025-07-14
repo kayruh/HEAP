@@ -28,6 +28,18 @@ export default function FavListScreen() {
       .finally(() => setLoading(false));
   }, [user, folderName]);
 
+
+  //USE THIS INSTEAD!!!(BUT NOT WORKING YET IM SORRY)
+
+  // useEffect(() => {
+// if (!user || !folder_name) return;
+// setLoading(true);
+//     getFolderInfo(user.username as string, folder_name as string)
+//       .then((data: any) => setFolder(data ?? null))
+//       .catch(err => console.error('Failed to fetch folder:', err))
+//       .finally(() => setLoading(false));
+//   }, [user, folder_name]);
+
   const confirmDelete = (itemId: string) => {
     Alert.alert('Remove item?', 'Are you sure you want to remove this item?', [
       { text: 'Cancel', style: 'cancel' },

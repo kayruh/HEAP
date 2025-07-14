@@ -69,7 +69,7 @@ export default function FavouritesScreen() {
           columnWrapperStyle={styles.columnWrapper}
           renderItem={({ item }) => (
             <View style={[styles.card, { width: CARD_WIDTH }]}>
-              <TouchableOpacity onPress={() => router.push(`/(tabs)/${item.id}`)}>
+              <TouchableOpacity onPress={() => router.push(`/(tabs)/folder/${item.title}`)}>
               <Image
                 source={{ uri: item.image }}
                 style={styles.image}

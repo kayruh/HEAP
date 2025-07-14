@@ -24,7 +24,6 @@ const Favourites = () => {
 
   
 
-  /** create button inside the modal */
   const handleCreateList = async () => {
     if (!newListName.trim()) {
       Alert.alert('Oops', 'A list needs a name.');
@@ -32,12 +31,10 @@ const Favourites = () => {
     }
 
     try {
-      // 🚀 call the API
+
       await insertFolder(newListName.trim(), newListDesc.trim());
 
-      // (Optionally refresh local lists here)
 
-      // tidy-up UI
       setRefreshKey(k => k + 1);
       setModalVisible(false);
       setNewListName('');
@@ -47,7 +44,7 @@ const Favourites = () => {
     const message = err?.response?.data?.message;
 
     if (status === 409) {
-      console.log(message);                       // 👉 “Folder name already exists.”
+      console.log(message);                     
       setErrorMsg(message);      
     } else {
       setErrorMsg('Something went wrong. Please try again.');
