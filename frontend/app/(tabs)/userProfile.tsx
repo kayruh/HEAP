@@ -15,7 +15,7 @@ const UserProfile = () => {
     const { user } = useUser();
 
     return (
-      <View style={{backgroundColor: 'white',flex: 1}}>
+      <View style={{ backgroundColor: user ? 'white' : FyndColors.Green, flex: 1 }}>
         <FyndBanner />
           <ScrollView contentContainerStyle={styles.contentContainer}>
 
@@ -74,7 +74,8 @@ const UserProfile = () => {
 
           <SignedOut>
             {/* sign in & sign out buttons component */}
-            <View>
+            {/* insert logo above buttons */}
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ChooseAuth/>
             </View>
           </SignedOut>

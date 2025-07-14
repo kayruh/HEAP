@@ -1,15 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
-  Alert,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, Alert, TouchableOpacity, ActivityIndicator,} from 'react-native';
 import { useUser } from '@clerk/clerk-expo';
 import { useInteractionApi } from '@/api/interaction';
 import { Ionicons } from '@expo/vector-icons';
