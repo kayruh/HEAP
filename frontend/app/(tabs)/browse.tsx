@@ -25,6 +25,7 @@ export interface GenericItem {
 }
 
 import { Dimensions } from "react-native";
+import FyndColors from '@/components/fyndColors'
 
 
 const { width } = Dimensions.get('window');
@@ -100,19 +101,16 @@ export default function Browse() {
   const listHeader = useMemo(
     () => (
       <>
-        <StatusBar barStyle="dark-content" />
-        <FyndBanner
-          backgroundColor="#8B4789"
-          textColor="#F0E68C"
-          iconColor="#F0E68C"
-        />
-        <Text style={styles.sectionTitle}>What's Hot</Text>
-        {hotEvents.length ? (
-          <EventCarousel2 data={hotEvents} />
-        ) : (
-          <Text style={styles.loadingText}>Loading hot items…</Text>
-        )}
-        <Text style={styles.sectionTitle}>All Places & Events</Text>
+      <View>
+          <StatusBar barStyle="dark-content" />
+          <Text style={styles.sectionTitle}>What's Hot</Text>
+          {hotEvents.length ? (
+            <EventCarousel2 data={hotEvents} />
+          ) : (
+            <Text style={styles.loadingText}>Loading hot items…</Text>
+          )}
+          <Text style={styles.sectionTitle}>All Places & Events</Text>
+        </View>
       </>
     ),
     [hotEvents]
@@ -121,6 +119,10 @@ export default function Browse() {
   /* -------------------- render -------------------- */
   return (
     <View style={styles.container}>
+      <FyndBanner
+            backgroundColor = {FyndColors.Yellow} 
+            textColor = {FyndColors.Green}      
+            iconColor = {FyndColors.Green}/>
       {loadingAll ? (
         <Text style={styles.loadingText}>Loading list…</Text>
 
@@ -132,14 +134,13 @@ export default function Browse() {
           numColumns={2}              // grid-style like your card layout
           columnWrapperStyle={styles.rowWrap}
           ListHeaderComponent={listHeader}
-          contentContainerStyle={{ paddingBottom: 40 }}
+          contentContainerStyle={{ paddingBottom: 100 }} // to have some space below last cards above navi bar
         />
       )}
     </View>
   )
 }
 
-/* -------------------- styles -------------------- */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -147,8 +148,8 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: 700,
+    color: "#333",
     margin: 20,
   },
   loadingText: {

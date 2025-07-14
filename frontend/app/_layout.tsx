@@ -7,6 +7,8 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { CardStyleInterpolators } from '@react-navigation/stack';
+
 
 
 export default function RootLayout() {
@@ -21,7 +23,9 @@ export default function RootLayout() {
         options={{headerShown:false}}/>
       <Stack.Screen 
         name="settings" 
-        options={{headerShown:false}}/>
+        options={{
+          animation: 'slide_from_left',
+          headerShown:false}}/>
         <Stack.Screen 
         name="search" 
         options={{headerShown:false}}/>

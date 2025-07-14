@@ -30,9 +30,9 @@ const Favourites = () => {
   return (
     <View>
       <FyndBanner 
-        backgroundColor = {FyndColors.Yellow} 
-        textColor = {FyndColors.Green}      
-        iconColor = {FyndColors.Green}/>      
+        backgroundColor = {FyndColors.Purple} 
+        textColor = {FyndColors.Yellow}      
+        iconColor = {FyndColors.Yellow}/>      
         <FavouritesScreen/>
 
       {/* Add Button */}
