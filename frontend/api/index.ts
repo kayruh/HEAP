@@ -5,6 +5,7 @@ import { useAuth }from "@clerk/clerk-expo";
 export const api = axios.create({
   baseURL: 'http://localhost:3000',
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true
 });
 
 //(if you want RLS or auth on the backend)

@@ -8,6 +8,7 @@ const cors = require('cors')
 const app = express()
 
 
+
 app.use(express.json());
 app.use(clerkexpress.clerkMiddleware({
   publishableKey: process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY,

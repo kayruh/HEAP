@@ -103,8 +103,13 @@ async deleteFolder(req, res) {
 
 async getAccountFolders(req, res) {
   try {
-    const { userId } =  clerkexpress.getAuth()//userid or username??
-    
+    const { userId } = getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    // then lookup the Clerk user to get their username
+
     const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
     console.log( userId )
     // const { username } = req.params;
