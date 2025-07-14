@@ -19,7 +19,7 @@ router.get   ('/getAccountLikes',   interactionController.getAccountLikes); //se
 /* ---------- Folders ---------- */
 router.put   ('/upsertFolder',      interactionController.upsertFolder); //secure
 router.delete('/deleteFolder',      interactionController.deleteFolder); //secure
-router.get   ('/getAccountFolders', clerkexpress.requireAuth() ,interactionController.getAccountFolders); //secure
+router.get   ('/getAccountFolders', clerkexpress.requireAuth() , interactionController.getAccountFolders); //secure
 
 /* ---------- Reviews ---------- */
 router.put   ('/upsertReview',     interactionController.upsertReview); //remove this

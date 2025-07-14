@@ -9,6 +9,7 @@ export function useInteractionApi() {
     const res = await api.get('/interaction/getAccountFolders', {
       headers: { Authorization: `Bearer ${token}` },
     });
+    
     return res.data;
   }
 
