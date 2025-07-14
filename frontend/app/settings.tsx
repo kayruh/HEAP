@@ -40,14 +40,6 @@ export default function SettingsScreen() {
                 {/* Menu Items */}
                 <SignedIn>
                     <TouchableOpacity
-                        style={styles.menuItem}>
-                        <Text style={styles.userGreeting}>Hello @{user?.username}</Text>
-                        <SignOutButton/>
-                    </TouchableOpacity>
-                </SignedIn>
-                
-                <SignedIn>
-                    <TouchableOpacity
                         style={styles.menuItem}
                         onPress={() => { router.push('/(tabs)/userProfile') }}>
                         <Text style={styles.menuText}>Profile</Text>
@@ -91,6 +83,14 @@ export default function SettingsScreen() {
                         <Text style={styles.authText}>Business Sign Up</Text>
                     </TouchableOpacity>
                 </SignedOut>
+
+                <SignedIn>
+                    <TouchableOpacity
+                        style={styles.menuItem}>
+                        <Text style={styles.userGreeting}>Hello @{user?.username}</Text>
+                        <SignOutButton/>
+                    </TouchableOpacity>
+                </SignedIn>
 
                 {/* socials button */}
                 <View style={styles.iconRow}>

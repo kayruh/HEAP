@@ -26,7 +26,7 @@ export const SignOutButton = () => {
 const styles = StyleSheet.create({
   format: {
     color: 'black',
-    fontWeight: 'bold',
+    fontWeight: 600,
     fontSize: 15,
   },
 });
