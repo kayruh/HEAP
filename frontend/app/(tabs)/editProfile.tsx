@@ -90,7 +90,7 @@ const editProfile = () => {
       return (
         <SafeAreaView style={{ flex: 1 }}>
             <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/userProfile')}>
-                <Ionicons name="arrow-back" size={20} color={FyndColors.Yellow} />
+                <Ionicons name="chevron-back" size={20} color={FyndColors.Yellow} />
             </TouchableOpacity>
           <ScrollView contentContainerStyle={styles.contentContainer}>
     

@@ -15,27 +15,35 @@ const UserProfile = () => {
     const { user } = useUser();
 
     return (
-      <View>
+      <View style={{backgroundColor: 'white',flex: 1}}>
         <FyndBanner />
           <ScrollView contentContainerStyle={styles.contentContainer}>
+
           <SignedIn>
           {/* Profile Picture */}
-          <View style={styles.profileImageWrapper}>
+          <View style={styles.profileHeader}>
             <Image
-            source={{ 
-              uri: user?.imageUrl }}
+              source={{ uri: user?.imageUrl }}
               style={styles.profileImage}
-            />    
+            />
+            <View style={styles.nameSection}>
+              <Text style={styles.nameText}>
+                {user?.firstName ?? 'NAME'}
+              </Text>
+              <View style={styles.usernameBadge}>
+                <Text style={styles.usernameText}>
+                  @{user?.username}
+                </Text>
+              </View>
+            </View>
           </View>
-
-          {/* User Name */}
-          <Text style={styles.userName}>@{user?.username}</Text>
 
           {/* User Info Rows */}
-          <View style={styles.infoRow}>
+          {/* <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>NAME</Text>
             <Text style={styles.infoValue}>{user?.firstName}</Text>
-          </View>
+          </View> */}
+
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>BIRTHDAY</Text>
             <Text style={styles.infoValue}>{user?.unsafeMetadata?.DOB
@@ -101,7 +109,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   contentContainer: {
-    paddingTop: 80,
+    paddingTop: 50,
     paddingBottom: 60,
     alignItems: 'center',
   },
@@ -145,13 +153,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 5,
   },
-  diamond: {
-    width: 8,
-    height: 8,
-    backgroundColor: '#000',
-    transform: [{ rotate: '45deg' }],
-    zIndex: 1,
-  },
   paragraph: {
     fontSize: 16,
     color: '#3F3528',
@@ -164,14 +165,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: '#fff',
-    borderWidth: 2,
-    borderColor: FyndColors.Purple,
-  },
+  
   userName: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -231,6 +225,45 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     // backgroundColor: '#fff', // optional, for full white background
   },
+  profileHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 30,
+    width: '100%',
+    paddingLeft: 30,
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderColor: FyndColors.Purple,
+  },
+  nameSection: {
+    marginLeft: 20,
+    justifyContent: 'center',
+  },
+  nameText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 6,
+  },
+  usernameBadge: {
+    backgroundColor: FyndColors.Yellow,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  usernameText: {
+    fontSize: 14,
+    color: '#555',
+    fontWeight: 'bold',
+    // letterSpacing: 1,
+  },
+  
 });
 
 export default UserProfile;
