@@ -4,6 +4,7 @@ import { SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet, Plat
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { KeyboardAvoidingView } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import FyndColors from '@/components/fyndColors';
 
 const maxWidth= 300; // for styling
@@ -50,7 +51,7 @@ export default function Page() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-        <Ionicons name="arrow-back" size={20} color="#000"/>
+        <Ionicons name="chevron-back" size={20} color={FyndColors.Yellow}/>
       </TouchableOpacity>
 
       <KeyboardAvoidingView
@@ -140,9 +141,9 @@ const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     top: 55,
-    left: 18,
-    backgroundColor: FyndColors.Yellow,
-    borderRadius: 20,
+    left: 15,
+    // backgroundColor: FyndColors.Yellow,
+    // borderRadius: 20,
     padding: 8,
     elevation: 3,
     shadowColor: '#000',

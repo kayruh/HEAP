@@ -150,7 +150,7 @@ export default function BusinessSignUp() {
     <SafeAreaView style={styles.safeArea}>
       {/* this back arrow stays in all pages, ??? decide what to do */}
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-        <Ionicons name="arrow-back" size={20} color="#000"/>
+        <Ionicons name="chevron-back" size={20} color={FyndColors.Yellow}/>
       </TouchableOpacity>
 
       <KeyboardAvoidingView
@@ -413,9 +413,9 @@ const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     top: 55,
-    left: 18,
-    backgroundColor: FyndColors.Yellow,
-    borderRadius: 20,
+    left: 15,
+    // backgroundColor: FyndColors.Yellow,
+    // borderRadius: 20,
     padding: 8,
     elevation: 3,
     shadowColor: '#000',

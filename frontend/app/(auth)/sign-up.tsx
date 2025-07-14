@@ -86,7 +86,7 @@ export default function SignUpScreen() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={20} color="#000" />
+          <Ionicons name="chevron-back" size={20} color={FyndColors.Yellow} />
         </TouchableOpacity>
 
         <>
@@ -151,7 +151,7 @@ export default function SignUpScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={20} color="#000" />
+          <Ionicons name="chevron-back" size={20} color={FyndColors.Yellow} />
         </TouchableOpacity>
       <>
 
@@ -251,9 +251,9 @@ const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     top: 55,
-    left: 18,
-    backgroundColor: FyndColors.Yellow,
-    borderRadius: 20,
+    left: 15,
+    // backgroundColor: FyndColors.Yellow,
+    // borderRadius: 20,
     padding: 8,
     elevation: 3,
     shadowColor: '#000',
