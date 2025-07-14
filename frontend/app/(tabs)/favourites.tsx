@@ -1,7 +1,7 @@
 import { Text, SafeAreaView, View, Dimensions, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import FyndBanner from '@/components/fyndBanner'
-import FavouritesScreen from '@/components/favourtiesScreen';
+import FavouritesScreen from '@/components/favouritesScreen2';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import { Modal } from 'react-native';
@@ -13,6 +13,27 @@ import FyndColors from '@/components/fyndColors';
 // if not log in -> prompt to log in
 // else show fav lists
 // how to do backend? send to specific user's account
+
+// import { useInteractionApi } from '@/api/interaction';
+// import { useEffect } from 'react';
+
+//  function Debug() {
+//   const { getAccountFolders } = useInteractionApi();
+
+//   useEffect(() => {
+//     // we wrap our await call in an async function
+//     async function fetchAndLog() {
+//       try {
+//         // console.log("favourite.tsx")
+//         const data = await getAccountFolders("adrian");
+//         console.log(data);
+//       } catch (err: any) {
+//         console.error('Failed to fetch hot items:', err);
+//       }
+//     }
+//     fetchAndLog();
+//   }, [getAccountFolders]);
+// }
 
 const Favourites = () => {
   const [modalVisible, setModalVisible] = useState(false);

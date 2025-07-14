@@ -1,4 +1,6 @@
 const interactionServices = require('../services/interactionServices');
+const clerkexpress = require("@clerk/express")
+
 
 /* ---------- Likes ---------- */
 module.exports = {
@@ -101,7 +103,11 @@ async deleteFolder(req, res) {
 
 async getAccountFolders(req, res) {
   try {
-    const { username } = req.params;
+    const { userId } =  clerkexpress.getAuth()//userid or username??
+    
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    console.log( userId )
+    // const { username } = req.params;
     const folders = await interactionServices.getAccountFolders(username);
     res.status(200).json(folders);
   } catch (e) {
