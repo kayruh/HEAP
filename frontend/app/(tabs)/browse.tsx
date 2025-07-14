@@ -1,13 +1,6 @@
 // Browse.tsx  ────────────────────────────────────────────────────────────────
 import React, { useEffect, useState, useMemo } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  FlatList,
-  ListRenderItem,
-} from 'react-native'
+import { View, Text, StyleSheet, StatusBar, FlatList, ListRenderItem,} from 'react-native'
 import { useAppApi } from '@/api/app'
 import EventCarousel2, { HotEvent } from '@/components/eventCarousel2'
 import EventCard from '@/components/eventCard2'
@@ -97,7 +90,7 @@ export default function Browse() {
   const keyExtractor = (item: GenericItem) =>
     item.type === 'event' ? `ev-${item.uuid}` : `biz-${item.username}`
 
-  /* -------------------- memoised header (banner + carousel) -------------------- */
+  /* -------------------- memoised header (carousel) -------------------- */
   const listHeader = useMemo(
     () => (
       <>

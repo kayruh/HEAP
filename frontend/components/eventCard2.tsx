@@ -1,14 +1,9 @@
 // EventCard.tsx
 import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native'
+import { View, Text, StyleSheet, Dimensions,TouchableOpacity,} from 'react-native'
 import { Card, Image, Badge } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import FyndColors from './fyndColors'
 
 /* —————————————————— TYPES —————————————————— */
 export type EventItem = {
@@ -130,7 +125,6 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
   )
 }
 
-/* —————————————————— STYLES —————————————————— */
 const styles = StyleSheet.create({
   card: {
     width: CARD_WIDTH,
@@ -138,6 +132,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 0,
     overflow: 'hidden',
+    backgroundColor: FyndColors.Yellow,
   },
   imageContainer: {
     height: 120,
@@ -158,8 +153,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: '700',
+    color: FyndColors.Green,
     marginBottom: 4,
     minHeight: 35,
   },
@@ -188,7 +183,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 8,
     bottom: 8,
-    color: '#999',
+    color: FyndColors.Green,
   },
 })
 
