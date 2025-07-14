@@ -69,22 +69,32 @@ export default function Browse() {
   /* -------------------- mapping for EventCard -------------------- */
   const renderItem: ListRenderItem<GenericItem> = ({ item }) => {
     // transform the supabase object into the props EventCard expects
-    const cardProps = {
-      image:            // pick the first available image-ish URL
-        item.pictures?.[0] ??
-        item.google_maps_location ??                    // placeholder if you have one
-        'https://placehold.co/300x200?text=No+Image',
-      name:   item.type === 'event'
-              ? item.title  ?? '(untitled event)'
-              : item.name   ?? '(unnamed business)',
-      rating: 0,
-      price:  '',
-      originalPrice: '',
-      isNew:  item.type === 'event',   // flag events as “NEW”
-    }
+    // const cardProps = {
+    //   image:            // pick the first available image-ish URL
+    //     item.pictures?.[0] ??
+    //     item.google_maps_location ??                    // placeholder if you have one
+    //     'https://placehold.co/300x200?text=No+Image',
+    //   name:   item.type === 'event'
+    //           ? item.title  ?? '(untitled event)'
+    //           : item.name   ?? '(unnamed business)',
+    //   rating: 0,
+    //   price:  '',
+    //   originalPrice: '',
+    //   isNew:  item.type === 'event',   // flag events as “NEW”
+    // }
 
-    return <EventCard item={cardProps} />
+    // return <EventCard item={cardProps} />
+
+    // returns everything in item
+    return (
+      <EventCard
+        item={item}
+        onPress={() => {
+          console.log('🟡 You pressed on:', item)
+        }}/>
+    )
   }
+  
 
   /* -------------------- key extractor -------------------- */
   const keyExtractor = (item: GenericItem) =>

@@ -1,6 +1,8 @@
 import React from 'react'
 import { ScrollView, Dimensions, StyleSheet, ImageBackground, View, Text } from 'react-native'
 import FyndColors from '@/components/fyndColors'
+import { TouchableOpacity } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const { width } = Dimensions.get('window')
 const CAROUSEL_ITEM_WIDTH = width * 0.85
@@ -34,6 +36,21 @@ export default function EventCarousel2({ data }: EventCarouselProps) {
             style={styles.item}
             imageStyle={styles.imageBackground}
           >
+          
+          <TouchableOpacity
+            style={styles.topRightIcon}
+            onPress={() => {
+              console.log('🔷 Top-right icon pressed with item data:', item) 
+              // logs item data when heart or plus pressed
+            }}
+          >
+          <Icon
+            name='favorite-border'
+            size={22}
+            color={FyndColors.Green}
+          />
+        </TouchableOpacity>
+
             <View style={styles.overlay}>
               <Text style={styles.title} numberOfLines={2}>{item.title ?? 'No title'}</Text>
               <Text style={styles.business}>{item.business}</Text>
@@ -62,16 +79,25 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   overlay: {
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: FyndColors.Yellow,
     padding: 10,
   },
   title: {
-    color: '#fff',
+    color: FyndColors.Green,
     fontSize: 16,
     fontWeight: 'bold',
   },
   business: {
-    color: '#fff',
+    color: '#000',
     fontSize: 14,
+  },
+  topRightIcon: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    borderRadius: 20,
+    padding: 6,
+    zIndex: 10,
   },
 })

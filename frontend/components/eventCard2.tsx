@@ -88,10 +88,12 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
             />
           )}
         </View>
-        {/* Top-right action icon */}
+
+        {/* top-right action icon */}
         <TouchableOpacity
           style={styles.topRightIcon}
           onPress={() => {
+            console.log('🔷 Top-right icon pressed with item data:', item) // logs item data when heart or plus pressed
             if (isEvent) {
               console.log('Heart pressed for event:', item.uuid)
             } else {
@@ -163,7 +165,7 @@ const styles = StyleSheet.create({
     top: 8,
     left: 8,
   },
-  badge: { backgroundColor: '#ff4757' },
+  badge: { backgroundColor: FyndColors.Green },
   badgeText: { fontSize: 10 },
   infoContainer: {
     padding: 12,
@@ -177,7 +179,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     fontSize: 12,
-    color: '#666',
+    color: '#000',
     marginBottom: 8,
   },
   tagRow: {
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   tagChip: {
-    backgroundColor: '#EFEFEF',
+    backgroundColor: FyndColors.Purple,
     borderRadius: 8,
     paddingHorizontal: 6,
     paddingVertical: 2,
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
   },
   tagText: {
     fontSize: 10,
-    color: '#333',
+    color: '#fff',
   },
   chevron: {
     position: 'absolute',
