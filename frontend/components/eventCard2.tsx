@@ -88,6 +88,23 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
             />
           )}
         </View>
+        {/* Top-right action icon */}
+        <TouchableOpacity
+          style={styles.topRightIcon}
+          onPress={() => {
+            if (isEvent) {
+              console.log('Heart pressed for event:', item.uuid)
+            } else {
+              console.log('Plus pressed for business:', item.username)
+            }
+          }}
+        >
+          <Icon
+            name={isEvent ? 'favorite-border' : 'add'}
+            size={22}
+            color={FyndColors.Green}
+          />
+        </TouchableOpacity>
 
         {/* ---------- INFO ---------- */}
         <View style={styles.infoContainer}>
@@ -184,6 +201,15 @@ const styles = StyleSheet.create({
     right: 8,
     bottom: 8,
     color: FyndColors.Green,
+  },
+  topRightIcon: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    borderRadius: 20,
+    padding: 6,
+    zIndex: 10,
   },
 })
 
