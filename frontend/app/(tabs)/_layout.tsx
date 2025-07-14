@@ -77,6 +77,7 @@ const _layout = () => {
           headerShown:false,
           href: null, // hides editProfile from the tab bar
         }}/>
+    
 
     </Tabs>
   )

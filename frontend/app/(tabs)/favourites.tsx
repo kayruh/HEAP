@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   createBtn: {
-    backgroundColor: FyndColors.Green,
+    backgroundColor: FyndColors.Purple,
     padding: 10,
     borderRadius: 8,
     width: '48%',

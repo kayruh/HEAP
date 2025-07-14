@@ -3,6 +3,8 @@ import { View, Text, Image, FlatList, Dimensions, StyleSheet, ActivityIndicator,
 import { useUser } from '@clerk/clerk-expo'
 import { useInteractionApi } from '@/api/interaction'
 import FyndColors from './fyndColors'
+import { TouchableOpacity } from 'react-native'
+import { router } from 'expo-router'
 
 const screenWidth = Dimensions.get('window').width
 const CARD_WIDTH = (screenWidth - 48) / 2 // 2 cards + padding
@@ -67,6 +69,7 @@ export default function FavouritesScreen() {
           columnWrapperStyle={styles.columnWrapper}
           renderItem={({ item }) => (
             <View style={[styles.card, { width: CARD_WIDTH }]}>
+              <TouchableOpacity onPress={() => router.push(`/(tabs)/${item.id}`)}>
               <Image
                 source={{ uri: item.image }}
                 style={styles.image}
@@ -76,6 +79,7 @@ export default function FavouritesScreen() {
               <Text style={styles.description}>
                 {item.description ?? 'No description'}
               </Text>
+              </TouchableOpacity>
             </View>
           )}
           showsVerticalScrollIndicator={false}
@@ -126,7 +130,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 90,
+    paddingTop: 20,
   },
   emptyText: {
     fontSize: 16,
