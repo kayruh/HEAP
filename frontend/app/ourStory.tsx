@@ -26,7 +26,7 @@ const OurStory = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
@@ -103,7 +103,7 @@ const OurStory = () => {
           <Text style={styles.footerBottomText}>Get lost, FYND more.</Text>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -120,9 +120,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 15,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    backgroundColor: FyndColors.Yellow,
+    paddingTop: 60,  
   },
   headerLeft: {
     flexDirection: 'row',
@@ -181,7 +180,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mainContent: {
-    paddingTop: 40,
+    paddingTop: 10,
     paddingHorizontal: 20,
   },
   
@@ -277,8 +276,6 @@ const styles = StyleSheet.create({
   stayConnectedContainer: {
     backgroundColor: FyndColors.Green,
     padding: 25,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
   },
   
   // Footer Image Styles
