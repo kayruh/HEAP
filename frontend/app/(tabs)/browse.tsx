@@ -19,6 +19,7 @@ export interface GenericItem {
 
 import { Dimensions } from "react-native";
 import FyndColors from '@/components/fyndColors'
+import { TouchableOpacity } from 'react-native'
 
 
 const { width } = Dimensions.get('window');
@@ -94,7 +95,7 @@ export default function Browse() {
         }}/>
     )
   }
-  
+
 
   /* -------------------- key extractor -------------------- */
   const keyExtractor = (item: GenericItem) =>
@@ -141,6 +142,7 @@ export default function Browse() {
         />
       )}
     </View>
+    
   )
 }
 
@@ -164,4 +166,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 10,
   },
+  filterButton: {
+    alignSelf: 'flex-end',
+    marginRight: 20,
+    marginBottom: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: FyndColors.Green,
+    borderRadius: 20,
+  },
+  filterButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  }
+  
 })
