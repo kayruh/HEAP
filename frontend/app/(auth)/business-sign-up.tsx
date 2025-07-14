@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView, StyleSheet, Platform } from 'react-native';
 import { useSignUp } from '@clerk/clerk-expo';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Check } from 'lucide-react-native';   // expo install lucide-react-native
 import { Ionicons } from '@expo/vector-icons';
 import { KeyboardAvoidingView } from 'react-native';
@@ -68,6 +68,13 @@ const TagChip: React.FC<TagChipProps> = ({ tag, selected, onPress }) => (
 /* ------------------------------------------------------------------ */
 
 export default function BusinessSignUp() {
+
+  // to bring user back to page they were from before signin/signup
+  const { redirectTo } = useLocalSearchParams<{
+    redirectTo?: string;
+  }>();
+  const safeRedirect = redirectTo && !redirectTo.includes('/(auth)') ? redirectTo : '/';
+
   // -------- Clerk --------
   const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
@@ -136,7 +143,7 @@ export default function BusinessSignUp() {
       const res = await signUp.attemptEmailAddressVerification({ code });
       if (res.status === 'complete') {
         await setActive({ session: res.createdSessionId });
-        router.replace('/');
+        router.replace(safeRedirect);
       }
     } catch (err) {
       console.error(JSON.stringify(err, null, 2));

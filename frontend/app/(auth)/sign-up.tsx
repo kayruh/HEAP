@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet, ScrollView } from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
+import { Link, useLocalSearchParams, useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { KeyboardAvoidingView } from 'react-native'
@@ -13,6 +13,12 @@ const maxWidth= 300; // for styling
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
   const router = useRouter()
+
+  // to bring user back to page they were from before signin/signup
+  const { redirectTo } = useLocalSearchParams<{
+    redirectTo?: string;
+  }>();
+  const safeRedirect = redirectTo && !redirectTo.includes('/(auth)') ? redirectTo : '/';
 
   const [emailAddress, setEmailAddress] = React.useState('')
   const [username, setUsername] = React.useState('')
@@ -60,7 +66,7 @@ export default function SignUpScreen() {
       // and redirect the user
       if (signUpAttempt.status === 'complete') {
         await setActive({ session: signUpAttempt.createdSessionId })
-        router.replace('/')
+        router.replace(safeRedirect)
       } else {
         // If the status is not complete, check why. User may need to
         // complete further steps.

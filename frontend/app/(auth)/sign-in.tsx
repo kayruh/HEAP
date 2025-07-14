@@ -5,6 +5,7 @@ import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { KeyboardAvoidingView } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { useLocalSearchParams } from 'expo-router'
 import FyndColors from '@/components/fyndColors';
 
 const maxWidth= 300; // for styling
@@ -12,6 +13,12 @@ const maxWidth= 300; // for styling
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn()
   const router = useRouter()
+
+  // to bring user back to page they were from before signin/signup
+  const { redirectTo } = useLocalSearchParams<{
+    redirectTo?: string;
+  }>();
+  const safeRedirect = redirectTo && !redirectTo.includes('/(auth)') ? redirectTo : '/';
 
   const [emailAddress, setEmailAddress] = React.useState('')
   const [username, setUsername] = React.useState('')
@@ -35,7 +42,7 @@ export default function Page() {
       // and redirect the user
       if (signInAttempt.status === 'complete') {
         await setActive({ session: signInAttempt.createdSessionId })
-        router.replace('/')
+        router.replace(safeRedirect)
       } else {
         // If the status isn't complete, check why. User might need to
         // complete further steps.
