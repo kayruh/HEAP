@@ -43,11 +43,13 @@ const Favourites = () => {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
       <FyndBanner 
         backgroundColor = {FyndColors.Purple} 
         textColor = {FyndColors.Yellow}      
-        iconColor = {FyndColors.Yellow}/>      
+        iconColor = {FyndColors.Yellow}/> 
+      
+      <View style={{ flex: 1}}>
        <FavouritesScreen key={refreshKey} />
        
       {/* Add Button */}
@@ -89,11 +91,13 @@ const Favourites = () => {
               <TouchableOpacity onPress={handleCreateList} style={styles.createBtn}>
                 <Text style={{ color: '#fff' }}>Create</Text>
               </TouchableOpacity>
-
             </View>
+
           </View>
         </View>
       </Modal>
+
+    </View>
     </View>
   );
 };
@@ -101,11 +105,10 @@ const Favourites = () => {
 export default Favourites;
 
 
-
 const styles = StyleSheet.create({
   addButton: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 110,
     right: 30,
     backgroundColor: FyndColors.Purple,
     borderRadius: 28,

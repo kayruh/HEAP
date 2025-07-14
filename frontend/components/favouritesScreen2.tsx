@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  Dimensions,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native'
+import { View, Text, Image, FlatList, Dimensions, StyleSheet, ActivityIndicator, SafeAreaView,} from 'react-native'
 import { useUser } from '@clerk/clerk-expo'
 import { useInteractionApi } from '@/api/interaction'
 import FyndColors from './fyndColors'
@@ -35,6 +27,7 @@ export default function FavouritesScreen() {
     getAccountFolders()
       .then((raw: any[]) => {
         // raw === [{ username, created_at, folder_name, saved: [...], description }, …]
+        console.log('Fetched folders:', raw);
         const mapped = raw.map(folder => ({
           id: folder.created_at + '_' + folder.folder_name,
           title: folder.folder_name,
@@ -133,6 +126,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 90,
   },
   emptyText: {
     fontSize: 16,
