@@ -10,7 +10,6 @@ import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
 import FyndColors from '@/components/fyndColors';
 import { useInteractionApi } from '@/api/interaction';
 import ChooseAuth from '@/components/chooseAuth';
-import { User } from 'lucide-react-native';
 
 const Favourites = () => {
   const { user } = useUser();
@@ -53,20 +52,20 @@ const Favourites = () => {
 
   return (
     <View style={{ backgroundColor: user ? 'white' : FyndColors.Purple, flex: 1 }}>
-      <FyndBanner 
+      {/* <FyndBanner 
         backgroundColor = {FyndColors.Purple} 
         textColor = {FyndColors.Yellow}      
-        iconColor = {FyndColors.Yellow}/> 
+        iconColor = {FyndColors.Yellow}/>  */}
 
-          <SignedOut>
+          {/* <SignedOut> */}
             {/* sign in & sign out buttons component */}
             {/* insert logo above buttons */}
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ChooseAuth
             iconColor={FyndColors.Purple}
             textColor={FyndColors.Purple}/>
-            </View>
-          </SignedOut>
+            </View> */}
+          {/* </SignedOut> */}
 
       <SignedIn>
         <View style={{ flex: 1}}>

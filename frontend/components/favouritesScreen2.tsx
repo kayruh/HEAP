@@ -55,7 +55,7 @@ export default function FavouritesScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Favourites</Text>
+      {/* <Text style={styles.header}>Favourites</Text> */}
 
       {folders.length === 0 ? (
         <View style={styles.centered}>
@@ -92,8 +92,8 @@ export default function FavouritesScreen() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingHorizontal: 16,
-    paddingTop: 20,
+    paddingHorizontal: 5,
+    // paddingTop: 20,
     flex: 1,
   },
   header: {
