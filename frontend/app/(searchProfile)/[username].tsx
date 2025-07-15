@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import FyndBanner from '@/components/fyndBanner';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { useUser } from '@clerk/clerk-expo';
+import { useClerk, useUser } from '@clerk/clerk-expo';
 import FyndColors from '@/components/fyndColors';
 import CreateNewEvent from '@/components/createNewEvent';
 import AddBookmark from '@/components/addBookmark';
@@ -11,8 +11,35 @@ import LoginModal from '@/components/loginModal';
 import AddReview from '@/components/addReview';
 import ReviewCard from '@/components/reviewCard';
 import BizEventCard from '@/components/bizEventCard';
+import { useBusinessApi } from '@/api/business';
+import { useLocalSearchParams } from 'expo-router'
+import { useClerkApi } from '@/api/clerk';
+
+
 
 const businessProfile = () => {
+    const { getBusinessInfo } = useBusinessApi();
+    const { getAvatar } = useClerkApi();
+
+    const { username } = useLocalSearchParams<{ username: string }>();
+
+  useEffect(() => {
+    if (typeof username === 'string') {
+      (async () => {
+        try {
+          const data = await getBusinessInfo(username);
+          const avatar = await getAvatar(username);
+          console.log(data);
+          console.log(avatar);
+        } 
+        catch (e) {
+          console.log(e)
+        }
+      })();
+    } 
+  }, [username]);
+
+
     const router = useRouter();
     const { user } = useUser(); // how to check if it is biz acc???
 
@@ -265,7 +292,7 @@ const businessProfile = () => {
         <AddReview
           visible={showReviewModal}
           onClose={() => setShowReviewModal(false)}
-          username={user?.username}
+          username={username}
           onSubmit={(reviewData) => {
             console.log('Review submitted:', reviewData);
             // Send to backend here with user ID or username

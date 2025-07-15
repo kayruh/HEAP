@@ -251,8 +251,8 @@ module.exports = {
       .single()
     if (error) throw new Error(error.message);
     return data
-    }
-    
+    },
+  
 
   
 }

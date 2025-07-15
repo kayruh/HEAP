@@ -70,16 +70,41 @@ module.exports = {
     },
 
     async getBusinessInfo(username) {
-            const { data, error } = await supabase
-                .from(businessTable)
-                .select('*')
-                .eq('username', username)
-                .maybeSingle();     // returns one object or null
-    
-            if (error) {
-                throw new Error(error.message);
-            }
-            return data;          //   ↪︎ bubbles back to controller
+        const { data: bizData, error: bizError} = await supabase
+            .from(businessTable)
+            .select('*')
+            .eq('username', username)
+            .maybeSingle();     // returns one object or null
+
+        const { data: hpData, error: hpError } = await supabase
+            .from("HOMEPAGE")
+            .select('*')
+            .eq('username', username)
+            .maybeSingle(); 
+
+        if (bizError) {
+            throw new Error(error.message);
         }
+        if (hpError) {
+            throw new Error(hpError.message);
+        }
+        // console.log({ ...bizData, ...hpData})
+        return { ...bizData, ... hpData};
+    }
+
+
+    // async getBusinessInfo(username) {
+    //     const { data, error } = await supabase
+    //         .from(businessTable)
+    //         .select('*')
+    //         .eq('username', username)
+    //         .maybeSingle();     // returns one object or null
+
+    //     if (error) {
+    //         throw new Error(error.message);
+    //     }
+    //     return data;          //   ↪︎ bubbles back to controller
+    // }
 
 }
+

@@ -97,7 +97,7 @@ module.exports = {
             const {username} = req.params;
             const businessInfo = await businessServices.getBusinessInfo(username);
             if (!username) return res.status(404).json({ error: 'username required' });
-
+            // console.log(businessInfo)
             res.status(200).json(businessInfo)
         }
         catch {
