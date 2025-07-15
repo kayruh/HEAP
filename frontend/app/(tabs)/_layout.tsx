@@ -50,9 +50,11 @@ const _layout = () => {
     />
     <Tabs.Screen 
     name='favourites'
-    options={{title:'Favourites',
+    options={{
+      title:'Favourites',
         headerShown:false,
-        tabBarIcon: ({ color }) => <IconSymbol size={28} name="heart.circle.fill" color={color} />
+        // tabBarIcon: ({ color }) => <IconSymbol size={28} name="heart.circle.fill" color={color} 
+        href: null // hide favourties from navi bar
     }}
     />
     <Tabs.Screen 
@@ -67,7 +69,6 @@ const _layout = () => {
     options={{title:'Profile',
         headerShown:false,
         tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />
-
     }}
     />
 
@@ -85,7 +86,6 @@ const _layout = () => {
       headerShown:false,
       href: null, // hides [folderName] from the tab bar
     }}/> */}
-    
 
     </Tabs>
   )
