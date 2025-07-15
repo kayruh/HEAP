@@ -9,6 +9,7 @@ import CreateNewEvent from '@/components/createNewEvent';
 import AddBookmark from '@/components/addBookmark';
 import LoginModal from '@/components/loginModal';
 import AddReview from '@/components/addReview';
+import ReviewCard from '@/components/reviewCard';
 
 const businessProfile = () => {
     const router = useRouter();
@@ -133,12 +134,6 @@ const businessProfile = () => {
               <Ionicons name="list" size={20} color={activeTab === 'list' ? FyndColors.Yellow : FyndColors.Green} />
             </TouchableOpacity>
 
-            {/* <TouchableOpacity
-              onPress={() => setActiveTab('add')}
-              style={[styles.tabButton, activeTab === 'add' && styles.activeTab]}>
-              <Ionicons name="add" size={28} color={activeTab === 'add' ? FyndColors.Yellow : FyndColors.Green} />
-            </TouchableOpacity> */}
-
             <TouchableOpacity
               onPress={() => setActiveTab('reviews')}
               style={[styles.tabButton, activeTab === 'reviews' && styles.activeTab]}>
@@ -195,10 +190,6 @@ const businessProfile = () => {
             </View>
           )}
 
-          {/* {activeTab === 'add' && (
-            <View><Text>Add something content here</Text></View>
-          )} */}
-
           {activeTab === 'reviews' && (
             <View style={{ padding: 20 }}>
               <TouchableOpacity
@@ -221,10 +212,20 @@ const businessProfile = () => {
                 </Text>
               </TouchableOpacity>
 
-              <Text>Reviews will display here.</Text>
+              {/* Replace with real fetched data later !!!*/}
+              {[
+                { username: 'user123', reviewText: 'Great store!', datePosted: '2025-07-14' },
+                { username: 'cheryl_88', reviewText: 'Loved the selection of vintage clothes.', datePosted: '2025-07-12' },
+              ].map((review, index) => (
+                <ReviewCard
+                  key={index}
+                  username={review.username}
+                  reviewText={review.reviewText}
+                  datePosted={review.datePosted}
+                />
+              ))}
             </View>
           )}
-
       </ScrollView>
 
       {/* add button, under events tab (ONLY for biz users, to create event) */}
@@ -466,5 +467,3 @@ const styles = StyleSheet.create({
 });
 
 export default businessProfile;
-
-//if not user then business profile might have to change this within _layout.tsx within (tabs) group
