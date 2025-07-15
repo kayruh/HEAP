@@ -63,10 +63,63 @@ export function useInteractionApi() {
   return res.data;
 }
 
+  async function getBusinessLikeCheck(
+    username: string,
+    business_username: string,
+  ) {
+    const res = await api.post('/interaction/getBusinessLikeCheck', {
+      username,
+      business_username,
+    });
+    return res.data; // true if liked; backend 404s if not liked
+  }
+
+  /* ─────────────── LIKES : EVENT ───────────────────────────────────────── */
+
+  async function insertLikeEvent(event: string) {
+    const token = await getToken({ template: 'integrations' });
+    const res = await api.post(
+      '/interaction/insertLikeEvent',
+      { event },
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+    return res.data;
+  }
+
+  async function deleteLikeEvent(event: string) {
+    const token = await getToken({ template: 'integrations' });
+    const res = await api.delete('/interaction/deleteLikeEvent', {
+      data: { event },
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return res.data;
+  }
+
+  async function getEventLikeCheck(username: string, event: string) {
+    const res = await api.post('/interaction/getEventLikeCheck', {
+      username,
+      event,
+    });
+    return res.data;
+  }
+
+  /* ─────────────── EXPORTS ─────────────────────────────────────────────── */
+
   return {
+    /* folders */
     getAccountFolders,
     insertFolder,
     getFolderInfo,
-    updateFolder
+    updateFolder,
+
+    /* likes – business */
+    insertLikeBusiness,
+    deleteLikeBusiness,
+    getBusinessLikeCheck,
+
+    /* likes – event */
+    insertLikeEvent,
+    deleteLikeEvent,
+    getEventLikeCheck,
   };
 }

@@ -7,15 +7,13 @@ const clerkexpress = require("@clerk/express")
 router.post   ('/insertLikeBusiness', clerkexpress.requireAuth(), interactionController.insertLikeBusiness); //secure
 router.delete('/deleteLikeBusiness',  clerkexpress.requireAuth(), interactionController.deleteLikeBusiness); //secure
 router.get   ('/getBusinessLikeCount/:business_username', interactionController.getBusinessLikeCount); 
-router.get('/getBusinessLikeCheck', interactionController.getBusinessLikeCheck) //check if user likes the business SECURE
+router.post('/getBusinessLikeCheck', interactionController.getBusinessLikeCheck) //check if user likes the business SECURE
 
 
 router.post   ('/insertLikeEvent', clerkexpress.requireAuth(),  interactionController.insertLikeEvent); //secure
 router.delete('/deleteLikeEvent', clerkexpress.requireAuth(), interactionController.deleteLikeEvent); //secure
 router.get   ('/getEventLikeCount/:event', interactionController.getEventLikeCount); 
-router.get('/getEventLikeCheck', interactionController.getEventLikeCheck) //check if user likes the business SECURE
-
-// router.get('') //check if user likes the event SECURE
+router.post('/getEventLikeCheck', interactionController.getEventLikeCheck);
 
 
 // router.get   ('/getAccountLikes',   interactionController.getAccountLikes); //secure -- change this to like business and event separate
