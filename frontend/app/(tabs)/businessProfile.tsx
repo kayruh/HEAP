@@ -8,6 +8,7 @@ import FyndColors from '@/components/fyndColors';
 import CreateNewEvent from '@/components/createNewEvent';
 import AddBookmark from '@/components/addBookmark';
 import LoginModal from '@/components/loginModal';
+import AddReview from '@/components/addReview';
 
 const businessProfile = () => {
     const router = useRouter();
@@ -23,7 +24,10 @@ const businessProfile = () => {
     const [userLists, setUserLists] = useState<string[]>([]);
     const [isBookmarked, setIsBookmarked] = useState(false);
 
-    // Mocked favourite lists – REPLACE with real data from DB or API
+    const [showReviewModal, setShowReviewModal] = useState(false); // for adding reviews
+
+
+    // Mocked favourite lists – REPLACE with real data from DB or API !!!!!
     const favouriteLists = ['My Favourites', 'Thrift Shops', 'To Visit Again'];
 
     // Handle bookmarking
@@ -184,17 +188,41 @@ const businessProfile = () => {
               </View>
             </View>
           )}
+
           {activeTab === 'list' && (
             <View>
               <Text>Events list content here</Text>
             </View>
           )}
+
           {/* {activeTab === 'add' && (
             <View><Text>Add something content here</Text></View>
           )} */}
+
           {activeTab === 'reviews' && (
-            <View><Text>Reviews here</Text></View>
-            // how are people gg to give reviews?
+            <View style={{ padding: 20 }}>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: FyndColors.Purple,
+                  padding: 12,
+                  borderRadius: 10,
+                  marginBottom: 20,
+                }}
+                onPress={() => {
+                  if (!user) {
+                    setShowLoginModal(true);
+                  } else {
+                    setShowReviewModal(true);
+                  }
+                }}
+              >
+                <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>
+                  Write a Review
+                </Text>
+              </TouchableOpacity>
+
+              <Text>Reviews will display here.</Text>
+            </View>
           )}
 
       </ScrollView>
@@ -235,16 +263,26 @@ const businessProfile = () => {
           onClose={() => setShowLoginModal(false)}
           onSignIn={() => {
             setShowLoginModal(false); 
-            setTimeout(() => router.push('../(auth)/sign-in'), 5); // delay navigation slightly
+            setTimeout(() => router.push('../(auth)/sign-in')); // delay navigation slightly
           }}
           onSignUp={() => {
             setShowLoginModal(false); 
-            setTimeout(() => router.push('../(auth)/sign-up'), 5);
+            setTimeout(() => router.push('../(auth)/sign-up'));
           }}
           onBizSignUp={
             () => {
               setShowLoginModal(false); 
-              setTimeout(() => router.push('../(auth)/business-sign-up'), 5);
+              setTimeout(() => router.push('../(auth)/business-sign-up'));
+          }}
+        />
+
+        <AddReview
+          visible={showReviewModal}
+          onClose={() => setShowReviewModal(false)}
+          username={user?.username}
+          onSubmit={(reviewData) => {
+            console.log('Review submitted:', reviewData);
+            // Send to backend here with user ID or username
           }}
         />
 
