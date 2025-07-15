@@ -5,15 +5,19 @@ import { useUser } from '@clerk/clerk-expo';
 import { useInteractionApi } from '@/api/interaction';
 import { Ionicons } from '@expo/vector-icons';
 import FyndColors from '@/components/fyndColors';
+import { useClerkApi } from '@/api/clerk';
 
 export default function FavListScreen() {
   const { user } = useUser();
   const router = useRouter();
   const { folderName } = useLocalSearchParams(); // comes from [favList].tsx route param
-  const { getAccountFolders, getFolderInfo, updateFolder} = useInteractionApi();
+  const { getFolderInfo, updateFolder} = useInteractionApi();
+  const { getAvatar } = useClerkApi();
 
   const [folder, setFolder] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
+  const [avatars, setAvatars] = useState<Record<string, string>>({});
+
 
   useEffect(() => {
   if (!user || !folderName) return;
@@ -35,6 +39,28 @@ export default function FavListScreen() {
   })();
 }, [user, folderName]);
 
+// for avatars
+
+  useEffect(() => {
+  if (!folder || !folder.saved?.length) return;
+  const usernamesToFetch = folder.saved.filter(u => !avatars[u]);
+
+  if (!usernamesToFetch.length) return;
+
+  (async () => {
+    try {
+      const entries = await Promise.all(
+        usernamesToFetch.map(async username => {
+          const { avatarUrl } = await getAvatar(username);
+          return [username, avatarUrl] as const;
+        })
+      );
+      setAvatars(prev => Object.fromEntries([...Object.entries(prev), ...entries]));
+    } catch (err) {
+      console.error('Failed to fetch avatar(s):', err);
+    }
+  })();
+}, [folder?.saved]);
 
   const confirmDelete = (item: string) => {
   Alert.alert('Remove item?', 'Are you sure you want to remove this item?', [
@@ -90,6 +116,10 @@ export default function FavListScreen() {
             />
             <View style={styles.info}>
               <View style={styles.titleRow}>
+                <Image
+                  style={styles.avatar}
+                  source={{ uri: avatars[item] ?? 'https://placehold.co/24x24' }}
+                />
                 <Text style={styles.title}>@{item}</Text>
                 <Ionicons
                   name={item.type === 'event' ? 'calendar' : 'storefront'}
@@ -180,4 +210,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  avatar: {
+  width: 24,
+  height: 24,
+  borderRadius: 12,
+  marginRight: 6,
+},
 });
