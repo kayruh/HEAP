@@ -20,6 +20,7 @@ export interface GenericItem {
 import { Dimensions } from "react-native";
 import FyndColors from '@/components/fyndColors'
 import { TouchableOpacity } from 'react-native'
+import { useRouter } from 'expo-router'
 
 
 const { width } = Dimensions.get('window');
@@ -69,12 +70,18 @@ export default function Browse() {
 
   /* -------------------- mapping for EventCard -------------------- */
   const renderItem: ListRenderItem<GenericItem> = ({ item }) => {
+    const router = useRouter();
     return (
       <EventCard
         item={item}
         onPress={() => {
-          console.log('🟡 You pressed on:', item)
-        }}/>
+          if (item.type === 'event' && item.uuid) {
+            router.push(`/events/${item.uuid}`)
+          } else if (item.type === 'business' && item.username) {
+            router.push(`/business/${item.username}`)
+          }
+        }}
+      />
     )
   }
 

@@ -98,10 +98,8 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
             console.log('🔷 Top-right icon pressed with item data:', item) // logs item data when heart or plus pressed
             if (isEvent) {
               console.log('Heart pressed for event:', item.uuid)
-              router.push(`/(tabs)/events/${item.title}`)
             } else {
               console.log('Plus pressed for business:', item.username)
-              router.push(`/(tabs)/events/${item.title}`)
             }
           }}
         >
