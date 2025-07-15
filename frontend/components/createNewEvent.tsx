@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Modal,
-  TextInput,
-  View,
-  Text,
-  TouchableOpacity,
-  Platform,
-  StyleSheet,
-} from 'react-native';
+import { Modal, TextInput, View, Text, TouchableOpacity, Platform, StyleSheet,} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import FyndColors from './fyndColors';
 
