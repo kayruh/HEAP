@@ -90,7 +90,7 @@ export default function FavListScreen() {
             />
             <View style={styles.info}>
               <View style={styles.titleRow}>
-                <Text style={styles.title}>{item.name}</Text>
+                <Text style={styles.title}>@{item}</Text>
                 <Ionicons
                   name={item.type === 'event' ? 'calendar' : 'storefront'}
                   size={18}
