@@ -78,6 +78,13 @@ const _layout = () => {
           headerShown:false,
           href: null, // hides editProfile from the tab bar
         }}/>
+      
+      <Tabs.Screen 
+        name="userProfile"
+        options={{
+          headerShown:false,
+          href: null, // hides userProfile from the tab bar
+        }}/>
 
     {/* uncomment when done styling */}
     {/* <Tabs.Screen 
