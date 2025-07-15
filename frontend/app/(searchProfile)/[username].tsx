@@ -9,6 +9,8 @@ import CreateNewEvent from '@/components/createNewEvent';
 import AddBookmark from '@/components/addBookmark';
 import LoginModal from '@/components/loginModal';
 import AddReview from '@/components/addReview';
+import ReviewCard from '@/components/reviewCard';
+import BizEventCard from '@/components/bizEventCard';
 
 const businessProfile = () => {
     const router = useRouter();
@@ -133,12 +135,6 @@ const businessProfile = () => {
               <Ionicons name="list" size={20} color={activeTab === 'list' ? FyndColors.Yellow : FyndColors.Green} />
             </TouchableOpacity>
 
-            {/* <TouchableOpacity
-              onPress={() => setActiveTab('add')}
-              style={[styles.tabButton, activeTab === 'add' && styles.activeTab]}>
-              <Ionicons name="add" size={28} color={activeTab === 'add' ? FyndColors.Yellow : FyndColors.Green} />
-            </TouchableOpacity> */}
-
             <TouchableOpacity
               onPress={() => setActiveTab('reviews')}
               style={[styles.tabButton, activeTab === 'reviews' && styles.activeTab]}>
@@ -164,40 +160,20 @@ const businessProfile = () => {
                     style={styles.postImage}
                   />
                 </View>
-                {/* Post 2 */}
-                <View style={styles.postContainer}>
-                  <View style={styles.eventCard}>
-                    <View style={styles.eventImageContainer}>
-                      <Image
-                        source={{ uri: 'data:image/jpeg;base64,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' }}
-                        style={styles.eventImage}
-                      />
-                    </View>
-                    <View style={styles.eventDetails}>
-                      <Text style={styles.eventTitle}>STREET WEARE HOUSE</Text>
-                      <Text style={styles.eventDescription}>
-                        event description, location, time etc.
-                      </Text>
-                      <View style={styles.eventDateContainer}>
-                        <Text style={styles.eventDate}>7-12</Text>
-                        <Text style={styles.eventMonth}>JULY 2025</Text>
-                      </View>
+                {/* Post 2: event card */}
+                      <BizEventCard businessId={user?.id ?? ''} />
                     </View>
                   </View>
-                </View>
-              </View>
-            </View>
           )}
 
           {activeTab === 'list' && (
             <View>
               <Text>Events list content here</Text>
+              <View style={styles.feedSection}>
+                <BizEventCard businessId={user?.id ?? ''} />
+              </View>
             </View>
           )}
-
-          {/* {activeTab === 'add' && (
-            <View><Text>Add something content here</Text></View>
-          )} */}
 
           {activeTab === 'reviews' && (
             <View style={{ padding: 20 }}>
@@ -221,10 +197,20 @@ const businessProfile = () => {
                 </Text>
               </TouchableOpacity>
 
-              <Text>Reviews will display here.</Text>
+              {/* Replace with real fetched data later !!!*/}
+              {[
+                { username: 'user123', reviewText: 'Great store!', datePosted: '2025-07-14' },
+                { username: 'cheryl_88', reviewText: 'Loved the selection of vintage clothes.', datePosted: '2025-07-12' },
+              ].map((review, index) => (
+                <ReviewCard
+                  key={index}
+                  username={review.username}
+                  reviewText={review.reviewText}
+                  datePosted={review.datePosted}
+                />
+              ))}
             </View>
           )}
-
       </ScrollView>
 
       {/* add button, under events tab (ONLY for biz users, to create event) */}
@@ -411,7 +397,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   eventDate: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#8B2635',
     marginRight: 8,
@@ -466,5 +452,3 @@ const styles = StyleSheet.create({
 });
 
 export default businessProfile;
-
-//if not user then business profile might have to change this within _layout.tsx within (tabs) group
