@@ -58,7 +58,7 @@ export default function Page() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-        <Ionicons name="chevron-back" size={20} color={FyndColors.Yellow}/>
+        <Ionicons name="chevron-back" size={22} color={FyndColors.Yellow}/>
       </TouchableOpacity>
 
       <KeyboardAvoidingView

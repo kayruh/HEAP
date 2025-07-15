@@ -55,7 +55,7 @@ export default function FavouritesScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Favourites ★</Text>
+      <Text style={styles.header}>Favourites</Text>
 
       {folders.length === 0 ? (
         <View style={styles.centered}>

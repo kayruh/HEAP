@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Dimensions,TouchableOpacity,} from 'react-nativ
 import { Card, Image, Badge } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import FyndColors from './fyndColors'
+import { useRouter } from 'expo-router'
 
 /* —————————————————— TYPES —————————————————— */
 export type EventItem = {
@@ -73,6 +74,7 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
           .join(' ')
       : ''
 
+      const router = useRouter();
   return (
     <TouchableOpacity activeOpacity={0.85} onPress={onPress}>
       <Card containerStyle={styles.card}>
@@ -96,8 +98,10 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
             console.log('🔷 Top-right icon pressed with item data:', item) // logs item data when heart or plus pressed
             if (isEvent) {
               console.log('Heart pressed for event:', item.uuid)
+              router.push(`/(tabs)/events/${item.title}`)
             } else {
               console.log('Plus pressed for business:', item.username)
+              router.push(`/(tabs)/events/${item.title}`)
             }
           }}
         >
