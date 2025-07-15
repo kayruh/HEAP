@@ -12,6 +12,7 @@ import AddReview from '@/components/addReview';
 import BizEventCard from '@/components/bizEventCard';
 import Favourites from './favourites';
 import { FlatList } from 'react-native';
+import AddFavList from '@/components/addFavList';
 
 const userProfile = () => {
     const router = useRouter();
@@ -27,19 +28,32 @@ const userProfile = () => {
     const [userLists, setUserLists] = useState<string[]>([]);
     const [isBookmarked, setIsBookmarked] = useState(false);
 
+    const [showFavListModal, setShowFavListModal] = useState(false); // to manage addFav modal
+
     // determines what is in each tab
     const renderTabContent = () => {
         if (activeTab === 'favs') {
           return (
             <View style={styles.tabContent}>
+            <>
                 <Text>Display user's fav lists here</Text>
                 <Favourites />
+
+                <TouchableOpacity
+                    style={styles.addButton}
+                    onPress={() => setShowFavListModal(true)}
+                    >
+                    <Ionicons name="add" size={28} color="#fff" />
+                    </TouchableOpacity>
+                </>
             </View>
           )
         }
         if (activeTab === 'list') {
           return (
-            <View style={styles.tabContent}>idk</View>
+            <View style={styles.tabContent}>
+                <Text>idk</Text>
+            </View>
           )
         }
         if (activeTab === 'reviews') {
@@ -142,6 +156,11 @@ const userProfile = () => {
               setShowLoginModal(false); 
               setTimeout(() => router.push('../(auth)/business-sign-up'));
           }}
+        />
+
+        <AddFavList
+        visible={showFavListModal}
+        onClose={() => setShowFavListModal(false)}
         />
 
       </View>
@@ -299,7 +318,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     position: 'absolute',
-    bottom: 100, // more spacing from the bottom
+    bottom: 20,
     right: 30,
     backgroundColor: FyndColors.Purple,
     borderRadius: 28,

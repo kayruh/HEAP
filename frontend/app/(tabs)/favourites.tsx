@@ -72,11 +72,11 @@ const Favourites = () => {
         <FavouritesScreen key={refreshKey} />
         
         {/* Add Button */}
-        <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+        {/* <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
           <Ionicons name="add" size={24} color="#fff" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        {/* Popup Modal */}
+        {/* Popup Modal
         <Modal
           animationType="fade"
           transparent={true}
@@ -116,7 +116,8 @@ const Favourites = () => {
 
             </View>
           </View>
-        </Modal>
+        </Modal> */}
+
       </View>
     </SignedIn>
 
