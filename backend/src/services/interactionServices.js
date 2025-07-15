@@ -165,6 +165,7 @@ module.exports = {
         .eq('username', username)
         .eq('folder_name', folder_name)
         .single();
+
     if (error) throw new Error(error.message);
     return data;
     },

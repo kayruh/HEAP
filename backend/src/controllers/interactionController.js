@@ -148,7 +148,8 @@ async getAccountFolders(req, res) {
 async getFolderInfo(req, res) {
   try {
     const {username, folder_name} = req.body
-    const folderInfo = interactionServices.getFolderInfo(username, folder_name);
+    // console.log(username, folder_name)
+    const folderInfo = await interactionServices.getFolderInfo(username, folder_name);
     res.status(200).json(folderInfo);
   } catch (e) {
     res.status(500).json({ error: e.message });
