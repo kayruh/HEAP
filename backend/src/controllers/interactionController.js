@@ -4,12 +4,19 @@ const clerkexpress = require("@clerk/express")
 
 /* ---------- Likes ---------- */
 module.exports = {
-async upsertLikeBusiness(req, res) {
+
+//-----------------------------BUSINESS LIKES --------------------------------------
+async insertLikeBusiness(req, res) {
   try {
-    const { username, business_username } = req.body;
-    const upsertLikeBusiness = await interactionServices.upsertLikeBusiness(username, business_username);
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const { business_username } = req.body;
+    const insertLikeBusiness = await interactionServices.insertLikeBusiness(username, business_username);
     
-    res.status(200).json({ message: 'Like upserted' });
+    res.status(200).json({ message: 'Like inserted' });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -17,7 +24,12 @@ async upsertLikeBusiness(req, res) {
 
 async deleteLikeBusiness(req, res) {
   try {
-    const { username, business_username } = req.body;
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const { business_username } = req.body;
     const deleted = await interactionServices.deleteLikeBusiness(username, business_username);
     if (!deleted) return res.status(404).json({ error: 'Like not found' });
     res.status(204).send();
@@ -36,12 +48,31 @@ async getBusinessLikeCount(req, res) {
   }
 },
 
-async upsertLikeEvent(req, res) {
+async getBusinessLikeCheck(req, res) {
   try {
-    const { username, event } = req.body;
-    const upsertLikeEvent = await interactionServices.upsertLikeEvent(username, event);
+    const { username, business_username } = req.body;
+    const check = await interactionServices.getBusinessLikeCheck(username, business_username);
+    res.status(200).json(check);
+  } catch (e) {
+    const status = e.httpStatus || 500;
+    // console.log(e.httpStatus)
+    return res.status(status).json({ message: e.message });
+  }
+},
+
+// ---------------------------------------LIKE EVENT  ----------------------------------------------
+
+async insertLikeEvent(req, res) {
+  try {
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const { event } = req.body;
+    const insertLikeEvent = await interactionServices.insertLikeEvent(username, event);
     
-    res.status(200).json({ message: 'Like upserted' });
+    res.status(200).json({ message: 'Like inserted' });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -49,7 +80,12 @@ async upsertLikeEvent(req, res) {
 
 async deleteLikeEvent(req, res) {
   try {
-    const { username, event } = req.body;
+    const { event } = req.body;
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
     const deleted = await interactionServices.deleteLikeEvent(username, event);
     if (!deleted) return res.status(404).json({ error: 'Like not found' });
     res.status(204).send();
@@ -68,8 +104,20 @@ async getEventLikeCount(req, res) {
   }
 },
 
+async getEventLikeCheck(req, res) {
+  try {
+    const { username, event } = req.body;
+    const check = await interactionServices.getEventLikeCheck(username, event);
+    res.status(200).json(check);
+  } catch (e) {
+    const status = e.httpStatus || 500;
+    // console.log(e.httpStatus)
+    return res.status(status).json({ message: e.message });
+  }
+},
 
-async getAccountLikes(req, res) {
+
+async getAccountLikes(req, res) { // needs to be changed
   try {
     const { username } = req.body;
     const likes = await interactionServices.getAccountLikes(username);

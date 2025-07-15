@@ -3,10 +3,10 @@ const { supabase } = require("../db/supabase");
 
 module.exports = {
 /* ---------- Likes ---------- */
-    async upsertLikeBusiness(username,  business_username) {
+    async insertLikeBusiness(username,  business_username) {
     const { error } = await supabase
         .from('LIKE_BUSINESS')
-        .upsert({ username, business_username }, { onConflict: 'username, business_username' });
+        .insert({ username, business_username }, { onConflict: 'username, business_username' });
     if (error) throw new Error(error.message);
     },
 
@@ -34,10 +34,30 @@ module.exports = {
     return count;
     },
 
-    async upsertLikeEvent(username,  event) {
+    async getBusinessLikeCheck(username, business_username) {
+      // console.log(username, business_username)
+    const { data, error } = await supabase
+      .from('LIKE_BUSINESS')
+      .select('*')
+      .eq('business_username', business_username)
+      .eq('username', username)
+      .single();
+    
+    if (error) {
+    if (error.code === 'PGRST116') {
+      const notFound       = new Error('Like not found');
+      notFound.httpStatus  = 404;          
+      throw notFound;
+    }
+    throw error;                      
+    };
+    return data;
+    },
+
+    async insertLikeEvent(username,  event) {
     const { error } = await supabase
         .from('LIKE_EVENT')
-        .upsert({ username, event }, { onConflict: 'username, event' });
+        .insert({ username, event }, { onConflict: 'username, event' });
     if (error) throw new Error(error.message);
     },
 
@@ -59,48 +79,66 @@ module.exports = {
         .select('*',{head: true, count: 'exact'})
         .eq('event', event);
 
-    // console.log(business_username, count)
-
     if (error) throw new Error(error.message);
     return count;
     },
 
-    async getAccountLikes(username) { //change this to get info for like_business and like_event
-      const { data: bizLikes, error: bizErr } = await supabase
-    .from('LIKE_BUSINESS')
-    .select('business_username, created_at')
-    .eq('username', username)
-
-  // 2) fetch event likes
-  const { data: evtLikes, error: evtErr } = await supabase
-    .from('LIKE_EVENT')
-    .select('event, created_at')
-    .eq('username', username)
-
-  // 3) error handling
-  if (bizErr || evtErr) {
-    const msgs = [bizErr?.message, evtErr?.message].filter(Boolean).join('; ')
-    throw new Error(`Failed to load likes: ${msgs}`)
-  }
-
-  // 4) normalize and merge
-  const formattedBiz = (bizLikes || []).map(like => ({
-    type: 'business',
-    target: like.business_username,
-    created_at: like.created_at,
-  }))
-
-  const formattedEvt = (evtLikes || []).map(like => ({
-    type: 'event',
-    target: like.event,
-    created_at: like.created_at,
-  }))
-
-  // 5) sort by newest first (optional)
-  return [...formattedBiz, ...formattedEvt].sort(
-    (a, b) => new Date(b.created_at) - new Date(a.created_at)
-  )
+    async getEventLikeCheck(username, event) {
+  // console.log(username, business_username)
+    const { data, error } = await supabase
+      .from('LIKE_EVENT')
+      .select('*')
+      .eq('event', event)
+      .eq('username', username)
+      .single();
+    
+    if (error) {
+    if (error.code === 'PGRST116') {
+      const notFound       = new Error('Like not found');
+      notFound.httpStatus  = 404;          
+      throw notFound;
+    }
+    throw error;                      
+    };
+    return data;
     },
+
+  //   async getAccountLikes(username) { //change this to get info for like_business and like_event
+  //     const { data: bizLikes, error: bizErr } = await supabase
+  //   .from('LIKE_BUSINESS')
+  //   .select('business_username, created_at')
+  //   .eq('username', username)
+
+  // // 2) fetch event likes
+  // const { data: evtLikes, error: evtErr } = await supabase
+  //   .from('LIKE_EVENT')
+  //   .select('event, created_at')
+  //   .eq('username', username)
+
+  // // 3) error handling
+  // if (bizErr || evtErr) {
+  //   const msgs = [bizErr?.message, evtErr?.message].filter(Boolean).join('; ')
+  //   throw new Error(`Failed to load likes: ${msgs}`)
+  // }
+
+  // // 4) normalize and merge
+  // const formattedBiz = (bizLikes || []).map(like => ({
+  //   type: 'business',
+  //   target: like.business_username,
+  //   created_at: like.created_at,
+  // }))
+
+  // const formattedEvt = (evtLikes || []).map(like => ({
+  //   type: 'event',
+  //   target: like.event,
+  //   created_at: like.created_at,
+  // }))
+
+  // // 5) sort by newest first (optional)
+  // return [...formattedBiz, ...formattedEvt].sort(
+  //   (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  // )
+  //   },
 
 
 
@@ -200,7 +238,7 @@ module.exports = {
     const { data, error } = await supabase
         .from('REVIEWS')
         .select('*')
-        .eq(' business_username',  business_username);
+        .eq('business_username',  business_username);
     if (error) throw new Error(error.message);
     return data;
     },

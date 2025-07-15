@@ -8,7 +8,7 @@ module.exports = {
         try {
             const getAllBusiness = await businessServices.getAllBusiness();
             res.status(200).json({
-                message: "returned all businesses"
+                getAllBusiness
             })
 
 

@@ -4,17 +4,21 @@ const interactionController = require("../controllers/interactionController");
 const clerkexpress = require("@clerk/express")
 
 /* ---------- Likes ---------- */
-router.put   ('/upsertLikeBusiness',        interactionController.upsertLikeBusiness); //secure
-router.delete('/deleteLikeBusiness',        interactionController.deleteLikeBusiness);
+router.post   ('/insertLikeBusiness', clerkexpress.requireAuth(), interactionController.insertLikeBusiness); //secure
+router.delete('/deleteLikeBusiness',  clerkexpress.requireAuth(), interactionController.deleteLikeBusiness); //secure
 router.get   ('/getBusinessLikeCount/:business_username', interactionController.getBusinessLikeCount); 
+router.get('/getBusinessLikeCheck', interactionController.getBusinessLikeCheck) //check if user likes the business SECURE
 
 
-router.put   ('/upsertLikeEvent',        interactionController.upsertLikeEvent); //secure
-router.delete('/deleteLikeEvent',        interactionController.deleteLikeEvent);
+router.post   ('/insertLikeEvent', clerkexpress.requireAuth(),  interactionController.insertLikeEvent); //secure
+router.delete('/deleteLikeEvent', clerkexpress.requireAuth(), interactionController.deleteLikeEvent); //secure
 router.get   ('/getEventLikeCount/:event', interactionController.getEventLikeCount); 
+router.get('/getEventLikeCheck', interactionController.getEventLikeCheck) //check if user likes the business SECURE
+
+// router.get('') //check if user likes the event SECURE
 
 
-router.get   ('/getAccountLikes',   interactionController.getAccountLikes); //secure
+// router.get   ('/getAccountLikes',   interactionController.getAccountLikes); //secure -- change this to like business and event separate
 
 /* ---------- Folders ---------- */
 router.post   ('/insertFolder', clerkexpress.requireAuth() ,interactionController.insertFolder); //secure might have to chnage this to split insert and update
