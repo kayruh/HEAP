@@ -26,8 +26,6 @@ export default function FavListScreen() {
         user.username as string,
         folderName as string
       );
-      console.log(data)
-      // console.log("hello")
       setFolder(data ?? null);
     } catch (err) {
       console.error('Failed to fetch folder:', err);
@@ -37,30 +35,8 @@ export default function FavListScreen() {
   })();
 }, [user, folderName]);
 
-  // const confirmDelete = (itemId: string) => {
-  //   Alert.alert('Remove item?', 'Are you sure you want to remove this item?', [
-  //     { text: 'Cancel', style: 'cancel' },
-  //     {
-  //       text: 'Remove',
-  //       style: 'destructive',
-  //       onPress: () => {
-  //         if (!folderName) return;
-  //         removeFromFolder(folderName as string, itemId)
-  //           .then(() => {
-  //             setFolder((prev: any) => ({
-  //               ...prev,
-  //               saved: prev.saved.filter((i: any) => i._id !== itemId),
-  //             }));
-  //           })
-  //           .catch(err =>
-  //             Alert.alert('Error', 'Failed to remove item: ' + err.message)
-  //           );
-  //       },
-  //     },
-  //   ]);
-  // };
 
-  const confirmDelete = (itemId: string) => {
+  const confirmDelete = (item: string) => {
   Alert.alert('Remove item?', 'Are you sure you want to remove this item?', [
     { text: 'Cancel', style: 'cancel' },
     {
@@ -68,10 +44,8 @@ export default function FavListScreen() {
       style: 'destructive',
       onPress: async () => {
         if (!folder) return;
-
-        // build a fresh array without the item we’re tossing
-        const newSaved = folder.saved.filter((id: string) => id !== itemId);
-
+        const { saved } = folder
+        const newSaved = saved.filter((u: string) => u !== item);
         try {
           // 🚀 call /interaction/updateFolder
           await updateFolder(folder.folder_name, newSaved, folder.description ?? '');
@@ -104,7 +78,8 @@ export default function FavListScreen() {
 
       <FlatList
         data={folder.saved}
-        keyExtractor={(item: any) => item._id}
+        // keyExtractor={(item: any) => item._id}
+        keyExtractor={(item) => item}
         contentContainerStyle={{ paddingBottom: 30 }}
         renderItem={({ item }: any) => (
           <View style={styles.card}>
@@ -126,7 +101,7 @@ export default function FavListScreen() {
             </View>
 
             <TouchableOpacity
-              onPress={() => confirmDelete(item._id)}
+              onPress={() => confirmDelete(item)}
               style={styles.removeBtn}
             >
               <Ionicons name="trash" size={20} color="white" />

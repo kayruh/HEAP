@@ -34,22 +34,10 @@ export function useInteractionApi() {
     return res.data
   }
 
-  // idk how to implement this removeFromFolder for fav page
-  // const removeFromFolder = async (folderName: string, itemId: string) => {
-  //   const headers = await getHeaders();
-  //   const res = await axios.delete(`${API_URL}/folders/${encodeURIComponent(folderName)}/item/${itemId}`, {
-  //     headers,
-  //   });
-  //   return res.data;
-  // };
-
-  
   return {
     getAccountFolders,
     insertFolder,
     getFolderInfo,
     updateFolder
-    // removeFromFolder,
-    // test
   };
 }
