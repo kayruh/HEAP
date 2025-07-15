@@ -26,6 +26,14 @@ export function useInteractionApi() {
     return res.data;
   }
 
+  async function updateFolder(folder_name: string, saved: string[], description: string) {
+    const token = await getToken({ template: 'integrations' });
+    const res = await api.patch('/interaction/updateFolder',  {folder_name,saved,description},
+        {headers: { Authorization: `Bearer ${token}` }}
+    );
+    return res.data
+  }
+
   // idk how to implement this removeFromFolder for fav page
   // const removeFromFolder = async (folderName: string, itemId: string) => {
   //   const headers = await getHeaders();
@@ -39,7 +47,8 @@ export function useInteractionApi() {
   return {
     getAccountFolders,
     insertFolder,
-    getFolderInfo
+    getFolderInfo,
+    updateFolder
     // removeFromFolder,
     // test
   };

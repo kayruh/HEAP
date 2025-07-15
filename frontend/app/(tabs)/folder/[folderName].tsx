@@ -10,56 +10,82 @@ export default function FavListScreen() {
   const { user } = useUser();
   const router = useRouter();
   const { folderName } = useLocalSearchParams(); // comes from [favList].tsx route param
-  const { getAccountFolders, removeFromFolder, getFolderInfo} = useInteractionApi();
+  const { getAccountFolders, getFolderInfo, updateFolder} = useInteractionApi();
 
   const [folder, setFolder] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   if (!user) return;
-
-  //   setLoading(true);
-  //   getAccountFolders()
-  //     .then((folders: any[]) => {
-  //       const match = folders.find(f => f.folder_name === folderName);
-  //       setFolder(match ?? null);
-  //     })
-  //     .catch(err => console.error('Failed to fetch folder:', err))
-  //     .finally(() => setLoading(false));
-  // }, [user, folderName]);
-
-
   useEffect(() => {
-if (!user || !folderName) return;
-setLoading(true);
-    getFolderInfo(user.username as string, folderName as string)
-      .then((data: any) => setFolder(data ?? null))
-      .catch(err => console.error('Failed to fetch folder:', err))
-      .finally(() => setLoading(false));
-  }, [user, folderName]);
+  if (!user || !folderName) return;
+
+  setLoading(true);
+
+  (async () => {
+    try {
+      const data = await getFolderInfo(
+        user.username as string,
+        folderName as string
+      );
+      console.log(data)
+      // console.log("hello")
+      setFolder(data ?? null);
+    } catch (err) {
+      console.error('Failed to fetch folder:', err);
+    } finally {
+      setLoading(false);
+    }
+  })();
+}, [user, folderName]);
+
+  // const confirmDelete = (itemId: string) => {
+  //   Alert.alert('Remove item?', 'Are you sure you want to remove this item?', [
+  //     { text: 'Cancel', style: 'cancel' },
+  //     {
+  //       text: 'Remove',
+  //       style: 'destructive',
+  //       onPress: () => {
+  //         if (!folderName) return;
+  //         removeFromFolder(folderName as string, itemId)
+  //           .then(() => {
+  //             setFolder((prev: any) => ({
+  //               ...prev,
+  //               saved: prev.saved.filter((i: any) => i._id !== itemId),
+  //             }));
+  //           })
+  //           .catch(err =>
+  //             Alert.alert('Error', 'Failed to remove item: ' + err.message)
+  //           );
+  //       },
+  //     },
+  //   ]);
+  // };
 
   const confirmDelete = (itemId: string) => {
-    Alert.alert('Remove item?', 'Are you sure you want to remove this item?', [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Remove',
-        style: 'destructive',
-        onPress: () => {
-          if (!folderName) return;
-          removeFromFolder(folderName as string, itemId)
-            .then(() => {
-              setFolder((prev: any) => ({
-                ...prev,
-                saved: prev.saved.filter((i: any) => i._id !== itemId),
-              }));
-            })
-            .catch(err =>
-              Alert.alert('Error', 'Failed to remove item: ' + err.message)
-            );
-        },
+  Alert.alert('Remove item?', 'Are you sure you want to remove this item?', [
+    { text: 'Cancel', style: 'cancel' },
+    {
+      text: 'Remove',
+      style: 'destructive',
+      onPress: async () => {
+        if (!folder) return;
+
+        // build a fresh array without the item we’re tossing
+        const newSaved = folder.saved.filter((id: string) => id !== itemId);
+
+        try {
+          // 🚀 call /interaction/updateFolder
+          await updateFolder(folder.folder_name, newSaved, folder.description ?? '');
+
+          // keep UI in sync
+          setFolder({ ...folder, saved: newSaved });
+        } catch (err: any) {
+          console.error(err);
+          Alert.alert('Error', err?.response?.data?.error ?? 'Failed to update list.');
+        }
       },
-    ]);
-  };
+    },
+  ]);
+};
 
   if (loading || !folder) {
     return (
