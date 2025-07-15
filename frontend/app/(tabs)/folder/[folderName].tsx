@@ -6,6 +6,7 @@ import { useInteractionApi } from '@/api/interaction';
 import { Ionicons } from '@expo/vector-icons';
 import FyndColors from '@/components/fyndColors';
 import { useClerkApi } from '@/api/clerk';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function FavListScreen() {
   const { user } = useUser();
@@ -96,7 +97,11 @@ export default function FavListScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => router.push('../favourites')}>
+        <Ionicons name="chevron-back" size={22} color={FyndColors.Purple}/>
+      </TouchableOpacity>
+
       <Text style={styles.header}>{folder.folder_name}</Text>
       <Text style={styles.description}>
         {folder.description ?? 'No description provided.'}
@@ -134,7 +139,7 @@ export default function FavListScreen() {
               onPress={() => confirmDelete(item)}
               style={styles.removeBtn}
             >
-              <Ionicons name="trash" size={20} color="white" />
+              <Ionicons name="trash" size={15} color="white" />
             </TouchableOpacity>
           </View>
         )}
@@ -146,7 +151,7 @@ export default function FavListScreen() {
           </View>
         }
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -154,12 +159,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingTop: 20,
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginTop: 10,
   },
   description: {
     fontSize: 14,
@@ -201,9 +207,10 @@ const styles = StyleSheet.create({
   },
   removeBtn: {
     backgroundColor: '#e11d48',
-    padding: 10,
+    padding: 7,
     marginRight: 10,
     borderRadius: 8,
+    bottom: 7,
   },
   centered: {
     flex: 1,
@@ -215,5 +222,20 @@ const styles = StyleSheet.create({
   height: 24,
   borderRadius: 12,
   marginRight: 6,
+},
+backButton: {
+  position: 'absolute',
+  top: 55,
+  left: 15,
+  // circle ard button:
+    // backgroundColor: FyndColors.Yellow,
+    // borderRadius: 20,
+  padding: 8,
+  elevation: 3,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 1 },
+  shadowOpacity: 0.2,
+  shadowRadius: 2,
+  zIndex: 10,
 },
 });

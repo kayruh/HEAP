@@ -3,8 +3,8 @@ import { useAuth }from "@clerk/clerk-expo";
 
 
 export const api = axios.create({
-  // baseURL: 'http://localhost:3000', //use this if you wanna use web browser or phone simulator
-  baseURL: 'http://172.20.10.2:3000', // use this if you want to hotspot to ur phone to view on expo go
+  baseURL: 'http://localhost:3000', //use this if you wanna use web browser or phone simulator
+  // baseURL: 'http://172.20.10.2:3000', // use this if you want to hotspot to ur phone to view on expo go
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true
 });

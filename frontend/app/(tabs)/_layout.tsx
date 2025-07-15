@@ -77,6 +77,14 @@ const _layout = () => {
           headerShown:false,
           href: null, // hides editProfile from the tab bar
         }}/>
+
+    {/* uncomment when done styling */}
+    {/* <Tabs.Screen 
+    name="folder/[folderName]"
+    options={{
+      headerShown:false,
+      href: null, // hides [folderName] from the tab bar
+    }}/> */}
     
 
     </Tabs>
