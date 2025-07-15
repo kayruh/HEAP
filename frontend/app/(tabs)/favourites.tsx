@@ -103,8 +103,8 @@ const Favourites = () => {
                 multiline
               />
               {!!errorMsg && (
-  <Text style={styles.errorText}>{errorMsg}</Text>
-)}
+                <Text style={styles.errorText}>{errorMsg}</Text>
+              )}
               <View style={styles.modalButtons}>
                 <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.cancelBtn}>
                   <Text style={{ color: '#fff' }}>Cancel</Text>
