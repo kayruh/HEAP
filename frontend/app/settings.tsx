@@ -61,9 +61,6 @@ export default function SettingsScreen() {
                     <Text style={styles.menuText}>FYND Us</Text>
                 </TouchableOpacity>
 
-                {/* click profile -> show sign up & sign in */}
-               
-
             </ScrollView>
 
             <View style={styles.authSection}>
