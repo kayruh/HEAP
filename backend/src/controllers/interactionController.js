@@ -243,4 +243,13 @@ async getBusinessReviews(req, res) {
   }
 },
 
+async getEventInfo(req, res) {
+  try {
+    const eventInfo = await interactionServices.getEventInfo(req.params.event);
+    res.status(200).json(eventInfo)
+  } catch (e) {
+    res.status(500).json({ error: e.message})
+  }
+},
+
 }

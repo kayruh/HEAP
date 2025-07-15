@@ -35,14 +35,6 @@ export function useInteractionApi() {
     }
   //LIKES
 
-//   router.post   ('/insertLikeBusiness', clerkexpress.requireAuth(), interactionController.insertLikeBusiness); //secure
-//   router.delete('/deleteLikeBusiness',  clerkexpress.requireAuth(), interactionController.deleteLikeBusiness); //secure
-//   router.get   ('/getBusinessLikeCount/:business_username', interactionController.getBusinessLikeCount); 
-  
-  
-//   router.post   ('/insertLikeEvent', clerkexpress.requireAuth(),  interactionController.insertLikeEvent); //secure
-//   router.delete('/deleteLikeEvent', clerkexpress.requireAuth(), interactionController.deleteLikeEvent); //secure
-//   router.get   ('/getEventLikeCount/:event', interactionController.getEventLikeCount); 
     async function insertLikeBusiness(business_username: string) {
         const token = await getToken({ template: 'integrations' });
         const res = await api.post('/insertLikeBusiness', {business_username},
@@ -76,7 +68,7 @@ export function useInteractionApi() {
 
   /* ─────────────── LIKES : EVENT ───────────────────────────────────────── */
 
-  async function insertLikeEvent(event: string) {
+  async function insertLikeEvent(event: string) { //event is a uuid code that you get from info
     const token = await getToken({ template: 'integrations' });
     const res = await api.post(
       '/interaction/insertLikeEvent',
@@ -103,6 +95,11 @@ export function useInteractionApi() {
     return res.data;
   }
 
+  async function getEventInfo(event: string) {
+    const res = await api.get(`/interaction/getEventInfo/${event}`);
+    return res.data
+  }
+
   /* ─────────────── EXPORTS ─────────────────────────────────────────────── */
 
   return {
@@ -121,5 +118,7 @@ export function useInteractionApi() {
     insertLikeEvent,
     deleteLikeEvent,
     getEventLikeCheck,
+
+    getEventInfo,
   };
 }

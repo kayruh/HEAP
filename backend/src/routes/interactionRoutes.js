@@ -31,4 +31,7 @@ router.delete('/deleteReview/:uuid',interactionController.deleteReview);
 router.get   ('/getAccountReviews/:username', interactionController.getAccountReviews);
 router.get   ('/getBusinessReviews/:business_username', interactionController.getBusinessReviews);
 
+// get event
+router.get('/getEventInfo/:event', interactionController.getEventInfo);
+
 module.exports = router;

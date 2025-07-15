@@ -8,40 +8,34 @@ import { useLocalSearchParams } from 'expo-router'
 import FyndColors from '@/components/fyndColors'
 import { SafeAreaView } from 'react-native'
 import { useUser } from '@clerk/clerk-expo'
-import { useBusinessApi } from '@/api/business'
+// import { useBusinessApi } from '@/api/business'
+import { useInteractionApi } from '@/api/interaction'
 
-// Mock API call – replace with your actual event fetcher
-  async function fetchEventById(uuid: string) {
-    // Replace with: await yourApi.getEvent(uuid)
-    return new Promise(resolve =>
-      setTimeout(() => {
-        resolve({
-          title: 'Sample Event Title',
-          business_username: 'host_biz_123',
-          picture: 'https://placehold.co/600x300',
-          description: 'This is a sample event description for uuid ' + uuid,
-        })
-      }, 1000)
-    )
-  }
 
 export default function EventIdScreen() {
+  const { getEventInfo } = useInteractionApi()
   const { user } = useUser();
-  const { eventid } = useLocalSearchParams()
+  // Tell TypeScript what param we expect from the route.
+  const { eventid } = useLocalSearchParams<{ eventid: string }>();
 
-  const [event, setEvent] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-
-  // const [getEvents] = useBusinessApi();
+  const [event, setEvent] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (typeof eventid === 'string') {
-      fetchEventById(eventid).then(data => {
-        setEvent(data)
-        setLoading(false)
-      })
+      (async () => {
+        try {
+          const data = await getEventInfo(eventid); // real API call
+          console.log(data)
+          setEvent(data);
+        } finally {
+          setLoading(false);
+        }
+      })();
+    } else {
+      setLoading(false); // param missing or not a string
     }
-  }, [eventid])
+  }, [eventid]);
 
   if (loading) {
     return (

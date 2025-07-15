@@ -76,9 +76,9 @@ export default function Browse() {
         item={item}
         onPress={() => {
           if (item.type === 'event' && item.uuid) {
-            router.push(`/events/${item.uuid}`)
+            router.push(`../events/${item.uuid}`)
           } else if (item.type === 'business' && item.username) {
-            router.push(`/business/${item.username}`)
+            router.push(`../(searchProfile)/${item.username}`)
           }
         }}
       />

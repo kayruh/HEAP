@@ -243,5 +243,16 @@ module.exports = {
     return data;
     },
 
+    async getEventInfo(event) {
+      const {data, error} = await supabase
+      .from("EVENT")
+      .select('*')
+      .eq("uuid", event)
+      .single()
+    if (error) throw new Error(error.message);
+    return data
+    }
+    
+
   
 }
