@@ -1,11 +1,13 @@
 import { View, Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FyndBanner from '@/components/fyndBanner';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useUser } from '@clerk/clerk-expo';
 import FyndColors from '@/components/fyndColors';
 import CreateNewEvent from '@/components/createNewEvent';
+import AddBookmark from '@/components/addBookmark';
+import LoginModal from '@/components/loginModal';
 
 const businessProfile = () => {
     const router = useRouter();
@@ -13,7 +15,31 @@ const businessProfile = () => {
 
     const [activeTab, setActiveTab] = useState('home'); //default selected tab
 
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false); // for creating new events
+
+    const [showLoginModal, setShowLoginModal] = useState(false);
+
+    const [showBookmarkModal, setShowBookmarkModal] = useState(false);
+    const [userLists, setUserLists] = useState<string[]>([]);
+    const [isBookmarked, setIsBookmarked] = useState(false);
+
+    // Mocked favourite lists – REPLACE with real data from DB or API
+    const favouriteLists = ['My Favourites', 'Thrift Shops', 'To Visit Again'];
+
+    // Handle bookmarking
+    const handleAddToFavourite = (listName: string) => {
+      console.log(`Bookmarking business to: ${listName}`);
+      // TODO: Save business ID to this list in backend
+    };
+
+    // TO CHECK IF USER HAS ALRDY BOOKMARKED PROFILE
+    // useEffect(() => {
+    //   if (user) {
+    //     checkIfBookmarked(user.id, businessId).then((result) => {
+    //       setIsBookmarked(result);
+    //     });
+    //   }
+    // }, [user]);
 
     return (
         <View style={styles.container}>
@@ -32,7 +58,7 @@ const businessProfile = () => {
               </View>
 
               <View style={styles.profileInfo}>
-                {/* // NAME of biz */}
+                {/* // NAME of biz. if no name input, replace w username*/}
                 <Text style={styles.profileName}> 
                   {user?.firstName ?? 'NAME'} 
                 </Text> 
@@ -44,6 +70,31 @@ const businessProfile = () => {
 
                 {/* biz description (they can write themselves) */}
                 <Text style={styles.profileDescription}> the COOLEST thrift store in Singapore. </Text>
+
+                {/* Icons on the right side of the name */}
+                <View style={styles.iconRow}>
+                  <TouchableOpacity style={styles.iconButton}
+                    onPress={() => console.log('Follow pressed')}>
+                    <Ionicons name="person-add-outline" size={20} color={FyndColors.Green} />
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                      onPress={() => {
+                        if (!user) {
+                          setShowLoginModal(true);
+                        } else {
+                          setShowBookmarkModal(true);
+                        }
+                      }}
+                    >
+                      <Ionicons
+                        name={isBookmarked ? "bookmark" : "bookmark-outline"}
+                        size={20}
+                        color={FyndColors.Green}
+                      />
+                    </TouchableOpacity>
+                </View>
+
               </View>
             </View>
           </View>
@@ -165,6 +216,38 @@ const businessProfile = () => {
             // TODO: Save to DB or state
           }}/>
 
+        <AddBookmark
+          visible={showBookmarkModal}
+          onClose={() => setShowBookmarkModal(false)}
+          favouriteLists={userLists}
+          onSelectList={(listName) => {
+            console.log('Saved to:', listName);
+            // Save to DB here
+          }}
+          onCreateNewList={(newName) => {
+            // Save new list to DB here
+            setUserLists((prev) => [...prev, newName]); // Update local state
+          }}
+        />
+
+        <LoginModal
+          visible={showLoginModal}
+          onClose={() => setShowLoginModal(false)}
+          onSignIn={() => {
+            setShowLoginModal(false); 
+            setTimeout(() => router.push('../(auth)/sign-in'), 5); // delay navigation slightly
+          }}
+          onSignUp={() => {
+            setShowLoginModal(false); 
+            setTimeout(() => router.push('../(auth)/sign-up'), 5);
+          }}
+          onBizSignUp={
+            () => {
+              setShowLoginModal(false); 
+              setTimeout(() => router.push('../(auth)/business-sign-up'), 5);
+          }}
+        />
+
       </View>
   );
 };
@@ -229,7 +312,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   statNumber: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     color: FyndColors.Green,
     marginBottom: 4,
@@ -327,6 +410,21 @@ const styles = StyleSheet.create({
     padding: 12,
     zIndex: 10,
   },
+  profileNameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
+  iconRow: {
+    flexDirection: 'row',
+    gap: 10, 
+    },
+  
+  iconButton: {
+    padding: 4,
+  },
+  
 });
 
 export default businessProfile;
