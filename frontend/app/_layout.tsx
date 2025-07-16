@@ -36,10 +36,10 @@ export default function RootLayout() {
         name="(auth)" 
         options={{headerShown:false}}/>
         <Stack.Screen 
-        name="events" 
+        name="(events)" 
         options={{headerShown:false}}/>
         <Stack.Screen 
-        name="searchProfile" 
+        name="(searchProfile)" 
         options={{headerShown:false}}/>
       <Slot />
     </Stack>

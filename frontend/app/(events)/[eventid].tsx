@@ -10,6 +10,7 @@ import { SafeAreaView } from 'react-native'
 import { useUser } from '@clerk/clerk-expo'
 // import { useBusinessApi } from '@/api/business'
 import { useInteractionApi } from '@/api/interaction'
+import { Ionicons } from '@expo/vector-icons'
 
 
 export default function EventIdScreen() {
@@ -49,10 +50,28 @@ export default function EventIdScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Image source={{ uri: event.picture }} style={styles.image} />
+        <Image source={{ uri: event.event_photos }} style={styles.image} />
 
         <Text style={styles.title}>{event.title}</Text>
-        <Text style={styles.hosted}>Hosted by @{event.business_username}</Text>
+
+        {/* link the username to the biz profile page (for users to view) */}
+        <Text style={styles.hosted}>Hosted by @{event.username}</Text>
+
+        {/* if no start OR end date dont display this section at all */}
+        <View>
+          <Text style={styles.hosted}>
+          <Ionicons name='calendar' size={16} color={FyndColors.Purple}/>
+          {event.start}-{event.end}
+          </Text>
+        </View>
+
+        {/* if no address dont display this section at all */}
+        <View>
+          <Text style={styles.hosted}>
+          <Ionicons name='location' size={16} color={FyndColors.Purple}/>
+          {event.Address} address placeholder
+          </Text>
+        </View>
 
         <Text style={styles.description}>{event.description}</Text>
 
@@ -75,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: '700',
     marginBottom: 10,
     color: FyndColors.Green,
@@ -95,6 +114,13 @@ const styles = StyleSheet.create({
   },
   hosted: {
     fontSize: 14,
-    color: '#666',
+    color: '#000',
+    marginBottom: 10,
+  },
+  dateBadge: {
+    backgroundColor: FyndColors.Yellow,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 4,
   },
 })
