@@ -32,15 +32,23 @@ const userProfile = () => {
           return (
             <View style={styles.tabContent}>
             <>
-                <Text>Display user's fav lists here</Text>
-                <Favourites />
-
                 <TouchableOpacity
                     style={styles.addButton}
-                    onPress={() => setShowFavListModal(true)}
+                    onPress={() => {
+                        if (!user) {
+                          setShowLoginModal(true);
+                        } else {
+                            setShowFavListModal(true);
+                        }
+                      }}
                     >
-                    <Ionicons name="add" size={28} color="#fff" />
+                    <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>
+                        +  Create a new list
+                    </Text>
+                    
                     </TouchableOpacity>
+
+                    <Favourites />
                 </>
             </View>
           )
@@ -48,7 +56,7 @@ const userProfile = () => {
         if (activeTab === 'list') {
           return (
             <View style={styles.tabContent}>
-                <Text>idk</Text>
+                <Text>show user's liked events???</Text>
             </View>
           )
         }
@@ -313,13 +321,10 @@ const styles = StyleSheet.create({
     backgroundColor: FyndColors.Green,
   },
   addButton: {
-    position: 'absolute',
-    bottom: 20,
-    right: 30,
     backgroundColor: FyndColors.Purple,
-    borderRadius: 28,
-    padding: 12,
-    zIndex: 10,
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
   },
   profileNameRow: {
     flexDirection: 'row',

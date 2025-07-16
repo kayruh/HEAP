@@ -8,6 +8,7 @@ import FyndColors from '@/components/fyndColors';
 import { useClerkApi } from '@/api/clerk';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+
 export default function FavListScreen() {
   const { user } = useUser();
   const router = useRouter();
