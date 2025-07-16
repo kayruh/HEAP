@@ -35,6 +35,12 @@ export default function RootLayout() {
         <Stack.Screen 
         name="(auth)" 
         options={{headerShown:false}}/>
+        <Stack.Screen 
+        name="events" 
+        options={{headerShown:false}}/>
+        <Stack.Screen 
+        name="searchProfile" 
+        options={{headerShown:false}}/>
       <Slot />
     </Stack>
       <StatusBar style="auto" />

@@ -91,12 +91,12 @@ const _layout = () => {
         }}/>
 
     {/* uncomment when done styling */}
-    {/* <Tabs.Screen 
-    name="folder/[folderName]"
-    options={{
-      headerShown:false,
-      href: null, // hides [folderName] from the tab bar
-    }}/> */}
+      <Tabs.Screen 
+      name="folder/[folderName]"
+      options={{
+        headerShown:false,
+        href: null, // hides [folderName] from the tab bar
+      }}/>
 
     </Tabs>
   )
