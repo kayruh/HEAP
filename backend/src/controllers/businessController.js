@@ -137,6 +137,61 @@ module.exports = {
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
-}
+},
+
+//     async uploadEventImage(req, res) {
+//     try {
+//       const { userId } = clerkexpress.getAuth(req);
+//       if (!userId) return res.status(401).json({ error: 'Not authenticated' });
+
+//       const username = (await clerkexpress.clerkClient.users.getUser(userId))
+//         .username;
+//     //   const username = "kneadkopi";
+//       const { buffer, mimetype } = req.file;          // from multer
+//     //   console.log(username, buffer, mimetype)
+
+//       const data = await businessServices.uploadEventImage(
+//         username,
+//         buffer,
+//         mimetype,
+//       );
+
+//       return res.status(201).json(data);              // { path, publicUrl }
+//     } catch (err) {
+//       return res.status(500).json({ error: err.message });
+//     }
+//   },
+
+//   /* GET /business/getBusinessImage/:username */
+//   async getBusinessImage(req, res) {
+//     try {
+//       const images = await businessServices.getBusinessImage(
+//         req.params.username,
+//       );
+//       return res.status(200).json(images);            // [url, url, …]
+//     } catch (err) {
+//       return res.status(500).json({ error: err.message });
+//     }
+//   },
+
+//   async deleteBusinessImage(req, res) {
+//   try {
+//     const { userId } = clerkexpress.getAuth(req);
+//     if (!userId) return res.status(401).json({ error: 'Not authenticated' });
+
+//     const username =
+//       (await clerkexpress.clerkClient.users.getUser(userId)).username;
+
+//     const { fileName } = req.body;
+//     if (!fileName)
+//       return res.status(400).json({ error: 'fileName required' });
+
+//     await businessServices.deleteBusinessImage(username, fileName);
+
+//     return res.status(200).json({ message: 'Deleted' });
+//   } catch (err) {
+//     return res.status(500).json({ error: err.message });
+//   }
+// }
 
 }

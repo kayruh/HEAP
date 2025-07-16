@@ -126,7 +126,51 @@ module.exports = {
 
         if (error) throw new Error(error.message);
         return data; // usually []
-    }   
+    },   
+
+    async uploadEventImage(event_uuid, fileBuffer, mime) {
+    const filePath = `${event_uuid}/${uuidv4()}`;
+
+    // console.log(fileBuffer, filePath, username, mime)
+
+    const { data, error } = await supabase.storage
+    .from('event-image')
+    .upload(filePath, fileBuffer, { contentType: mime });
+
+    if (error) throw new Error(error.message);
+
+    const { data: urlData } = supabase.storage
+    .from('event-image')
+    .getPublicUrl(filePath);            // bucket public; use signed URL if private
+
+    return { ...data, publicUrl: urlData.publicUrl };
+    },
+
+    async getEventImage(event_uuid) {
+        const { data, error } = await supabase.storage
+            .from('event-image')
+            .list(`${event_uuid}/`);
+
+        if (error) throw new Error(error.message);
+
+        return data.map((f) => {
+            const { data: url } = supabase.storage
+            .from('event-image')
+            .getPublicUrl(`${event_uuid}/${f.name}`);
+            return url.publicUrl;
+        });
+    },
+    
+    async deleteEventImage(event_uuid, fileName) {
+        const fullPath = `${event_uuid}/${fileName}`; // same pattern as uploads
+
+        const { data, error } = await supabaseAdmin.storage
+            .from('event-image')
+            .remove([fullPath]);                      // expects array
+
+        if (error) throw new Error(error.message);
+        return data; // usually []
+    },   
 
 }
 
