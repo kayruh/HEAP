@@ -26,8 +26,8 @@ router.get   ('/getAccountFolders', clerkexpress.requireAuth() , interactionCont
 router.post('/getFolderInfo', interactionController.getFolderInfo)
 
 /* ---------- Reviews ---------- */
-router.put   ('/upsertReview',     interactionController.upsertReview); //remove this
-router.delete('/deleteReview/:uuid',interactionController.deleteReview);
+router.put   ('/upsertReview', clerkexpress.requireAuth() , interactionController.upsertReview); //remove this
+router.delete('/deleteReview',  clerkexpress.requireAuth(), interactionController.deleteReview);
 router.get   ('/getAccountReviews/:username', interactionController.getAccountReviews);
 router.get   ('/getBusinessReviews/:business_username', interactionController.getBusinessReviews);
 

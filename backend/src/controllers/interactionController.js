@@ -208,7 +208,12 @@ async getFolderInfo(req, res) {
 /* ---------- Reviews ---------- */
 async upsertReview(req, res) {
   try {
-    const {uuid,business_username,username,photo,review} = req.body
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const {uuid,business_username,photo,review} = req.body
     await interactionServices.upsertReview(uuid,business_username,username,photo,review);
     res.status(200).json({ message: 'Review upserted' });
   } catch (e) {
@@ -218,7 +223,12 @@ async upsertReview(req, res) {
 
 async deleteReview(req, res) {
   try {
-    await interactionServices.deleteReview(req.params.uuid);
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    await interactionServices.deleteReview(req.body.uuid, username);
     res.status(204).send();
   } catch (e) {
     res.status(500).json({ error: e.message });

@@ -220,8 +220,8 @@ module.exports = {
     if (error) throw new Error(error.message);
     },
 
-    async deleteReview(uuid) {
-    const { error } = await supabase.from('REVIEWS').delete().eq('uuid', uuid);
+    async deleteReview(uuid, username) {
+    const { error } = await supabase.from('REVIEWS').delete().eq('uuid', uuid).eq('username', username);
     if (error) throw new Error(error.message);
     },
 
