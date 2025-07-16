@@ -114,13 +114,13 @@ const userProfile = () => {
             <TouchableOpacity
               onPress={() => setActiveTab('favs')}
               style={[styles.tabButton, activeTab === 'favs' && styles.activeTab]}>
-              <Ionicons name="heart" size={20} color={activeTab === 'favs' ? FyndColors.Yellow : FyndColors.Green} />
+              <Ionicons name="list" size={20} color={activeTab === 'favs' ? FyndColors.Yellow : FyndColors.Green} />
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => setActiveTab('list')}
               style={[styles.tabButton, activeTab === 'list' && styles.activeTab]}>
-              <Ionicons name="list" size={20} color={activeTab === 'list' ? FyndColors.Yellow : FyndColors.Green} />
+              <Ionicons name="heart" size={20} color={activeTab === 'list' ? FyndColors.Yellow : FyndColors.Green} />
             </TouchableOpacity>
 
             <TouchableOpacity

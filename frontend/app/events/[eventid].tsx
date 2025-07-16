@@ -4,13 +4,14 @@
 
 import { View, Text, StyleSheet, Image, ActivityIndicator, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import FyndColors from '@/components/fyndColors'
 import { SafeAreaView } from 'react-native'
 import { useUser } from '@clerk/clerk-expo'
 // import { useBusinessApi } from '@/api/business'
 import { useInteractionApi } from '@/api/interaction'
 import { Ionicons } from '@expo/vector-icons'
+import { TouchableOpacity } from 'react-native'
 
 
 export default function EventIdScreen() {
@@ -21,6 +22,8 @@ export default function EventIdScreen() {
 
   const [event, setEvent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof eventid === 'string') {
@@ -49,6 +52,10 @@ export default function EventIdScreen() {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <Ionicons name="chevron-back" size={22} color={FyndColors.Purple}/>
+      </TouchableOpacity>
+
       <ScrollView>
         <Image source={{ uri: event.event_photos }} style={styles.image} />
 
@@ -66,6 +73,7 @@ export default function EventIdScreen() {
         </View>
 
         {/* if no address dont display this section at all */}
+        {/* Link address to goole maps location ?? */}
         <View>
           <Text style={styles.hosted}>
           <Ionicons name='location' size={16} color={FyndColors.Purple}/>
@@ -122,5 +130,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 4,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 55,
+    left: 15,
+    // circle ard button:
+      // backgroundColor: FyndColors.Yellow,
+      // borderRadius: 20,
+    padding: 8,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    zIndex: 10,
   },
 })
