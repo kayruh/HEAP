@@ -115,8 +115,18 @@ module.exports = {
             .getPublicUrl(`${username}/${f.name}`);
             return url.publicUrl;
         });
-    }
+    },
     
+    async deleteBusinessImage(username, fileName) {
+        const fullPath = `${username}/${fileName}`; // same pattern as uploads
+
+        const { data, error } = await supabaseAdmin.storage
+            .from('business-image')
+            .remove([fullPath]);                      // expects array
+
+        if (error) throw new Error(error.message);
+        return data; // usually []
+    }   
 
 }
 

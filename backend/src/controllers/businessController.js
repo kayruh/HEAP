@@ -119,4 +119,24 @@ module.exports = {
     }
   },
 
+  async deleteBusinessImage(req, res) {
+  try {
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) return res.status(401).json({ error: 'Not authenticated' });
+
+    const username =
+      (await clerkexpress.clerkClient.users.getUser(userId)).username;
+
+    const { fileName } = req.body;
+    if (!fileName)
+      return res.status(400).json({ error: 'fileName required' });
+
+    await businessServices.deleteBusinessImage(username, fileName);
+
+    return res.status(200).json({ message: 'Deleted' });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
 }

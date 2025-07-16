@@ -32,4 +32,10 @@ router.get(
   businessController.getBusinessImage,
 );
 
+router.delete(
+  '/deleteBusinessImage',
+  clerkexpress.requireAuth(),
+  businessController.deleteBusinessImage,
+);
+
 module.exports = router;

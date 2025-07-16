@@ -70,6 +70,18 @@ export function useBusinessApi() {
   return res.data;                   // -> [publicUrl, …]
   }
 
+  async function deleteBusinessImage(fileName: string) {
+  // fileName is just "3fcd3acc-74d8-4dba-88ff-0e5017c5e29b.jpg"
+  const token = await getToken({ template: 'integrations' });
+
+  const res = await api.delete('/business/deleteBusinessImage', {
+    data: { fileName },                         // goes in req.body
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return res.data; // { message: 'Deleted' }
+}
+
   return {
     getBusinessInfo,
     // updateBusinessDisplay,
@@ -77,7 +89,8 @@ export function useBusinessApi() {
     deleteEvent,
     getEvents,
     uploadBusinessImage,
-    getBusinessImages
+    getBusinessImages,
+    deleteBusinessImage,
 
   };
 }
