@@ -11,21 +11,6 @@ export function useBusinessApi() {
     return res.data;
   }
 
-
-  async function updateBusinessDisplay(
-    display_id: string,
-    picture_array: string[]
-  ) {
-    const token = await getToken({ template: 'integrations' });
-    const res = await api.patch(
-      '/business/updateBusinessDisplay',
-      { display_id, picture_array },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    return res.data;
-  }
-
-
   async function upsertEvent(event: {
     uuid?: string;
     title: string;
@@ -60,11 +45,39 @@ export function useBusinessApi() {
     return res.data;
   }
 
+  async function uploadBusinessImage(fileUri: string, mime = 'image/jpeg') {
+  const token = await getToken({ template: 'integrations' });
+
+  const form = new FormData();
+  form.append('file', {
+    uri: fileUri,
+    name: 'upload.jpg',
+    type: mime,
+  } as any);                         // 👈 RN needs the explicit cast
+
+  const res = await api.post('/business/uploadBusinessImage', form, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.data;                   // -> { path, publicUrl }
+  }
+
+  async function getBusinessImages(username: string) {
+  const res = await api.get(`/business/getBusinessImage/${username}`);
+  return res.data;                   // -> [publicUrl, …]
+  }
+
   return {
     getBusinessInfo,
-    updateBusinessDisplay,
+    // updateBusinessDisplay,
     upsertEvent,
     deleteEvent,
-    getEvents
+    getEvents,
+    uploadBusinessImage,
+    getBusinessImages
+
   };
 }

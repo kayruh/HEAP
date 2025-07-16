@@ -22,7 +22,7 @@ const upload = multer();
 
 router.post(
   '/uploadBusinessImage',
-//   clerkexpress.requireAuth(),
+  clerkexpress.requireAuth(),
   upload.single('file'),                 
   businessController.uploadBusinessImage,
 );
