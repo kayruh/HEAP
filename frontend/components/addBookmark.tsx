@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, View, Text, TouchableOpacity, FlatList, StyleSheet, TextInput, Button,} from 'react-native';
 import FyndColors from './fyndColors';
 import { Ionicons } from '@expo/vector-icons';
+import { useUser } from '@clerk/clerk-expo';
+import { getAccountFolders } from '@/api/interaction'; 
 
 type AddBookmarkProps = {
   visible: boolean;
   onClose: () => void;
-  favouriteLists: string[]; // e.g., ['My Favourites', 'Vintage Shops']
   onSelectList: (listName: string) => void;
   onCreateNewList: (newListName: string) => void;
 };
@@ -14,12 +15,28 @@ type AddBookmarkProps = {
 const AddBookmark = ({
   visible,
   onClose,
-  favouriteLists,
   onSelectList,
   onCreateNewList,
 }: AddBookmarkProps) => {
+  const { user } = useUser()
+
   const [creatingNewList, setCreatingNewList] = useState(false);
   const [newListName, setNewListName] = useState('');
+  const [favouriteLists, setFavouriteLists] = useState<string[]>([]); // Local state to hold folder names
+
+  useEffect(() => {
+    const fetchFolders = async () => {
+      try {
+        const data = await getAccountFolders(); 
+        setFavouriteLists(data.map((folder: any) => folder.folder_name)); // Extract folder names
+      } catch (err) {
+        console.error('Error fetching folders:', err);
+      }
+    };
+    if (visible) {
+      fetchFolders(); // only fetch when modal becomes visible
+    }
+  }, [visible]);
 
   const handleCreateList = () => {
     if (newListName.trim() !== '') {
@@ -87,7 +104,7 @@ const AddBookmark = ({
   );
 };
 
-export default AddBookmark;
+export default AddBookmark
 
 const styles = StyleSheet.create({
   overlay: {

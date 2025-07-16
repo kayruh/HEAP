@@ -11,6 +11,7 @@ import LoginModal from '@/components/loginModal';
 import AddReview from '@/components/addReview';
 import ReviewCard from '@/components/reviewCard';
 import BizEventCard from '@/components/bizEventCard';
+import { useInteractionApi } from '@/api/interaction';
 
 const businessProfile = () => {
     const router = useRouter();
@@ -29,8 +30,8 @@ const businessProfile = () => {
     const [showReviewModal, setShowReviewModal] = useState(false); // for adding reviews
 
 
-    // Mocked favourite lists – REPLACE with real data from DB or API !!!!!
-    const favouriteLists = ['My Favourites', 'Thrift Shops', 'To Visit Again'];
+    // // Mocked favourite lists – REPLACE with real data from DB or API !!!!!
+    // const favouriteLists = ['My Favourites', 'Thrift Shops', 'To Visit Again'];
 
     // Handle bookmarking
     const handleAddToFavourite = (listName: string) => {
@@ -46,7 +47,7 @@ const businessProfile = () => {
     //     });
     //   }
     // }, [user]);
-
+    
     return (
         <View style={styles.container}>
           <FyndBanner />
