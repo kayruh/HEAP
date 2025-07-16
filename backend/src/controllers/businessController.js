@@ -17,27 +17,6 @@ module.exports = {
         }
     },
 
-    async updateBusinessDisplay(req, res) {
-        try {
-            const { userId } = clerkexpress.getAuth(req);
-                if (!userId) {
-                  return res.status(401).json({ error: 'Not authenticated' });
-                }
-            const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
-            const { display_id, picture_array} = req.body //might need to change this inidividual picturearray function due to database limitations
-            const businessDetailsUpdate = await businessServices.updateBusinessDisplay(username, picture_array, display_id);
-            
-            if (!username) return res.status(404).json({ error: 'username required' });
-
-            res.status(200).json({
-                message: "Updated Business Display"
-            })
-
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
-
     async upsertEvent(req, res) {
          try {
             const { userId } = clerkexpress.getAuth(req);
@@ -100,11 +79,44 @@ module.exports = {
             // console.log(businessInfo)
             res.status(200).json(businessInfo)
         }
-        catch {
+        catch (error) {
             res.status(500).json({ error: error.message });
         }
+    },
+
+    async uploadBusinessImage(req, res) {
+    try {
+    //   const { userId } = clerkexpress.getAuth(req);
+    //   if (!userId) return res.status(401).json({ error: 'Not authenticated' });
+
+    //   const username = (await clerkexpress.clerkClient.users.getUser(userId))
+    //     .username;
+      const username = "kneadkopi";
+      const { buffer, mimetype } = req.file;          // from multer
+    //   console.log(username, buffer, mimetype)
+
+      const data = await businessServices.uploadBusinessImage(
+        username,
+        buffer,
+        mimetype,
+      );
+
+      return res.status(201).json(data);              // { path, publicUrl }
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
     }
+  },
 
-
+  /* GET /business/getBusinessImage/:username */
+  async getBusinessImage(req, res) {
+    try {
+      const images = await businessServices.getBusinessImage(
+        req.params.username,
+      );
+      return res.status(200).json(images);            // [url, url, …]
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  },
 
 }
