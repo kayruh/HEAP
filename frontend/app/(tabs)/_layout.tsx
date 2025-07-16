@@ -16,7 +16,7 @@ const _layout = () => {
 
   // if (!isSignedIn) return <Redirect href={"/sign-in"} />; //redirects to the sign in page if not authenticated
   const { user } = useUser();
-  console.log(user?.unsafeMetadata?.accountType)
+  // console.log(user?.unsafeMetadata?.accountType)
   return (
     <Tabs
       screenOptions={{
@@ -62,7 +62,7 @@ const _layout = () => {
     name='businessProfile' // hiding biz profile frm navigation tab
     options={{title:'Profile_B',
         headerShown:false,
-        href: (user?.unsafeMetadata?.accountType == "business") ? './userProfile2' : null ,
+        href: (user?.unsafeMetadata?.accountType == "business") ? './businessProfile' : null ,
         tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color}
          />
     }}

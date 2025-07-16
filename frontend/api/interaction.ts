@@ -100,6 +100,53 @@ export function useInteractionApi() {
     return res.data
   }
 
+  type ReviewUpsertPayload = {
+  uuid?: string | null;          // null / undefined → create ; existing UUID → update
+  business_username: string;     // PK of the business being reviewed
+  photo?: string | null;         // optional image URL or base64 string
+  review: string;                // the review text body
+};
+
+  //uuid,business_username,photo,review
+  async function upsertReview(payload: ReviewUpsertPayload) {
+    const token = await getToken({ template: 'integrations' });
+    const res = await api.put('/interaction/upsertReview', payload, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return res.data;
+  }
+
+  async function deleteReview(uuid: string) {
+    const token = await getToken({ template: 'integrations' });
+    const res = await api.delete('/interaction/deleteReview', {
+      data: { uuid },              // controller expects { uuid } in body
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return res.data;               // empty (204 No Content)
+  }
+
+  async function getAccountReviews(username: string) {
+    const res = await api.get(`/interaction/getAccountReviews/${username}`);
+    return res.data;
+  }
+
+  async function getBusinessReviews(business_username: string) {
+    const res = await api.get(
+      `/interaction/getBusinessReviews/${business_username}`,
+    );
+    return res.data;
+  }
+
+  async function getBusinessLikeCount(business_username: string) {
+    const res = await api.get(`/interaction/getBusinessLikeCount/${business_username}`);
+    return res.data
+  }
+
+  async function getEventLikeCount(event: string) {
+    const res = await api.get(`/interaction/getEventLikeCount/${event}`);
+    return res.data
+  }
+
   /* ─────────────── EXPORTS ─────────────────────────────────────────────── */
 
   return {
@@ -113,12 +160,20 @@ export function useInteractionApi() {
     insertLikeBusiness,
     deleteLikeBusiness,
     getBusinessLikeCheck,
+    getBusinessLikeCount,
 
     /* likes – event */
     insertLikeEvent,
     deleteLikeEvent,
     getEventLikeCheck,
+    getEventLikeCount,
 
     getEventInfo,
-  };
+
+      /* reviews */
+    upsertReview,
+    deleteReview,
+    getAccountReviews,
+    getBusinessReviews,
+    };
 }
