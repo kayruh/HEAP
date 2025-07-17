@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet, ScrollView } from 'react-native'
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet, ScrollView, Image } from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
 import { Link, useLocalSearchParams, useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
@@ -171,6 +171,12 @@ export default function SignUpScreen() {
         >
 
         <View style={styles.container}>
+          <View style={styles.logoContainer}>
+            <Image
+            source={require('../../assets/FYND logo/yellow.png')}
+            style={styles.logo}/>
+          </View>
+
         <Text style={styles.header}>Welcome to FYND!</Text>
 
           <View style={styles.inputWrapper}>
@@ -231,7 +237,7 @@ export default function SignUpScreen() {
 
       </View>
 
-      <Text style={styles.footerText}>Get lost, FYND more.</Text>
+        <Text style={styles.footerText}>Get lost, FYND more.</Text>
         </ScrollView>
       </KeyboardAvoidingView>
       </>
@@ -360,7 +366,7 @@ const styles = StyleSheet.create({
     bottom: 30,
     alignSelf: 'center',
     fontSize: 14,
-    color: '#fff', // white
+    color: 'white', 
   },
 
   // verification
@@ -405,5 +411,17 @@ const styles = StyleSheet.create({
   },
   vfocusCell: {
     borderColor: '#007AFF',
+  },
+
+  //logo
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 5,
+    paddingLeft: 20,
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
   },
 })

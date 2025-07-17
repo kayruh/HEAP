@@ -68,7 +68,7 @@ export default function Page() {
         style={{ flex: 1 }}>
 
       <ScrollView
-            contentContainerStyle={styles.scrollContainer}
+            contentContainerStyle={styles.container}
             keyboardShouldPersistTaps="handled"
           >
 
@@ -141,22 +141,19 @@ export const screenOptions = {
 const styles = StyleSheet.create({
   // for all elements on page
   container: {
-    // flex: 1,
+    flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 5,
     marginBottom: 50,
-  },
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 120,
-    paddingHorizontal: 5,
+    // borderWidth: 2,       
+    // borderColor: 'red',  
   },
   safeArea: {
     flex: 1,
     backgroundColor: FyndColors.Purple,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
+    // borderWidth: 2,       
+    // borderColor: 'white',   
   },
   // buttons
   backButton: {
@@ -272,6 +269,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
     marginBottom: 5,
+    paddingLeft: 20,
   },
   logo: {
     width: 200,
