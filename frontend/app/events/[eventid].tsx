@@ -77,8 +77,10 @@ export default function EventIdScreen() {
         <View>
           <Text style={styles.hosted}>
           <Ionicons name='location' size={16} color={FyndColors.Purple}/>
-          {event.Address} address placeholder
+          {event.google_maps_location} address placeholder 
           </Text>
+        {/* need data from BUSINESS table */}
+
         </View>
 
         <Text style={styles.description}>{event.description}</Text>
