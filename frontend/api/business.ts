@@ -88,6 +88,7 @@ export function useBusinessApi() {
     upsertEvent,
     deleteEvent,
     getEvents,
+    
     uploadBusinessImage,
     getBusinessImages,
     deleteBusinessImage,

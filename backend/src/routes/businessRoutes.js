@@ -48,8 +48,8 @@ router.post(
 );
 
 router.get(
-  '/getEventImage/:username',
-  businessController.getBusinessImage
+  '/getEventImage/:event_uuid',
+  businessController.getEventImage
 );
 
 router.delete(

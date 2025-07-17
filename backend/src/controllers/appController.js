@@ -6,9 +6,10 @@ module.exports = {
     async getWhatsHot(req, res) {
         try {
             const getWhatsHot = await appServices.whatsHot();
+            // console.log(getWhatsHot)
             res.status(200).json(getWhatsHot)
 
-
+            
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

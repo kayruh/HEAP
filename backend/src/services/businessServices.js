@@ -156,10 +156,11 @@ module.exports = {
     },
 
     async getEventImage(event_uuid) {
+        // console.log("hit service")
         const { data, error } = await supabase.storage
             .from('event-image')
             .list(`${event_uuid}/`);
-
+        console.log(data)
         if (error) throw new Error(error.message);
 
         return data.map((f) => {
@@ -178,7 +179,7 @@ module.exports = {
             .remove([fullPath]);                      // expects array
 
         if (error) throw new Error(error.message);
-        return data; // usually []
+        return data;
     },   
 
 }
