@@ -103,7 +103,6 @@ const _layout = () => {
       options={{
         headerShown:false,
         href: null, // hides [folderName] from the tab bar
-        tabBarStyle: { display: 'none' },
       }}/>
 
     </Tabs>

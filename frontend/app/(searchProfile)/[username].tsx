@@ -105,7 +105,7 @@ const businessProfile = () => {
                 </Text>
 
                 {/* biz description (they can write themselves) */}
-                <Text style={styles.profileDescription}> the COOLEST thrift store in Singapore. </Text>
+                <Text style={styles.profileDescription}> the COOLEST thrift store in Singapore. You are in username dynamic</Text>
 
                 {/* Icons on the right side of the name */}
                 <View style={styles.iconRow}>
@@ -122,6 +122,7 @@ const businessProfile = () => {
                           setShowBookmarkModal(true);
                         }
                       }}
+                      style={styles.iconButton}
                     >
                       <Ionicons
                         name={isBookmarked ? "bookmark" : "bookmark-outline"}

@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, Tabs } from "expo-router";
 import "./global.css";
 import { ClerkProvider } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
@@ -9,14 +9,12 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { CardStyleInterpolators } from '@react-navigation/stack';
 
-
-
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   return (
   <ClerkProvider tokenCache={tokenCache}>
     {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
-    
+
     <Stack>
       <Stack.Screen 
         name="(tabs)" 
