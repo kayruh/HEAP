@@ -52,10 +52,10 @@ export default function SettingsScreen() {
                     <Text style={styles.menuText}>FYND Places</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.menuItem} 
+                {/* <TouchableOpacity style={styles.menuItem} 
                     onPress={() => router.replace('/(tabs)/favourites')}>
                     <Text style={styles.menuText}>Favourites</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <TouchableOpacity style={styles.menuItem} 
                     onPress={() => router.replace('/ourStory')}>

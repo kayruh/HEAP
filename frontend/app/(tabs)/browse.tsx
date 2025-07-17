@@ -5,6 +5,10 @@ import { useAppApi } from '@/api/app'
 import EventCarousel2, { HotEvent } from '@/components/eventCarousel2'
 import EventCard from '@/components/eventCard2'
 import FyndBanner from '@/components/fyndBanner'
+import { Dimensions } from "react-native";
+import FyndColors from '@/components/fyndColors'
+import { TouchableOpacity } from 'react-native'
+import { useRouter } from 'expo-router'
 
 export interface GenericItem {
   type: 'event' | 'business'
@@ -16,12 +20,6 @@ export interface GenericItem {
   google_maps_location?: string | null // businesses
   // … add any other fields you need later
 }
-
-import { Dimensions } from "react-native";
-import FyndColors from '@/components/fyndColors'
-import { TouchableOpacity } from 'react-native'
-import { useRouter } from 'expo-router'
-
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width - 40;
