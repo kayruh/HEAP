@@ -88,9 +88,9 @@ const editProfile = () => {
   }
     
       return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/userProfile')}>
-                <Ionicons name="chevron-back" size={20} color={FyndColors.Yellow} />
+        <SafeAreaView style={{ flex: 1 , backgroundColor:'white'}}>
+            <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/userProfile2')}>
+                <Ionicons name="chevron-back" size={20} color={FyndColors.Green} />
             </TouchableOpacity>
           <ScrollView contentContainerStyle={styles.contentContainer}>
     
@@ -226,9 +226,9 @@ const styles = StyleSheet.create({
     },
     saveButton: {
     backgroundColor: FyndColors.Purple,
-    paddingVertical: 14,
+    paddingVertical: 10,
     borderRadius: 8,
-    width: '80%',
+    width: '70%',
     alignItems: 'center',
     marginTop: 20,
     maxWidth: maxWidth,
@@ -263,8 +263,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 55,
     left: 18,
-    backgroundColor: FyndColors.Green, // or same as save button?????
-    borderRadius: 20,
+    // backgroundColor: FyndColors.Green, // or same as save button?????
+    // borderRadius: 20,
     padding: 8,
     elevation: 3,
     shadowColor: '#000',

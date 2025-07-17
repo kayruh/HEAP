@@ -9,6 +9,7 @@ import LoginModal from '@/components/loginModal';
 import Favourites from './favourites';
 import { FlatList } from 'react-native';
 import AddFavList from '@/components/addFavList';
+import { SignOutButton } from '@/components/SignOutButton';
 
 const userProfile = () => {
     const router = useRouter();
@@ -96,6 +97,19 @@ const userProfile = () => {
                 <Text style={styles.profileHandle}>                  
                   @{user?.username}
                 </Text>
+
+                <View style={styles.buttonRow}>
+                    <TouchableOpacity
+                        onPress={() => router.push('/editProfile')}
+                        style={styles.translucentButton}>
+                        <Text style={styles.translucentButtonText}>Edit Profile</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.translucentButton}>
+                        <SignOutButton/>
+                    </TouchableOpacity>
+                </View>
+
 
               </View>
             </View>
@@ -343,6 +357,28 @@ const styles = StyleSheet.create({
   tabContent: {
     paddingHorizontal: 20,
     paddingBottom: 100,
+  },
+
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // or 'center' if you want them centered
+    gap: 10, // for spacing (if gap doesn't work on older RN, use marginRight)
+    marginTop: 10,
+  },
+  
+  translucentButton: {
+    backgroundColor: 'rgba(240, 230, 140, 0.4)',
+    borderRadius: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    flex: 1, // allows buttons to take equal width
+    alignItems: 'center',
+  },
+  
+  translucentButtonText: {
+    color: '#000',
+    fontWeight: 600,
+    fontSize: 14,
   },
   
 });
