@@ -15,7 +15,7 @@ import { useBusinessApi } from '@/api/business';
 import { useLocalSearchParams } from 'expo-router'
 import { useClerkApi } from '@/api/clerk';
 
-
+// BIZ DISPLAY PAGE FOR USERS TO SEE WHEN SEARCHING
 
 const businessProfile = () => {
     const { getBusinessInfo } = useBusinessApi();

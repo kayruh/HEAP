@@ -73,7 +73,7 @@ export default function SettingsScreen() {
                     
                     <TouchableOpacity onPress={() => router.push('/(auth)/sign-up')} style={styles.authItem}>
                         <Ionicons name="person-add-outline" size={20} color={FyndColors.Yellow} style={styles.authIcon} />
-                        <Text style={styles.authText}>Sign Up</Text>
+                        <Text style={styles.authText}>Create an account</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={() => router.push('/(auth)/business-sign-up')} style={styles.authItem}>

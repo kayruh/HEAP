@@ -13,7 +13,7 @@ import { SignOutButton } from '@/components/SignOutButton';
 
 const userProfile = () => {
     const router = useRouter();
-    const { user } = useUser(); // how to check if it is biz acc???
+    const { user } = useUser();
 
     const [activeTab, setActiveTab] = useState('favs'); //default selected tab
 

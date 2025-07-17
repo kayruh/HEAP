@@ -13,6 +13,8 @@ import ReviewCard from '@/components/reviewCard';
 import BizEventCard from '@/components/bizEventCard';
 import { useInteractionApi } from '@/api/interaction';
 
+// FOR BIZ USERS (THEIR PROFILE PG)
+
 const businessProfile = () => {
     const router = useRouter();
     const { user } = useUser(); // how to check if it is biz acc???
@@ -28,25 +30,6 @@ const businessProfile = () => {
     const [isBookmarked, setIsBookmarked] = useState(false);
 
     const [showReviewModal, setShowReviewModal] = useState(false); // for adding reviews
-
-
-    // // Mocked favourite lists – REPLACE with real data from DB or API !!!!!
-    // const favouriteLists = ['My Favourites', 'Thrift Shops', 'To Visit Again'];
-
-    // Handle bookmarking
-    const handleAddToFavourite = (listName: string) => {
-      console.log(`Bookmarking business to: ${listName}`);
-      // TODO: Save business ID to this list in backend
-    };
-
-    // TO CHECK IF USER HAS ALRDY BOOKMARKED PROFILE
-    // useEffect(() => {
-    //   if (user) {
-    //     checkIfBookmarked(user.id, businessId).then((result) => {
-    //       setIsBookmarked(result);
-    //     });
-    //   }
-    // }, [user]);
     
     return (
         <View style={styles.container}>
@@ -67,7 +50,7 @@ const businessProfile = () => {
               <View style={styles.profileInfo}>
                 {/* // NAME of biz. if no name input, replace w username*/}
                 <Text style={styles.profileName}> 
-                  {user?.firstName ?? 'NAME'} 
+                  {user?.firstName ?? user?.username} 
                 </Text> 
 
                 {/* biz username */}
@@ -76,7 +59,7 @@ const businessProfile = () => {
                 </Text>
 
                 {/* biz description (they can write themselves) */}
-                <Text style={styles.profileDescription}> YOU ARE IN BUSINESSPROFILE </Text>
+                <Text style={styles.profileDescription}>biz description </Text>
               </View>
             </View>
           </View>
@@ -153,26 +136,7 @@ const businessProfile = () => {
 
           {activeTab === 'reviews' && (
             <View style={{ padding: 20 }}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: FyndColors.Purple,
-                  padding: 12,
-                  borderRadius: 10,
-                  marginBottom: 20,
-                }}
-                onPress={() => {
-                  if (!user) {
-                    setShowLoginModal(true);
-                  } else {
-                    setShowReviewModal(true);
-                  }
-                }}
-              >
-                <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>
-                  Write a Review
-                </Text>
-              </TouchableOpacity>
-
+              <Text>Reviews ppl have given this biz</Text>
               {/* Replace with real fetched data later !!!*/}
               {[
                 { username: 'user123', reviewText: 'Great store!', datePosted: '2025-07-14' },
@@ -235,16 +199,6 @@ const businessProfile = () => {
             () => {
               setShowLoginModal(false); 
               setTimeout(() => router.push('../(auth)/business-sign-up'));
-          }}
-        />
-
-        <AddReview
-          visible={showReviewModal}
-          onClose={() => setShowReviewModal(false)}
-          username={user?.username}
-          onSubmit={(reviewData) => {
-            console.log('Review submitted:', reviewData);
-            // Send to backend here with user ID or username
           }}
         />
 
