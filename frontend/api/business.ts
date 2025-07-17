@@ -125,6 +125,11 @@ async function uploadEventImage(
     return res.data; // { message: 'Deleted' }
   }
 
+  async function countEvents(username: string) {
+  const res = await api.get(`/business/countEvents/${username}`);
+  return res.data
+}
+
   return {
     getBusinessInfo,
 
@@ -139,5 +144,7 @@ async function uploadEventImage(
     uploadEventImage,
     getEventImages,
     deleteEventImage,
+
+    countEvents
   };
 }

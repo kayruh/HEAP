@@ -14,12 +14,14 @@ import BizEventCard from '@/components/bizEventCard';
 import { useBusinessApi } from '@/api/business';
 import { useLocalSearchParams } from 'expo-router'
 import { useClerkApi } from '@/api/clerk';
+import { useInteractionApi } from '@/api/interaction';
 
 // BIZ DISPLAY PAGE FOR USERS TO SEE WHEN SEARCHING
 
 const businessProfile = () => {
-    const { getBusinessInfo } = useBusinessApi();
+    const { getBusinessInfo, countEvents, getBusinessImages, getEvents } = useBusinessApi();
     const { getAvatar } = useClerkApi();
+    const { getBusinessLikeCount } = useInteractionApi()
     
 
     const { username } = useLocalSearchParams<{ username: string }>();
@@ -39,6 +41,11 @@ const businessProfile = () => {
 
     const [showReviewModal, setShowReviewModal] = useState(false); // for adding reviews
     const [data, setData] = useState('')
+    const [avatar, setAvatar] = useState('')
+    const [likeCount, setLikeCount] = useState('0')
+    const [eventCounter ,setEventCounter] = useState('0')
+    const [images, setImages] = useState([])
+    // const [events, setEvents] = useState([])
 
 
       useEffect(() => {
@@ -47,11 +54,18 @@ const businessProfile = () => {
         try {
           const data = await getBusinessInfo(username);
           const avatar = await getAvatar(username);
-          // console.log(data);
-          // console.log("marker")
-          // console.log(avatar);
-          // console.log("marker")
+          const likeCount = await getBusinessLikeCount(username);
+          const eventCounter = await countEvents(username)
+          const images = await getBusinessImages(username)
+          // const events = await getEvents(username)
+
+
           setData(data)
+          setAvatar(avatar)
+          setLikeCount(likeCount)
+          setEventCounter(eventCounter)
+          setImages(images)
+          // setEvents(events)
         } 
         catch (e) {
           console.log(e)
@@ -59,10 +73,9 @@ const businessProfile = () => {
       })();
     } 
   }, [username]);
-    console.log(data)
-    console.log("hit")
 
 
+    // console.log(events)
     // Mocked favourite lists – REPLACE with real data from DB or API !!!!!
     const favouriteLists = ['My Favourites', 'Thrift Shops', 'To Visit Again'];
 
@@ -72,14 +85,6 @@ const businessProfile = () => {
       // TODO: Save business ID to this list in backend
     };
 
-    // TO CHECK IF USER HAS ALRDY BOOKMARKED PROFILE
-    // useEffect(() => {
-    //   if (user) {
-    //     checkIfBookmarked(user.id, businessId).then((result) => {
-    //       setIsBookmarked(result);
-    //     });
-    //   }
-    // }, [user]);
 
     return (
         <View style={styles.container}>
@@ -92,7 +97,7 @@ const businessProfile = () => {
             <View style={styles.profileCard}>
               <View style={styles.profileImageContainer}>
                 <Image
-                  source={{ uri: user?.imageUrl }}
+                  source={{ uri: avatar }}
                   style={styles.profileImage}
                 />
               </View>
@@ -100,16 +105,16 @@ const businessProfile = () => {
               <View style={styles.profileInfo}>
                 {/* // NAME of biz. if no name input, replace w username*/}
                 <Text style={styles.profileName}> 
-                  {user?.firstName ?? 'NAME'} 
+                  {data.name} 
                 </Text> 
 
                 {/* biz username */}
                 <Text style={styles.profileHandle}>                  
-                  @{user?.username}
+                  @{username}
                 </Text>
 
                 {/* biz description (they can write themselves) */}
-                <Text style={styles.profileDescription}> the COOLEST thrift store in Singapore. You are in username dynamic</Text>
+                <Text style={styles.profileDescription}>{data.description}</Text>
 
                 {/* Icons on the right side of the name */}
                 <View style={styles.iconRow}>
@@ -143,17 +148,17 @@ const businessProfile = () => {
           {/* Stats - do we want to include followers?*/}
           <View style={styles.statsContainer}>
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>12.1K</Text>
+              <Text style={styles.statNumber}>{likeCount}</Text>
               <Text style={styles.statLabel}>FOLLOWERS</Text>
             </View>
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>55</Text>
+              <Text style={styles.statNumber}>{eventCounter}</Text>
               <Text style={styles.statLabel}>EVENTS</Text>
             </View>
-            <View style={styles.statItem}>
+            {/* <View style={styles.statItem}>
               <Text style={styles.statNumber}>9</Text>
               <Text style={styles.statLabel}>SAVES</Text>
-            </View>
+            </View> */}
           </View>
 
           {/* navigation tab */}
@@ -177,35 +182,35 @@ const businessProfile = () => {
             </TouchableOpacity>
           </View>
 
-          {/* renders what is in each tab */}
-          {activeTab === 'home' && (
-            <View>
-              <Text>Home content here</Text>
+          {activeTab === 'home' && 
+                  (
+          <View>
 
-              {/* Feed. how can biz users upload more photos??*/}
-                <View style={styles.feedSection}>
-                {/* Post 1 */}
-                <View style={styles.postContainer}>
+            <View style={styles.feedSection}>
+              {images.length === 0 ? (
+                <Text style={{ color: '#666', textAlign: 'center' }}>
+                  No photos yet
+                </Text>
+              ) : (
+                images.map(uri => (
                   <Image
-                    source={{ uri: 'https://via.placeholder.com/350x300/8B4513/FFFFFF?text=Vintage+Items' }}
+                    key={uri}
+                    source={{ uri }}
                     style={styles.postImage}
+                    resizeMode="cover"
                   />
-                  <Image
-                    source={{ uri: 'https://via.placeholder.com/350x300/228B22/FFFFFF?text=People+Shopping' }}
-                    style={styles.postImage}
-                  />
-                </View>
-                {/* Post 2: event card */}
-                      <BizEventCard businessId={user?.id ?? ''} />
-                    </View>
-                  </View>
-          )}
+                ))
+              )}
+            </View>
+          </View>
+        )
+          }
 
           {activeTab === 'list' && (
             <View>
               <Text>Events list content here</Text>
               <View style={styles.feedSection}>
-                <BizEventCard businessId={user?.id ?? ''} />
+                <BizEventCard username={username} />
               </View>
             </View>
           )}

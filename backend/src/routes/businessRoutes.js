@@ -16,6 +16,8 @@ router.delete("/deleteEvent", clerkexpress.requireAuth(), businessController.del
 
 router.get("/getEvents/:username", businessController.getEvents)
 
+router.get("/countEvents/:username", businessController.countEvents)
+
 //get events specific to the persons username no authentications required
 
 const upload = multer();                 

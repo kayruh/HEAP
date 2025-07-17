@@ -182,5 +182,17 @@ module.exports = {
         return data;
     },   
 
+        async countEvents(username) {
+            const { data, count, error } = await supabase
+                .from('EVENT')
+                .select('*',{head: true, count: 'exact'})
+                .eq('username', username);
+
+            // console.log(business_username, count)
+
+            if (error) throw new Error(error.message);
+            return count;
+        },
+
 }
 

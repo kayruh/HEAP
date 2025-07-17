@@ -62,9 +62,7 @@ module.exports = {
             const {username} = req.params
             const getEvents = await businessServices.getEvents(username)
 
-            res.status(200).json({
-                message: "Returned Events"
-            })
+            res.status(200).json({getEvents})
 
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -227,6 +225,16 @@ module.exports = {
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
-}
+},
+  async countEvents(req, res) {
+    try {
+      const { username } = req.params;
+      // console.log("hit")
+      const count = await businessServices.countEvents(username);
+      res.status(200).json(count);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  },
 
 }
