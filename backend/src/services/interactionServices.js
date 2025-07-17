@@ -3,7 +3,30 @@ const { supabase } = require("../db/supabase");
 
 module.exports = {
 /* ---------- Likes ---------- */
-    
+   async searchProfile(query) {
+  const term = (query || '').trim();
+  if (!term) return [];                               // empty search → nothing
+
+  // match username OR name OR description (ILIKE)
+  // …or match tags array (contains element)
+  const { data, error } = await supabase
+    .from('BUSINESS')
+    .select(
+      'username, name, google_maps_location, street_no, street_name,' +
+      'unit_no, postal, tags, description'
+    )
+    .or(
+      [
+        `username.ilike.%${term}%`,
+        `name.ilike.%${term}%`,
+        `description.ilike.%${term}%`,
+        `tags.cs.{${term}}`
+      ].join(',')
+    );
+
+  if (error) throw new Error(error.message);
+  return data || [];
+},
 
     async insertLikeBusiness(username,  business_username) {
     const { error } = await supabase

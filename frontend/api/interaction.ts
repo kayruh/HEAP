@@ -147,6 +147,15 @@ export function useInteractionApi() {
     return res.data
   }
 
+  async function searchProfile(query: string) {
+  const q = query?.trim();
+  if (!q) return [];
+
+  // encode the query so slashes / spaces don’t break the URL
+  const res = await api.get(`/interaction/searchProfile/${encodeURIComponent(q)}`);
+  return res.data;          // → [{ username, name, … }, …]
+  }
+
   /* ─────────────── EXPORTS ─────────────────────────────────────────────── */
 
   return {
@@ -175,5 +184,6 @@ export function useInteractionApi() {
     deleteReview,
     getAccountReviews,
     getBusinessReviews,
+    searchProfile
     };
 }

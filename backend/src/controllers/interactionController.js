@@ -5,7 +5,14 @@ const clerkexpress = require("@clerk/express")
 /* ---------- Likes ---------- */
 module.exports = {
 
-// async 
+async searchProfile(req, res) {
+  try {
+    const results = await interactionServices.searchProfile(req.params.query);
+    return res.status(200).json(results);             // array (possibly empty)
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
+},
 
 //-----------------------------BUSINESS LIKES --------------------------------------
 async insertLikeBusiness(req, res) {
