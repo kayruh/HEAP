@@ -363,7 +363,7 @@ const styles = StyleSheet.create({
   footerText: {
     position: 'absolute',
     fontWeight: 'bold',
-    bottom: 30,
+    bottom: 20,
     alignSelf: 'center',
     fontSize: 14,
     color: 'white', 

@@ -72,13 +72,13 @@ export default function Page() {
             keyboardShouldPersistTaps="handled"
           >
 
-        <View style={styles.logoContainer}>
-          <Image
-          source={require('../../assets/FYND_logo/yellow.png')}
-          style={styles.logo}/>
-        </View>
-
       <View style={styles.container}>
+        <View style={styles.logoContainer}>
+            <Image
+            source={require('../../assets/FYND_logo/yellow.png')}
+            style={styles.logo}/>
+          </View>
+
         <Text style={styles.header}>Welcome back to FYND!</Text>
         {/* <Text style={styles.descText}>Sign in</Text> */}
         <View>
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 5,
-    marginBottom: 50,
+    marginBottom: 40,
     // borderWidth: 2,       
     // borderColor: 'red',  
   },
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
   footerText: {
     position: 'absolute',
     fontWeight: 'bold',
-    bottom: 30,
+    bottom: 5,
     alignSelf: 'center',
     fontSize: 14,
     color: 'white', 
