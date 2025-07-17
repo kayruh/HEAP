@@ -74,7 +74,7 @@ export default function Page() {
 
         <View style={styles.logoContainer}>
           <Image
-          source={require('../../assets/FYND logo/yellow.png')}
+          source={require('../../assets/FYND_logo/yellow.png')}
           style={styles.logo}/>
         </View>
 
