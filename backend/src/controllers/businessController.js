@@ -156,12 +156,12 @@ module.exports = {
 
     async uploadEventImage(req, res) {
     try {
-    //   const { userId } = clerkexpress.getAuth(req);
-    //   if (!userId) return res.status(401).json({ error: 'Not authenticated' });
+      const { userId } = clerkexpress.getAuth(req);
+      if (!userId) return res.status(401).json({ error: 'Not authenticated' });
 
-    //   const username = (await clerkexpress.clerkClient.users.getUser(userId))
-    //     .username;
-      const username = "kneadkopi";
+      const username = (await clerkexpress.clerkClient.users.getUser(userId))
+        .username;
+    //   const username = "kneadkopi";
       const { event_uuid } = req.params
       console.log(username, event_uuid)
 
@@ -189,21 +189,21 @@ module.exports = {
         console.error(err);                               // helpful log
         return res.status(500).json({ error: err.message });
     }
-    }
+    },
 
  
 
-//   /* GET /business/getBusinessImage/:username */
-//   async getBusinessImage(req, res) {
-//     try {
-//       const images = await businessServices.getBusinessImage(
-//         req.params.username,
-//       );
-//       return res.status(200).json(images);            // [url, url, …]
-//     } catch (err) {
-//       return res.status(500).json({ error: err.message });
-//     }
-//   },
+  /* GET /business/getBusinessImage/:username */
+  async getEventImage(req, res) {
+    try {
+      const images = await businessServices.getEventImage(
+        req.params.username,
+      );
+      return res.status(200).json(images);            // [url, url, …]
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  },
 
 //   async deleteBusinessImage(req, res) {
 //   try {
