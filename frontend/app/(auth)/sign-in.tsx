@@ -7,6 +7,8 @@ import { KeyboardAvoidingView } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useLocalSearchParams } from 'expo-router'
 import FyndColors from '@/components/fyndColors';
+import { Image } from 'react-native';
+
 
 const maxWidth= 300; // for styling
 
@@ -66,14 +68,18 @@ export default function Page() {
         style={{ flex: 1 }}>
 
       <ScrollView
-            contentContainerStyle={styles.container}
+            contentContainerStyle={styles.scrollContainer}
             keyboardShouldPersistTaps="handled"
           >
 
-      <View style={styles.container}>
-        {/* insert FYND logo at the top  */}
-        <Text style={styles.header}>Welcome back to FYND!</Text>
+        <View style={styles.logoContainer}>
+          <Image
+          source={require('../../assets/FYND logo/yellow.png')}
+          style={styles.logo}/>
+        </View>
 
+      <View style={styles.container}>
+        <Text style={styles.header}>Welcome back to FYND!</Text>
         {/* <Text style={styles.descText}>Sign in</Text> */}
         <View>
 
@@ -135,8 +141,16 @@ export const screenOptions = {
 const styles = StyleSheet.create({
   // for all elements on page
   container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
+    paddingHorizontal: 5,
+    marginBottom: 50,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 120,
     paddingHorizontal: 5,
   },
   safeArea: {
@@ -165,7 +179,7 @@ const styles = StyleSheet.create({
       textAlign:'center',
       fontWeight: 'bold',
       fontSize: 24,
-      marginBottom: 20,
+      marginBottom: 15,
   },
   descText:{
       color:'#000',
@@ -252,5 +266,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 14,
     color: 'white', 
+  },
+
+  //logo styling
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
   },
 })
