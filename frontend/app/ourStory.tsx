@@ -4,19 +4,17 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Linking } from 'react-native';
 import FyndColors from '@/components/fyndColors';
-import Socials from '@/components/socials';
-
 
 const OurStory = () => {
   const router = useRouter();
 
   // contact us elements
   const handleInstagramPress = () => {
-    Linking.openURL(Socials.Instgram); // add our IG username
+    Linking.openURL('https://www.instagram.com/fyndsg'); // add our IG username
   };
 
   const handleEmailPress = () => {
-    Linking.openURL(Socials.Email); // add our email address
+    Linking.openURL('mailto:getlostfyndmore@gmail.com'); // add our email address
   };
 
   const handleBackPress = () => {
@@ -24,8 +22,7 @@ const OurStory = () => {
   };
 
   const handleFooterPress = () => {
-    Linking.openURL('https://i.pinimg.com/1200x/be/c6/da/bec6da692075ff2c83a801d44405b2f8.jpg'); 
-    // Replace with your desired URL
+    Linking.openURL('https://i.pinimg.com/1200x/be/c6/da/bec6da692075ff2c83a801d44405b2f8.jpg'); // Replace with your desired URL
   };
 
   return (
@@ -34,7 +31,7 @@ const OurStory = () => {
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-            <Ionicons name="chevron-back" size={24} color={FyndColors.Green} />
+            <Ionicons name="chevron-back" size={24} color={FyndColors.Yellow} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>FYND</Text>
         </View>
@@ -44,12 +41,12 @@ const OurStory = () => {
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Main Content */}
         <View style={styles.mainContent}>
-          {/* Logo Section */}
+          {/* Title Section */}
           <View style={styles.logoSection}>
             <Text style={styles.logoText}>FYNDING US</Text>
             <Text style={styles.logoSubtitle}>WHERE EXPLORATION MEETS CONNECTION</Text>
             
-            {/* Hand-drawn illustration */}
+            {/* Logo Section */}
             <View style={styles.illustrationContainer}>
               <Text style={styles.illustrationText}>work in progress but want to put like a rotating logo</Text>
             </View>
@@ -57,7 +54,7 @@ const OurStory = () => {
 
           {/* About Us Section */}
           <View style={styles.aboutSection}>
-            <Text style={styles.aboutTitle}>About Us</Text>
+            <Text style={styles.aboutTitle}>ABOUT US</Text>
             <Text style={styles.aboutText}>
               Welcome to FYND - where every journey begins with curiosity and ends with discovery. 
               We're more than just a platform; we're a community of explorers, creators, and dreamers 
@@ -69,20 +66,6 @@ const OurStory = () => {
               Our mission is simple: to help you discover what matters most in a world full of possibilities.
             </Text>
           </View>
-        </View>
-
-        {/* FYNDing Us Image Section */}
-        <View style={styles.fyndingUsContainer}>
-          <Text style={styles.fyndingUsTitle}>FYNDing Us</Text>
-          <TouchableOpacity onPress={handleFooterPress} activeOpacity={0.8} style={styles.footerImageContainer}>
-            <ImageBackground 
-              source={{ uri: 'https://i.pinimg.com/1200x/be/c6/da/bec6da692075ff2c83a801d44405b2f8.jpg' }}
-              style={styles.footerImage}
-              imageStyle={{ borderRadius: 15 }}
-            >
-              {/* Optional overlay text or content can go here */}
-            </ImageBackground>
-          </TouchableOpacity>
         </View>
 
         {/* Stay Connected Section */}
@@ -104,6 +87,7 @@ const OurStory = () => {
           </View>
 
           <Text style={styles.footerBottomText}>Get lost, FYND more.</Text>
+          <Text style={styles.footerBottomText}>© FYNDsg </Text>
         </View>
       </ScrollView>
     </View>
@@ -123,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 15,
-    backgroundColor: FyndColors.Yellow,
+    backgroundColor: FyndColors.Purple,
     paddingTop: 60,  
   },
   headerLeft: {
@@ -137,7 +121,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: FyndColors.Green,
+    color: FyndColors.Yellow,
   },
   headerSpacer: {
     width: 34, 
@@ -190,8 +174,8 @@ const styles = StyleSheet.create({
   // Logo Section
   logoSection: {
     alignItems: 'center',
-    marginBottom: 30,
-    paddingVertical: 20,
+    marginBottom: 20,
+    paddingVertical: 15,
   },
   logoText: {
     fontSize: 48,
@@ -206,51 +190,46 @@ const styles = StyleSheet.create({
     color: FyndColors.Purple,
     marginTop: 10,
     letterSpacing: 1,
-    marginBottom: 20,
+    marginBottom: 15,
   },
   
   // Illustration styles
   illustrationContainer: {
-    width: 280,
-    height: 200,
+    width: 220,
+    height: 130,
     backgroundColor: '#F8F6F0',
-    borderRadius: 20,
+    borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 20,
+    marginVertical: 15,
     borderWidth: 2,
     borderColor: FyndColors.Purple,
     borderStyle: 'dashed',
   },
   illustrationText: {
     color: FyndColors.Purple,
-    fontSize: 16,
+    fontSize: 14,
     fontStyle: 'italic',
     textAlign: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
   },
 
   // About Us Section
+    // About Us Section
   aboutSection: {
     backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 30,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
-    borderWidth: 1,
-    borderColor: '#F0F0F0',
+    paddingVertical: 25,
+    paddingHorizontal: 0,
+    marginHorizontal: -20,
   },
   aboutTitle: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
     color: FyndColors.Green,
     textAlign: 'center',
     marginBottom: 25,
     letterSpacing: 1,
+    paddingHorizontal: 20,
   },
   aboutText: {
     fontSize: 17,
@@ -258,21 +237,7 @@ const styles = StyleSheet.create({
     lineHeight: 26,
     textAlign: 'center',
     marginBottom: 18,
-  },
-
-  // FYNDing Us Container 
-  fyndingUsContainer: {
-    backgroundColor: '#F8F6F0',
     paddingHorizontal: 20,
-    paddingVertical: 25,
-    marginTop: 30,
-  },
-  fyndingUsTitle: {
-    color: FyndColors.Green,
-    fontSize: 18,
-    marginBottom: 15,
-    fontWeight: '700',
-    textAlign: 'center',
   },
   
   // Stay Connected Container 
