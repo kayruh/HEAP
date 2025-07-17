@@ -3,7 +3,7 @@ import { Modal, View, Text, TouchableOpacity, FlatList, StyleSheet, TextInput, B
 import FyndColors from './fyndColors';
 import { Ionicons } from '@expo/vector-icons';
 import { useUser } from '@clerk/clerk-expo';
-import { getAccountFolders } from '@/api/interaction'; 
+import { useInteractionApi } from '@/api/interaction';
 
 type AddBookmarkProps = {
   visible: boolean;
@@ -23,6 +23,9 @@ const AddBookmark = ({
   const [creatingNewList, setCreatingNewList] = useState(false);
   const [newListName, setNewListName] = useState('');
   const [favouriteLists, setFavouriteLists] = useState<string[]>([]); // Local state to hold folder names
+
+  const { getAccountFolders } = useInteractionApi(); // correct usage
+
 
   useEffect(() => {
     const fetchFolders = async () => {
