@@ -90,9 +90,16 @@ const _layout = () => {
           href: null, // hides userProfile from the tab bar
         }}/>
 
-    {/* uncomment when done styling */}
       <Tabs.Screen 
       name="folder/[folderName]"
+      options={{
+        headerShown:false,
+        href: null, // hides [folderName] from the tab bar
+        tabBarStyle: { display: 'none' },
+      }}/>
+
+    <Tabs.Screen 
+      name="browse_archive"
       options={{
         headerShown:false,
         href: null, // hides [folderName] from the tab bar
