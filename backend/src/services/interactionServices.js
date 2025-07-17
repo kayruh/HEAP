@@ -209,13 +209,12 @@ module.exports = {
     },
 
     /* ---------- Reviews ---------- */
-    async upsertReview(uuid, business_username,username,photo,review) {
+    async upsertReview(uuid, business_username,username,review) {
     const { error } = await supabase
         .from('REVIEWS')
         .upsert({uuid,
          business_username,
         username,
-        photo,
         review}, {onConflict: 'uuid'}); // photo as an array
     if (error) throw new Error(error.message);
     },

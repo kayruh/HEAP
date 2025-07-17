@@ -24,18 +24,38 @@ router.post(
   '/uploadBusinessImage',
   clerkexpress.requireAuth(),
   upload.single('file'),                 
-  businessController.uploadBusinessImage,
+  businessController.uploadBusinessImage
 );
 
 router.get(
   '/getBusinessImage/:username',
-  businessController.getBusinessImage,
+  businessController.getBusinessImage
 );
 
 router.delete(
   '/deleteBusinessImage',
   clerkexpress.requireAuth(),
-  businessController.deleteBusinessImage,
+  businessController.deleteBusinessImage
+);
+
+router.get('/checkBusinessEventExist', businessController.checkBusinessEvent)
+
+router.post(
+  '/uploadEventImage/:event_uuid',
+//   clerkexpress.requireAuth(),
+  upload.single('file'),                 
+  businessController.uploadEventImage
+);
+
+router.get(
+  '/getEventImage/:username',
+  businessController.getBusinessImage
+);
+
+router.delete(
+  '/deleteBusinessImage',
+  clerkexpress.requireAuth(),
+  businessController.deleteBusinessImage
 );
 
 module.exports = router;

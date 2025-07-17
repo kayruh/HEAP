@@ -24,8 +24,8 @@ module.exports = {
                   return res.status(401).json({ error: 'Not authenticated' });
                 }
             const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
-            const {uuid, title, description, start, end, event_photos} = req.body //might need to change this inidividual picturearray function due to database limitations
-            const upsertEvent = await businessServices.upsertEvent(uuid, username, title, description, start, end, event_photos);
+            const {uuid, title, description, start, end, google_map, address} = req.body 
+            const upsertEvent = await businessServices.upsertEvent(uuid, username, title, description, start, end, google_map, address);
             
             if (!username) return res.status(404).json({ error: 'username required' });
 
@@ -139,28 +139,59 @@ module.exports = {
   }
 },
 
-//     async uploadEventImage(req, res) {
-//     try {
-//       const { userId } = clerkexpress.getAuth(req);
-//       if (!userId) return res.status(401).json({ error: 'Not authenticated' });
+    async checkBusinessEvent(req,res) {
+        try {
+            const username = "kneadkopi";
+            const event_uuid = "90343e2e-0fd8-4ee2-b104-800d87c9b9b2";
+            const check = await businessServices.checkBusinessEvent(username,event_uuid);
+            console.log(check)
+            return res.status(200).json(check);
+        }
+        catch (e) {
+            return res.status(500).json({error: e.message})
+            console.log(e)
+        }
+    },
 
-//       const username = (await clerkexpress.clerkClient.users.getUser(userId))
-//         .username;
-//     //   const username = "kneadkopi";
-//       const { buffer, mimetype } = req.file;          // from multer
-//     //   console.log(username, buffer, mimetype)
 
-//       const data = await businessServices.uploadEventImage(
-//         username,
-//         buffer,
-//         mimetype,
-//       );
+    async uploadEventImage(req, res) {
+    try {
+    //   const { userId } = clerkexpress.getAuth(req);
+    //   if (!userId) return res.status(401).json({ error: 'Not authenticated' });
 
-//       return res.status(201).json(data);              // { path, publicUrl }
-//     } catch (err) {
-//       return res.status(500).json({ error: err.message });
-//     }
-//   },
+    //   const username = (await clerkexpress.clerkClient.users.getUser(userId))
+    //     .username;
+      const username = "kneadkopi";
+      const { event_uuid } = req.params
+      console.log(username, event_uuid)
+
+      const check = await businessServices.checkBusinessEvent(username, event_uuid)
+      console.log(check)
+      if (!check) {
+      return res
+        .status(403)
+        .json({ error: 'You are not the owner of this event.' });
+        }
+      if (!req.file)
+      {return res.status(400).json({ error: 'file field missing' });}
+
+        const { buffer, mimetype } = req.file;
+
+          const data = await businessServices.uploadEventImage(
+        event_uuid,
+        buffer,
+        mimetype,
+        );
+
+    /* 5. ── Done ─────────────────────────────────────────────────────── */
+        return res.status(201).json(data);                // { path, publicUrl }
+    } catch (err) {
+        console.error(err);                               // helpful log
+        return res.status(500).json({ error: err.message });
+    }
+    }
+
+ 
 
 //   /* GET /business/getBusinessImage/:username */
 //   async getBusinessImage(req, res) {

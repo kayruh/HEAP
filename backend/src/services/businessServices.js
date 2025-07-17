@@ -22,12 +22,13 @@ module.exports = {
     },
 
 
-    async upsertEvent(uuid, username, title, description, start, end, event_photos) {
+    async upsertEvent(uuid, username, title, description, start, end, google_map, address) {
         const {data, error} = await supabase.from("EVENT")
             .upsert({
-                uuid, username, title, description, start, end, event_photos
+                uuid, username, title, description, start, end, google_map, address
             },{onConflict:"uuid"}
-        )
+            )
+            .select("*")
         if (error) {
             throw new Error(error.message);
         }
@@ -120,7 +121,7 @@ module.exports = {
     async deleteBusinessImage(username, fileName) {
         const fullPath = `${username}/${fileName}`; // same pattern as uploads
 
-        const { data, error } = await supabaseAdmin.storage
+        const { data, error } = await supabase.storage
             .from('business-image')
             .remove([fullPath]);                      // expects array
 
@@ -128,20 +129,28 @@ module.exports = {
         return data; // usually []
     },   
 
+    async checkBusinessEvent(username, event_uuid) {
+        const { data, error} = await supabase
+            .from("EVENT")
+            .select("*")
+            .eq("username", username)
+            .eq("uuid",event_uuid)
+            .maybeSingle()
+        if (error) throw new Error(error.message);
+        return data
+    },
+
     async uploadEventImage(event_uuid, fileBuffer, mime) {
-    const filePath = `${event_uuid}/${uuidv4()}`;
+        const filePath = `${event_uuid}/${uuidv4()}`;
+        const { data, error } = await supabase.storage
+        .from('event-image')
+        .upload(filePath, fileBuffer, { contentType: mime });
 
-    // console.log(fileBuffer, filePath, username, mime)
+        if (error) throw new Error(error.message);
 
-    const { data, error } = await supabase.storage
-    .from('event-image')
-    .upload(filePath, fileBuffer, { contentType: mime });
-
-    if (error) throw new Error(error.message);
-
-    const { data: urlData } = supabase.storage
-    .from('event-image')
-    .getPublicUrl(filePath);            // bucket public; use signed URL if private
+        const { data: urlData } = supabase.storage
+        .from('event-image')
+        .getPublicUrl(filePath);            // bucket public; use signed URL if private
 
     return { ...data, publicUrl: urlData.publicUrl };
     },

@@ -213,8 +213,8 @@ async upsertReview(req, res) {
       return res.status(401).json({ error: 'Not authenticated' });
     }
     const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
-    const {uuid,business_username,photo,review} = req.body
-    await interactionServices.upsertReview(uuid,business_username,username,photo,review);
+    const {uuid,business_username,review} = req.body
+    await interactionServices.upsertReview(uuid,business_username,username,review);
     res.status(200).json({ message: 'Review upserted' });
   } catch (e) {
     res.status(500).json({ error: e.message });
