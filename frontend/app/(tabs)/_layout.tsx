@@ -68,10 +68,10 @@ const _layout = () => {
     }}
     />
     <Tabs.Screen 
-    name='userProfile2'
+    name='userProfile'
     options={{title:'Profile',
         headerShown:false,
-        href: (user?.unsafeMetadata?.accountType == "user") ? './userProfile2' : null ,
+        href: (user?.unsafeMetadata?.accountType == "user") ? './userProfile' : null ,
         tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />
     }}
     />
@@ -84,10 +84,10 @@ const _layout = () => {
         }}/>
       
       <Tabs.Screen 
-        name="userProfile"
+        name="userProfile_archive"
         options={{
           headerShown:false,
-          href: null, // hides userProfile from the tab bar
+          href: null, // hides userProfile_archive from the tab bar
         }}/>
 
       <Tabs.Screen 
