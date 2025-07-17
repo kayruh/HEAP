@@ -8,7 +8,9 @@ import FyndBanner from '@/components/fyndBanner'
 import { Dimensions } from "react-native";
 import FyndColors from '@/components/fyndColors'
 import { TouchableOpacity } from 'react-native'
-import { useRouter } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
+import { useInteractionApi } from '@/api/interaction'
+import { useUser } from '@clerk/clerk-expo'
 
 export interface GenericItem {
   type: 'event' | 'business'
@@ -27,6 +29,7 @@ const CAROUSEL_ITEM_WIDTH = width * 0.85;
 
 
 export default function Browse() {
+  const { user } = useUser();
   const { getWhatsHot, getEventsBusiness } = useAppApi()
 
   /* -------------------- state -------------------- */
@@ -106,6 +109,40 @@ export default function Browse() {
     ),
     [hotEvents]
   )
+
+  // HEART logo for events
+  const { getEventLikeCheck, deleteLikeEvent, insertLikeEvent} = useInteractionApi()
+  const [eventLiked, setEventLiked] = useState<boolean | null>(null);
+  const { eventid } = useLocalSearchParams<{ eventid: string }>();
+  const username = `{user?.username}`
+
+
+  // useEffect(() => {
+  //   const checkLike = async () => {
+  //     if (!username || !eventid) return;
+  
+  //     try {
+  //       const result = await getEventLikeCheck(username, eventid); // replace with actual event UUID
+  //       setEventLiked(result === true);
+  //     } catch (err) {
+  //       console.error('Error checking event like status:', err);
+  //       setEventLiked(false); // assume false if 404 or failed
+  //     }
+  //   };
+  
+  //   checkLike();
+  // }, [username, eventid]);
+
+  // const handleUnlike = async () => {
+  //   try {
+  //     setEventLiked(false); // optimistic UI update
+  //     await deleteLikeEvent(eventid);
+  //   } catch (err) {
+  //     console.error('Failed to unlike event:', err);
+  //     setEventLiked(true); // rollback if request fails
+  //   }
+  // };
+
 
   /* -------------------- render -------------------- */
   return (
