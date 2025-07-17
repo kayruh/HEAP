@@ -244,23 +244,6 @@ const businessProfile = () => {
           )}
       </ScrollView>
 
-      {/* add button, under events tab (ONLY for biz users, to create event) */}
-      {activeTab === 'list' && (
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => setModalVisible(true)}>
-          <Ionicons name="add" size={28} color={FyndColors.Yellow} />
-        </TouchableOpacity>
-        )}
-
-        <CreateNewEvent
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
-          onSave={(event) => {
-            console.log('New event data:', event);
-            // TODO: Save to DB or state
-          }}/>
-
         <AddBookmark
           visible={showBookmarkModal}
           onClose={() => setShowBookmarkModal(false)}

@@ -77,31 +77,6 @@ const businessProfile = () => {
 
                 {/* biz description (they can write themselves) */}
                 <Text style={styles.profileDescription}> YOU ARE IN BUSINESSPROFILE </Text>
-
-                {/* Icons on the right side of the name */}
-                <View style={styles.iconRow}>
-                  <TouchableOpacity style={styles.iconButton}
-                    onPress={() => console.log('Follow pressed')}>
-                    <Ionicons name="person-add-outline" size={20} color={FyndColors.Green} />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                      onPress={() => {
-                        if (!user) {
-                          setShowLoginModal(true);
-                        } else {
-                          setShowBookmarkModal(true);
-                        }
-                      }}
-                    >
-                      <Ionicons
-                        name={isBookmarked ? "bookmark" : "bookmark-outline"}
-                        size={20}
-                        color={FyndColors.Green}
-                      />
-                    </TouchableOpacity>
-                </View>
-
               </View>
             </View>
           </View>
