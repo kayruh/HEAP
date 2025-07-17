@@ -24,25 +24,6 @@ const businessProfile = () => {
 
     const { username } = useLocalSearchParams<{ username: string }>();
 
-  useEffect(() => {
-    if (typeof username === 'string') {
-      (async () => {
-        try {
-          const data = await getBusinessInfo(username);
-          const avatar = await getAvatar(username);
-          console.log(data);
-          console.log("marker")
-          console.log(avatar);
-          console.log("marker")
-        } 
-        catch (e) {
-          console.log(e)
-        }
-      })();
-    } 
-  }, [username]);
-
-
     const router = useRouter();
     const { user } = useUser(); // how to check if it is biz acc???
 
@@ -57,6 +38,29 @@ const businessProfile = () => {
     const [isBookmarked, setIsBookmarked] = useState(false);
 
     const [showReviewModal, setShowReviewModal] = useState(false); // for adding reviews
+    const [data, setData] = useState('')
+
+
+      useEffect(() => {
+    if (typeof username === 'string') {
+      (async () => {
+        try {
+          const data = await getBusinessInfo(username);
+          const avatar = await getAvatar(username);
+          // console.log(data);
+          // console.log("marker")
+          // console.log(avatar);
+          // console.log("marker")
+          setData(data)
+        } 
+        catch (e) {
+          console.log(e)
+        }
+      })();
+    } 
+  }, [username]);
+    console.log(data)
+    console.log("hit")
 
 
     // Mocked favourite lists – REPLACE with real data from DB or API !!!!!
