@@ -12,6 +12,7 @@ import AddReview from '@/components/addReview';
 import ReviewCard from '@/components/reviewCard';
 import BizEventCard from '@/components/bizEventCard';
 import { useInteractionApi } from '@/api/interaction';
+import { SignOutButton } from '@/components/SignOutButton';
 
 // FOR BIZ USERS (THEIR PROFILE PG)
 
@@ -60,9 +61,24 @@ const businessProfile = () => {
 
                 {/* biz description (they can write themselves) */}
                 <Text style={styles.profileDescription}>biz description </Text>
+
+                <View style={styles.buttonRow}>
+                    <TouchableOpacity
+                        onPress={() => router.push('/editProfile')}
+                        style={styles.translucentButton}>
+                        <Text style={styles.translucentButtonText}>Edit Profile</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.translucentButton}>
+                        <SignOutButton/>
+                    </TouchableOpacity>
+                </View>
+
               </View>
             </View>
           </View>
+
+              
 
           {/* Stats - do we want to include followers?*/}
           <View style={styles.statsContainer}>
@@ -377,6 +393,27 @@ const styles = StyleSheet.create({
   
   iconButton: {
     padding: 4,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // or 'center' if you want them centered
+    gap: 10, // for spacing (if gap doesn't work on older RN, use marginRight)
+    marginTop: 10,
+  },
+  
+  translucentButton: {
+    backgroundColor: 'rgba(240, 230, 140, 0.4)',
+    borderRadius: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    flex: 1, // allows buttons to take equal width
+    alignItems: 'center',
+  },
+  
+  translucentButtonText: {
+    color: '#000',
+    fontWeight: 600,
+    fontSize: 14,
   },
   
 });

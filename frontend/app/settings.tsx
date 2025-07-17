@@ -59,7 +59,7 @@ export default function SettingsScreen() {
 
                 <TouchableOpacity style={styles.menuItem} 
                     onPress={() => router.replace('/ourStory')}>
-                    <Text style={styles.menuText}>FYND Us</Text>
+                    <Text style={styles.menuText}>FYND Out About Us</Text>
                 </TouchableOpacity>
 
             </ScrollView>
@@ -73,7 +73,7 @@ export default function SettingsScreen() {
                     
                     <TouchableOpacity onPress={() => router.push('/(auth)/sign-up')} style={styles.authItem}>
                         <Ionicons name="person-add-outline" size={20} color={FyndColors.Yellow} style={styles.authIcon} />
-                        <Text style={styles.authText}>Create an account</Text>
+                        <Text style={styles.authText}>Create Account</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={() => router.push('/(auth)/business-sign-up')} style={styles.authItem}>
