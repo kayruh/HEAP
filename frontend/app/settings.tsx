@@ -5,6 +5,7 @@ import { Link, Stack, usePathname, useRouter } from 'expo-router';
 import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo';
 import { SignOutButton } from '@/components/SignOutButton'; 
 import FyndColors from '@/components/fyndColors';
+import Socials from '@/components/socials';
 
 // when clicking hamburger menu 
 
@@ -14,11 +15,11 @@ export default function SettingsScreen() {
     const router = useRouter();
 
     const handleInstagramPress = () => {
-        Linking.openURL('https://www.instagram.com/yourusername'); // add our IG username
+        Linking.openURL(Socials.Instgram); 
     };
     
     const handleEmailPress = () => {
-        Linking.openURL('mailto:your@email.com'); // add our email address
+        Linking.openURL(Socials.Email); 
     };
 
     return (

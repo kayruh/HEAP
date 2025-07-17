@@ -4,17 +4,19 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Linking } from 'react-native';
 import FyndColors from '@/components/fyndColors';
+import Socials from '@/components/socials';
+
 
 const OurStory = () => {
   const router = useRouter();
 
   // contact us elements
   const handleInstagramPress = () => {
-    Linking.openURL('https://www.instagram.com/yourusername'); // add our IG username
+    Linking.openURL(Socials.Instgram); // add our IG username
   };
 
   const handleEmailPress = () => {
-    Linking.openURL('mailto:your@email.com'); // add our email address
+    Linking.openURL(Socials.Email); // add our email address
   };
 
   const handleBackPress = () => {
@@ -22,7 +24,8 @@ const OurStory = () => {
   };
 
   const handleFooterPress = () => {
-    Linking.openURL('https://i.pinimg.com/1200x/be/c6/da/bec6da692075ff2c83a801d44405b2f8.jpg'); // Replace with your desired URL
+    Linking.openURL('https://i.pinimg.com/1200x/be/c6/da/bec6da692075ff2c83a801d44405b2f8.jpg'); 
+    // Replace with your desired URL
   };
 
   return (
