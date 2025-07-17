@@ -106,6 +106,11 @@ export default function SignUpScreen() {
         >
 
           <View style={styles.container}>
+            <View style={styles.logoContainer}>
+              <Image
+              source={require('../../assets/FYND_logo/yellow.png')}
+              style={styles.logo}/>
+            </View>
             {/* style this (verify email text) !! */}
             <Text style={{textAlign:'center', fontWeight:'bold', 
                             fontSize:15, marginBottom: 15, color:'#fff'}}>Verify your email</Text> 
