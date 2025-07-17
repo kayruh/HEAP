@@ -20,6 +20,7 @@ import { useClerkApi } from '@/api/clerk';
 const businessProfile = () => {
     const { getBusinessInfo } = useBusinessApi();
     const { getAvatar } = useClerkApi();
+    
 
     const { username } = useLocalSearchParams<{ username: string }>();
 
@@ -30,7 +31,9 @@ const businessProfile = () => {
           const data = await getBusinessInfo(username);
           const avatar = await getAvatar(username);
           console.log(data);
+          console.log("marker")
           console.log(avatar);
+          console.log("marker")
         } 
         catch (e) {
           console.log(e)

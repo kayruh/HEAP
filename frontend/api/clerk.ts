@@ -9,7 +9,7 @@ export function useClerkApi() {
     const res = await api.get(`/clerk/getAvatar/${username}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return res.data;
+    return res.data?.avatarUrl || null;
   }
 
   return {

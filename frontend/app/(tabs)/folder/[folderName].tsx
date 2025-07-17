@@ -53,8 +53,8 @@ export default function FavListScreen() {
     try {
       const entries = await Promise.all(
         usernamesToFetch.map(async username => {
-          const { avatarUrl } = await getAvatar(username);
-          return [username, avatarUrl] as const;
+          const url = await getAvatar(username);             // ✅ string | null
+          return [username, url] as const;
         })
       );
       setAvatars(prev => Object.fromEntries([...Object.entries(prev), ...entries]));
@@ -124,7 +124,7 @@ export default function FavListScreen() {
               <View style={styles.titleRow}>
                 <Image
                   style={styles.avatar}
-                  source={{ uri: avatars[item] ?? 'https://placehold.co/24x24' }}
+                  source={{ uri: avatars[item] || 'https://placehold.co/24x24' }}
                 />
                 <Text style={styles.title}>@{item}</Text>
                 <Ionicons
