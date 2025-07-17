@@ -82,16 +82,62 @@ export function useBusinessApi() {
   return res.data; // { message: 'Deleted' }
 }
 
+async function uploadEventImage(
+    eventUuid: string,
+    fileUri: string,
+    mime = 'image/jpeg',
+  ) {
+    const token = await getToken({ template: 'integrations' });
+
+    const form = new FormData();
+    form.append('file', {
+      uri:  fileUri,
+      name: 'upload.jpg',
+      type: mime,
+    } as any);
+
+    const res = await api.post(
+      `/business/uploadEventImage/${eventUuid}`,
+      form,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return res.data; // { path, publicUrl }
+  }
+
+  /** GET /business/getEventImage/:event_uuid */
+  async function getEventImages(eventUuid: string) {
+    const res = await api.get(`/business/getEventImage/${eventUuid}`);
+    return res.data; // string[]
+  }
+
+  /** DELETE /business/deleteEventImage/:event_uuid  body = { fileName } */
+  async function deleteEventImage(eventUuid: string, fileName: string) {
+    const token = await getToken({ template: 'integrations' });
+    const res = await api.delete(`/business/deleteEventImage/${eventUuid}`, {
+      data: { fileName },
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return res.data; // { message: 'Deleted' }
+  }
+
   return {
     getBusinessInfo,
-    // updateBusinessDisplay,
+
     upsertEvent,
     deleteEvent,
     getEvents,
-    
+
     uploadBusinessImage,
     getBusinessImages,
     deleteBusinessImage,
 
+    uploadEventImage,
+    getEventImages,
+    deleteEventImage,
   };
 }

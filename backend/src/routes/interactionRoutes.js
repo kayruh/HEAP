@@ -3,6 +3,8 @@ const router = express.Router();
 const interactionController = require("../controllers/interactionController");
 const clerkexpress = require("@clerk/express")
 
+// router.get('/searchProfile/:query', interactionController.searchProfile)
+
 /* ---------- Likes ---------- */
 router.post   ('/insertLikeBusiness', clerkexpress.requireAuth(), interactionController.insertLikeBusiness); //secure
 router.delete('/deleteLikeBusiness',  clerkexpress.requireAuth(), interactionController.deleteLikeBusiness); //secure

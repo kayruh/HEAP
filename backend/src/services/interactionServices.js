@@ -3,6 +3,8 @@ const { supabase } = require("../db/supabase");
 
 module.exports = {
 /* ---------- Likes ---------- */
+    
+
     async insertLikeBusiness(username,  business_username) {
     const { error } = await supabase
         .from('LIKE_BUSINESS')
