@@ -78,8 +78,7 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
 
       const router = useRouter();
 
-
-  // HEART logo for events
+  // LIKE EVENTS
   const { user } = useUser();
   const { getEventLikeCheck, deleteLikeEvent, insertLikeEvent} = useInteractionApi()
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -112,6 +111,46 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
     }
   };
 
+  // LIKE BIZ
+  const [bizIsLiked, setBizIsLiked] = useState<boolean>(false)
+  const { getBusinessLikeCheck, insertLikeBusiness, deleteLikeBusiness} = useInteractionApi()
+
+  useEffect(() => {
+    const checkBusinessLiked = async () => {
+      try {
+        if (!user?.username || item.type !== 'business') return;
+  
+        console.log('[LikeCheck] Checking business like for user:', user.username, 'business:', item.username);
+        
+        const liked = await getBusinessLikeCheck(user.username, item.username);
+        setBizIsLiked(liked);
+      } catch (err: any) {
+        setBizIsLiked(false); // default: not liked
+      }
+    };
+  
+    checkBusinessLiked();
+  }, [user?.username, item.type === 'business' && item.username]);
+  
+
+  const toggleBusinessLike = async () => {
+    try {
+      if (!item || item.type !== 'business') return;
+  
+      console.log('[Toggle] Biz:', item.username);
+  
+      if (bizIsLiked) {
+        await deleteLikeBusiness(item.username);
+      } else {
+        await insertLikeBusiness(item.username);
+      }
+  
+      setBizIsLiked(!bizIsLiked);
+    } catch (err: any) {
+      console.error('Error toggling business like:', err.response?.status, err.response?.data);
+    }
+  };
+
   return (
     <TouchableOpacity activeOpacity={0.85} onPress={onPress}>
       <Card containerStyle={styles.card}>
@@ -139,11 +178,20 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
               toggleLike(); 
             } else {
               console.log('Plus pressed for business:', item.username);
+              toggleBusinessLike();
             }
           }}
         >
           <Icon
-            name={isEvent ? (isLiked ? 'favorite' : 'favorite-border') : 'add'}
+            name={
+              isEvent
+                ? isLiked
+                  ? 'favorite'
+                  : 'favorite-border'
+                : bizIsLiked
+                  ? 'done'
+                  : 'add'
+            }
             size={22}
             color={FyndColors.Green}
           />

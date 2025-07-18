@@ -39,7 +39,7 @@ export function useInteractionApi() {
 
     async function insertLikeBusiness(business_username: string) {
         const token = await getToken({ template: 'integrations' });
-        const res = await api.post('/insertLikeBusiness', {business_username},
+        const res = await api.post('/interaction/insertLikeBusiness', {business_username},
             {headers: { Authorization: `Bearer ${token}` }}
         );
         return res.data
