@@ -103,7 +103,6 @@ export function useInteractionApi() {
   type ReviewUpsertPayload = {
   uuid?: string | null;          // null / undefined → create ; existing UUID → update
   business_username: string;     // PK of the business being reviewed
-  photo?: string | null;         // optional image URL or base64 string
   review: string;                // the review text body
 };
 
