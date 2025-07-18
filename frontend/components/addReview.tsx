@@ -3,6 +3,7 @@ import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Scro
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
 import FyndColors from './fyndColors';
+import { useInteractionApi } from '@/api/interaction';
 
 type AddReviewProps = {
   visible: boolean;
@@ -15,6 +16,8 @@ type AddReviewProps = {
 };
 
 const AddReview = ({ visible, onClose, onSubmit, username }: AddReviewProps) => {
+  const { upsertReview, uploadReviewImage} = useInteractionApi()
+
   const [reviewText, setReviewText] = useState('');
   const [image, setImage] = useState<string | undefined>();
 

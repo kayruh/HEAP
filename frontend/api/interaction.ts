@@ -187,7 +187,7 @@ export function useInteractionApi() {
   return res.data; // string[]
   }
 
-  async function deleteEventImage(review_uuid: string, fileName: string) {
+  async function deleteReviewImage(review_uuid: string, fileName: string) {
   const token = await getToken({ template: 'integrations' });
   const res = await api.delete(`/interaction/deleteReviewImage/${review_uuid}`, {
     data: { fileName },
@@ -227,6 +227,11 @@ export function useInteractionApi() {
     deleteReview,
     getAccountReviews,
     getBusinessReviews,
-    searchProfile
+    searchProfile,
+
+    uploadReviewImage,
+    getReviewImages,
+    deleteReviewImage,
+    
     };
 }
