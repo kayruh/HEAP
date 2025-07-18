@@ -99,7 +99,7 @@ export default function FavListScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={() => router.push('../userProfile2')}>
+      <TouchableOpacity style={styles.backButton} onPress={() => router.back() }>
         <Ionicons name="chevron-back" size={22} color={FyndColors.Purple}/>
       </TouchableOpacity>
 

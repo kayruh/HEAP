@@ -208,7 +208,7 @@ const businessProfile = () => {
 
           {activeTab === 'list' && (
             <View>
-              <Text>Events list content here</Text>
+              {/* <Text>Events list content here</Text> */}
               <View style={styles.feedSection}>
                 <BizEventCard username={username} />
               </View>

@@ -160,7 +160,7 @@ module.exports = {
         const { data, error } = await supabase.storage
             .from('event-image')
             .list(`${event_uuid}/`);
-        console.log(data)
+        // console.log(data)
         if (error) throw new Error(error.message);
 
         return data.map((f) => {

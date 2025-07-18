@@ -163,7 +163,7 @@ module.exports = {
       const { event_uuid } = req.params
 
       const check = await businessServices.checkBusinessEvent(username, event_uuid)
-      console.log(check)
+      // console.log(check)
       if (!check) {
       return res
         .status(403)

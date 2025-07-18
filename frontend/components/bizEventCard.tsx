@@ -1,102 +1,125 @@
 // to display event card in biz profile
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import FyndColors from './fyndColors';
 import { useBusinessApi } from '@/api/business';
+import { useRouter } from 'expo-router';
 
-type Event = {
-  id: string;
-  title: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  imageUrl?: string;
+export type Event = {
+  uuid:        string;          // ← matches DB
+  title:       string | null;
+  description: string | null;
+  start:       string | null;   // ISO timestamp
+  end:         string | null;   // ISO timestamp
+  imageUrl?:   string | null;   // we’ll add this client-side
 };
 
 type Props = {
   username: string;
 };
 
+
 const BizEventCard = ({ username }: Props) => {
-  const {getEvents, getEventImages} = useBusinessApi()
-
-
-  const [events, setEvents] = useState<Event[]>([]);
-  const [eventCover, setEventCover] = useState([])
+  const { getEvents, getEventImages } = useBusinessApi();
+  const router = useRouter()
+  const [events, setEvents]           = useState<Event[]>([]);
+  const [loading, setLoading]         = useState(true);
 
   useEffect(() => {
-    // Simulated fetch — replace with real API call
-    const fetchEvents = async () => {
+    if (!username) return;
+
+    (async () => {
       try {
-        // TODO: Replace this with real API call using username
-        // const data: Event[] = [
-        //   {
-        //     id: '1',
-        //     title: 'STREET WEARE HOUSE',
-        //     description: 'event description, location, time etc.',
-        //     startDate: '2025-07-07',
-        //     endDate: '2025-07-12',
-        //     imageUrl: 'https://via.placeholder.com/150',
-        //   },
-        // ];
 
-        // setEvents(data);
+        const { getEvents: rows } = await getEvents(username);   // <-- unwrap
 
-        const events = await getEvents(username)
-        setEvents(events)
-        const eventCover = await getEventImages(username)
-        setEventCover(eventCover)
-        console.log(events)
-        console.log(eventCover) // needs fixing in the getter
+        const enriched = await Promise.all(
+          (rows ?? []).map(async (ev: any) => {
+            const imgs   = await getEventImages(ev.uuid);        // string[]
+            const cover  = imgs?.[0] ?? null;                    // pick 1st
+            return {                                           // normalise
+              uuid:  ev.uuid,
+              title: ev.title,
+              description: ev.description,
+              start: ev.start,
+              end:   ev.end,
+              imageUrl: cover,
+            } as Event;
+          })
+        );
 
-        console.log(username)
-
-
-
-      } catch (error) {
-        console.error('Error fetching business events:', error);
+        setEvents(enriched);
+      } catch (err) {
+        console.error('Error fetching business events:', err);
+      } finally {
+        setLoading(false);
       }
-    };
-
-    fetchEvents();
+    })();
   }, [username]);
 
-  const renderItem = ({ item }: { item: Event }) => (
-    <View style={styles.card}>
-      <Image source={{ uri: item.imageUrl }} style={styles.image} />
-      <View style={styles.info}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>{item.description}</Text>
-        <Text style={styles.date}>
-          {formatDateRange(item.startDate, item.endDate)}
-        </Text>
-      </View>
-    </View>
-  );
 
-  const formatDateRange = (start: string, end: string) => {
-    const s = new Date(start);
-    const e = new Date(end);
-    return `${s.getDate()}-${e.getDate()} ${e.toLocaleString('default', { month: 'short' }).toUpperCase()} ${e.getFullYear()}`;
-  };
-
-  // return (
-  //   <View style={{ paddingHorizontal: 16 }}>
-  //   {events.map((item) => (
-  //     <View key={item.id} style={styles.card}>
-  //       <Image source={{ uri: item.imageUrl }} style={styles.image} />
-  //       <View style={styles.info}>
-  //         <Text style={styles.title}>{item.title}</Text>
-  //         <Text style={styles.description}>{item.description}</Text>
-  //         <Text style={styles.date}>
-  //           {formatDateRange(item.startDate, item.endDate)}
-  //         </Text>
-  //       </View>
-  //     </View>
-  //   ))}
-  // </View>
-  // );
+  const fmt = (iso: string) => {
+  const d = new Date(iso);
+  const day   = d.getDate();
+  const month = d.toLocaleString('default', { month: 'short' }).toUpperCase();
+  const year  = d.getFullYear();
+  return `${day} ${month} ${year}`;
 };
+
+const formatDateLabel = (start?: string | null, end?: string | null) => {
+  if (!start && !end) return '';                    // no dates
+  if (start && !end) return `Starts on ${fmt(start)}`;
+  if (!start && end)  return `Ends on ${fmt(end)}`;
+  // both present → range
+  return `${new Date(start!).getDate()}-${new Date(end!).getDate()} ${
+    new Date(end!).toLocaleString('default', { month: 'short' }).toUpperCase()
+  } ${new Date(end!).getFullYear()}`;
+};
+
+  console.log(events)
+  console.log()
+
+  if (loading) {
+    return <Text style={{ textAlign: 'center', marginTop: 20 }}>Loading…</Text>;
+  }
+
+  if (!events.length) {
+    return <Text style={{ textAlign: 'center', marginTop: 20 }}>No events yet</Text>;
+  }
+
+  return (
+
+     <FlatList
+       data={events}
+       keyExtractor={(item) => item.uuid}
+       contentContainerStyle={{ paddingHorizontal: 16 }}
+       renderItem={({ item }) => (
+         <TouchableOpacity
+           activeOpacity={0.8}
+           onPress={() => router.push(`../events/${item.uuid}`)} 
+           style={styles.card}
+         >
+          <Image
+            source={{
+              uri: item.imageUrl ?? 'https://placehold.co/80x80?text=No+Image',
+            }}
+            style={styles.image}
+          />
+          <View style={styles.info}>
+            <Text style={styles.title}>{item.title ?? 'Untitled event'}</Text>
+            <Text style={styles.description}>
+              {item.description ?? 'No description'}
+            </Text>
+            <Text style={styles.date}>
+              {formatDateLabel(item.start, item.end)}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
+    />
+  );
+};
+
 
 const styles = StyleSheet.create({
   card: {
