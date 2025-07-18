@@ -155,8 +155,8 @@ export function useInteractionApi() {
   return res.data;          // → [{ username, name, … }, …]
   }
 
-  async function uploadEventImage(
-  eventUuid: string,
+  async function uploadReviewImage(
+  review_uuid: string,
   fileUri: string,
   mime = 'image/jpeg',
   ) {
@@ -170,7 +170,7 @@ export function useInteractionApi() {
   } as any);
 
   const res = await api.post(
-    `/business/uploadEventImage/${eventUuid}`,
+    `/interaction/uploadReviewImage/${review_uuid}`,
     form,
     {
       headers: {
@@ -182,16 +182,14 @@ export function useInteractionApi() {
   return res.data; // { path, publicUrl }
   }
 
-  /** GET /business/getEventImage/:event_uuid */
-  async function getEventImages(eventUuid: string) {
-  const res = await api.get(`/business/getEventImage/${eventUuid}`);
+  async function getReviewImages(review_uuid: string) {
+  const res = await api.get(`/interaction/getReviewImage/${review_uuid}`);
   return res.data; // string[]
   }
 
-  /** DELETE /business/deleteEventImage/:event_uuid  body = { fileName } */
-  async function deleteEventImage(eventUuid: string, fileName: string) {
+  async function deleteEventImage(review_uuid: string, fileName: string) {
   const token = await getToken({ template: 'integrations' });
-  const res = await api.delete(`/business/deleteEventImage/${eventUuid}`, {
+  const res = await api.delete(`/interaction/deleteReviewImage/${review_uuid}`, {
     data: { fileName },
     headers: { Authorization: `Bearer ${token}` },
   });
