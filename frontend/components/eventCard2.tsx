@@ -1,10 +1,12 @@
 // EventCard.tsx
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Dimensions,TouchableOpacity,} from 'react-native'
 import { Card, Image, Badge } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import FyndColors from './fyndColors'
 import { useRouter } from 'expo-router'
+import { useUser } from '@clerk/clerk-expo'
+import { useInteractionApi } from '@/api/interaction'
 
 /* —————————————————— TYPES —————————————————— */
 export type EventItem = {
@@ -75,6 +77,45 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
       : ''
 
       const router = useRouter();
+
+
+  // HEART logo for events
+  const { user } = useUser();
+  const { getEventLikeCheck, deleteLikeEvent, insertLikeEvent} = useInteractionApi()
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+
+  // const { eventid } = useLocalSearchParams<{ eventid: string }>();
+  // const username = `{user?.username}`
+
+
+  useEffect(() => {
+    const checkLiked = async () => {
+      try {
+        if (!user?.username || item.type !== 'event') return;
+        const liked = await getEventLikeCheck(user.username, item.uuid);
+        setIsLiked(liked);
+      } catch (err) {
+        setIsLiked(false); // 404 → not liked
+      }
+    };
+  
+    checkLiked();
+  }, [user?.username, item.uuid]);
+
+  const toggleLike = async () => {
+    try {
+      if (item.type !== 'event') return;
+      if (isLiked) {
+        await deleteLikeEvent(item.uuid);
+      } else {
+        await insertLikeEvent(item.uuid);
+      }
+      setIsLiked(!isLiked);
+    } catch (err) {
+      console.error('Error toggling like:', err);
+    }
+  };
+
   return (
     <TouchableOpacity activeOpacity={0.85} onPress={onPress}>
       <Card containerStyle={styles.card}>
@@ -97,14 +138,15 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
           onPress={() => {
             console.log('🔷 Top-right icon pressed with item data:', item) // logs item data when heart or plus pressed
             if (isEvent) {
-              console.log('Heart pressed for event:', item.uuid)
+              console.log('Heart pressed for event:', item.uuid),
+              {toggleLike}
             } else {
               console.log('Plus pressed for business:', item.username)
             }
           }}
         >
           <Icon
-            name={isEvent ? 'favorite-border' : 'add'}
+            name={isEvent ? (isLiked ? 'favorite' : 'favorite-border') : 'add'}
             size={22}
             color={FyndColors.Green}
           />

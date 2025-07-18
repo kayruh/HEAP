@@ -110,40 +110,6 @@ export default function Browse() {
     [hotEvents]
   )
 
-  // HEART logo for events
-  const { getEventLikeCheck, deleteLikeEvent, insertLikeEvent} = useInteractionApi()
-  const [eventLiked, setEventLiked] = useState<boolean | null>(null);
-  const { eventid } = useLocalSearchParams<{ eventid: string }>();
-  const username = `{user?.username}`
-
-
-  // useEffect(() => {
-  //   const checkLike = async () => {
-  //     if (!username || !eventid) return;
-  
-  //     try {
-  //       const result = await getEventLikeCheck(username, eventid); // replace with actual event UUID
-  //       setEventLiked(result === true);
-  //     } catch (err) {
-  //       console.error('Error checking event like status:', err);
-  //       setEventLiked(false); // assume false if 404 or failed
-  //     }
-  //   };
-  
-  //   checkLike();
-  // }, [username, eventid]);
-
-  // const handleUnlike = async () => {
-  //   try {
-  //     setEventLiked(false); // optimistic UI update
-  //     await deleteLikeEvent(eventid);
-  //   } catch (err) {
-  //     console.error('Failed to unlike event:', err);
-  //     setEventLiked(true); // rollback if request fails
-  //   }
-  // };
-
-
   /* -------------------- render -------------------- */
   return (
     <View style={styles.container}>
