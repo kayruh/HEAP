@@ -1,5 +1,7 @@
 
 const { supabase } = require("../db/supabase");
+const { v4 } = require('uuid');
+const uuidv4 = v4;
 
 module.exports = {
 /* ---------- Likes ---------- */
@@ -276,6 +278,59 @@ module.exports = {
     if (error) throw new Error(error.message);
     return data
     },
+
+        async checkReviewer(username, review_uuid) {
+            const { data, error} = await supabase
+                .from("REVIEWS")
+                .select("*")
+                .eq("username", username)
+                .eq("uuid",review_uuid)
+                .maybeSingle()
+            if (error) throw new Error(error.message);
+            return data
+        },
+    
+        async uploadReviewImage(review_uuid, fileBuffer, mime) {
+            const filePath = `${review_uuid}/${uuidv4()}`;
+            const { data, error } = await supabase.storage
+            .from('review-images')
+            .upload(filePath, fileBuffer, { contentType: mime });
+    
+            if (error) throw new Error(error.message);
+    
+            const { data: urlData } = supabase.storage
+            .from('review-images')
+            .getPublicUrl(filePath);            // bucket public; use signed URL if private
+    
+        return { ...data, publicUrl: urlData.publicUrl };
+        },
+    
+        async getReviewImage(review_uuid) {
+            // console.log("hit service")
+            const { data, error } = await supabase.storage
+                .from('review-images')
+                .list(`${review_uuid}/`);
+            // console.log(data)
+            if (error) throw new Error(error.message);
+    
+            return data.map((f) => {
+                const { data: url } = supabase.storage
+                .from('review-images')
+                .getPublicUrl(`${review_uuid}/${f.name}`);
+                return url.publicUrl;
+            });
+        },
+        
+        async deleteReviewImage(review_uuid, fileName) {
+            const fullPath = `${review_uuid}/${fileName}`; // same pattern as uploads
+    
+            const { data, error } = await supabase.storage
+                .from('review-images')
+                .remove([fullPath]);                      // expects array
+    
+            if (error) throw new Error(error.message);
+            return data;
+        },   
   
 
   

@@ -21,7 +21,7 @@ import { useInteractionApi } from '@/api/interaction';
 const businessProfile = () => {
     const { getBusinessInfo, countEvents, getBusinessImages, getEvents } = useBusinessApi();
     const { getAvatar } = useClerkApi();
-    const { getBusinessLikeCount } = useInteractionApi()
+    const { getBusinessLikeCount, getBusinessReviews } = useInteractionApi()
     
 
     const { username } = useLocalSearchParams<{ username: string }>();
@@ -45,7 +45,7 @@ const businessProfile = () => {
     const [likeCount, setLikeCount] = useState('0')
     const [eventCounter ,setEventCounter] = useState('0')
     const [images, setImages] = useState([])
-    // const [events, setEvents] = useState([])
+    const [reviews, setReviews] = useState([])
 
 
       useEffect(() => {
@@ -57,7 +57,7 @@ const businessProfile = () => {
           const likeCount = await getBusinessLikeCount(username);
           const eventCounter = await countEvents(username)
           const images = await getBusinessImages(username)
-          // const events = await getEvents(username)
+          const reviews = await getBusinessReviews(username)
 
 
           setData(data)
@@ -65,7 +65,8 @@ const businessProfile = () => {
           setLikeCount(likeCount)
           setEventCounter(eventCounter)
           setImages(images)
-          // setEvents(events)
+          setReviews(reviews)
+          
         } 
         catch (e) {
           console.log(e)
@@ -74,10 +75,10 @@ const businessProfile = () => {
     } 
   }, [username]);
 
-
+    console.log(reviews)
     // console.log(events)
     // Mocked favourite lists – REPLACE with real data from DB or API !!!!!
-    const favouriteLists = ['My Favourites', 'Thrift Shops', 'To Visit Again'];
+    // const favouriteLists = ['My Favourites', 'Thrift Shops', 'To Visit Again'];
 
     // Handle bookmarking
     const handleAddToFavourite = (listName: string) => {
@@ -237,18 +238,20 @@ const businessProfile = () => {
                 </Text>
               </TouchableOpacity>
 
-              {/* Replace with real fetched data later !!!*/}
-              {[
-                { username: 'user123', reviewText: 'Great store!', datePosted: '2025-07-14' },
-                { username: 'cheryl_88', reviewText: 'Loved the selection of vintage clothes.', datePosted: '2025-07-12' },
-              ].map((review, index) => (
-                <ReviewCard
-                  key={index}
-                  username={review.username}
-                  reviewText={review.reviewText}
-                  datePosted={review.datePosted}
-                />
-              ))}
+              {reviews.length === 0 ? (
+                <Text style={{ textAlign: 'center', color: '#666' }}>
+                  No reviews yet
+                </Text>
+              ) : (
+                reviews.map((r: any) => (
+                  <ReviewCard
+                    key={r.uuid}                  /* uuid comes from DB */
+                    username={r.username}
+                    reviewText={r.review}
+                    datePosted={r.created_at}
+                  />
+                ))
+              )}
             </View>
           )}
       </ScrollView>

@@ -44,7 +44,7 @@ router.get('/checkBusinessEventExist', businessController.checkBusinessEvent)
 
 router.post(
   '/uploadEventImage/:event_uuid',
-//   clerkexpress.requireAuth(),
+  clerkexpress.requireAuth(),
   upload.single('file'),                 
   businessController.uploadEventImage
 );
@@ -55,7 +55,7 @@ router.get(
 );
 
 router.delete(
-  '/deleteBusinessImage',
+  '/deleteBusinessImage/:event_uuid',
   clerkexpress.requireAuth(),
   businessController.deleteBusinessImage
 );

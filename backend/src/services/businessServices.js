@@ -174,7 +174,7 @@ module.exports = {
     async deleteEventImage(event_uuid, fileName) {
         const fullPath = `${event_uuid}/${fileName}`; // same pattern as uploads
 
-        const { data, error } = await supabaseAdmin.storage
+        const { data, error } = await supabase.storage
             .from('event-image')
             .remove([fullPath]);                      // expects array
 

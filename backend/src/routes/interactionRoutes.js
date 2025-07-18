@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const interactionController = require("../controllers/interactionController");
 const clerkexpress = require("@clerk/express")
 
@@ -35,5 +36,28 @@ router.get   ('/getBusinessReviews/:business_username', interactionController.ge
 
 // get event
 router.get('/getEventInfo/:event', interactionController.getEventInfo);
+
+const upload = multer();         
+
+router.get('/checkReviewer', interactionController.checkReviewer)
+
+router.post(
+  '/uploadReviewImage/:review_uuid',
+  clerkexpress.requireAuth(),
+  upload.single('file'),                 
+  interactionController.uploadReviewImage
+);
+
+router.get(
+  '/getReviewImage/:review_uuid',
+  interactionController.getReviewImage
+);
+
+router.delete(
+  '/deleteReviewImage/:review_uuid',
+  clerkexpress.requireAuth(),
+  interactionController.deleteReviewImage
+);
+
 
 module.exports = router;
