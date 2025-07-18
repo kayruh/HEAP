@@ -157,58 +157,61 @@ export function useInteractionApi() {
   return res.data;          // → [{ username, name, … }, …]
   }
 
-  // async function uploadReviewImage(
-  //   review_uuid: string,
-  //   fileUri: string,
-  //   mime = 'image/jpeg',
-  // ) {
+  async function uploadReviewImage(
+    review_uuid: string,
+    fileUri: string,
+    mime = 'image/jpeg',
+  ) {
+  const token = await getToken({ template: 'integrations' });
+
+  const form = new FormData();
+  form.append('file', {
+    uri:  fileUri,
+    name: 'upload.jpg',
+    type: mime,
+  } as any);
+
+  const res = await api.post(`/interaction/uploadReviewImage/${review_uuid}`,form ,{
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  return res.data;
+  }
+
+
+
+  // async function uploadReviewImage(review_uuid: string, fileUri: string) {
   // const token = await getToken({ template: 'integrations' });
 
   // const form = new FormData();
   // form.append('file', {
-  //   uri:  fileUri,
-  //   name: 'upload.jpg',
-  //   type: mime,
+  //   uri:  Platform.OS === 'android'
+  //           ? fileUri.replace('file://', '')   // android needs bare path
+  //           : fileUri,                         // ios keeps prefix
+  //   name:  fileUri.split('/').pop() ?? 'photo.jpg',
+  //   type:  'image/jpeg',
   // } as any);
 
-  // const res = await api.post(`/interaction/uploadReviewImage/${review_uuid}`,form ,{
+  // const res = await api.post(
+  //   `/interaction/uploadReviewImage/${review_uuid}`,
+  //   form,
+  //   {
+  //     /* 1️⃣  clear the JSON default */
   //     headers: {
-  //       'Content-Type': 'multipart/form-data',
   //       Authorization: `Bearer ${token}`,
+  //       // Setting it to *undefined* removes the inherited JSON header
+  //       'Content-Type': undefined,
   //     },
+  //     /* 2️⃣  stop Axios from JSON-stringifying FormData */
+  //     transformRequest: () => form,
   //   },
   // );
-  // return res.data; // { path, publicUrl }
-  // }
 
-
-
-async function uploadReviewImage(review_uuid: string, fileUri: string) {
-  const token = await getToken({ template: 'integrations' });
-
-  /* ↓ RN needs a real file object */
-  const form = new FormData();
-  form.append('file', {
-    uri:
-      Platform.OS === 'android'
-        ? fileUri.replace('file://', '') 
-        : fileUri,                      
-    name: fileUri.split('/').pop()!,
-    type: 'image/jpeg',                 
-  } as any);
-
-  /*  DO NOT set Content-Type – axios/RN will add it with boundary   */
-  const res = await axios.post(
-    `/interaction/uploadReviewImage/${review_uuid}`,
-    form,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-      transformRequest: (_, __) => form,   // <-- stops JSON serialization
-    }
-  );
-
-  return res.data;                         // { path, publicUrl }
-}
+//   return res.data;               // { path, publicUrl }
+// }
 
   async function getReviewImages(review_uuid: string) {
   const res = await api.get(`/interaction/getReviewImage/${review_uuid}`);
