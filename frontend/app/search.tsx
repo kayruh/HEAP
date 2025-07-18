@@ -234,6 +234,11 @@ export default function SearchScreen() {
       </TouchableOpacity>
 
       {/* Search Bar */}
+      <View style={styles.logoContainer}>
+          <Image
+            source={require('../assets/FYND_logo/purple.png')}
+            style={styles.logo}/>
+      </View>
       <View style={styles.searchBar}>
         <Ionicons name="search-outline" size={20} color={FyndColors.Green} style={styles.icon} />
         <TextInput
@@ -317,8 +322,8 @@ export default function SearchScreen() {
 
 /* ────────── styles ────────── */
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 60,
+  container: {    
+    paddingTop: 100,
     paddingHorizontal: 20,
     backgroundColor: FyndColors.Yellow,
     flex: 1,
@@ -392,4 +397,15 @@ const styles = StyleSheet.create({
 
   empty:  { marginTop: 24, textAlign: 'center', color: '#333' },
   error:  { marginTop: 24, textAlign: 'center', color: 'red'  },
+
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 5,
+    paddingLeft: 20,
+  },
+  logo: {
+    width: 220,
+    height: 220,
+    resizeMode: 'contain',
+  },
 });
