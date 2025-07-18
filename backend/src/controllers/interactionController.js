@@ -223,8 +223,9 @@ async upsertReview(req, res) {
     }
     const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
     const {uuid,business_username,review} = req.body
-    await interactionServices.upsertReview(uuid,business_username,username,review);
-    res.status(200).json({ message: 'Review upserted' });
+    const reviewInfo = await interactionServices.upsertReview(uuid,business_username,username,review);
+    console.log(reviewInfo)
+    res.status(200).json(reviewInfo);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -293,7 +294,6 @@ async getEventInfo(req, res) {
 
       const username = (await clerkexpress.clerkClient.users.getUser(userId))
         .username;
-      // const username = "adrian";
       const { review_uuid } = req.params
 
       const check = await interactionServices.checkReviewer(username, review_uuid)
@@ -303,6 +303,9 @@ async getEventInfo(req, res) {
         .status(403)
         .json({ error: 'You are not the owner of this review.' });
         }
+      
+      // console.log(req.file)
+
       if (!req.file)
       {return res.status(400).json({ error: 'file field missing' });}
 

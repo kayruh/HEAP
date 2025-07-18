@@ -237,14 +237,17 @@ module.exports = {
 
     /* ---------- Reviews ---------- */
     async upsertReview(uuid, business_username,username,review) {
-    const { error } = await supabase
+    const { data, error } = await supabase
         .from('REVIEWS')
         .upsert({uuid,
          business_username,
         username,
-        review}, {onConflict: 'uuid'}); // photo as an array
+        review}, {onConflict: 'uuid'})
+        .select("*")
+        .maybeSingle(); // photo as an array
     if (error) throw new Error(error.message);
-    },
+    return data
+  },
 
     async deleteReview(uuid, username) {
     const { error } = await supabase.from('REVIEWS').delete().eq('uuid', uuid).eq('username', username);

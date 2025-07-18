@@ -43,7 +43,7 @@ router.get('/checkReviewer', interactionController.checkReviewer)
 
 router.post(
   '/uploadReviewImage/:review_uuid',
-  clerkexpress.requireAuth(),
+  // clerkexpress.requireAuth(),
   upload.single('file'),                 
   interactionController.uploadReviewImage
 );
