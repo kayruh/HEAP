@@ -42,6 +42,12 @@ export default function SettingsScreen() {
                 <SignedIn>
                     <TouchableOpacity
                         style={styles.menuItem}
+                        onPress={() => { router.push('/(tabs)') }}>
+                        <Text style={styles.menuText}>Home</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.menuItem}
                         onPress={() => { router.push('/(tabs)/userProfile') }}>
                         <Text style={styles.menuText}>Profile</Text>
                     </TouchableOpacity>
