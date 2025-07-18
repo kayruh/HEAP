@@ -84,10 +84,6 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
   const { getEventLikeCheck, deleteLikeEvent, insertLikeEvent} = useInteractionApi()
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
-  // const { eventid } = useLocalSearchParams<{ eventid: string }>();
-  // const username = `{user?.username}`
-
-
   useEffect(() => {
     const checkLiked = async () => {
       try {
@@ -136,12 +132,13 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
         <TouchableOpacity
           style={styles.topRightIcon}
           onPress={() => {
-            console.log('🔷 Top-right icon pressed with item data:', item) // logs item data when heart or plus pressed
+            console.log('🔷 Top-right icon pressed with item data:', item); // logs item data
+
             if (isEvent) {
-              console.log('Heart pressed for event:', item.uuid),
-              {toggleLike}
+              console.log('Heart pressed for event:', item.uuid);
+              toggleLike(); 
             } else {
-              console.log('Plus pressed for business:', item.username)
+              console.log('Plus pressed for business:', item.username);
             }
           }}
         >
