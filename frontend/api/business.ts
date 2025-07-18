@@ -17,7 +17,6 @@ export function useBusinessApi() {
     description: string;
     start: string;
     end: string;
-    event_photos: string[];
   }) {
     const token = await getToken({ template: 'integrations' });
     const res = await api.put(
