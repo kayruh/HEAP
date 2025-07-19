@@ -7,7 +7,9 @@ import { Platform } from 'react-native'
 import { HapticTab } from '@/components/hapticTab';
 import { IconSymbol } from '@/components/ui/iconSymbol';
 import TabBarBackground from '@/components/ui/tabBarBackground';
-import { Colors } from '@/constants/colors'
+import { Image } from 'react-native';
+import FyndColors from '@/components/fyndColors'
+
 
 const _layout = () => {
 
@@ -20,7 +22,7 @@ const _layout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: FyndColors.Green,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
@@ -39,9 +41,21 @@ const _layout = () => {
     name='index' //name of the tab labelled in the file.tsx
     options={{title:'FYND', //relabelling on the shown screen
         headerShown:false, //turn off the headers
-        tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-    }}
+        tabBarIcon: ({ focused }) => (
+          <Image
+
+            source={require('../../assets/FYND_logo/green.png')}
+            style={{
+              width: 35,
+              height: 35,
+              tintColor: focused ? '#1A5D1A' : '#999', // optional: color tint for active/inactive
+            }}
+            resizeMode="contain"
+          />
+        ),
+      }}
     />
+    
     <Tabs.Screen 
     name='browse'
     options={{title:"Browse",
