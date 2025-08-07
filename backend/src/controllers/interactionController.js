@@ -272,96 +272,98 @@ async getEventInfo(req, res) {
   }
 },
 
-    async checkReviewer(req,res) {
-        try {
-            const username = "adrian";
-            const review_uuid = "637e4e2c-e4ba-4c5d-b878-bd5fa3452ac7";
-            const check = await interactionServices.checkReviewer(username,review_uuid);
-            console.log(check)
-            return res.status(200).json(check);
-        }
-        catch (e) {
-            return res.status(500).json({error: e.message})
-            console.log(e)
-        }
-    },
-
-
-    async uploadReviewImage(req, res) {
+async checkReviewer(req,res) {
     try {
-      const { userId } = clerkexpress.getAuth(req);
-      if (!userId) return res.status(401).json({ error: 'Not authenticated' });
-
-      const username = (await clerkexpress.clerkClient.users.getUser(userId))
-        .username;
-      const { review_uuid } = req.params
-
-      const check = await interactionServices.checkReviewer(username, review_uuid)
-      // console.log(check)
-      if (!check) {
-      return res
-        .status(403)
-        .json({ error: 'You are not the owner of this review.' });
-        }
-      
-      // console.log(req.file)
-
-      if (!req.file)
-      {return res.status(400).json({ error: 'file field missing' });}
-
-        const { buffer, mimetype } = req.file;
-
-          const data = await interactionServices.uploadReviewImage(
-        review_uuid,
-        buffer,
-        mimetype,
-        );
-
-    /* 5. ── Done ─────────────────────────────────────────────────────── */
-        return res.status(201).json(data);                // { path, publicUrl }
-    } catch (err) {
-        console.error(err);                               // helpful log
-        return res.status(500).json({ error: err.message });
+        const username = "adrian";
+        const review_uuid = "637e4e2c-e4ba-4c5d-b878-bd5fa3452ac7";
+        const check = await interactionServices.checkReviewer(username,review_uuid);
+        console.log(check)
+        return res.status(200).json(check);
     }
-    },
-
- 
-
-
-  async getReviewImage(req, res) {
-    try {
-        // console.log(req.params.review_uuid)
-      const images = await interactionServices.getReviewImage(
-        req.params.review_uuid,
-      );
-      return res.status(200).json(images);            // [url, url, …]
-    } catch (err) {
-      return res.status(500).json({ error: err.message });
+    catch (e) {
+        return res.status(500).json({error: e.message})
+        console.log(e)
     }
-  },
+},
 
-  async deleteReviewImage(req, res) {
-  try {
-          const { userId } = clerkexpress.getAuth(req);
-      if (!userId) return res.status(401).json({ error: 'Not authenticated' });
 
-      const username = (await clerkexpress.clerkClient.users.getUser(userId))
-        .username;
-      // const username = "adrian";
-      const { review_uuid } = req.params
+async uploadReviewImage(req, res) {
+try {
+  // const { userId } = clerkexpress.getAuth(req);
+  // if (!userId) return res.status(401).json({ error: 'Not authenticated' });
 
-      const check = await interactionServices.checkReviewer(username, review_uuid)
+  // const username = (await clerkexpress.clerkClient.users.getUser(userId))
+  //   .username;
 
-    const { fileName } = req.body;
-    if (!fileName)
-      return res.status(400).json({ error: 'fileName required' });
+  const username = "adrian"; // for testing purposes
+  const { review_uuid } = req.params
 
-    await interactionServices.deleteReviewImage(review_uuid, fileName);
+  const check = await interactionServices.checkReviewer(username, review_uuid)
+  // console.log(check)
+  if (!check) {
+  return res
+    .status(403)
+    .json({ error: 'You are not the owner of this review.' });
+    }
+  
+  // console.log(req.file)
 
-    return res.status(204).json({ message: 'Deleted' });
-  } catch (err) {
+  if (!req.file)
+  {return res.status(400).json({ error: 'file field missing' });}
+
+    const { buffer, mimetype } = req.file;
+
+      const data = await interactionServices.uploadReviewImage(
+    review_uuid,
+    buffer,
+    mimetype,
+    );
+
+/* 5. ── Done ─────────────────────────────────────────────────────── */
+    return res.status(201).json(data);                // { path, publicUrl }
+} catch (err) {
+    console.error(err);                               // helpful log
     return res.status(500).json({ error: err.message });
-  }
+}
+},
+
+
+
+
+async getReviewImage(req, res) {
+try {
+    // console.log(req.params.review_uuid)
+  const images = await interactionServices.getReviewImage(
+    req.params.review_uuid,
+  );
+  return res.status(200).json(images);            // [url, url, …]
+} catch (err) {
+  return res.status(500).json({ error: err.message });
+}
+},
+
+async deleteReviewImage(req, res) {
+try {
+      const { userId } = clerkexpress.getAuth(req);
+  if (!userId) return res.status(401).json({ error: 'Not authenticated' });
+
+  const username = (await clerkexpress.clerkClient.users.getUser(userId))
+    .username;
+  // const username = "adrian";
+  const { review_uuid } = req.params
+
+  const check = await interactionServices.checkReviewer(username, review_uuid)
+
+const { fileName } = req.body;
+if (!fileName)
+  return res.status(400).json({ error: 'fileName required' });
+
+await interactionServices.deleteReviewImage(review_uuid, fileName);
+
+return res.status(204).json({ message: 'Deleted' });
+} catch (err) {
+return res.status(500).json({ error: err.message });
+}
 },
 
 }

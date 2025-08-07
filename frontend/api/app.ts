@@ -18,8 +18,6 @@ export function useAppApi() {
   }
 
 
-
-
   return {
     getWhatsHot,
     getEventsBusiness

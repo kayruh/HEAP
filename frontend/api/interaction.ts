@@ -198,7 +198,7 @@ async function uploadReviewImage(review_uuid: string, fileUri: string) {
   } as any);
 
   /*  DO NOT set Content-Type – axios/RN will add it with boundary   */
-  const res = await axios.post(
+  const res = await api.post(
     `/interaction/uploadReviewImage/${review_uuid}`,
     form,
     {

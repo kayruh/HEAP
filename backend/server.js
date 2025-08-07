@@ -3,7 +3,7 @@ const express = require("express");
 const clerkexpress = require("@clerk/express")
 const path = require('path');
 const { FE_ENDPOINT } = process.env
-const PORT = 3000;
+const PORT = 4000;
 const cors = require('cors')
 const app = express()
 
