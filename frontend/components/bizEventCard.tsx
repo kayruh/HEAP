@@ -1,6 +1,6 @@
 // to display event card in biz profile
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import FyndColors from './fyndColors';
 import { useBusinessApi } from '@/api/business';
 import { useRouter } from 'expo-router';
@@ -18,6 +18,8 @@ type Props = {
   username: string;
 };
 
+const { width } = Dimensions.get('window')
+const CARD_WIDTH = (width - 60) / 2 
 
 const BizEventCard = ({ username }: Props) => {
   const { getEvents, getEventImages } = useBusinessApi();
@@ -123,11 +125,12 @@ const formatDateLabel = (start?: string | null, end?: string | null) => {
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    padding: 16,
+    width: CARD_WIDTH,
     borderRadius: 12,
-    marginBottom: 16,
+    margin: 10,
+    padding: 0,
+    overflow: 'hidden',
+    backgroundColor: FyndColors.Yellow, // same color as EventCard
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },

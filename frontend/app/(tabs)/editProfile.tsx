@@ -1,5 +1,5 @@
 import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useUser } from '@clerk/clerk-expo'
 import * as ImagePicker from 'expo-image-picker'
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -33,6 +33,17 @@ const editProfile = () => {
     const [emailAddress, setEmailAddress] = React.useState('');
     const [password, setPassword] = React.useState('');
 
+    useEffect(() => {
+      if (user) {
+        setUsername(
+          user.username || (user.unsafeMetadata?.username as string) || ''
+        );
+        setName(user.firstName || '');
+        setGender((user.unsafeMetadata?.gender as string) || '');
+      }
+    }, [user]);
+
+    //handling changes
     const handleChoosePhoto = async () => {
         const result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -89,7 +100,7 @@ const editProfile = () => {
     
       return (
         <SafeAreaView style={{ flex: 1 , backgroundColor:'white'}}>
-            <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/userProfile2')}>
+            <TouchableOpacity style={styles.backButton} onPress={() => router.replace('/userProfile')}>
                 <Ionicons name="chevron-back" size={20} color={FyndColors.Green} />
             </TouchableOpacity>
           <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -109,6 +120,7 @@ const editProfile = () => {
                     value={name}
                     onChangeText={setName}
                     placeholder="Name"
+                    placeholderTextColor={"grey"}
                     style={styles.inputField}/>            
             </View> 
 
@@ -118,6 +130,7 @@ const editProfile = () => {
                     value={username}
                     onChangeText={setUsername}
                     placeholder="Username"
+                    placeholderTextColor={user?.username ? 'black' : 'grey'}
                     style={styles.inputField}/>            
             </View>    
 
@@ -127,6 +140,7 @@ const editProfile = () => {
                 value={gender}
                 onChangeText={setGender}
                 placeholder="Gender"
+                placeholderTextColor={"grey"}
                 style={styles.inputField}
                 />
             </View>    
@@ -188,6 +202,7 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
     alignItems: 'center',
     paddingHorizontal: 20,
+    color:'white',
     },
     profileImageWrapper: {
     alignItems: 'center',
@@ -209,7 +224,8 @@ const styles = StyleSheet.create({
     inputField: {
     flex: 1,
     fontSize: 16,
-    color: '#000',
+    fontWeight:'400',
+    // color: 'grey',
     paddingVertical: 4,
     maxWidth: maxWidth,
     },
