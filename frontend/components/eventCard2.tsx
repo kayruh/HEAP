@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   tagChip: {
-    backgroundColor: FyndColors.Green,
+    backgroundColor: FyndColors.Purple,
     borderRadius: 8,
     paddingHorizontal: 6,
     paddingVertical: 2,
