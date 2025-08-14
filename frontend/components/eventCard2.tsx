@@ -7,6 +7,7 @@ import FyndColors from './fyndColors'
 import { useRouter } from 'expo-router'
 import { useUser } from '@clerk/clerk-expo'
 import { useInteractionApi } from '@/api/interaction'
+import LoginModal from './loginModal'
 
 /* —————————————————— TYPES —————————————————— */
 export type EventItem = {
@@ -106,6 +107,8 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
         await insertLikeEvent(item.uuid);
       }
       setIsLiked(!isLiked);
+      // onLikeChange?.(item.uuid, !isLiked); // Notify Browse so both lists update
+
     } catch (err) {
       console.error('Error toggling like:', err);
     }
@@ -151,6 +154,9 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
     }
   };
 
+  // login modal
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   return (
     <TouchableOpacity activeOpacity={0.85} onPress={onPress}>
       <Card containerStyle={styles.card}>
@@ -165,6 +171,25 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
               textStyle={styles.badgeText}
             />
           )}
+
+          <LoginModal
+            visible={showLoginModal}
+            onClose={() => setShowLoginModal(false)}
+            onSignIn={() => {
+              setShowLoginModal(false); 
+              setTimeout(() => router.push('../(auth)/sign-in')); // delay navigation slightly
+            }}
+            onSignUp={() => {
+              setShowLoginModal(false); 
+              setTimeout(() => router.push('../(auth)/sign-up'));
+            }}
+            onBizSignUp={
+              () => {
+                setShowLoginModal(false); 
+                setTimeout(() => router.push('../(auth)/business-sign-up'));
+            }}
+          />
+
         </View>
 
         {/* top-right action icon */}
@@ -175,10 +200,18 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
 
             if (isEvent) {
               console.log('Heart pressed for event:', item.uuid);
-              toggleLike(); 
+              if (!user) {
+                setShowLoginModal(true);
+              } else {
+                toggleLike(); 
+              }
             } else {
               console.log('Plus pressed for business:', item.username);
-              toggleBusinessLike();
+              if (!user) {
+                setShowLoginModal(true);
+              } else {
+                toggleBusinessLike();
+              }
             }
           }}
         >
@@ -230,6 +263,8 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
         <Icon name="chevron-right" size={22} style={styles.chevron} />
       </Card>
     </TouchableOpacity>
+
+
   )
 }
 

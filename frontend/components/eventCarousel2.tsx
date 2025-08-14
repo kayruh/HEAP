@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, Dimensions, StyleSheet, ImageBackground, View, Text } from 'react-native'
 import FyndColors from '@/components/fyndColors'
 import { TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import LoginModal from './loginModal'
+import { useUser } from '@clerk/clerk-expo'
+import { useInteractionApi } from '@/api/interaction'
+import { useRouter } from 'expo-router'
 
 const { width } = Dimensions.get('window')
 const CAROUSEL_ITEM_WIDTH = width * 0.85
@@ -19,6 +23,54 @@ interface EventCarouselProps {
 }
 
 export default function EventCarousel2({ data }: EventCarouselProps) {
+  const router = useRouter();
+
+  // login modal
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // LIKE EVENTS
+  const { user } = useUser();
+  const { getEventLikeCheck, deleteLikeEvent, insertLikeEvent} = useInteractionApi()
+  const [isLiked, setIsLiked] = useState<{ [id: string]: boolean }>({});
+
+  // FIX THIS TO TOGGLE LIKE BUTTON
+  useEffect(() => {
+    if (!user?.username) return;
+
+    const checkLiked = async () => {
+      try {
+        const likes: { [id: string]: boolean } = {};
+        for (const ev of data) {
+          const liked = await getEventLikeCheck(user.username, ev.id);
+          likes[ev.id] = liked;
+        }
+        setIsLiked(likes);
+      } catch (err) {
+        console.error("Error fetching likes:", err);
+      }
+    };
+  
+    checkLiked();
+  }, [user?.username, data]);
+
+  const toggleLike = async (id: string) => {
+    try {
+      const current = isLiked[id] ?? false;
+      if (current) {
+        await deleteLikeEvent(id);
+      } else {
+        await insertLikeEvent(id);
+      }
+      setIsLiked(prev => ({ ...prev, [id]: !current }));
+  
+      // 🔄 also update Browse list instantly
+      // onLikeChange?.(id, !current);
+    } catch (err) {
+      console.error("Error toggling like:", err);
+    }
+  };
+
+
   return (
     <ScrollView
       horizontal
@@ -41,11 +93,16 @@ export default function EventCarousel2({ data }: EventCarouselProps) {
             style={styles.topRightIcon}
             onPress={() => {
               console.log('🔷 Top-right icon pressed with item data:', item) 
-              // logs item data when heart or plus pressed
+              if (!user) {
+                setShowLoginModal(true);
+              } else {
+                // toggleLike(); !!!! FIX THIS
+                
+              }
             }}
           >
           <Icon
-            name='favorite-border'
+            name={isLiked[item.id] ? 'favorite' : 'favorite-border'}
             size={22}
             color={FyndColors.Green}
           />
@@ -58,7 +115,27 @@ export default function EventCarousel2({ data }: EventCarouselProps) {
           </ImageBackground>
         )
       })}
+
+      <LoginModal
+          visible={showLoginModal}
+          onClose={() => setShowLoginModal(false)}
+          onSignIn={() => {
+            setShowLoginModal(false); 
+            setTimeout(() => router.push('../(auth)/sign-in')); // delay navigation slightly
+          }}
+          onSignUp={() => {
+            setShowLoginModal(false); 
+            setTimeout(() => router.push('../(auth)/sign-up'));
+          }}
+          onBizSignUp={
+            () => {
+              setShowLoginModal(false); 
+              setTimeout(() => router.push('../(auth)/business-sign-up'));
+          }}
+        />
+
     </ScrollView>
+
   )
 }
 

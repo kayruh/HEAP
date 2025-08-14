@@ -11,6 +11,7 @@ import { TouchableOpacity } from 'react-native'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useInteractionApi } from '@/api/interaction'
 import { useUser } from '@clerk/clerk-expo'
+import LoginModal from '@/components/loginModal'
 
 export interface GenericItem {
   type: 'event' | 'business'
@@ -27,6 +28,9 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width - 40;
 const CAROUSEL_ITEM_WIDTH = width * 0.85;
 
+// const images = await getBusinessImages(username)
+
+
 
 export default function Browse() {
   const { user } = useUser();
@@ -36,6 +40,27 @@ export default function Browse() {
   const [hotEvents, setHotEvents]       = useState<HotEvent[]>([])
   const [allItems,  setAllItems]        = useState<GenericItem[]>([])
   const [loadingAll, setLoadingAll]     = useState<boolean>(true)
+
+
+  const handleLikeChange = (eventId: string, liked: boolean) => {
+  // Update allItems
+  setAllItems(prev =>
+    prev.map(item =>
+      item.type === 'event' && item.uuid === eventId
+        ? { ...item, liked }
+        : item
+    )
+  );
+
+  // Update hotEvents
+  setHotEvents(prev =>
+    prev.map(item =>
+      item.id === eventId
+        ? { ...item, liked }
+        : item
+    )
+  );
+};
 
   /* -------------------- fetch “What’s Hot” -------------------- */
   useEffect(() => {
@@ -110,6 +135,9 @@ export default function Browse() {
     [hotEvents]
   )
 
+  const [showLoginModal, setShowLoginModal] = useState(false); // login modal
+  const router = useRouter();
+
   /* -------------------- render -------------------- */
   return (
     <View style={styles.container}>
@@ -132,7 +160,6 @@ export default function Browse() {
         />
       )}
     </View>
-    
   )
 }
 

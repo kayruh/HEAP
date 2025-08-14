@@ -28,7 +28,7 @@ const LoginModal = ({visible, onClose, onSignIn, onBizSignUp, onSignUp}: LoginMo
           </View>
 
           <Text style={styles.message}>
-            Sign in or create an account to save this profile to your favourites.
+            Sign in or create an account to save this to your favourites.
           </Text>
 
           <TouchableOpacity style={styles.button} 

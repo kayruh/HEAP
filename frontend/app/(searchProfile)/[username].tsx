@@ -130,6 +130,7 @@ const businessProfile = () => {
                           setShowLoginModal(true);
                         } else {
                           setShowBookmarkModal(true);
+                          setIsBookmarked(true);
                         }
                       }}
                       style={styles.iconButton}
