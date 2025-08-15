@@ -1,14 +1,14 @@
-FYND 
+FYND <br>
 
-1. clone the repo
+1. clone the repo <br>
 
-2. change to frontend directory, install dependencies and start build
-$ cd ./frontend
-$ npm i
-$ npx expo start
+2. change to frontend directory, install dependencies and start build <br>
+ $ cd ./frontend <br>
+ $ npm i <br>
+ $ npx expo start <br>
 
-3. change to frontend directory, install dependencies and start backend
-$ cd ../backend
-$ npm i
-$ npm run start
+3. change to frontend directory, install dependencies and start backend <br>
+ $ cd ../backend <br>
+ $ npm i <br>
+ $ npm run start <br>
 
