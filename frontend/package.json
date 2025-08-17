@@ -53,6 +53,7 @@
     "react-native-confirmation-code-field": "^8.0.1",
     "react-native-elements": "^3.4.3",
     "react-native-gesture-handler": "~2.24.0",
+    "react-native-maps": "^1.25.3",
     "react-native-reanimated": "^3.17.5",
     "react-native-reanimated-carousel": "^4.0.2",
     "react-native-safe-area-context": "^5.5.0",

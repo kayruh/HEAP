@@ -852,10 +852,180 @@ export default function BusinessSignUp() {
             )}
 
             {/* ---------- STEP 2 ---------- */}
-            {/* ... your existing STEP 2, 3, 4 code remains unchanged ... */}
+
+       {step === 2 && (
+        <>
+          <Text style={styles.descText}>Location</Text>
+
+          <View style={styles.inputWrapper}>
+          <TextInput
+            placeholder="Google Maps link"
+            placeholderTextColor={'white'}
+            value={googleMapsLink}
+            onChangeText={setGoogleMapsLink}
+            style={styles.inputField}
+          />
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+
+          <View style={styles.inputWrapper}>
+          <TextInput
+            placeholder="Street name"
+            placeholderTextColor={'white'}
+            value={streetName}
+            onChangeText={setStreetName}
+            style={styles.inputField}
+          />
+          </View>
+
+          <View style={styles.inputWrapper}>
+          <TextInput
+            placeholder="Street No"
+            placeholderTextColor={'white'}
+            value={streetNo}
+            onChangeText={setStreetNo}
+            style={styles.inputField}
+          />
+          </View>
+
+          <View style={styles.inputWrapper}>
+          <TextInput
+            placeholder="Unit No"
+            placeholderTextColor={'white'}
+            value={unitNo}
+            onChangeText={setUnitNo}
+            style={styles.inputField}
+          />
+          </View>
+
+          <View style={styles.inputWrapper}>
+          <TextInput
+            placeholder="Postal code"
+            placeholderTextColor={'white'}
+            value={postal}
+            onChangeText={setPostal}
+            style={styles.inputField}
+          />          
+          </View>
+
+
+          <View>
+            <TouchableOpacity
+              style={styles.nextButton}
+              onPress={() => setStep(1)}
+            >
+              <Text style={styles.nextLink}>Back</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.nextButton}
+              onPress={() => setStep(3)}
+            >
+              <Text style={styles.nextLink}>Next</Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      )}
+
+      {/* ---------- STEP 3 ---------- */}
+      {step === 3 && (
+        <>
+          <Text style={styles.descText}>Account credentials</Text>
+
+          <View style={styles.inputWrapper}>
+          <Ionicons name="mail-outline" size={20} style={styles.icon}/>
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor={'white'}
+            value={email}
+            autoCapitalize="none"
+            onChangeText={setEmail}
+            style={styles.inputField}
+          />
+          </View>
+
+          <View style={styles.inputWrapper}>
+          <Ionicons name="at-outline" size={20} style={styles.icon}/>
+          <TextInput
+            placeholder="Username"
+            placeholderTextColor={'white'}
+            value={username}
+            autoCapitalize="none"
+            onChangeText={setUsername}
+            style={styles.inputField}
+          />
+          </View>
+
+          <View style={styles.inputWrapper}>
+          <Ionicons name="key-outline" size={20} style={styles.icon} />
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor={'white'}
+            value={password}
+            secureTextEntry
+            onChangeText={setPassword}
+            style={styles.inputField}
+          />
+          </View>
+
+
+          <View>
+            <TouchableOpacity
+              style={styles.nextButton}
+              onPress={() => setStep(2)}
+            >
+              <Text style={styles.nextLink}>Back</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.nextButton}
+              onPress={handleCredentialsSubmit}
+            >
+              <Text style={styles.nextLink}>
+                {loading ? '...' : 'Send code'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      )}
+
+      {/* ---------- STEP 4 ---------- */}
+      {step === 4 && (
+        <>
+          <Text style={styles.descText}>Verify your email</Text>
+
+          <View style={styles.inputWrapper}>
+          <TextInput
+            placeholder="6-digit code"
+            placeholderTextColor={'white'}
+            value={code}
+            keyboardType="numeric"
+            onChangeText={setCode}
+            style={styles.inputField}
+          />
+          </View>
+
+          <View>
+            <TouchableOpacity
+              style={styles.nextButton}
+              onPress={() => setStep(3)}
+            >
+              <Text style={styles.nextLink}>Back</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.nextButton}
+              onPress={handleVerify}
+            >
+              <Text style={styles.nextLink}>
+                {loading ? 'Verifying…' : 'Verify & finish'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      )}
+      </View>
+    </ScrollView>
+    </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
