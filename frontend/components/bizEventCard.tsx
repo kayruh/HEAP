@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1.5,
   },
   image: {
-    width: 80,
+    width: 200,
     height: 80,
     borderRadius: 8,
     marginRight: 16,
@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
   info: {
     flex: 1,
     justifyContent: 'space-between',
+    padding:7,
   },
   title: {
     fontSize: 16,
