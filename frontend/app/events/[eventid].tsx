@@ -56,6 +56,10 @@ export default function EventIdScreen() {
         <Ionicons name="chevron-back" size={22} color={FyndColors.Purple}/>
       </TouchableOpacity>
 
+      <Image>
+        
+      </Image>
+
       <ScrollView>
         <Image source={{ uri: event.event_photos }} style={styles.image} />
 
