@@ -19,7 +19,7 @@ type Props = {
 };
 
 const { width } = Dimensions.get('window')
-const CARD_WIDTH = (width - 60) / 2 
+const CARD_WIDTH = width - 60
 
 const BizEventCard = ({ username }: Props) => {
   const { getEvents, getEventImages } = useBusinessApi();
@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
     shadowRadius: 1.5,
   },
   image: {
-    width: 200,
-    height: 80,
+    width: CARD_WIDTH,
+    height: 150,
     borderRadius: 8,
     marginRight: 16,
   },
