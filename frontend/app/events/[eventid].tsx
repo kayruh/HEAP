@@ -12,16 +12,23 @@ import { useUser } from '@clerk/clerk-expo'
 import { useInteractionApi } from '@/api/interaction'
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
+import { useBusinessApi } from '@/api/business'
+import { ScreenWidth } from 'react-native-elements/dist/helpers'
 
 
 export default function EventIdScreen() {
   const { getEventInfo } = useInteractionApi()
+  const { getEventImages } = useBusinessApi();
+
   const { user } = useUser();
   // Tell TypeScript what param we expect from the route.
   const { eventid } = useLocalSearchParams<{ eventid: string }>();
 
   const [event, setEvent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+
+  const [imageUrl, setImageUrl] = useState<string | null>(null);  // cover image
+  const [carouImages, setImageCarou] = useState<string[]>([]); // for photo carousel
 
   const router = useRouter();
 
@@ -30,8 +37,12 @@ export default function EventIdScreen() {
       (async () => {
         try {
           const data = await getEventInfo(eventid); // real API call
+          const imgs = await getEventImages(eventid);   // fetch event images
+
           console.log(data)
           setEvent(data);
+          setImageUrl(imgs?.[0] ?? null);  // pick first image
+          setImageCarou(imgs ?? []); // photo carousel
         } finally {
           setLoading(false);
         }
@@ -50,19 +61,39 @@ export default function EventIdScreen() {
     )
   }
 
+  // formatting dates
+  const formatDateRange = (start?: string | null, end?: string | null) => {
+    if (!start && !end) return null; // no dates available
+  
+    const fmt = (iso: string) => {
+      const d = new Date(iso);
+      const day = d.getDate();
+      const month = d.toLocaleString('default', { month: 'short' }); // Aug
+      const year = d.getFullYear();
+      return `${day} ${month} ${year}`;
+    };
+  
+    if (start && end) {
+      return `${fmt(start)} – ${fmt(end)}`;
+    }
+    if (start) return `Starts on ${fmt(start)}`;
+    if (end) return `Ends on ${fmt(end)}`;
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
         <Ionicons name="chevron-back" size={22} color={FyndColors.Purple}/>
       </TouchableOpacity>
 
-      <Image>
-        
-      </Image>
+      <Image
+        source={{
+          uri: imageUrl ?? 'https://placehold.co/600x400?text=No+Image',
+        }}
+        style={styles.headerImage}
+      />
 
-      <ScrollView>
-        <Image source={{ uri: event.event_photos }} style={styles.image} />
-
+      <ScrollView contentContainerStyle={styles.scrollContent}>
         <Text style={styles.title}>{event.title}</Text>
 
         {/* link the username to the biz profile page (for users to view) */}
@@ -70,10 +101,12 @@ export default function EventIdScreen() {
 
         {/* if no start OR end date dont display this section at all */}
         <View>
-          <Text style={styles.hosted}>
-          <Ionicons name='calendar' size={16} color={FyndColors.Purple}/>
-          {event.start}-{event.end}
-          </Text>
+          {(event.start || event.end) && (
+            <Text style={styles.hosted}>
+              <Ionicons name="calendar" size={16} color={FyndColors.Purple} />{' '}
+              {formatDateRange(event.start, event.end)}
+            </Text>
+          )}
         </View>
 
         {/* if no address dont display this section at all */}
@@ -89,7 +122,15 @@ export default function EventIdScreen() {
 
         <Text style={styles.description}>{event.description}</Text>
 
-        <Text>Photo carousel ??</Text>
+          <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
+            {carouImages.map((uri, idx) => (
+              <Image
+                key={idx}
+                source={{ uri }}
+                style={[styles.carouImage, { width: 300, marginRight: 10 }]}
+              />
+            ))}
+        </ScrollView>
       </ScrollView>
     </View>
   )
@@ -97,9 +138,12 @@ export default function EventIdScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    // padding: 20,
     backgroundColor: '#fff',
     flex: 1,
+  },
+  scrollContent: {
+    padding: 20,
   },
   centered: {
     flex: 1,
@@ -112,13 +156,19 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginBottom: 10,
     color: FyndColors.Green,
-    marginTop: 10,
+    // marginTop: 10,
   },
-  image: {
+  headerImage: {
+    width: ScreenWidth,
+    height: 220,
+    // borderRadius: 0,
+    marginBottom: 0,
+  },
+  carouImage: {
     width: '100%',
     height: 180,
     borderRadius: 12,
-    marginBottom: 20,
+    marginBottom: 0,
   },
   description: {
     fontSize: 16,
@@ -142,8 +192,8 @@ const styles = StyleSheet.create({
     top: 55,
     left: 15,
     // circle ard button:
-      // backgroundColor: FyndColors.Yellow,
-      // borderRadius: 20,
+      backgroundColor:"white",
+      borderRadius: 20,
     padding: 8,
     elevation: 3,
     shadowColor: '#000',
