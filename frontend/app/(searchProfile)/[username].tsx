@@ -14,11 +14,10 @@ import { useBusinessApi } from '@/api/business';
 import { useClerkApi } from '@/api/clerk';
 import { useInteractionApi } from '@/api/interaction';
 
-// BIZ DISPLAY PAGE FOR USERS TO SEE WHEN SEARCHING
 const businessProfile = () => {
   const { getBusinessInfo, countEvents, getBusinessImages } = useBusinessApi();
   const { getAvatar } = useClerkApi();
-  const { getBusinessLikeCount, getBusinessReviews } = useInteractionApi();
+  const { getBusinessLikeCount, getBusinessReviews, getReviewImages } = useInteractionApi();
 
   const { username } = useLocalSearchParams<{ username: string }>();
   const router = useRouter();
@@ -36,7 +35,7 @@ const businessProfile = () => {
   const [likeCount, setLikeCount] = useState('0');
   const [eventCounter, setEventCounter] = useState('0');
   const [images, setImages] = useState<string[]>([]);
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<any[]>([]); // ✅ single reviews state (with images)
 
   useEffect(() => {
     if (typeof username === 'string') {
@@ -47,14 +46,22 @@ const businessProfile = () => {
           const likeCount = await getBusinessLikeCount(username);
           const eventCounter = await countEvents(username);
           const images = await getBusinessImages(username);
-          const reviews = await getBusinessReviews(username);
+          const rawReviews = await getBusinessReviews(username);
+
+          // Enrich reviews with images
+          const enrichedReviews = await Promise.all(
+            rawReviews.map(async (r: any) => {
+              const imgs = await getReviewImages(r.uuid); // string[]
+              return { ...r, images: imgs };
+            })
+          );
 
           setData(data);
           setAvatar(avatar);
           setLikeCount(likeCount);
           setEventCounter(eventCounter);
           setImages(images);
-          setReviews(reviews);
+          setReviews(enrichedReviews); // ✅ only one state now
         } catch (e) {
           console.log(e);
         }
@@ -72,7 +79,7 @@ const businessProfile = () => {
       <FyndBanner />
 
       <FlatList
-        data={activeTab === 'list' ? [{}] : []} // only drives BizEventCard
+        data={activeTab === 'list' ? [{}] : []}
         keyExtractor={(_, idx) => idx.toString()}
         contentContainerStyle={styles.contentContainer}
         ListHeaderComponent={
@@ -229,6 +236,7 @@ const businessProfile = () => {
                       username={r.username}
                       reviewText={r.review}
                       datePosted={r.created_at}
+                      images={r.images} // ✅ now always exists
                     />
                   ))
                 )}
@@ -286,7 +294,10 @@ const businessProfile = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
+  container: { 
+    flex: 1, 
+    backgroundColor: '#fff' 
+  },
   contentContainer: { flexGrow: 1, paddingBottom: 100 },
   profileSection: { padding: 16 },
   profileCard: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
