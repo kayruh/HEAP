@@ -5,6 +5,8 @@ import { Dimensions } from 'react-native'
 import { StatusBar } from 'react-native'
 import FyndBanner from '@/components/fyndBanner'
 import FyndColors from '@/components/fyndColors'
+import Map from '@/components/map/map'
+// import MapView from 'react-native-maps'
 
 const SLOGAN = '   GET LOST FYND MORE   '.repeat(20) 
 
@@ -54,10 +56,11 @@ export default function index() {
           </View>
 
           {/* Main Content */}
-          <View style={styles.body}>
+          {/* <View style={styles.body}>
             <Text className='text-center pt-3'>Google maps here</Text>
             
-          </View>
+          </View> */}
+          <Map />
       </View>
   );
 }
