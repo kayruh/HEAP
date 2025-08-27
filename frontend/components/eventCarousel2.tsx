@@ -113,39 +113,43 @@ export default function EventCarousel2({ data }: EventCarouselProps) {
         : (item.pictures && item.pictures.length > 0 ? item.pictures[0] : null);
       
         return (
-          <ImageBackground
+          <TouchableOpacity
             key={item.id}
-            source={ imgUri ? { uri: imgUri } : undefined }
+            activeOpacity={0.9}
+            onPress={() => router.push(`../events/${item.id}`)}
+          >
+          <ImageBackground
+            source={imgUri ? { uri: imgUri } : undefined}
             style={styles.item}
             imageStyle={styles.imageBackground}
           >
-          
+          {/* Like button */}
           <TouchableOpacity
             style={styles.topRightIcon}
             onPress={() => {
-              console.log('🔷 Top-right icon pressed with item data:', item) 
               if (!user) {
                 setShowLoginModal(true);
               } else {
-                // toggleLike(); !!!! FIX THIS
-                
+                toggleLike(item.id);
               }
             }}
           >
-          <Icon
-            name={isLiked[item.id] ? 'favorite' : 'favorite-border'}
-            size={22}
-            color={FyndColors.Green}
-          />
-        </TouchableOpacity>
+            <Icon
+              name={isLiked[item.id] ? 'favorite' : 'favorite-border'}
+              size={22}
+              color={FyndColors.Green}
+            />
+          </TouchableOpacity>
 
-            <View style={styles.overlay}>
-              <Text style={styles.title} numberOfLines={2}>{item.title ?? 'No title'}</Text>
-              <Text style={styles.business}>{item.business}</Text>
-            </View>
-          </ImageBackground>
-        )
-      })}
+        <View style={styles.overlay}>
+          <Text style={styles.title} numberOfLines={2}>{item.title ?? 'No title'}</Text>
+          <Text style={styles.business}>Hosted by {item.business}</Text>
+        </View>
+
+      </ImageBackground>
+    </TouchableOpacity>
+  )
+})}
 
       <LoginModal
           visible={showLoginModal}
@@ -176,7 +180,7 @@ const styles = StyleSheet.create({
   },
   item: {
     width: CAROUSEL_ITEM_WIDTH,
-    height: 180,
+    height: 200,
     marginRight: 20,
     borderRadius: 12,
     overflow: 'hidden',
@@ -194,6 +198,7 @@ const styles = StyleSheet.create({
     color: FyndColors.Green,
     fontSize: 16,
     fontWeight: 'bold',
+    marginBottom: 5,
   },
   business: {
     color: '#000',
