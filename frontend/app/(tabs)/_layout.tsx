@@ -90,6 +90,14 @@ const _layout = () => {
     }}
     />
 
+    <Tabs.Screen
+      name="searchProfile/[username]"
+      options={{
+        headerShown: false,
+        href: null, // keeps it off the tab bar (not a permanent tab)
+      }}
+    />
+
     <Tabs.Screen 
         name="editProfile"
         options={{

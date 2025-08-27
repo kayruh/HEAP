@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router'
 import { useUser } from '@clerk/clerk-expo'
 import { useInteractionApi } from '@/api/interaction'
 import LoginModal from './loginModal'
+import { useBusinessApi } from '@/api/business'
 
 /* —————————————————— TYPES —————————————————— */
 export type EventItem = {
@@ -49,11 +50,6 @@ const CARD_WIDTH = (width - 60) / 2
 /* —————————————————— COMPONENT —————————————————— */
 const EventCard: React.FC<Props> = ({ item, onPress }) => {
   const isEvent = item.type === 'event'
-
-  /* ---------- pick an image (or fallback) ---------- */
-  const imageUrl =
-    (item as any).pictures?.[0] ??
-    'https://placehold.co/400x250?text=No+Image'
 
   /* ---------- date badge for events ---------- */
   const dateString =
@@ -113,6 +109,35 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
       console.error('Error toggling like:', err);
     }
   };
+
+  // EVENT IMAGES 
+  const { getEventImages } = useBusinessApi();
+  const [eventImage, setEventImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchEventImage = async () => {
+      try {
+        if (isEvent && item.uuid) {
+          const images = await getEventImages(item.uuid);
+          console.log('Fetched Event Images:', images);
+          
+          if (images && images.length > 0) {
+            setEventImage(images[0]); // use first image
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching event images:', err);
+      }
+    };
+
+    fetchEventImage();
+  }, [isEvent, item.uuid]);
+
+    /* ---------- pick an image (or fallback) ---------- */
+      const imageUrl =
+      eventImage ??
+      (item as any).pictures?.[0] ??
+      'https://placehold.co/400x250?text=No+Image';
 
   // LIKE BIZ
   const [bizIsLiked, setBizIsLiked] = useState<boolean>(false)
@@ -238,33 +263,28 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
               : item.name ?? '(unnamed)'}
           </Text>
 
-          {isEvent ? (
+          <View style={styles.subTextRow}>
             <Text style={styles.subText} numberOfLines={1}>
-              Hosted by {item.business_username}
+              {isEvent ? `Hosted by ${item.business_username}` : address}
             </Text>
-          ) : (
-            <Text style={styles.subText} numberOfLines={2}>
-              {address}
-            </Text>
-          )}
 
-          {/* ---------- TAG CHIPS FOR BUSINESSES ---------- */}
-          {!isEvent && item.tags && item.tags.length > 0 && (
-            <View style={styles.tagRow}>
-              {item.tags.slice(0, 3).map(t => (
-                <View key={t} style={styles.tagChip}>
-                  <Text style={styles.tagText}>{t}</Text>
+            {/* Show tags inline if business */}
+            {!isEvent && item.tags && item.tags.length > 0 && (
+              <View style={styles.bottomLeftTags}>
+                  {item.tags.slice(0, 3).map(t => (
+                    <View key={t} style={styles.tagChip}>
+                      <Text style={styles.tagText}>{t}</Text>
+                    </View>
+                  ))}
                 </View>
-              ))}
+              )}
             </View>
-          )}
-        </View>
+  </View>
+
 
         <Icon name="chevron-right" size={22} style={styles.chevron} />
       </Card>
     </TouchableOpacity>
-
-
   )
 }
 
@@ -310,17 +330,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  subTextRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap', // allows wrapping if tags overflow
+    marginBottom: 8,
+  },
+  tagInlineRow: {
+    flexDirection: 'row',
+    marginLeft: 6, // small gap between text and tags
+  },
+  bottomLeftTags: {
+    position: 'absolute',
+    flexDirection: 'row',
+  },
   tagChip: {
     backgroundColor: FyndColors.Purple,
     borderRadius: 8,
     paddingHorizontal: 6,
     paddingVertical: 2,
     marginRight: 4,
-    marginTop: 4,
   },
   tagText: {
-    fontSize: 10,
     color: '#fff',
+    fontSize: 10,
+    fontWeight: '500',
   },
   chevron: {
     position: 'absolute',

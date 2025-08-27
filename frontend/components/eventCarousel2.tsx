@@ -7,6 +7,7 @@ import LoginModal from './loginModal'
 import { useUser } from '@clerk/clerk-expo'
 import { useInteractionApi } from '@/api/interaction'
 import { useRouter } from 'expo-router'
+import { useBusinessApi } from '@/api/business'
 
 const { width } = Dimensions.get('window')
 const CAROUSEL_ITEM_WIDTH = width * 0.85
@@ -24,6 +25,33 @@ interface EventCarouselProps {
 
 export default function EventCarousel2({ data }: EventCarouselProps) {
   const router = useRouter();
+
+  // EVENT IMAGES
+  const { getEventImages } = useBusinessApi(); 
+
+  const [eventImages, setEventImages] = useState<{ [id: string]: string | null }>({});
+
+  // Fetch event images for all events in data
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const imagesMap: { [id: string]: string | null } = {};
+        for (const ev of data) {
+          const images = await getEventImages(ev.id);
+          if (images && images.length > 0) {
+            imagesMap[ev.id] = images[0]; // use first image
+          } else {
+            imagesMap[ev.id] = null;
+          }
+        }
+        setEventImages(imagesMap);
+      } catch (err) {
+        console.error('Error fetching event images:', err);
+      }
+    };
+
+    fetchImages();
+  }, [data]);
 
   // login modal
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -80,7 +108,10 @@ export default function EventCarousel2({ data }: EventCarouselProps) {
       contentContainerStyle={styles.container}
     >
       {data.map(item => {
-        const imgUri = item.pictures && item.pictures.length > 0 ? item.pictures[0] : null
+        const imgUri = eventImages[item.id] 
+        ? eventImages[item.id] 
+        : (item.pictures && item.pictures.length > 0 ? item.pictures[0] : null);
+      
         return (
           <ImageBackground
             key={item.id}
