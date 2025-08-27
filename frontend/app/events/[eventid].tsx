@@ -4,7 +4,7 @@
 
 import { View, Text, StyleSheet, Image, ActivityIndicator, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useLocalSearchParams, useRouter } from 'expo-router'
+import { Link, useLocalSearchParams, useRouter } from 'expo-router'
 import FyndColors from '@/components/fyndColors'
 import { SafeAreaView } from 'react-native'
 import { useUser } from '@clerk/clerk-expo'
@@ -110,15 +110,22 @@ export default function EventIdScreen() {
         </View>
 
         {/* if no address dont display this section at all */}
-        {/* Link address to goole maps location ?? */}
-        <View>
-          <Text style={styles.hosted}>
-          <Ionicons name='location' size={16} color={FyndColors.Purple}/>
-          {event.google_maps_location} address placeholder 
-          </Text>
-        {/* need data from BUSINESS table */}
+        {event.Address && (
+          <View style={styles.addressRow}>
+            <Ionicons name="location" size={16} color={FyndColors.Purple} style={{ marginRight: 6 }} />
+            <Text style={styles.address}>{event.Address}</Text>
+          </View>
+        )}
 
-        </View>
+        {/* Optional link to Google Maps -> try to bring them to home page maps*/}
+        {event.google_map && (
+          <View style={styles.addressRow}>
+            <Ionicons name="map" size={16} color={FyndColors.Purple} style={{ marginRight: 6 }} />
+            <Link href={event.google_map} style={styles.hostedLink}>
+              Open in Google Maps
+            </Link>
+          </View>
+        )}
 
         <Text style={styles.description}>{event.description}</Text>
 
@@ -179,8 +186,22 @@ const styles = StyleSheet.create({
   hosted: {
     fontSize: 14,
     color: '#000',
-    marginBottom: 10,
+    marginBottom: 14,
   },
+  address: {
+    fontSize: 14,
+    color: '#000',
+  },
+  hostedLink: {
+    fontSize: 14,
+    color: FyndColors.Purple,
+    fontWeight: '500',
+  },
+  addressRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },  
   dateBadge: {
     backgroundColor: FyndColors.Yellow,
     paddingHorizontal: 10,
