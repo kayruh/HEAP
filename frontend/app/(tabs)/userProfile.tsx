@@ -158,7 +158,7 @@ const userProfile = () => {
               {userReviews.length > 0 ? (
                 <FlatList
                   data={userReviews}
-                  keyExtractor={(item) => item.id}
+                  keyExtractor={(item, index) => item.id?.toString() ?? `${item.username}_${index}`}
                   renderItem={({ item }) => (
                     <ReviewCard
                       username={item.username || 'Anonymous'}
