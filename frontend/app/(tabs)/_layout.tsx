@@ -85,7 +85,7 @@ const _layout = () => {
     name='userProfile'
     options={{title:'Profile',
         headerShown:false,
-        href: (user?.unsafeMetadata?.accountType == "user") ? './userProfile' : null ,
+        href: (user?.unsafeMetadata?.accountType == "user") ? '../userProfile' : null ,
         tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />
     }}
     />

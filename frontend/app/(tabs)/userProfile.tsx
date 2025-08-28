@@ -10,6 +10,8 @@ import Favourites from './favourites';
 import { FlatList } from 'react-native';
 import AddFavList from '@/components/addFavList';
 import { SignOutButton } from '@/components/SignOutButton';
+import { useInteractionApi } from '@/api/interaction';
+import ReviewCard from '@/components/reviewCard';
 
 const userProfile = () => {
     const router = useRouter();
@@ -26,6 +28,26 @@ const userProfile = () => {
     const [isBookmarked, setIsBookmarked] = useState(false);
 
     const [showFavListModal, setShowFavListModal] = useState(false); // to manage addFav modal
+
+    // get reviews that users gave
+    const [userReviews, setUserReviews] = useState<any[]>([]);
+
+    const {getAccountReviews} = useInteractionApi();
+    useEffect(() => {
+      const fetchUserReviews = async () => {
+        try {
+          if (user) {
+            const userReviews = await getAccountReviews(user.username);
+            setUserReviews(userReviews);
+            console.log('Fetched user reviews:', userReviews);
+          }
+        } catch (err) {
+          console.error('Error fetching user reviews:', err);
+        }
+      };
+    
+      fetchUserReviews();
+    }, [user]);
 
     // determines what is in each tab
     const renderTabContent = () => {
@@ -63,8 +85,26 @@ const userProfile = () => {
         }
         if (activeTab === 'reviews') {
           return (
-            <View style={styles.tabContent}><Text>Display reviews that user has GIVEN here</Text></View>
-          )
+            <View style={styles.tabContent}>
+              {userReviews.length > 0 ? (
+                <FlatList
+                  data={userReviews}
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item }) => (
+                    <ReviewCard
+                      username={item.username || 'Anonymous'}
+                      reviewText={item.review || 'No review text'}
+                      datePosted={item.created_at || new Date().toISOString()}
+                      biz_username={item.business_username}
+                      images={item.images || []}
+                    />
+                  )}
+                />
+              ) : (
+                <Text>No reviews yet</Text>
+              )}
+            </View>
+          );
         }
         return null
       }

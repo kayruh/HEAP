@@ -237,6 +237,7 @@ const businessProfile = () => {
                       reviewText={r.review}
                       datePosted={r.created_at}
                       images={r.images} // ✅ now always exists
+                      biz_username=''
                     />
                   ))
                 )}
