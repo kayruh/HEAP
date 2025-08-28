@@ -178,9 +178,8 @@ const businessProfile = () => {
 
           {activeTab === 'list' && (
             <View>
-              <Text>Events list content here</Text>
               <View style={styles.feedSection}>
-                <BizEventCard businessId={user?.id ?? ''} />
+                <BizEventCard username={user?.username} />
               </View>
             </View>
           )}
