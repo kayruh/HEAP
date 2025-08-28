@@ -108,9 +108,11 @@ export default function EventCarousel2({ data }: EventCarouselProps) {
       contentContainerStyle={styles.container}
     >
       {data.map(item => {
-        const imgUri = eventImages[item.id] 
-        ? eventImages[item.id] 
-        : (item.pictures && item.pictures.length > 0 ? item.pictures[0] : null);
+        const imgUri = eventImages[item.id]
+        ? eventImages[item.id]
+        : item.pictures && item.pictures.length > 0
+        ? item.pictures[0]
+        : require('../assets/FYND_default.png'); // use require for fallback
       
         return (
           <TouchableOpacity
@@ -119,7 +121,7 @@ export default function EventCarousel2({ data }: EventCarouselProps) {
             onPress={() => router.push(`../events/${item.id}`)}
           >
           <ImageBackground
-            source={imgUri ? { uri: imgUri } : undefined}
+            source={typeof imgUri === 'string' ? { uri: imgUri } : imgUri} // handle string vs require
             style={styles.item}
             imageStyle={styles.imageBackground}
           >

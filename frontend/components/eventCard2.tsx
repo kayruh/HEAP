@@ -133,11 +133,35 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
     fetchEventImage();
   }, [isEvent, item.uuid]);
 
-    /* ---------- pick an image (or fallback) ---------- */
-      const imageUrl =
-      eventImage ??
-      (item as any).pictures?.[0] ??
-      'https://placehold.co/400x250?text=No+Image';
+  // GET BIZ IMAGES
+  const {getBusinessImages} = useBusinessApi();
+  const [bizImage, setBizImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchBizImage = async () => {
+      try {
+        if (!isEvent && item.username) {  // Only run if it's NOT an event
+          const images = await getBusinessImages(item.username);
+          console.log('Fetched Business Images:', images);
+  
+          if (images && images.length > 0) {
+            setBizImage(images[0]); // use first image
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching business images:', err);
+      }
+    };
+  
+    fetchBizImage();
+  }, [isEvent, item.username]);
+
+
+  /* ---------- pick an image (or fallback) for event or biz ---------- */
+  const imageUrl =
+  isEvent
+    ? (eventImage ?? (item as any).pictures?.[0] ?? require('../assets/FYND_default.png'))
+    : (bizImage ?? (item as any).pictures?.[0] ?? require('../assets/FYND_default.png'));
 
   // LIKE BIZ
   const [bizIsLiked, setBizIsLiked] = useState<boolean>(false)
@@ -187,7 +211,14 @@ const EventCard: React.FC<Props> = ({ item, onPress }) => {
       <Card containerStyle={styles.card}>
         {/* ---------- IMAGE ---------- */}
         <View style={styles.imageContainer}>
-          <Image source={{ uri: imageUrl }} style={styles.image} />
+        <Image
+          source={
+            typeof imageUrl === 'string'
+              ? { uri: imageUrl }
+              : imageUrl // local image (require)
+          }
+          style={styles.image}
+        />
           {isEvent && (
             <Badge
               value={dateString ?? 'ONGOING'}
