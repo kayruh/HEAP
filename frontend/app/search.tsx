@@ -188,7 +188,7 @@ export default function SearchScreen() {
     setRecent(recentSearches.filter(t => t !== term));
 
   const onPressResult = (username: string) =>
-    router.push(`/(searchProfile)/${username}`);
+    router.push(`/(tabs)/searchProfile/${username}`);
 
   /* ────────── renderers ────────── */
   const renderResult = ({ item }: { item: any }) => {

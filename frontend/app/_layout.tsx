@@ -36,9 +36,9 @@ export default function RootLayout() {
         <Stack.Screen 
         name="events/[eventid]" 
         options={{headerShown:false}}/>
-        <Stack.Screen 
+        {/* <Stack.Screen 
         name="(searchProfile)/[username]" 
-        options={{headerShown:false}}/>
+        options={{headerShown:false}}/> */}
       <Slot />
     </Stack>
       <StatusBar style="auto" />
