@@ -26,6 +26,7 @@ const ReviewCard = ({ username, reviewText, datePosted, images=[], biz_username}
       <Text style={styles.username}>{username}</Text>
       <Text style={styles.reviewText}>{reviewText}</Text>
 
+      {/* only show this if displaying review cards on USER profile */}
       <View style={styles.biz_username}>
         <Ionicons name="location" size={16} color={FyndColors.Purple} style={{ marginRight: 4 }} />
           <Link href={`/(tabs)/searchProfile/${biz_username}`} 
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 12,
     color: '#888',
-    textAlign: 'right',
+    textAlign: 'right'
   },
 });
 

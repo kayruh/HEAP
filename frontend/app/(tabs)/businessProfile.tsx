@@ -8,11 +8,11 @@ import FyndColors from '@/components/fyndColors';
 import CreateNewEvent from '@/components/createNewEvent';
 import AddBookmark from '@/components/addBookmark';
 import LoginModal from '@/components/loginModal';
-import AddReview from '@/components/addReview';
 import ReviewCard from '@/components/reviewCard';
 import BizEventCard from '@/components/bizEventCard';
 import { useInteractionApi } from '@/api/interaction';
 import { SignOutButton } from '@/components/SignOutButton';
+import { useBusinessApi } from '@/api/business';
 
 // FOR BIZ USERS (THEIR PROFILE PG)
 
@@ -31,6 +31,41 @@ const businessProfile = () => {
     const [isBookmarked, setIsBookmarked] = useState(false);
 
     const [showReviewModal, setShowReviewModal] = useState(false); // for adding reviews
+
+    // get reviews for the biz
+    const { getBusinessInfo, countEvents, getBusinessImages } = useBusinessApi();
+    const { getBusinessLikeCount, getBusinessReviews, getReviewImages } = useInteractionApi();
+      
+    const [bizReviews, setBizReviews] = useState<any[]>([]);
+    const [images, setImages] = useState<string[]>([]); // review images
+
+    useEffect(() => {
+      const fetchUserReviews = async () => {
+        try {
+          if (user) {
+            const bizReviews = await getBusinessReviews(user.username);
+            const images = await getBusinessImages(user.username);
+
+            // Enrich reviews with images
+            const enrichedReviews = await Promise.all(
+            bizReviews.map(async (r: any) => {
+              const imgs = await getReviewImages(r.uuid); // string[]
+              return { ...r, images: imgs };
+            })
+          );
+
+            setBizReviews(enrichedReviews);
+            setImages(images);
+
+            console.log('Fetched user reviews:', bizReviews);
+          }
+        } catch (err) {
+          console.error('Error fetching user reviews:', err);
+        }
+      };
+    
+      fetchUserReviews();
+    }, [user]);
     
     return (
         <View style={styles.container}>
@@ -152,19 +187,22 @@ const businessProfile = () => {
 
           {activeTab === 'reviews' && (
             <View style={{ padding: 20 }}>
-              <Text>Reviews ppl have given this biz</Text>
-              {/* Replace with real fetched data later !!!*/}
-              {[
-                { username: 'user123', reviewText: 'Great store!', datePosted: '2025-07-14' },
-                { username: 'cheryl_88', reviewText: 'Loved the selection of vintage clothes.', datePosted: '2025-07-12' },
-              ].map((review, index) => (
-                <ReviewCard
-                  key={index}
-                  username={review.username}
-                  reviewText={review.reviewText}
-                  datePosted={review.datePosted}
-                />
-              ))}
+             {bizReviews.length === 0 ? (
+                  <Text style={{ textAlign: 'center', color: '#666' }}>
+                    No reviews yet
+                  </Text>
+                ) : (
+                  bizReviews.map((r: any) => (
+                    <ReviewCard
+                      key={r.uuid}
+                      username={r.username}
+                      reviewText={r.review}
+                      datePosted={r.created_at}
+                      images={r.images} // ✅ now always exists
+                      biz_username=''
+                    />
+                  ))
+                )}
             </View>
           )}
       </ScrollView>
