@@ -12,6 +12,7 @@ import AddFavList from '@/components/addFavList';
 import { SignOutButton } from '@/components/SignOutButton';
 import { useInteractionApi } from '@/api/interaction';
 import ReviewCard from '@/components/reviewCard';
+import EventCard from '@/components/eventCard2';
 
 const userProfile = () => {
     const router = useRouter();
@@ -49,6 +50,45 @@ const userProfile = () => {
       fetchUserReviews();
     }, [user]);
 
+    // for LIKED tabs
+    // separate items into liked events and liked businesses
+    // const { getEventLikeCheck, getBusinessLikeCheck } = useInteractionApi();
+
+    // const [likedEvents, setLikedEvents] = useState<EventItem[]>([]);
+    // const [likedBusinesses, setLikedBusinesses] = useState<BusinessItem[]>([]);
+
+    // const [allItems, setAllItems] = useState<(EventItem | BusinessItem)[]>([]);
+
+
+    // useEffect(() => {
+    //   const fetchLikes = async () => {
+    //     if (!user?.username) return;
+
+    //     const eventResults: EventItem[] = [];
+    //     const bizResults: BusinessItem[] = [];
+
+    //     for (const item of allItems) {
+    //       try {
+    //         if (item.type === "event") {
+    //           const liked = await getEventLikeCheck(user.username, item.uuid);
+    //           if (liked) eventResults.push(item);
+    //         } else if (item.type === "business") {
+    //           const liked = await getBusinessLikeCheck(user.username, item.username);
+    //           if (liked) bizResults.push(item);
+    //         }
+    //       } catch {
+    //         // if 404, not liked → ignore
+    //       }
+    //     }
+
+    //     setLikedEvents(eventResults);
+    //     setLikedBusinesses(bizResults);
+    //   };
+
+    //   fetchLikes();
+    // }, [user?.username, allItems]);
+
+
     // determines what is in each tab
     const renderTabContent = () => {
         if (activeTab === 'favs') {
@@ -78,9 +118,38 @@ const userProfile = () => {
         }
         if (activeTab === 'list') {
           return (
-            <View style={styles.tabContent}>
-                <Text>show user's liked events???</Text>
-            </View>
+            // <View style={styles.tabContent}>
+            //   <ScrollView style={{ flex: 1, backgroundColor: "#fff", padding: 16 }}>
+            //     <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
+            //       Liked Events
+            //     </Text>
+            //     {likedEvents.length === 0 ? (
+            //       <Text>No liked events yet.</Text>
+            //     ) : (
+            //       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            //         {likedEvents.map(ev => (
+            //           <EventCard key={ev.uuid} item={ev} />
+            //         ))}
+            //       </View>
+            //     )}
+
+            //     <Text style={{ fontSize: 18, fontWeight: "bold", marginVertical: 20 }}>
+            //       Liked Businesses
+            //     </Text>
+            //     {likedBusinesses.length === 0 ? (
+            //       <Text>No liked businesses yet.</Text>
+            //     ) : (
+            //       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            //         {likedBusinesses.map(biz => (
+            //           <EventCard key={biz.username} item={biz} />
+            //         ))}
+            //       </View>
+            //     )}
+            //   </ScrollView>
+            // </View>
+            <Text>
+              Display user's liked events and biz separately
+            </Text>
           )
         }
         if (activeTab === 'reviews') {
