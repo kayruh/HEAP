@@ -140,7 +140,7 @@ async getOngoingEventsAndBusinesses(filterTags = []) {
     }
 
     /* ── EVENTS within next 30 days or open-ended ------------------- */
-    let evQ = supabase
+  let evQ = supabase
       .from('EVENT')
       .select('uuid, title, description, start, end, username')
       .or(`and(start.gte.${nowISO},start.lte.${oneMonthISO}),end.is.null`)

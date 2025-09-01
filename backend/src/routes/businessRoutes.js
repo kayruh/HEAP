@@ -54,6 +54,7 @@ router.get(
   businessController.getEventImage
 );
 
+// Note: legacy route kept for backward compatibility; secure version exists under /secure/business
 router.delete(
   '/deleteBusinessImage/:event_uuid',
   clerkexpress.requireAuth(),

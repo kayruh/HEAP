@@ -17,11 +17,12 @@ async searchProfile(req, res) {
 //-----------------------------BUSINESS LIKES --------------------------------------
 async insertLikeBusiness(req, res) {
   try {
-    const { userId } = clerkexpress.getAuth(req);
-    if (!userId) {
-      return res.status(401).json({ error: 'Not authenticated' });
-    }
-    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const username = req.auth?.username || (await (async () => {
+      const { userId } = clerkexpress.getAuth(req);
+      if (!userId) return null;
+      return (await clerkexpress.clerkClient.users.getUser(userId)).username;
+    })());
+    if (!username) return res.status(401).json({ error: 'Not authenticated' });
     const { business_username } = req.body;
     const insertLikeBusiness = await interactionServices.insertLikeBusiness(username, business_username);
     
@@ -33,11 +34,12 @@ async insertLikeBusiness(req, res) {
 
 async deleteLikeBusiness(req, res) {
   try {
-    const { userId } = clerkexpress.getAuth(req);
-    if (!userId) {
-      return res.status(401).json({ error: 'Not authenticated' });
-    }
-    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const username = req.auth?.username || (await (async () => {
+      const { userId } = clerkexpress.getAuth(req);
+      if (!userId) return null;
+      return (await clerkexpress.clerkClient.users.getUser(userId)).username;
+    })());
+    if (!username) return res.status(401).json({ error: 'Not authenticated' });
     const { business_username } = req.body;
     const deleted = await interactionServices.deleteLikeBusiness(username, business_username);
     if (!deleted) return res.status(404).json({ error: 'Like not found' });
@@ -73,11 +75,12 @@ async getBusinessLikeCheck(req, res) {
 
 async insertLikeEvent(req, res) {
   try {
-    const { userId } = clerkexpress.getAuth(req);
-    if (!userId) {
-      return res.status(401).json({ error: 'Not authenticated' });
-    }
-    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const username = req.auth?.username || (await (async () => {
+      const { userId } = clerkexpress.getAuth(req);
+      if (!userId) return null;
+      return (await clerkexpress.clerkClient.users.getUser(userId)).username;
+    })());
+    if (!username) return res.status(401).json({ error: 'Not authenticated' });
     const { event } = req.body;
     const insertLikeEvent = await interactionServices.insertLikeEvent(username, event);
     
@@ -90,11 +93,12 @@ async insertLikeEvent(req, res) {
 async deleteLikeEvent(req, res) {
   try {
     const { event } = req.body;
-    const { userId } = clerkexpress.getAuth(req);
-    if (!userId) {
-      return res.status(401).json({ error: 'Not authenticated' });
-    }
-    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const username = req.auth?.username || (await (async () => {
+      const { userId } = clerkexpress.getAuth(req);
+      if (!userId) return null;
+      return (await clerkexpress.clerkClient.users.getUser(userId)).username;
+    })());
+    if (!username) return res.status(401).json({ error: 'Not authenticated' });
     const deleted = await interactionServices.deleteLikeEvent(username, event);
     if (!deleted) return res.status(404).json({ error: 'Like not found' });
     res.status(204).send();
@@ -139,12 +143,12 @@ async getEventLikeCheck(req, res) {
 /* ---------- Folders ---------- */
 async insertFolder (req, res) {
   try {
-    // console.log("hit")
-    const { userId } = clerkexpress.getAuth(req);
-    if (!userId) {
-      return res.status(401).json({ error: 'Not authenticated' });
-    }
-    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const username = req.auth?.username || (await (async () => {
+      const { userId } = clerkexpress.getAuth(req);
+      if (!userId) return null;
+      return (await clerkexpress.clerkClient.users.getUser(userId)).username;
+    })());
+    if (!username) return res.status(401).json({ error: 'Not authenticated' });
     const {folder_name,saved,description} = req.body
     
     await interactionServices.insertFolder(username,folder_name,saved,description);
@@ -157,12 +161,12 @@ async insertFolder (req, res) {
 },
 async updateFolder (req, res) {
   try {
-    // console.log("hit")
-    const { userId } = clerkexpress.getAuth(req);
-    if (!userId) {
-      return res.status(401).json({ error: 'Not authenticated' });
-    }
-    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const username = req.auth?.username || (await (async () => {
+      const { userId } = clerkexpress.getAuth(req);
+      if (!userId) return null;
+      return (await clerkexpress.clerkClient.users.getUser(userId)).username;
+    })());
+    if (!username) return res.status(401).json({ error: 'Not authenticated' });
     const {folder_name,saved,description} = req.body
     
     await interactionServices.updateFolder(username,folder_name,saved,description);
@@ -174,11 +178,12 @@ async updateFolder (req, res) {
 
 async deleteFolder(req, res) {
   try {
-    const { userId } = clerkexpress.getAuth(req);
-    if (!userId) {
-      return res.status(401).json({ error: 'Not authenticated' });
-    }
-    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const username = req.auth?.username || (await (async () => {
+      const { userId } = clerkexpress.getAuth(req);
+      if (!userId) return null;
+      return (await clerkexpress.clerkClient.users.getUser(userId)).username;
+    })());
+    if (!username) return res.status(401).json({ error: 'Not authenticated' });
     const {folder_name } = req.body;
     await interactionServices.deleteFolder(username, folder_name);
     res.status(204).send();
@@ -189,11 +194,12 @@ async deleteFolder(req, res) {
 
 async getAccountFolders(req, res) {
   try {
-    const { userId } = clerkexpress.getAuth(req);
-    if (!userId) {
-      return res.status(401).json({ error: 'Not authenticated' });
-    }
-    const username = (await clerkexpress.clerkClient.users.getUser(userId)).username
+    const username = req.auth?.username || (await (async () => {
+      const { userId } = clerkexpress.getAuth(req);
+      if (!userId) return null;
+      return (await clerkexpress.clerkClient.users.getUser(userId)).username;
+    })());
+    if (!username) return res.status(401).json({ error: 'Not authenticated' });
     // const { username } = req.params;
     const folders = await interactionServices.getAccountFolders(username);
     res.status(200).json(folders);
@@ -289,13 +295,12 @@ async checkReviewer(req,res) {
 
 async uploadReviewImage(req, res) {
 try {
-  // const { userId } = clerkexpress.getAuth(req);
-  // if (!userId) return res.status(401).json({ error: 'Not authenticated' });
-
-  // const username = (await clerkexpress.clerkClient.users.getUser(userId))
-  //   .username;
-
-  const username = "adrian"; // for testing purposes
+  const username = req.auth?.username || (await (async () => {
+    const { userId } = clerkexpress.getAuth(req);
+    if (!userId) return null;
+    return (await clerkexpress.clerkClient.users.getUser(userId)).username;
+  })());
+  if (!username) return res.status(401).json({ error: 'Not authenticated' });
   const { review_uuid } = req.params
 
   const check = await interactionServices.checkReviewer(username, review_uuid)
