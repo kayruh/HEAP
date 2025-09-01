@@ -8,7 +8,7 @@ export function useInteractionApi() {
     // FOLDERS
     async function getAccountFolders() {
         const token = await getToken({ template: 'integrations' });
-        const res = await api.get('/interaction/getAccountFolders', {
+  const res = await api.get('/secure/interaction/getAccountFolders', {
         headers: { Authorization: `Bearer ${token}` },
         });
         return res.data;
@@ -16,21 +16,21 @@ export function useInteractionApi() {
 
     async function insertFolder(folder_name: string , description:  string) {
         const token = await getToken({ template: 'integrations' });
-        const res = await api.post('/interaction/insertFolder', {folder_name, description},
+  const res = await api.post('/secure/interaction/insertFolder', {folder_name, description},
             {headers: { Authorization: `Bearer ${token}` }}
         );
         return res.data;
     }
 
     async function getFolderInfo(username: string , folder_name:  string) {
-        const res = await api.post('/interaction/getFolderInfo', {username, folder_name}
+  const res = await api.post('/public/interaction/getFolderInfo', {username, folder_name}
         );
         return res.data;
     }
 
     async function updateFolder(folder_name: string, saved: string[], description: string) {
         const token = await getToken({ template: 'integrations' });
-        const res = await api.patch('/interaction/updateFolder',  {folder_name,saved,description},
+  const res = await api.patch('/secure/interaction/updateFolder',  {folder_name,saved,description},
             {headers: { Authorization: `Bearer ${token}` }}
         );
         return res.data
@@ -39,7 +39,7 @@ export function useInteractionApi() {
 
     async function insertLikeBusiness(business_username: string) {
         const token = await getToken({ template: 'integrations' });
-        const res = await api.post('/interaction/insertLikeBusiness', {business_username},
+  const res = await api.post('/secure/interaction/insertLikeBusiness', {business_username},
             {headers: { Authorization: `Bearer ${token}` }}
         );
         return res.data
@@ -47,7 +47,7 @@ export function useInteractionApi() {
     async function deleteLikeBusiness(business_username: string) {
     const token = await getToken({ template: 'integrations' });
 
-    const res = await api.delete('/interaction/deleteLikeBusiness', 
+  const res = await api.delete('/secure/interaction/deleteLikeBusiness', 
         {
         data: { business_username },         
         headers: { Authorization: `Bearer ${token}` },
@@ -61,7 +61,7 @@ export function useInteractionApi() {
     username: string,
     business_username: string,
   ) {
-    const res = await api.post('/interaction/getBusinessLikeCheck', {
+  const res = await api.post('/public/interaction/getBusinessLikeCheck', {
       username,
       business_username,
     });
@@ -73,7 +73,7 @@ export function useInteractionApi() {
   async function insertLikeEvent(event: string) { //event is a uuid code that you get from info
     const token = await getToken({ template: 'integrations' });
     const res = await api.post(
-      '/interaction/insertLikeEvent',
+      '/secure/interaction/insertLikeEvent',
       { event },
       { headers: { Authorization: `Bearer ${token}` } },
     );
@@ -82,7 +82,7 @@ export function useInteractionApi() {
 
   async function deleteLikeEvent(event: string) {
     const token = await getToken({ template: 'integrations' });
-    const res = await api.delete('/interaction/deleteLikeEvent', {
+  const res = await api.delete('/secure/interaction/deleteLikeEvent', {
       data: { event },
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -90,7 +90,7 @@ export function useInteractionApi() {
   }
 
   async function getEventLikeCheck(username: string, event: string) {
-    const res = await api.post('/interaction/getEventLikeCheck', {
+  const res = await api.post('/public/interaction/getEventLikeCheck', {
       username,
       event,
     });
@@ -98,7 +98,7 @@ export function useInteractionApi() {
   }
 
   async function getEventInfo(event: string) {
-    const res = await api.get(`/interaction/getEventInfo/${event}`);
+  const res = await api.get(`/public/interaction/getEventInfo/${event}`);
     return res.data
   }
 
@@ -111,7 +111,7 @@ export function useInteractionApi() {
   //uuid,business_username,photo,review
   async function upsertReview(payload: ReviewUpsertPayload) {
     const token = await getToken({ template: 'integrations' });
-    const res = await api.put('/interaction/upsertReview', payload, {
+  const res = await api.put('/secure/interaction/upsertReview', payload, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;
@@ -119,7 +119,7 @@ export function useInteractionApi() {
 
   async function deleteReview(uuid: string) {
     const token = await getToken({ template: 'integrations' });
-    const res = await api.delete('/interaction/deleteReview', {
+  const res = await api.delete('/secure/interaction/deleteReview', {
       data: { uuid },              // controller expects { uuid } in body
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -127,24 +127,24 @@ export function useInteractionApi() {
   }
 
   async function getAccountReviews(username: string) {
-    const res = await api.get(`/interaction/getAccountReviews/${username}`);
+  const res = await api.get(`/public/interaction/getAccountReviews/${username}`);
     return res.data;
   }
 
   async function getBusinessReviews(business_username: string) {
     const res = await api.get(
-      `/interaction/getBusinessReviews/${business_username}`,
+      `/public/interaction/getBusinessReviews/${business_username}`,
     );
     return res.data;
   }
 
   async function getBusinessLikeCount(business_username: string) {
-    const res = await api.get(`/interaction/getBusinessLikeCount/${business_username}`);
+  const res = await api.get(`/public/interaction/getBusinessLikeCount/${business_username}`);
     return res.data
   }
 
   async function getEventLikeCount(event: string) {
-    const res = await api.get(`/interaction/getEventLikeCount/${event}`);
+  const res = await api.get(`/public/interaction/getEventLikeCount/${event}`);
     return res.data
   }
 
@@ -153,7 +153,7 @@ export function useInteractionApi() {
   if (!q) return [];
 
   // encode the query so slashes / spaces don’t break the URL
-  const res = await api.get(`/interaction/searchProfile/${encodeURIComponent(q)}`);
+  const res = await api.get(`/public/interaction/searchProfile/${encodeURIComponent(q)}`);
   return res.data;          // → [{ username, name, … }, …]
   }
 
@@ -199,7 +199,7 @@ async function uploadReviewImage(review_uuid: string, fileUri: string) {
 
   /*  DO NOT set Content-Type – axios/RN will add it with boundary   */
   const res = await api.post(
-    `/interaction/uploadReviewImage/${review_uuid}`,
+    `/secure/interaction/uploadReviewImage/${review_uuid}`,
     form,
     {
       headers: { Authorization: `Bearer ${token}` },
@@ -211,13 +211,13 @@ async function uploadReviewImage(review_uuid: string, fileUri: string) {
 }
 
   async function getReviewImages(review_uuid: string) {
-  const res = await api.get(`/interaction/getReviewImage/${review_uuid}`);
+  const res = await api.get(`/public/interaction/getReviewImage/${review_uuid}`);
   return res.data; // string[]
   }
 
   async function deleteReviewImage(review_uuid: string, fileName: string) {
   const token = await getToken({ template: 'integrations' });
-  const res = await api.delete(`/interaction/deleteReviewImage/${review_uuid}`, {
+  const res = await api.delete(`/secure/interaction/deleteReviewImage/${review_uuid}`, {
     data: { fileName },
     headers: { Authorization: `Bearer ${token}` },
   });

@@ -7,7 +7,7 @@ export function useBusinessApi() {
 
 
   async function getBusinessInfo(username: string) {
-    const res = await api.get(`/business/getBusinessInfo/${username}`);
+  const res = await api.get(`/public/business/getBusinessInfo/${username}`);
     return res.data;
   }
 
@@ -20,7 +20,7 @@ export function useBusinessApi() {
   }) {
     const token = await getToken({ template: 'integrations' });
     const res = await api.put(
-      '/business/upsertEvent',
+      '/secure/business/upsertEvent',
       event,
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -30,7 +30,7 @@ export function useBusinessApi() {
   async function deleteEvent(uuid: string) {
     const token = await getToken({ template: 'integrations' });
     const res = await api.delete(
-      '/business/deleteEvent',
+      '/secure/business/deleteEvent',
       {
         data: { uuid },
         headers: { Authorization: `Bearer ${token}` }
@@ -40,7 +40,7 @@ export function useBusinessApi() {
   }
 
   async function getEvents(username: string) {
-    const res = await api.get(`/business/getEvents/${username}`);
+  const res = await api.get(`/public/business/getEvents/${username}`);
     return res.data;
   }
 
@@ -54,7 +54,7 @@ export function useBusinessApi() {
     type: mime,
   } as any);                         // 👈 RN needs the explicit cast
 
-  const res = await api.post('/business/uploadBusinessImage', form, {
+  const res = await api.post('/secure/business/uploadBusinessImage', form, {
     headers: {
       'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ export function useBusinessApi() {
   }
 
   async function getBusinessImages(username: string) {
-  const res = await api.get(`/business/getBusinessImage/${username}`);
+  const res = await api.get(`/public/business/getBusinessImage/${username}`);
   return res.data;                   // -> [publicUrl, …]
   }
 
@@ -73,7 +73,7 @@ export function useBusinessApi() {
   // fileName is just "3fcd3acc-74d8-4dba-88ff-0e5017c5e29b.jpg"
   const token = await getToken({ template: 'integrations' });
 
-  const res = await api.delete('/business/deleteBusinessImage', {
+  const res = await api.delete('/secure/business/deleteBusinessImage', {
     data: { fileName },                         // goes in req.body
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -96,7 +96,7 @@ async function uploadEventImage(
     } as any);
 
     const res = await api.post(
-      `/business/uploadEventImage/${eventUuid}`,
+      `/secure/business/uploadEventImage/${eventUuid}`,
       form,
       {
         headers: {
@@ -110,14 +110,14 @@ async function uploadEventImage(
 
   /** GET /business/getEventImage/:event_uuid */
   async function getEventImages(eventUuid: string) {
-    const res = await api.get(`/business/getEventImage/${eventUuid}`);
+  const res = await api.get(`/public/business/getEventImage/${eventUuid}`);
     return res.data; // string[]
   }
 
   /** DELETE /business/deleteEventImage/:event_uuid  body = { fileName } */
   async function deleteEventImage(eventUuid: string, fileName: string) {
     const token = await getToken({ template: 'integrations' });
-    const res = await api.delete(`/business/deleteEventImage/${eventUuid}`, {
+  const res = await api.delete(`/secure/business/deleteEventImage/${eventUuid}`, {
       data: { fileName },
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -125,7 +125,7 @@ async function uploadEventImage(
   }
 
   async function countEvents(username: string) {
-  const res = await api.get(`/business/countEvents/${username}`);
+  const res = await api.get(`/public/business/countEvents/${username}`);
   return res.data
 }
 

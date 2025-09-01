@@ -28,7 +28,7 @@ module.exports = {
                 uuid, username, title, description, start, end, google_map, address
             },{onConflict:"uuid"}
             )
-            .select("*")
+            .select("uuid, username, title, description, start, end")
         if (error) {
             throw new Error(error.message);
         }
@@ -48,7 +48,7 @@ module.exports = {
 
     async getEvents(username) {
         const {data, error} = await supabase.from("EVENT")
-            .select("*")
+            .select("uuid, title, description, start, end, username")
             .eq("username",username)
         if (error) {
             throw new Error(error.message);
@@ -60,7 +60,7 @@ module.exports = {
     async getBusinessInfo(username) {
         const { data: bizData, error: bizError} = await supabase
             .from(businessTable)
-            .select('*')
+            .select('username, name, description, google_maps_location, street_no, street_name, unit_no, postal, tags, like_count')
             .eq('username', username)
             .maybeSingle();     // returns one object or null
 
@@ -77,7 +77,7 @@ module.exports = {
         //     throw new Error(hpError.message);
         // }
         // console.log({ ...bizData, ...hpData})
-        return { ...bizData, 
+    return { ...bizData, 
             // ... hpData
         };
     },

@@ -173,39 +173,95 @@ module.exports = {
     async insertFolder(
     username,
     folder_name,
-    saved, //saved must be an array
+    saved, // array of business usernames
     description
     ) {
-    const { error } = await supabase
+    // 1) create folder metadata only
+    const { error: fErr } = await supabase
         .from('FOLDERS')
-        .insert({username, folder_name, saved, description});
-    // if (error) {console.log(error.code)}
-    if (error) {
-    // Postgres duplicate-key violation
-    if (error.code === '23505') {
-      const dupErr       = new Error('Folder name already exists.');
-      dupErr.httpStatus  = 409;          
-      throw dupErr;
+        .insert({ username, folder_name, description });
+    if (fErr) {
+      if (fErr.code === '23505') {
+        const dupErr = new Error('Folder name already exists.');
+        dupErr.httpStatus = 409;
+        throw dupErr;
+      }
+      throw fErr;
     }
-    throw error;                      
-  };
+
+    // 2) optional: seed items
+    const items = (saved || []).map((biz) => ({
+      username,
+      folder_name,
+      item_type: 'business',
+      item_id: biz,
+    }));
+    if (items.length) {
+      const { error: iErr } = await supabase.from('FOLDER_ITEMS').insert(items, { onConflict: 'username,folder_name,item_type,item_id' });
+      if (iErr) throw iErr;
+    }
     },
 
     async updateFolder(
     username,
     folder_name,
-    saved, //saved must be an array
+    saved, // array of business usernames
     description
     ) {
-    const { error } = await supabase
+    // 1) update metadata
+    const { error: uErr } = await supabase
         .from('FOLDERS')
-        .update({username, folder_name, saved, description})
-        .eq("username", username)
-        .eq("folder_name", folder_name);
-    if (error) throw new Error(error.message);
+        .update({ description })
+        .eq('username', username)
+        .eq('folder_name', folder_name);
+    if (uErr) throw new Error(uErr.message);
+
+    // 2) sync items: fetch current, then diff
+    const { data: current, error: cErr } = await supabase
+      .from('FOLDER_ITEMS')
+      .select('item_id')
+      .eq('username', username)
+      .eq('folder_name', folder_name)
+      .eq('item_type', 'business');
+    if (cErr) throw new Error(cErr.message);
+
+    const curSet = new Set((current || []).map(r => r.item_id));
+    const newSet = new Set(saved || []);
+
+    const toInsert = [...newSet].filter(x => !curSet.has(x)).map(item_id => ({
+      username,
+      folder_name,
+      item_type: 'business',
+      item_id,
+    }));
+    const toDelete = [...curSet].filter(x => !newSet.has(x));
+
+    if (toInsert.length) {
+      const { error: iErr } = await supabase.from('FOLDER_ITEMS').insert(toInsert);
+      if (iErr) throw new Error(iErr.message);
+    }
+
+    if (toDelete.length) {
+      const { error: dErr } = await supabase
+        .from('FOLDER_ITEMS')
+        .delete()
+        .eq('username', username)
+        .eq('folder_name', folder_name)
+        .eq('item_type', 'business')
+        .in('item_id', toDelete);
+      if (dErr) throw new Error(dErr.message);
+    }
     },
 
     async deleteFolder(username, folder_name) {
+    // delete items first for safety
+    const { error: iErr } = await supabase
+      .from('FOLDER_ITEMS')
+      .delete()
+      .eq('username', username)
+      .eq('folder_name', folder_name);
+    if (iErr) throw new Error(iErr.message);
+
     const { error } = await supabase
         .from('FOLDERS')
         .delete()
@@ -214,25 +270,40 @@ module.exports = {
     if (error) throw new Error(error.message);
     },
 
-    async getAccountFolders(username){
-    const { data, error } = await supabase
-        .from('FOLDERS')
-        .select('*')
-        .eq('username', username);
-    if (error) throw new Error(error.message);
-    return data;
-    },
+  async getAccountFolders(username){
+  const { data, error } = await supabase
+    .from('FOLDERS')
+    .select('folder_name, description, created_at, is_public, share_id, allow_collaboration')
+    .eq('username', username)
+    .order('created_at', { ascending: false });
+  if (error) throw new Error(error.message);
+  return data;
+  },
 
     async getFolderInfo(username, folder_name){
-    const { data, error } = await supabase
+    // folder metadata
+    const { data: folder, error: fErr } = await supabase
         .from('FOLDERS')
-        .select('*')
+        .select('username, folder_name, description, is_public, created_at')
         .eq('username', username)
         .eq('folder_name', folder_name)
         .single();
+    if (fErr) throw new Error(fErr.message);
 
-    if (error) throw new Error(error.message);
-    return data;
+    // items
+    const { data: items, error: iErr } = await supabase
+      .from('FOLDER_ITEMS')
+      .select('item_type, item_id')
+      .eq('username', username)
+      .eq('folder_name', folder_name);
+    if (iErr) throw new Error(iErr.message);
+
+    // Preserve old contract: saved: string[] of usernames (business only for now)
+    const saved = (items || [])
+      .filter(it => it.item_type === 'business')
+      .map(it => it.item_id);
+
+    return { ...folder, saved };
     },
 
     /* ---------- Reviews ---------- */
@@ -254,20 +325,22 @@ module.exports = {
     if (error) throw new Error(error.message);
     },
 
-    async getAccountReviews(username) {
-    const { data, error } = await supabase
-        .from('REVIEWS')
-        .select('*')
-        .eq('username', username);
+  async getAccountReviews(username) {
+  const { data, error } = await supabase
+    .from('REVIEWS')
+    .select('uuid, username, business_username, review, created_at, event_uuid')
+    .eq('username', username)
+    .order('created_at', { ascending: false });
     if (error) throw new Error(error.message);
     return data;
     },
 
-    async getBusinessReviews(business_username) {
-    const { data, error } = await supabase
-        .from('REVIEWS')
-        .select('*')
-        .eq('business_username',  business_username);
+  async getBusinessReviews(business_username) {
+  const { data, error } = await supabase
+    .from('REVIEWS')
+    .select('uuid, username, business_username, review, created_at, event_uuid')
+    .eq('business_username',  business_username)
+    .order('created_at', { ascending: false });
     if (error) throw new Error(error.message);
     return data;
     },
@@ -275,7 +348,7 @@ module.exports = {
     async getEventInfo(event) {
       const {data, error} = await supabase
       .from("EVENT")
-      .select('*')
+      .select('uuid, username, title, description, start, end, address, latitude, longitude')
       .eq("uuid", event)
       .single()
     if (error) throw new Error(error.message);
