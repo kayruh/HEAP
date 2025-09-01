@@ -17,8 +17,9 @@ async searchProfile(req, res) {
 //-----------------------------BUSINESS LIKES --------------------------------------
 async insertLikeBusiness(req, res) {
   try {
-    const username = req.auth?.username || (await (async () => {
-      const { userId } = clerkexpress.getAuth(req);
+    const username = req.authContext?.username || (await (async () => {
+      const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+      const userId = authInfo?.userId;
       if (!userId) return null;
       return (await clerkexpress.clerkClient.users.getUser(userId)).username;
     })());
@@ -34,8 +35,9 @@ async insertLikeBusiness(req, res) {
 
 async deleteLikeBusiness(req, res) {
   try {
-    const username = req.auth?.username || (await (async () => {
-      const { userId } = clerkexpress.getAuth(req);
+    const username = req.authContext?.username || (await (async () => {
+      const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+      const userId = authInfo?.userId;
       if (!userId) return null;
       return (await clerkexpress.clerkClient.users.getUser(userId)).username;
     })());
@@ -75,8 +77,9 @@ async getBusinessLikeCheck(req, res) {
 
 async insertLikeEvent(req, res) {
   try {
-    const username = req.auth?.username || (await (async () => {
-      const { userId } = clerkexpress.getAuth(req);
+    const username = req.authContext?.username || (await (async () => {
+      const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+      const userId = authInfo?.userId;
       if (!userId) return null;
       return (await clerkexpress.clerkClient.users.getUser(userId)).username;
     })());
@@ -93,8 +96,9 @@ async insertLikeEvent(req, res) {
 async deleteLikeEvent(req, res) {
   try {
     const { event } = req.body;
-    const username = req.auth?.username || (await (async () => {
-      const { userId } = clerkexpress.getAuth(req);
+    const username = req.authContext?.username || (await (async () => {
+      const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+      const userId = authInfo?.userId;
       if (!userId) return null;
       return (await clerkexpress.clerkClient.users.getUser(userId)).username;
     })());
@@ -143,8 +147,9 @@ async getEventLikeCheck(req, res) {
 /* ---------- Folders ---------- */
 async insertFolder (req, res) {
   try {
-    const username = req.auth?.username || (await (async () => {
-      const { userId } = clerkexpress.getAuth(req);
+    const username = req.authContext?.username || (await (async () => {
+      const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+      const userId = authInfo?.userId;
       if (!userId) return null;
       return (await clerkexpress.clerkClient.users.getUser(userId)).username;
     })());
@@ -161,8 +166,9 @@ async insertFolder (req, res) {
 },
 async updateFolder (req, res) {
   try {
-    const username = req.auth?.username || (await (async () => {
-      const { userId } = clerkexpress.getAuth(req);
+    const username = req.authContext?.username || (await (async () => {
+      const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+      const userId = authInfo?.userId;
       if (!userId) return null;
       return (await clerkexpress.clerkClient.users.getUser(userId)).username;
     })());
@@ -178,8 +184,9 @@ async updateFolder (req, res) {
 
 async deleteFolder(req, res) {
   try {
-    const username = req.auth?.username || (await (async () => {
-      const { userId } = clerkexpress.getAuth(req);
+    const username = req.authContext?.username || (await (async () => {
+      const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+      const userId = authInfo?.userId;
       if (!userId) return null;
       return (await clerkexpress.clerkClient.users.getUser(userId)).username;
     })());

@@ -19,12 +19,11 @@ module.exports = {
 
     async upsertEvent(req, res) {
          try {
-            let username = req.auth?.username;
+            let username = req.authContext?.username;
             if (!username) {
-              const { userId } = clerkexpress.getAuth(req);
-              if (!userId) {
-                return res.status(401).json({ error: 'Not authenticated' });
-              }
+              const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+              const userId = authInfo?.userId;
+              if (!userId) return res.status(401).json({ error: 'Not authenticated' });
               username = (await clerkexpress.clerkClient.users.getUser(userId)).username;
             }
             const {uuid, title, description, start, end, google_map, address} = req.body 
@@ -43,12 +42,11 @@ module.exports = {
 
     async deleteEvent(req, res) {
         try {
-            let username = req.auth?.username;
+            let username = req.authContext?.username;
             if (!username) {
-              const { userId } = clerkexpress.getAuth(req);
-              if (!userId) {
-                return res.status(401).json({ error: 'Not authenticated' });
-              }
+              const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+              const userId = authInfo?.userId;
+              if (!userId) return res.status(401).json({ error: 'Not authenticated' });
               username = (await clerkexpress.clerkClient.users.getUser(userId)).username;
             }
             const {uuid} = req.body
@@ -90,9 +88,10 @@ module.exports = {
 
     async uploadBusinessImage(req, res) {
     try {
-      let username = req.auth?.username;
+      let username = req.authContext?.username;
       if (!username) {
-        const { userId } = clerkexpress.getAuth(req);
+        const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+        const userId = authInfo?.userId;
         if (!userId) return res.status(401).json({ error: 'Not authenticated' });
         username = (await clerkexpress.clerkClient.users.getUser(userId)).username;
       }
@@ -126,9 +125,10 @@ module.exports = {
 
   async deleteBusinessImage(req, res) {
   try {
-    let username = req.auth?.username;
+    let username = req.authContext?.username;
     if (!username) {
-      const { userId } = clerkexpress.getAuth(req);
+      const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+      const userId = authInfo?.userId;
       if (!userId) return res.status(401).json({ error: 'Not authenticated' });
       username = (await clerkexpress.clerkClient.users.getUser(userId)).username;
     }
@@ -162,9 +162,10 @@ module.exports = {
 
     async uploadEventImage(req, res) {
     try {
-      let username = req.auth?.username;
+      let username = req.authContext?.username;
       if (!username) {
-        const { userId } = clerkexpress.getAuth(req);
+        const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+        const userId = authInfo?.userId;
         if (!userId) return res.status(401).json({ error: 'Not authenticated' });
         username = (await clerkexpress.clerkClient.users.getUser(userId)).username;
       }
@@ -214,9 +215,10 @@ module.exports = {
 
   async deleteEventImage(req, res) {
   try {
-      let username = req.auth?.username;
+      let username = req.authContext?.username;
       if (!username) {
-        const { userId } = clerkexpress.getAuth(req);
+        const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+        const userId = authInfo?.userId;
         if (!userId) return res.status(401).json({ error: 'Not authenticated' });
         username = (await clerkexpress.clerkClient.users.getUser(userId)).username;
       }

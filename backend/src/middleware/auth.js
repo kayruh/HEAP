@@ -1,21 +1,17 @@
 const clerkexpress = require('@clerk/express');
 
-// Ensures the request is authenticated and decorates req.auth with { userId, username }
+// Ensures the request is authenticated and stashes { userId, username } in req.authContext
 async function requireAuthUsername(req, res, next) {
   try {
-    const { userId } = clerkexpress.getAuth(req);
+    const authInfo = typeof req.auth === 'function' ? req.auth() : clerkexpress.getAuth(req);
+    const userId = authInfo?.userId;
     if (!userId) return res.status(401).json({ error: 'Not authenticated' });
 
-    // Cache username on the request to avoid repeating calls downstream
-    if (!req.auth) req.auth = {};
-    req.auth.userId = userId;
+    const user = await clerkexpress.clerkClient.users.getUser(userId);
+    const username = user?.username || null;
+    if (!username) return res.status(400).json({ error: 'Username unavailable' });
 
-    if (!req.auth.username) {
-      const user = await clerkexpress.clerkClient.users.getUser(userId);
-      req.auth.username = user?.username || null;
-    }
-
-    if (!req.auth.username) return res.status(400).json({ error: 'Username unavailable' });
+    req.authContext = { userId, username };
     return next();
   } catch (err) {
     return res.status(500).json({ error: err.message });
