@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Image, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import FyndBanner from '@/components/fyndBanner';
 import { Ionicons } from '@expo/vector-icons';
@@ -69,142 +69,122 @@ const businessProfile = () => {
     
     return (
         <View style={styles.container}>
-          <FyndBanner />
+        <FlatList
+          data={activeTab === 'reviews' ? bizReviews : []} // only real list is reviews for now
+          keyExtractor={(item, index) => item.uuid ?? index.toString()}
+          renderItem={({ item }) => (
+            <ReviewCard
+              key={item.uuid}
+              username={item.username}
+              reviewText={item.review}
+              datePosted={item.created_at}
+              images={item.images}
+              biz_username=""
+            />
+          )}
+          ListHeaderComponent={
+            <>
+              <FyndBanner />
 
-        <ScrollView contentContainerStyle={styles.contentContainer}>
-      
-          {/* Profile Section */}
-          <View style={styles.profileSection}>
-            <View style={styles.profileCard}>
-              <View style={styles.profileImageContainer}>
-                <Image
-                  source={{ uri: user?.imageUrl }}
-                  style={styles.profileImage}
-                />
-              </View>
-
-              <View style={styles.profileInfo}>
-                {/* // NAME of biz. if no name input, replace w username*/}
-                <Text style={styles.profileName}> 
-                  {user?.firstName ?? user?.username} 
-                </Text> 
-
-                {/* biz username */}
-                <Text style={styles.profileHandle}>                  
-                  @{user?.username}
-                </Text>
-
-                {/* biz description (they can write themselves) */}
-                <Text style={styles.profileDescription}>biz description </Text>
-
-                <View style={styles.buttonRow}>
-                    <TouchableOpacity
+              {/* Profile Section */}
+              <View style={styles.profileSection}>
+                <View style={styles.profileCard}>
+                  <View style={styles.profileImageContainer}>
+                    <Image
+                      source={{ uri: user?.imageUrl }}
+                      style={styles.profileImage}
+                    />
+                  </View>
+                  <View style={styles.profileInfo}>
+                    <Text style={styles.profileName}>
+                      {user?.firstName ?? user?.username}
+                    </Text>
+                    <Text style={styles.profileHandle}>@{user?.username}</Text>
+                    <Text style={styles.profileDescription}>biz description</Text>
+                    <View style={styles.buttonRow}>
+                      <TouchableOpacity
                         onPress={() => router.push('/editProfile')}
                         style={styles.translucentButton}>
                         <Text style={styles.translucentButtonText}>Edit Profile</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.translucentButton}>
-                        <SignOutButton/>
-                    </TouchableOpacity>
-                </View>
-
-              </View>
-            </View>
-          </View>
-
-              
-
-          {/* Stats - do we want to include followers?*/}
-          <View style={styles.statsContainer}>
-            <View style={styles.statItem}>
-              <Text style={styles.statNumber}>12.1K</Text>
-              <Text style={styles.statLabel}>FOLLOWERS</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statNumber}>55</Text>
-              <Text style={styles.statLabel}>EVENTS</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statNumber}>9</Text>
-              <Text style={styles.statLabel}>SAVES</Text>
-            </View>
-          </View>
-
-          {/* navigation tab */}
-          <View style={styles.tabBar}>
-            <TouchableOpacity
-              onPress={() => setActiveTab('home')}
-              style={[styles.tabButton, activeTab === 'home' && styles.activeTab]}>
-              <Ionicons name="grid-outline" size={20} color={activeTab === 'home' ? FyndColors.Yellow : FyndColors.Green} />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => setActiveTab('list')}
-              style={[styles.tabButton, activeTab === 'list' && styles.activeTab]}>
-              <Ionicons name="list" size={20} color={activeTab === 'list' ? FyndColors.Yellow : FyndColors.Green} />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => setActiveTab('reviews')}
-              style={[styles.tabButton, activeTab === 'reviews' && styles.activeTab]}>
-              <Ionicons name="star" size={20} color={activeTab === 'reviews' ? FyndColors.Yellow : FyndColors.Green} />
-            </TouchableOpacity>
-          </View>
-
-          {/* renders what is in each tab */}
-          {activeTab === 'home' && (
-            <View>
-              <Text>Home content here</Text>
-
-              {/* Feed. how can biz users upload more photos??*/}
-                <View style={styles.feedSection}>
-                {/* Post 1 */}
-                <View style={styles.postContainer}>
-                  <Image
-                    source={{ uri: 'https://via.placeholder.com/350x300/8B4513/FFFFFF?text=Vintage+Items' }}
-                    style={styles.postImage}
-                  />
-                  <Image
-                    source={{ uri: 'https://via.placeholder.com/350x300/228B22/FFFFFF?text=People+Shopping' }}
-                    style={styles.postImage}
-                  />
-                </View>
-                {/* Post 2: event card */}
-                      <BizEventCard businessId={user?.id ?? ''} />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.translucentButton}>
+                        <SignOutButton />
+                      </TouchableOpacity>
                     </View>
                   </View>
-          )}
-
-          {activeTab === 'list' && (
-            <View>
-              <View style={styles.feedSection}>
-                <BizEventCard username={user?.username} />
+                </View>
               </View>
-            </View>
-          )}
 
-          {activeTab === 'reviews' && (
-            <View style={{ padding: 20 }}>
-             {bizReviews.length === 0 ? (
-                  <Text style={{ textAlign: 'center', color: '#666' }}>
-                    No reviews yet
-                  </Text>
-                ) : (
-                  bizReviews.map((r: any) => (
-                    <ReviewCard
-                      key={r.uuid}
-                      username={r.username}
-                      reviewText={r.review}
-                      datePosted={r.created_at}
-                      images={r.images} // ✅ now always exists
-                      biz_username=''
-                    />
-                  ))
-                )}
-            </View>
-          )}
-      </ScrollView>
+              {/* Stats */}
+              <View style={styles.statsContainer}>
+                <View style={styles.statItem}>
+                  <Text style={styles.statNumber}>12.1K</Text>
+                  <Text style={styles.statLabel}>FOLLOWERS</Text>
+                </View>
+                <View style={styles.statItem}>
+                  <Text style={styles.statNumber}>55</Text>
+                  <Text style={styles.statLabel}>EVENTS</Text>
+                </View>
+                <View style={styles.statItem}>
+                  <Text style={styles.statNumber}>9</Text>
+                  <Text style={styles.statLabel}>SAVES</Text>
+                </View>
+              </View>
+
+              {/* Tabs */}
+              <View style={styles.tabBar}>
+                <TouchableOpacity
+                  onPress={() => setActiveTab('home')}
+                  style={[styles.tabButton, activeTab === 'home' && styles.activeTab]}>
+                  <Ionicons name="grid-outline" size={20} color={activeTab === 'home' ? FyndColors.Yellow : FyndColors.Green} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setActiveTab('list')}
+                  style={[styles.tabButton, activeTab === 'list' && styles.activeTab]}>
+                  <Ionicons name="list" size={20} color={activeTab === 'list' ? FyndColors.Yellow : FyndColors.Green} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setActiveTab('reviews')}
+                  style={[styles.tabButton, activeTab === 'reviews' && styles.activeTab]}>
+                  <Ionicons name="star" size={20} color={activeTab === 'reviews' ? FyndColors.Yellow : FyndColors.Green} />
+                </TouchableOpacity>
+              </View>
+
+              {/* Tab content except reviews (reviews handled by FlatList) */}
+              {activeTab === 'home' && (
+                <View>
+                  <Text>Home content here</Text>
+                  <View style={styles.feedSection}>
+                    <View style={styles.postContainer}>
+                      <Image
+                        source={{ uri: 'https://via.placeholder.com/350x300/8B4513/FFFFFF?text=Vintage+Items' }}
+                        style={styles.postImage}
+                      />
+                      <Image
+                        source={{ uri: 'https://via.placeholder.com/350x300/228B22/FFFFFF?text=People+Shopping' }}
+                        style={styles.postImage}
+                      />
+                    </View>
+                    <BizEventCard businessId={user?.id ?? ''} />
+                  </View>
+                </View>
+              )}
+
+              {activeTab === 'list' && (
+                <View style={styles.feedSection}>
+                  <BizEventCard username={user?.username} />
+                </View>
+              )}
+            </>
+          }
+          ListEmptyComponent={
+            activeTab === 'reviews' ? (
+              <Text style={{ textAlign: 'center', color: '#666', marginTop: 20 }}>
+                No reviews yet
+              </Text>
+            ) : null
+          }
+          />
 
       {/* add button, under events tab (ONLY for biz users, to create event) */}
       {activeTab === 'list' && (
