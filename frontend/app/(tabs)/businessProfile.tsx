@@ -13,6 +13,8 @@ import BizEventCard from '@/components/bizEventCard';
 import { useInteractionApi } from '@/api/interaction';
 import { SignOutButton } from '@/components/SignOutButton';
 import { useBusinessApi } from '@/api/business';
+import DefaultImage from '../../assets/FYND_default.png';
+
 
 // FOR BIZ USERS (THEIR PROFILE PG)
 
@@ -80,6 +82,7 @@ const businessProfile = () => {
               datePosted={item.created_at}
               images={item.images}
               biz_username=""
+              showBizInfo={false}  // ❌ hide pin + biz username
             />
           )}
           ListHeaderComponent={
@@ -157,12 +160,8 @@ const businessProfile = () => {
                   <View style={styles.feedSection}>
                     <View style={styles.postContainer}>
                       <Image
-                        source={{ uri: 'https://via.placeholder.com/350x300/8B4513/FFFFFF?text=Vintage+Items' }}
-                        style={styles.postImage}
-                      />
-                      <Image
-                        source={{ uri: 'https://via.placeholder.com/350x300/228B22/FFFFFF?text=People+Shopping' }}
-                        style={styles.postImage}
+                        source={user?.imageUrl ? { uri: user.imageUrl } : DefaultImage}
+                        style={styles.profileImage}
                       />
                     </View>
                     <BizEventCard businessId={user?.id ?? ''} />

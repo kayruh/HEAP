@@ -11,9 +11,11 @@ type ReviewCardProps = {
   datePosted: string; // Format: YYYY-MM-DD or ISO string
   images?: string[];
   biz_username: string;
+  showBizInfo?: boolean;
 };
 
-const ReviewCard = ({ username, reviewText, datePosted, images=[], biz_username}: ReviewCardProps) => {
+const ReviewCard = ({ username, reviewText, datePosted, images=[], biz_username, showBizInfo = false 
+}: ReviewCardProps) => {
   const formattedDate = new Date(datePosted).toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
@@ -26,13 +28,23 @@ const ReviewCard = ({ username, reviewText, datePosted, images=[], biz_username}
       <Text style={styles.username}>{username}</Text>
       <Text style={styles.reviewText}>{reviewText}</Text>
 
-      {/* only show this if displaying review cards on USER profile */}
-      <View style={styles.biz_username}>
-        <Ionicons name="location" size={16} color={FyndColors.Purple} style={{ marginRight: 4 }} />
-          <Link href={`/(tabs)/searchProfile/${biz_username}`} 
-                style={styles.biz_username}>@{biz_username}
+      {/* ✅ only show when prop is true */}
+      {showBizInfo && (
+        <View style={styles.bizRow}>
+          <Ionicons 
+            name="location" 
+            size={16} 
+            color={FyndColors.Purple} 
+            style={{ marginRight: 4 }} 
+          />
+          <Link 
+            href={`/(tabs)/searchProfile/${biz_username}`} 
+            style={styles.biz_username}
+          >
+            @{biz_username}
           </Link>
-      </View>
+        </View>
+      )}
 
       <Text style={styles.date}>{formattedDate}</Text>
 
@@ -44,7 +56,7 @@ const ReviewCard = ({ username, reviewText, datePosted, images=[], biz_username}
           renderItem={({ item }) => (
             <Image
               source={{ uri: item }}
-              style={{ width: 100, height: 100, borderRadius: 8, marginRight: 8 }}
+              style={{ width: 100, height: 100, borderRadius: 8, marginRight: 8}}
             />
           )}
         />
@@ -85,6 +97,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#888',
     textAlign: 'right'
+  },
+  bizRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 6,
   },
 });
 

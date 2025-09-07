@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, Dimensions }
 import FyndColors from './fyndColors';
 import { useBusinessApi } from '@/api/business';
 import { useRouter } from 'expo-router';
+import DefaultImage from '../assets/FYND_default.png';
 
 export type Event = {
   uuid:        string;          // ← matches DB
@@ -102,9 +103,7 @@ const formatDateLabel = (start?: string | null, end?: string | null) => {
            style={styles.card}
          >
           <Image
-            source={{
-              uri: item.imageUrl ?? 'https://placehold.co/80x80?text=No+Image',
-            }}
+            source={item.imageUrl ? { uri: item.imageUrl } : DefaultImage}
             style={styles.image}
           />
           <View style={styles.info}>

@@ -165,6 +165,7 @@ const userProfile = () => {
                       reviewText={item.review || 'No review text'}
                       datePosted={item.created_at || new Date().toISOString()}
                       biz_username={item.business_username}
+                      showBizInfo={true}   // show pin + biz username
                       images={item.images || []}
                     />
                   )}
