@@ -1,4 +1,4 @@
-{
+const config = {
   "expo": {
     "name": "fynd",
     "slug": "fynd",
@@ -24,7 +24,13 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "react-native-maps",
+      [
+        "react-native-maps",
+        {
+          "iosGoogleMapsApiKey": process.env.GOOGLE_MAPS_API_KEY,
+          "androidGoogleMapsApiKey": process.env.GOOGLE_MAPS_API_KEY
+        }
+      ],
       "expo-router", 
       [
         "expo-splash-screen",
@@ -41,3 +47,5 @@
     }
   }
 }
+
+module.exports = config;

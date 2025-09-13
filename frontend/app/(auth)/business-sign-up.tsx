@@ -552,7 +552,7 @@ import {
 } from 'react-native';
 import { useSignUp } from '@clerk/clerk-expo';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Check } from 'lucide-react-native';
+// import { Check } from 'lucide-react-native';
 import { Ionicons } from '@expo/vector-icons';
 import FyndColors from '@/components/fyndColors';
 
@@ -605,12 +605,13 @@ const TagChip: React.FC<TagChipProps> = ({ tag, selected, onPress }) => (
     }}
   >
     {selected && (
-      <Check
-        size={14}
-        color="#8B4789"
-        strokeWidth={3}
-        style={{ marginRight: 4 }}
-      />
+      // <Check
+      //   size={14}
+      //   color="#8B4789"
+      //   strokeWidth={3}
+      //   style={{ marginRight: 4 }}
+      // />
+      <Text>check</Text>
     )}
     <Text
       style={{
