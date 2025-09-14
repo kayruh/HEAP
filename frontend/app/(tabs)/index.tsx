@@ -6,6 +6,7 @@ import { StatusBar } from 'react-native'
 import FyndBanner from '@/components/fyndBanner'
 import FyndColors from '@/components/fyndColors'
 import MapView from 'react-native-maps'
+import Map from '@/components/maps'
 
 const SLOGAN = '   GET LOST FYND MORE   '.repeat(20) 
 
@@ -55,18 +56,11 @@ export default function index() {
           </View>
 
           {/* Main Content */}
-          <View style={styles.body}>
+          {/* <View style={styles.body}> */}
             {/* <Text className='text-center pt-3'>Google maps here</Text> */}
-            <MapView
-  initialRegion={{
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  }}
-/>
+            <Map />
             
-          </View>
+          {/* </View> */}
       </View>
   );
 }

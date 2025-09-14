@@ -8,9 +8,15 @@ const config = {
     "scheme": "fynd",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
+      ios: {
+  // iOS bundle identifier used by the generated native project.
+  // Required for prebuild and native builds.
+  bundleIdentifier: 'com.anonymous.fynd',
+  supportsTablet: true,
+    config: {
+      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || '',
     },
+  },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
@@ -24,13 +30,13 @@ const config = {
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      [
-        "react-native-maps",
-        {
-          "iosGoogleMapsApiKey": process.env.GOOGLE_MAPS_API_KEY,
-          "androidGoogleMapsApiKey": process.env.GOOGLE_MAPS_API_KEY
-        }
-      ],
+      // [
+      //   "react-native-maps",
+      //   {
+      //     "iosGoogleMapsApiKey": process.env.GOOGLE_MAPS_API_KEY,
+      //     "androidGoogleMapsApiKey": process.env.GOOGLE_MAPS_API_KEY
+      //   }
+      // ],
       "expo-router", 
       [
         "expo-splash-screen",
