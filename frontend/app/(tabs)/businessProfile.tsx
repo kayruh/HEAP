@@ -82,7 +82,7 @@ const businessProfile = () => {
               datePosted={item.created_at}
               images={item.images}
               biz_username=""
-              showBizInfo={false}  // ❌ hide pin + biz username
+              showBizInfo={false}  // hide pin + biz username
             />
           )}
           ListHeaderComponent={
@@ -310,6 +310,7 @@ const styles = StyleSheet.create({
   },
   feedSection: {
     padding: 16,
+    paddingBottom: 100,
   },
   postContainer: {
     marginBottom: 20,
