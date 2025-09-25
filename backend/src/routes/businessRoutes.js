@@ -40,7 +40,7 @@ router.delete(
   businessController.deleteBusinessImage
 );
 
-router.get('/checkBusinessEventExist', businessController.checkBusinessEvent)
+// router.get('/checkBusinessEventExist', businessController.checkBusinessEvent)
 
 router.post(
   '/uploadEventImage/:event_uuid',

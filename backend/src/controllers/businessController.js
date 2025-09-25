@@ -137,19 +137,19 @@ module.exports = {
   }
 },
 
-    async checkBusinessEvent(req,res) {
-        try {
-            const username = "kneadkopi";
-            const event_uuid = "90343e2e-0fd8-4ee2-b104-800d87c9b9b2";
-            const check = await businessServices.checkBusinessEvent(username,event_uuid);
-            console.log(check)
-            return res.status(200).json(check);
-        }
-        catch (e) {
-            return res.status(500).json({error: e.message})
-            console.log(e)
-        }
-    },
+    // async checkBusinessEvent(req,res) {
+    //     try {
+    //         const username = "kneadkopi";
+    //         const event_uuid = "90343e2e-0fd8-4ee2-b104-800d87c9b9b2";
+    //         const check = await businessServices.checkBusinessEvent(username,event_uuid);
+    //         console.log(check)
+    //         return res.status(200).json(check);
+    //     }
+    //     catch (e) {
+    //         return res.status(500).json({error: e.message})
+    //         console.log(e)
+    //     }
+    // },
 
 
     async uploadEventImage(req, res) {
